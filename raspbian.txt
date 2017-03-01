@@ -1,5 +1,3 @@
-##### http://www.finnie.org
-
 ################
 ### Raspbian ###
 ################
@@ -48,7 +46,7 @@ gzip -c -d raspbian_f2fs.img | sudo dd of=/dev/sdb
 # passwd: raspberry
 sudo passwd
 su
-echo "pi:p4sS" | chpasswd
+echo "pi:aamu02" | chpasswd
 
 # Keyboard map
 echo 'setxkbmap -model abnt2 -layout br -variant abnt2' >>$HOME/.bashrc
