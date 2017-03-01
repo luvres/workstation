@@ -1,0 +1,113 @@
+##### http://www.finnie.org
+
+################
+### Raspbian ###
+################
+
+### Install
+dd bs=4096k if=2017-02-16-raspbian-jessie.img of=/dev/sdb status=progress; sync
+
+# (Install in Raspberry Pi for expand disk)
+
+### f2fs -> sudo apt-get install f2fs-tools
+umount /dev/sdb1 /dev/sdb2
+mkdir root_fs boot
+mount -t ext4 /dev/sdb2 root_fs
+cp -a root_fs backup_root_fs
+umount /dev/sdb2
+mkfs.f2fs /dev/sdb2
+mount -t f2fs /dev/sdb2 root_fs
+cp -a backup_root_fs/* root_fs
+mount /dev/sdb1 boot
+
+# fstab
+sed -i '/ext4/s/noatime/noatime,discard/' root_fs/etc/fstab
+sed -i 's/ext4/f2fs/' root_fs/etc/fstab
+echo 'tmpfs   /tmp     tmpfs   nodev,nosuid,size=1G  0 0' >>root_fs/etc/fstab
+
+# cmdline.txt
+sed -i 's/$/& rootfstype=f2fs/' boot/cmdline.txt
+sed -i 's/$/& usbhid.mousepoll=0/' boot/cmdline.txt #Mouse lag
+
+# config.txt
+sed -i '/hdmi_drive=2/s/#//' boot/config.txt
+echo 'dtparam=sd_overclock=100' >>boot/config.txt #Class 10 SD card
+
+sync; umount /dev/sdb1 /dev/sdb2
+
+# BackUP
+sudo dd if=/dev/sdb | gzip > raspbian_f2fs.img
+
+# RESTORE
+gzip -c -d raspbian_f2fs.img | sudo dd of=/dev/sdb
+
+##############
+### Access ###
+##############
+# login: pi
+# passwd: raspberry
+sudo passwd
+su
+echo "pi:aamu02" | chpasswd
+
+# Keyboard map
+echo 'setxkbmap -model abnt2 -layout br -variant abnt2' >>$HOME/.bashrc
+
+# Docker
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+# Mountpoint
+echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab
+
+# Lighttpd
+docker run --rm --name ftp -h ftp \
+-p 80:80 \
+-v /mnt/ftp:/var/www \
+-ti izone/arm:lighttpd
+#rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
+#sshpass -p "aamu02" rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
+
+# Stratch repo
+sudo sh -c 'echo "deb http://mirrordirector.raspbian.org/raspbian/ stretch main contrib non-free rpi" >/etc/apt/sources.list.d/stretch.list'
+sudo apt-get update
+
+# Update
+sudo apt-get update && sudo apt-get upgrade
+
+# FreeCAD Build
+sudo apt-get -t stable install \
+git build-essential cmake python python-matplotlib libtool libcoin80-dev libsoqt4-dev libxerces-c-dev libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-program-options-dev libboost-signals-dev libboost-thread-dev libboost-python-dev libqt4-dev libqt4-opengl-dev qt4-dev-tools python-dev python-pyside pyside-tools liboce-modeling-dev liboce-visualization-dev liboce-foundation-dev liboce-ocaf-lite-dev liboce-ocaf-dev oce-draw libeigen3-dev libqtwebkit-dev libshiboken-dev libpyside-dev libode-dev swig libzipios++-dev libfreetype6 libfreetype6-dev netgen-headers libmedc-dev libvtk6-dev libproj-dev
+
+# Source FreeCAD
+mkdir 1uvr3z && cd 1uvr3z
+git clone https://github.com/FreeCAD/FreeCAD.git
+mkdir freecad-build && cd freecad-build
+
+# Build
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON ../FreeCAD
+time make -j3
+
+# QtCreator
+sudo apt-get install qt5-default qtcreator
+
+
+########################
+# Swap File
+dd if=/dev/zero of=/swapfile bs=1M count=512
+chmod 0600 /swapfile 
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap defaults 0 0' >>/etc/fstab
+
+### 64-bit kernel
+wget -c http://www.finnie.org/software/raspberrypi/ubuntu-rpi3/20160517-raspi3-arm64-firmware-kernel.tar.xz
+tar Jxf 20160517-raspi3-arm64-firmware-kernel.tar.xz
+mkdir /root/boot && mv /boot/* /root/boot
+cp boot/firmware/* /boot
+cp -a lib/modules/4.5.0+ /lib/modules
+cp lib/firmware/brcm/* /lib/firmware/brcm/
+rm 20160517-raspi3-arm64-firmware-kernel.tar.xz boot/ lib/ -fR
+reboot
+
+

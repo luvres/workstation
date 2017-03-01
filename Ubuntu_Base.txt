@@ -1,0 +1,122 @@
+##### Packages
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install git mercurial-git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic filezilla youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping f2fs-tools
+
+##### Ubuntu Software
+# vlc
+# VirtualBox
+# Gimp
+# Blender
+# cmake
+# gftp
+# brasero
+# [x] Canonical Partners
+# skype (synaptic)
+
+##### SQLite
+sudo apt-get install sqlite3 libsqlite3-dev sqlitebrowser
+
+##### i-Nex
+sudo add-apt-repository ppa:i-nex-development-team/daily
+sudo add-apt-repository ppa:gambas-team/gambas3
+sudo apt update
+sudo apt install i-nex
+
+##### Google CHROME
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+sudo apt-get update
+sudo apt-get install google-chrome-stable
+
+##### Tor Browser
+# https://www.torproject.org/projects/torbrowser.html.en#downloads
+tar Jxvf tor-browser-linux64-6.0.4_en-US.tar.xz
+sudo mv tor-browser_en-US/ /opt/
+/opt/tor-browser_en-US/start-tor-browser.desktop
+
+### Firefox permition post Tor
+sudo chown $USER. .mozilla/firefox/gz1b8fnv.default/revocations.txt
+
+
+##### Docker
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+#sudo rm /etc/init.d/docker
+#sudo rm /etc/rc*/*docker
+#sudo apt-get purge docker
+#apt-cache madison docker-engine
+#sudo apt-get -y install docker-engine=1.12.6-0~ubuntu-xenial --allow-downgrades
+#sudo apt-get -y install docker-engine=1.12.6-0~raspbian-jessie --force-yes
+
+# docker-machine
+curl -L https://github.com/docker/machine/releases/download/v0.9.0-rc2/docker-machine-`uname -s`-`uname -m` >docker-machine
+chmod +x docker-machine
+sudo mv docker-machine /opt/
+sudo ln -s /opt/docker-machine /usr/bin/docker-machine
+docker-machine version
+
+# bash completion
+files=(docker-machine docker-machine-wrapper docker-machine-prompt)
+for f in "${files[@]}"; do
+  curl -L https://raw.githubusercontent.com/docker/machine/v$(docker-machine --version | tr -ds ',' ' ' | awk 'NR==1{print $(3)}')/contrib/completion/bash/$f.bash > /etc/bash_completion.d/$f
+done
+
+##### Node
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install nodejs
+node -v
+
+##### Bracket
+sudo add-apt-repository ppa:webupd8team/brackets
+sudo apt-get update
+sudo apt-get install brackets
+
+##### Simple Screen Recorder
+sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
+sudo apt-get update
+sudo apt-get install simplescreenrecorder
+
+##### Selene
+sudo apt-add-repository -y ppa:teejee2008
+sudo apt-get update
+sudo apt-get install selene
+
+# if you want to record 32-bit OpenGL applications on a 64-bit system:
+sudo apt-get install simplescreenrecorder-lib:i386
+
+##### Team Viewer -> https://www.teamviewer.com/pt/download/linux/
+sudo dpkg --add-architecture i386
+sudo apt-get update
+sudo apt-get install \
+libdbus-1-3:i386 libasound2:i386 libexpat1:i386 libfontconfig1:i386 libfreetype6:i386 libjpeg62:i386 libpng12-0:i386 libsm6:i386 libxdamage1:i386 libxext6:i386 libxfixes3:i386 libxinerama1:i386 libxrandr2:i386 libxrender1:i386 libxtst6:i386 zlib1g:i386 libc6:i386
+sudo dpkg -i teamviewer*.deb
+
+tee  ~/.local/share/applications/teamviewer.desktop <<EOF
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=Team Viewer
+Icon=/usr/share/icons/icons/teamviewer.png
+Exec=/usr/bin/teamviewer
+EOF
+
+
+##### Calculix
+sudo apt install xorg-dev #libxmu-headers
+sudo ln -s /usr/include/X11/extensions/XI.h /usr/include/X11/extensions/XInput.h
+
+### Compiz
+sudo apt-get install compizconfig-settings-manager && sudo apt-get install compiz-plugins-extra
+compiz --replace
+
+### LXQT
+sudo apt install \
+lxqt \
+lubuntu-artwork \
+sddm-theme-lubuntu-chooser \
+xserver-xorg-input-all \
+xserver-xorg-video-all \
+xserver-xorg-video-intel
