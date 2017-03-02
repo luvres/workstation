@@ -1,0 +1,50 @@
+### Downloads -> https://en.opensuse.org/HCL:Raspberry_Pi3
+
+# JeOS
+wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-JeOS-raspberrypi3.aarch64.raw.xz
+
+xzcat openSUSE-Tumbleweed-ARM-JeOS-raspberrypi3.aarch64.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
+
+# LXQT
+wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-LXQT-raspberrypi3.aarch64-2017.02.24-Build3.3.raw.xz
+
+xzcat openSUSE-Tumbleweed-ARM-LXQT-raspberrypi3.aarch64-2017.02.24-Build3.3.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
+
+# XFCE
+wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-XFCE-raspberrypi3.aarch64.raw.xz
+
+xzcat openSUSE-Tumbleweed-ARM-XFCE-raspberrypi3.aarch64.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
+
+# X11
+wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-X11-raspberrypi3.aarch64.raw.xz
+
+xzcat openSUSE-Tumbleweed-ARM-X11-raspberrypi3.aarch64.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
+
+# E20
+wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-E20-raspberrypi3.aarch64.raw.xz
+
+xzcat openSUSE-Tumbleweed-ARM-E20-raspberrypi3.aarch64.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
+
+
+### Install
+xzcat [image].raw.xz | dd bs=4M of=/dev/sdX iflag=fullblock oflag=direct; sync
+
+
+##############
+### Access ###
+##############
+# login: root
+# passwd: linux
+echo "root:aamu02" | chpasswd
+
+### Configurations
+echo "rpi" >/etc/hostname
+
+zypper update
+zypper -n install \
+git docker 
+
+# Docker
+systemctl enable docker.service
+
+
