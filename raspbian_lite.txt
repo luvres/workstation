@@ -6,6 +6,40 @@
 dd bs=4096k if=2017-03-02-raspbian-jessie-lite.img of=/dev/sdb status=progress; sync
 
 ### (Install in Raspberry Pi for expand disk)
+pi
+raspberry
+shotdown -h now
+
+### f2fs -> sudo apt-get install f2fs-tools
+umount /dev/sdb1 /dev/sdb2
+mkdir root_fs boot 2>/dev/null
+mount /dev/sdb2 root_fs
+rm backup_root_fs -fR; cp -a root_fs backup_root_fs
+umount /dev/sdb2
+mkfs.f2fs /dev/sdb2
+mount -t f2fs /dev/sdb2 root_fs
+cp -a backup_root_fs/* root_fs
+mount /dev/sdb1 boot
+
+# fstab
+sed -i '/ext4/s/noatime/noatime,discard/' root_fs/etc/fstab
+sed -i 's/ext4/f2fs/' root_fs/etc/fstab
+echo 'tmpfs   /tmp     tmpfs   nodev,nosuid,size=1G  0 0' >>root_fs/etc/fstab
+
+# cmdline.txt
+sed -i 's/$/& rootfstype=f2fs/' boot/cmdline.txt
+sed -i 's/$/& usbhid.mousepoll=0/' boot/cmdline.txt #Mouse lag
+
+# config.txt
+sed -i '/hdmi_drive=2/s/#//' boot/config.txt
+echo 'dtparam=sd_overclock=100' >>boot/config.txt #Class 10 SD card
+
+sync; umount /dev/sdb1 /dev/sdb2
+
+
+
+
+
 # Config (Plug keyboard)
 pi
 raspberry
