@@ -3,8 +3,7 @@
 ################
 
 ### Install
-dd bs=4096k if=2017-02-16-raspbian-jessie.img of=/dev/sdb status=progress; sync
-
+dd bs=4096k if=2017-03-02-raspbian-jessie.img of=/dev/sdb status=progress; sync
 # (Install in Raspberry Pi for expand disk)
 
 ### f2fs -> sudo apt-get install f2fs-tools
@@ -54,7 +53,11 @@ echo "pi:aamu02" | chpasswd
 sed -i '/alias l/s/#//g' $HOME/.bashrc
 
 # Update
-sudo apt-get update && sudo apt-get upgrade
+sudo apt-get update && sudo apt-get upgrade -y
+
+### Packages
+sudo apt-get install -y \
+htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools gftp deluge
 
 ### Docker
 curl -sSL https://get.docker.com | sh
@@ -69,36 +72,56 @@ docker run --name ftp -h ftp \
 -v /mnt/ftp:/var/www \
 -d izone/arm:lighttpd
 #docker start ftp
+
 #rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
 #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
 
-### Packages
-sudo apt-get install -y \
-htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools
-
-sudo apt-get install gimp blender
 
 ### FreeCAD Build
 sudo apt-get install -y \
 git build-essential cmake python python-matplotlib libtool libcoin80-dev libsoqt4-dev libxerces-c-dev libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-program-options-dev libboost-signals-dev libboost-thread-dev libboost-python-dev libqt4-dev libqt4-opengl-dev qt4-dev-tools python-dev python-pyside pyside-tools liboce-modeling-dev liboce-visualization-dev liboce-foundation-dev liboce-ocaf-lite-dev liboce-ocaf-dev oce-draw libeigen3-dev libqtwebkit-dev libshiboken-dev libpyside-dev libode-dev swig libzipios++-dev libfreetype6 libfreetype6-dev netgen-headers libmedc-dev libvtk6-dev libproj-dev
 
 # Source FreeCAD
+#tmux new-session -s freecad
+#tmux attach -t freecad
 mkdir 1uvr3z && cd 1uvr3z
 git clone https://github.com/FreeCAD/FreeCAD.git
 mkdir freecad-build && cd freecad-build
 
 # Build
 cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON ../FreeCAD
-time make -j3
+time make #-j3
+
+# Reset git
+git reset --hard HEAD
+
+# Pull git
+pull git
+
 
 ### QtCreator
 sudo apt-get install -y qt5-default qtcreator
 
+
 ### Arduino IDE
-VERSION=1.8.1
-wget -c https://downloads.arduino.cc/arduino-${VERSION}-linuxarm.tar.xz
-unxz arduino-${VERSION}-linuxarm.tar.xz
-cd 
+VERSION_ARDUINO=1.8.1
+wget -c https://downloads.arduino.cc/arduino-${VERSION_ARDUINO}-linuxarm.tar.xz
+tar Jxf arduino-${VERSION_ARDUINO}-linuxarm.tar.xz
+cd arduino-${VERSION_ARDUINO}/
+sudo ./install.sh
+
+### Git
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+
+git config --global credential.helper cache
+git add . && git commit -am "Primeiro commit" && git push
+
 ########################
 ### Stratch repo
 sudo sh -c 'echo "deb http://mirrordirector.raspbian.org/raspbian/ stretch main contrib non-free rpi" >/etc/apt/sources.list.d/stretch.list'
