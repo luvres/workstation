@@ -4,6 +4,7 @@
 
 ### Install
 dd bs=4096k if=2017-03-02-raspbian-jessie.img of=/dev/sdb status=progress; sync
+
 # (Install in Raspberry Pi for expand disk)
 
 ### f2fs -> sudo apt-get install f2fs-tools
