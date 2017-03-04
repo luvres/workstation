@@ -10,7 +10,7 @@ dd bs=4096k if=2017-03-02-raspbian-jessie.img of=/dev/sdb status=progress; sync
 ### f2fs -> sudo apt-get install f2fs-tools
 umount /dev/sdb1 /dev/sdb2
 mkdir root_fs boot 2>/dev/null
-mount -t ext4 /dev/sdb2 root_fs
+mount /dev/sdb2 root_fs
 rm backup_root_fs -fR; cp -a root_fs backup_root_fs
 umount /dev/sdb2
 mkfs.f2fs /dev/sdb2
