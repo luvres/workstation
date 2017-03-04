@@ -1,0 +1,103 @@
+#####################
+### Raspbian Lite ###
+#####################
+
+### Install
+dd bs=4096k if=2017-03-02-raspbian-jessie-lite.img of=/dev/sdb status=progress; sync
+
+### (Install in Raspberry Pi for expand disk)
+# Config (Plug keyboard)
+pi
+raspberry
+sudo raspi-config
+6x↓ <Enter>
+3x↓ <Enter>
+← <Enter>
+<Enter>
+<Tab><Tab><Enter>
+
+
+
+# ssh Host access
+echo '' >$HOME/.ssh/known_hosts
+ssh -l pi raspberrypi
+# login: pi
+# passwd: raspberry
+sudo su
+echo "root:aamu02" | chpasswd
+echo "pi:aamu02" | chpasswd
+sudo sed -i '/StrictHostKeyChecking/s/#//g' /etc/ssh/ssh_config
+sudo sed -i '/StrictHostKeyChecking/s/ask/no/g' /etc/ssh/ssh_config
+
+# Mount HD
+echo /dev/sda1 /mnt auto defaults 0 0 >>/etc/fstab
+
+
+
+
+# Install docker
+apt-get update && apt-get upgrade
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+#sudo rm /etc/init.d/docker
+#sudo rm /etc/rc*/*docker
+#sudo apt-get purge docker
+#apt-cache madison docker-engine
+#sudo apt-get -y install docker-engine=1.12.6-0~ubuntu-xenial --allow-downgrades
+#sudo apt-get -y install docker-engine=1.12.6-0~raspbian-jessie --force-yes
+
+# Swap File
+dd if=/dev/zero of=/swapfile bs=1M count=512
+chmod 0600 /swapfile 
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap defaults 0 0' >>/etc/fstab
+
+### 64-bit kernel
+wget -c http://www.finnie.org/software/raspberrypi/ubuntu-rpi3/20160517-raspi3-arm64-firmware-kernel.tar.xz
+tar Jxf 20160517-raspi3-arm64-firmware-kernel.tar.xz
+mkdir /root/boot && mv /boot/* /root/boot
+cp boot/firmware/* /boot
+cp -a lib/modules/4.5.0+ /lib/modules
+cp lib/firmware/brcm/* /lib/firmware/brcm/
+rm 20160517-raspi3-arm64-firmware-kernel.tar.xz boot/ lib/ -fR
+reboot
+
+########################
+
+# Testing
+sudo sed -i 's/jessie/testing/' /etc/apt/sources.list.d/raspi.list 
+sudo sed -i 's/jessie/testing/' /etc/apt/sources.list
+# Stable
+#sudo sed -i 's/testing/jessie/' /etc/apt/sources.list
+#sudo sed -i 's/testing/jessie/' /etc/apt/sources.list.d/raspi.list 
+
+### Stable and Testing
+sudo sh -c 'echo "Package: *" >/etc/apt/preferences.d/jessie.pref'
+sudo sh -c 'echo "Pin: release a=jessie" >>/etc/apt/preferences.d/jessie.pref'
+sudo sh -c 'echo "Pin-Priority: 900" >>/etc/apt/preferences.d/jessie.pref'
+##
+sudo sh -c 'echo "Package: *" >/etc/apt/preferences.d/stretch.pref'
+sudo sh -c 'echo "Pin: release a=stretch" >>/etc/apt/preferences.d/stretch.pref'
+sudo sh -c 'echo "Pin-Priority: 750" >>/etc/apt/preferences.d/stretch.pref'
+##
+sudo sh -c 'echo "deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi" >>/etc/apt/sources.list.d/jessie.list'
+##
+sudo sh -c 'echo "deb http://mirrordirector.raspbian.org/raspbian/ stretch main contrib non-free rpi" >>/etc/apt/sources.list.d/stretch.list'
+##
+sudo apt-get update
+sudo apt-get -t stretch install deluge
+######################
+
+#sudo apt-get install software-properties-common
+#sudo apt-get -t stable dist-upgrade
+
+
+### Stratch repo
+sudo sh -c 'echo "deb http://mirrordirector.raspbian.org/raspbian/ stretch main contrib non-free rpi" >/etc/apt/sources.list.d/stretch.list'
+
+### PIXEL Desktop
+sudo apt-get install --no-install-recommends xserver-xorg
+sudo apt-get install raspberrypi-ui-mods
+
