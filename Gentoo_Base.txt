@@ -1,0 +1,157 @@
+### Boot -> minimal
+# ip link set enp0s3
+
+
+
+### Partitions GPT
+parted -a optimal /dev/sda
+mklagel gpt
+unit mib
+
+mkpart primary 1 3
+name 1 grub
+set bios_grub on
+print
+
+mkpart primary 3 131
+name 2 boot
+mkpart primary 643 -1
+name 3 rootfs
+set 2 boot on
+print
+
+q
+################
+
+### Make filesystens
+mkfs.ext2 /dev/sda2
+mkfs.ext4 /dev/sda3
+mount /dev/sda3 /mnt/gentoo
+mkdir /mnt/gentoo/boot
+mount /dev/sda2 /mnt/gentoo/boot
+
+### Stage 3
+cd /mnt/gentoo
+links http://www.gentoo.org/downloads/mirros
+  Downloads
+    stage3 2017 .. MiB
+    [save]
+    [OK]
+
+tar jxvfp stage3-...tar.bz2 --xattrs
+
+
+### Stage 4
+# mirrorselect -i -o >>/mnt/gentoo/portage/make.conf
+[ ] ftp..
+[ ] http..
+[ ] rsync..
+
+mkdir /mnt/gentoo/etc/portage/repos.conf
+cp /mnt/gentoo/usr/share/portage/config/repos.confmkdir /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+cp -L /etc/resolv.conf /mnt/gentoo/etc/
+
+mount -t proc proc /mnt/gentoo/proc
+mount --rbind /sys /mnt/gentoo/sys
+mount --make-rslave /mnt/gentoo/sys
+mount --rbind /dev /mnt/gentoo/dev
+mount --make-rslave /mnt/gentoo/dev
+
+chroot /mnt/gentoo /bin/bash
+source /etc/profile
+export PS1="(chroot) $PS1"
+
+emerge --sync
+eselect profile list
+eselect profile set 1
+emerge --ask --update --deep --newuse @world
+emerge --info | grep ^USE
+
+# Timezone
+echo "America/Sao_Paulo" >/etc/timezone
+emerge --config sys-libs/timezone-data
+
+# Locale
+echo "pt_BR.UTF-8 UTF-8" >>/etc/locale.gen
+locale.gen
+eselect locale list
+eselect locale set 3
+
+env-update && source /etc/profile && export PS1="(chroot) $PS1"
+emerge --ask sys-kernel/gentoo-sources
+ls -l /usr/src/linux
+emerge --ask sys-kernel/genkernel
+
+# fstab
+sed 's/BOOT/sda1/' /etc/fstab #defaults,noatime 0 2
+sed '/ROOT/s/ext3/ext4/' /etc/fstab
+sed 's/ROOT/sda2/' /etc/fstab #defaults
+
+genkernel all
+
+# hostname
+sed 's/localhost/gentoo/' /etc/conf.d/hostname
+echo 'config_enp0s3="dhcp"' /etc/conf.d/net
+#echo 'dns_domain_lo="homenetwork"' /etc/conf.d/net
+
+emerge --ask --noreplace net-misc/netifrc
+
+ln -s /etc/init.d/net.lo /etc/init.d/net.enp0s3
+rc-update add net.enp0s3 default
+
+echo '127.0.0.1 gentoo' >>/etc/hosts
+
+passwd
+
+sed '/keymaps/s/us/"br-abnt2"/' /etc/conf.d/keymaps
+
+emerge --ask app-admin/sysklogd
+rc-update add sysklogd default
+
+emerge --ask sys-process/cronie
+rc-update add cronie default
+
+emerge --ask sys-apps/mlocate
+emerge --ask sys-fs/e2fsprogs
+emerge --ask net-misc/dhcpcd
+
+# Grub
+emerge --ask sys-boot/grub:2
+grub2-install /dev/sda
+grub2-mkconfig -o /boot/grub/grub.cfg
+
+cd
+umount -l /mnt/gentoo
+umount -l /mnt/dev
+umount -l /mnt/proc
+umount -l /mnt/sys
+reboot
+
+# Kernel
+cd /usr/src/linux
+make menuconfig
+make
+make modules_install
+
+emerge xorg-server
+emerge xterm
+echo "xterm" >$HOME/.xinitrc
+startx
+
+emerge --ask x11-libs/gtk+extra
+emerge --ask gnome-extra/cinnamon
+
+rc-update add dbus default
+rc-update add consolekit default
+
+rc-service dbus start
+rc-service consolekit start
+
+rc-service net.enp0s3 stop
+rc-update del net.enp0s3 default
+rc-update add NetworkManager default
+rc-service NetworkManager start
+echo "exec cinnamon-session" >$HOME/.xinitrc
+startx
+
+
