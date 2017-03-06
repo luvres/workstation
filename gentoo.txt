@@ -114,6 +114,7 @@ rc-update add sshd default
 
 ## Keymap
 sed '/keymaps/s/us/"br-abnt2"/' /etc/conf.d/keymaps
+rc-update add keymaps boot
 
 ## Select profile
 eselect profile list
