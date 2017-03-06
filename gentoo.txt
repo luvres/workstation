@@ -1,32 +1,246 @@
 ##############
 ### Gentoo ###
 ##############
+### Download
+# armv7a
+wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/current-stage3-armv7a/stage3-armv7a-20161129.tar.bz2
+
+# arm64
+wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/20161219/stage3-arm64-20161219.tar.bz2
+
+wget -c http://distfiles.gentoo.org/experimental/arm64/stage3-arm64-arm64-20170223.tar.bz2
+
+###############
+### Install ###
+###############
+
+### Partitions
+fdisk /dev/sdb
+n
+p
+1
+<Enter>
++100M
+n
+p
+2
+<Enter>
+<Enter>
+t
+1
+c
+w
+
+### Format
+mkfs.vfat /dev/sdb1 && mkdir /mnt/gentoo/boot && mount /dev/sdb1 /mnt/gentoo/boot
+mkfs.f2fs /dev/sdb2 && mount -t f2fs /dev/sdb2 /mnt/gentoo
+
+###############
+### Stage 3 ###
+###############
+## 32 Bits
+#wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/current-stage3-armv7a/stage3-armv7a-20161129.tar.bz2
+#
+wget -c http://desktop/Workstation/RaspberryPi/ISOs/stage3-armv7a-20161129.tar.bz2
+tar xpjf stage3-armv7a-20161129.tar.bz2 -C /mnt/gentoo
+
+## 64 Bits
+#wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/current-stage3-arm64/stage3-arm64-20161219.tar.bz2
+#tar xpjf stage3-arm64-20161219.tar.bz2 -C /mnt/gentoo
+#
+wget -c http://desktop/Workstation/RaspberryPi/ISOs/stage3-arm64-arm64-20170223.tar.bz2
+tar xpjf stage3-arm64-arm64-20170223.tar.bz2 -C /mnt/gentoo
+
+
+### Install Portage
+wget -c http://distfiles.gentoo.org/snapshots/portage-latest.tar.bz2
+tar xjf portage-latest.tar.bz2 -C /mnt/gentoo/usr
+
+### Install kernel and modules
+wget -c http://desktop/Workstation/RaspberryPi/ISOs/firmware.zip
+unzip firmware
+cp -r firmware/boot/* /mnt/gentoo/boot/
+cp -r firmware/modules /mnt/gentoo/lib/
+
+######################
+### Configurations ###
+######################
+## fstab
+sed -i '/BOOT/s/noauto,noatime/defaults/' /mnt/gentoo/etc/fstab
+sed -i '/BOOT/s/ext2/auto/' /mnt/gentoo/etc/fstab
+sed -i 's/BOOT/mmcblk0p1/' /mnt/gentoo/etc/fstab
+sed -i '/ROOT/s/noatime/defaults,noatime,discard/' /mnt/gentoo/etc/fstab
+sed -i '/ROOT/s/ext3/f2fs/' /mnt/gentoo/etc/fstab
+sed -i 's/ROOT/mmcblk0p2/' /mnt/gentoo/etc/fstab
+#echo 'tmpfs   /tmp     tmpfs   nodev,nosuid,size=1G  0 0' >>root_fs/etc/fstab
+
+## cmdline.txt
+echo 'dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=f2fs elevator=deadline rootwait usbhid.mousepoll=0' >/mnt/gentoo/boot/cmdline.txt
+#sed -i 's/$/& usbhid.mousepoll=0/' /mnt/gentoo/boot/cmdline.txt #Mouse lag
+#root=/dev/mmcblk0p2 rootdelay=2
+
+## config.txt
+echo 'hdmi_drive=2' >>/mnt/gentoo/boot/config.txt
+echo 'dtparam=sd_overclock=100' >>/mnt/gentoo/boot/config.txt #Class 10 SD card
+echo 'dtparam=audio=on' >>/mnt/gentoo/boot/config.txt
+#echo 'gpu_mem=16' >>/mnt/gentoo/boot/config.txt #GPU Memory
+
+## Configure time zone
+cp -fr /mnt/gentoo/usr/share/zoneinfo/America/Sao_Paulo /mnt/gentoo/etc/localtime
+echo "America/Sao_Paulo" >/mnt/gentoo/etc/timezone
+
+## Clear root password
+sed -i 's/^root:.*/root::::::::/' /mnt/gentoo/etc/shadow
+
+umount /mnt/gentoo/boot
+umount /mnt/gentoo 
+
+##########################
+### Start Raspberry Pi ###
+##########################
+passwd
+
+## Enabling networking on boot
+cp /etc/init.d/net.lo /etc/init.d/net.eth0
+rc-config start net.eth0
+rc-update add net.eth0 boot
+rc-update --update
+
+## SSH Daemon
+sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+rc-update add sshd default
+/etc/init.d/sshd start
+
+## Keymap
+sed '/keymaps/s/us/"br-abnt2"/' /etc/conf.d/keymaps
+
+## Select profile
+eselect profile list
+eselect profile set 25
+
+## Configuring inittab and rc.conf
+sed -i 'rc_sys/s/#//' /etc/rc.conf
+
+## inittab
+sed -i 's/s0/#s0/' /etc/inittab
+
+## Enable software clock
+rc-update add swclock boot
+rc-update del hwclock boot
+#date 030614282017
+emerge --ask ntp
+rc-update add ntp-client default
+
+
+### Overclocking
+#“None” “700MHz ARM, 250MHz core, 400MHz SDRAM, 0 overvolt”
+#“Modest” “800MHz ARM, 300MHz core, 400MHz SDRAM, 0 overvolt”
+#"Medium” “900MHz ARM, 333MHz core, 450MHz SDRAM, 2 overvolt”
+#“High” “950MHz ARM, 450MHz core, 450MHz SDRAM, 6 overvolt”
+#“Turbo” “1000MHz ARM, 500MHz core, 500MHz SDRAM, 6 overvolt”
+## Enabling Overclocking
+tee /boot/config.txt <<EOF
+arm_freq=900
+core_freq=333
+sdram_freq=450
+over_voltage=2
+EOF
+
+### Optional cpupower
+emerge --ask sys-power/cpupower
+rc-update add cpupower default
+# Example config with on demand scaling
+echo 'START_OPTS="--governor ondemand"' >>/etc/conf.d/cpupower
+echo 'STOP_OPTS="--governor performance"' >>/etc/conf.d/cpupower
+cpupower frequency-info
+
+### Force Turbo Option
+tee /boot/config.txt <<EOF
+arm_freq=900
+core_freq=333
+sdram_freq=450
+over_voltage=2
+force_turbo=1
+EOF
+
+### Hardware Random Number Generator
+emerge -av sys-apps/rng-tools # Install rng-tools
+modprobe bcm2708-rng # Load bcm2708-rng
+echo 'RNGD_OPTS="-o /dev/random -r /dev/hwrng"' >>/etc/conf.d/rngd
+cat /dev/random
+/etc/init.d/rngd restart # Restart rngd
+cat /dev/random
+rc-update add rngd boot # Add rng-tools to boot
+echo 'modules="bcm2708-rng"' >>/etc/conf.d/modules
+
+### Install Video Core Userland tools and libraries
+emerge --ask raspberrypi-userland
+echo 'export PATH=$PATH:/opt/vc/bin' >>~/.bashrc
+
+
+
+################
+## Ajust Makefile
+# 32 Bits
+sed -i 's/CFLAGS/#CFLAGS/' /mnt/gentoo/etc/portage/make.conf
+echo 'CFLAGS="-O2 -march=armv7-a -mfpu=neon-vfpv4 -mfloat-abi=hard"' >>/mnt/gentoo/etc/portage/make.conf
+echo 'CXXFLAGS="${CFLAGS}"' >>/mnt/gentoo/etc/portage/make.conf
+# 64 Bits
+CFLAGS="-march=armv8-a+crc -mtune=cortex-a53 -ftree-vectorize -O2 -pipe -fomit-frame-pointer"
+CXXFLAGS="${CFLAGS}"
+
+
+### Stage 4
+# Download the latest Portage tree:
+wget -c http://distfiles.gentoo.org/snapshots/portage-latest.tar.bz2
+df -ih | grep -E 'Mounted|mmc'
+tar xjvpf portage-latest.tar.bz2 -C root/usr
+
 # https://github.com/sakaki-/gentoo-on-rpi3-64bit
 ### Download
 wget -c https://github.com/sakaki-/gentoo-on-rpi3-64bit/releases/download/v1.0.1/genpi64.img.xz
 
 ### Install
 xzcat genpi64.img.xz >/dev/sdb && sync
-
+################
 
 ##############
 ### Access ###
 ##############
 # login: demouser
-# root: demouser
+# login: root
 # passwd: raspberrypi64
 sudo su
 echo "root:aamu02" | chpasswd
 echo "demouser:aamu02" | chpasswd
 
-# Remove "demouser" and Create user
+### Remove "demouser"
 userdel --remove demouser
+
+### Create user
 useradd \
 --create-home \
 --groups "adm,disk,lp,wheel,audio,video,cdrom,usb,users,plugdev,portage" \
 --shell /bin/bash \
 --comment "luvres" luvres
 passwd luvres
+
+### Portage -> https://gentoo-handbook.lugons.org/doc/pt_br/handbook/handbook-x86.xml?style=printable&part=2&chap=1
+
+emerge --sync #Sincronizar
+emerge --update --ask world #Atualizar
+emerge --update --deep world #Atualizar tudo
+
+emerge --search freecad #Buscar
+emerge --searchdesc freecad #Buscar detalhes
+
+emerge freecad #Instalar
+emerge --unmerge freecad #Remover
+emerge --depclean #Remover orfãos
+
+emerge --pretend freecad #Simula instalacao
+emerge --fetchonly freecad #Baixa o fonte sem instalar
+emerge -vp freecad #Verificacao de USE doc
 
 
 ### FreeCAD Build
