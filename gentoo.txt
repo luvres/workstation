@@ -57,6 +57,7 @@ wget -c http://distfiles.gentoo.org/snapshots/portage-latest.tar.bz2
 tar xjf portage-latest.tar.bz2 -C /mnt/gentoo/usr
 
 ### Install kernel and modules
+#git clone --depth 1 git://github.com/raspberrypi/firmware/
 wget -c http://desktop/Workstation/RaspberryPi/ISOs/firmware.zip
 unzip firmware
 cp -r firmware/boot/* /mnt/gentoo/boot/
