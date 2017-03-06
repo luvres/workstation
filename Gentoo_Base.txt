@@ -1,9 +1,17 @@
+https://wiki.gentoo.org/wiki/Raspberry_Pi
+https://wiki.gentoo.org/wiki/Raspberry_Pi/Quick_Install_Guide
+
 ### Boot -> minimal
 # ip link set enp0s3
 
 
 
-### Partitions GPT
+##################
+### Partitions ###
+##################
+
+### GPT
+
 parted -a optimal /dev/sda
 mklagel gpt
 unit mib
@@ -21,16 +29,17 @@ set 2 boot on
 print
 
 q
-################
 
-### Make filesystens
+### Format
 mkfs.ext2 /dev/sda2
 mkfs.ext4 /dev/sda3
 mount /dev/sda3 /mnt/gentoo
 mkdir /mnt/gentoo/boot
 mount /dev/sda2 /mnt/gentoo/boot
 
-### Stage 3
+###############
+### Stage 3 ###
+###############
 cd /mnt/gentoo
 links http://www.gentoo.org/downloads/mirros
   Downloads
@@ -103,7 +112,9 @@ echo '127.0.0.1 gentoo' >>/etc/hosts
 
 passwd
 
+## Keymap
 sed '/keymaps/s/us/"br-abnt2"/' /etc/conf.d/keymaps
+rc-update add keymaps boot
 
 emerge --ask app-admin/sysklogd
 rc-update add sysklogd default
@@ -127,7 +138,7 @@ umount -l /mnt/proc
 umount -l /mnt/sys
 reboot
 
-# Kernel
+### Kernel
 cd /usr/src/linux
 make menuconfig
 make
