@@ -212,7 +212,7 @@ xzcat genpi64.img.xz >/dev/sdb && sync
 # login: root
 # passwd: raspberrypi64
 sudo su
-echo "root:aamu02" | chpasswd
+echo "root:p4sS" | chpasswd
 echo "demouser:aamu02" | chpasswd
 
 ### Remove "demouser"
