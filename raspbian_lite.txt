@@ -8,7 +8,7 @@ dd bs=4096k if=2017-03-02-raspbian-jessie-lite.img of=/dev/sdb status=progress; 
 ### (Install in Raspberry Pi for expand disk)
 pi
 raspberry
-shotdown -h now
+sudo shutdown -h now
 
 ### f2fs -> sudo apt-get install f2fs-tools
 umount /dev/sdb1 /dev/sdb2
@@ -42,7 +42,7 @@ sync; umount /dev/sdb1 /dev/sdb2
 pi
 raspberry
 sudo systemctl enable ssh.service
-reboot
+sudo reboot
 
 echo '' >$HOME/.ssh/known_hosts
 ssh -l pi raspberrypi
@@ -52,27 +52,91 @@ echo "root:aamu02" | chpasswd
 echo "pi:aamu02" | chpasswd
 <ctrl>+d
 
+# Bashrc
+sed -i '/alias l/s/#//g' $HOME/.bashrc
+
 # Update
-sudo apt-get update && sudo apt-get upgrade
-sudo apt-get dist-upgrade
-sudo apt-get clean
-sudo reboot
+sudo apt-get update && sudo apt-get upgrade -y
 
 ### PIXEL Desktop
-sudo apt-get install --no-install-recommends xserver-xorg xinit
-sudo apt-get install raspberrypi-ui-mods
+sudo apt-get install -y --no-install-recommends xserver-xorg xinit
+sudo apt-get install -y raspberrypi-ui-mods
 
+### Packages
+sudo apt-get install -y \
+htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools gftp deluge chromium-browser
+
+### Docker
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+### Mountpoint
+sudo sh -c "echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab"
+
+sudo reboot
+
+# Lighttpd
+docker run --name ftp -h ftp \
+-p 80:80 \
+-v /mnt/ftp:/var/www \
+-d izone/arm:lighttpd
+#docker start ftp
+
+#rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
+#sshpass -p "aamu02" rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
+
+
+### FreeCAD Build
+sudo apt-get install -y \
+git build-essential cmake python python-matplotlib libtool libcoin80-dev libsoqt4-dev libxerces-c-dev libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-program-options-dev libboost-signals-dev libboost-thread-dev libboost-python-dev libqt4-dev libqt4-opengl-dev qt4-dev-tools python-dev python-pyside pyside-tools liboce-modeling-dev liboce-visualization-dev liboce-foundation-dev liboce-ocaf-lite-dev liboce-ocaf-dev oce-draw libeigen3-dev libqtwebkit-dev libshiboken-dev libpyside-dev libode-dev swig libzipios++-dev libfreetype6 libfreetype6-dev netgen-headers libmedc-dev libvtk6-dev libproj-dev
+
+# Source FreeCAD
+#tmux new-session -s freecad
+#tmux attach -t freecad
+mkdir $HOME/1uvr3z 2>/dev/null && cd $HOME/1uvr3z
+git clone https://github.com/FreeCAD/FreeCAD.git $HOME/FreeCAD
+mkdir -p $HOME/1uvr3z/freecad-build 2>/dev/null && cd $HOME/1uvr3z/freecad-build
+
+# Build
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON $HOME/1uvr3z/FreeCAD
+time make #-j3
+
+# Reset git
+git reset --hard HEAD
+
+# Pull git
+pull git
+
+
+### QtCreator
+sudo apt-get install -y qt5-default qtcreator
+
+
+### Arduino IDE
+VERSION_ARDUINO=1.8.1
+wget -c https://downloads.arduino.cc/arduino-${VERSION_ARDUINO}-linuxarm.tar.xz
+tar Jxf arduino-${VERSION_ARDUINO}-linuxarm.tar.xz
+rm arduino-${VERSION_ARDUINO}-linuxarm.tar.xz
+sudo arduino-${VERSION_ARDUINO}/install.sh
+
+### Git
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+
+git config --global credential.helper cache
+git add . && git commit -am "Primeiro commit" && git push
 
 #################
-
 ### Stretch repo
 sudo sed -i 's/jessie/stretch/' /etc/apt/sources.list
 #sudo sed -i 's/jessie/stretch/' /etc/apt/sources.list.d/raspi.list 
 
 sudo sed -i 's/stretch/jessie/' /etc/apt/sources.list
 sudo sed -i 's/stretch/jessie/' /etc/apt/sources.list.d/raspi.list 
-
-
 #################
 
 # Config (Plug keyboard)

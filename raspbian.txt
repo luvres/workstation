@@ -5,7 +5,7 @@
 ### Install
 dd bs=4096k if=2017-03-02-raspbian-jessie.img of=/dev/sdb status=progress; sync
 
-# (Install in Raspberry Pi for expand disk)
+### (Install in Raspberry Pi for expand disk)
 
 ### f2fs -> sudo apt-get install f2fs-tools
 umount /dev/sdb1 /dev/sdb2
@@ -33,11 +33,6 @@ echo 'dtparam=sd_overclock=100' >>boot/config.txt #Class 10 SD card
 
 sync; umount /dev/sdb1 /dev/sdb2
 
-# BackUP
-sudo dd if=/dev/sdb | gzip > raspbian_f2fs.img
-
-# RESTORE
-gzip -c -d raspbian_f2fs.img | sudo dd of=/dev/sdb
 
 ##############
 ### Access ###

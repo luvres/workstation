@@ -1,6 +1,6 @@
 ##### Packages
 sudo apt-get update && sudo apt-get upgrade
-sudo apt-get install git mercurial-git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic filezilla youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping f2fs-tools
+sudo apt-get install git mercurial-git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic filezilla youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping f2fs-tools autoconf
 
 ##### Ubuntu Software
 # vlc
