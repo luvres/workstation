@@ -46,8 +46,8 @@ mv root/boot/* boot
 echo '/dev/mmcblk0p2 / f2fs defaults,noatime,discard 0 0' >>root/etc/fstab
 echo 'tmpfs   /tmp     tmpfs   nodev,nosuid,size=2G  0 0' >>root/etc/fstab
 cp root/bin/true root/sbin/fsck.f2fs
-sed -i 's/$/& rootfstype=f2fs/' boot/cmdline.txt # Rootfs type
-sed -i 's/$/& usbhid.mousepoll=0/' boot/cmdline.txt # Mouse lag
+sed -i 's/$/& rootfstype=f2fs/' boot/cmdline.txt # Mouse lag
+sed -i 's/$/& usbhid.mousepoll=0/' boot/cmdline.txt # Rootfs type
 echo 'dtparam=audio=on' >>boot/config.txt
 echo 'hdmi_drive=2' >>boot/config.txt
 echo 'dtparam=sd_overclock=100' >>boot/config.txt #Class 10 SD card

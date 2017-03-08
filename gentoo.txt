@@ -1,20 +1,6 @@
-##############
-### Gentoo ###
-##############
-### Download
-# armv7a
-wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/current-stage3-armv7a/stage3-armv7a-20161129.tar.bz2
-
-# arm64
-wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/20161219/stage3-arm64-20161219.tar.bz2
-
-wget -c http://distfiles.gentoo.org/experimental/arm64/stage3-arm64-arm64-20170223.tar.bz2
-
-###############
-### Install ###
-###############
-
-### Partitions
+##################
+### Partitions ###
+##################
 fdisk /dev/sdb
 n
 p
@@ -35,20 +21,36 @@ w
 mkfs.vfat /dev/sdb1 && mkdir /mnt/gentoo/boot && mount /dev/sdb1 /mnt/gentoo/boot
 mkfs.f2fs /dev/sdb2 && mount -t f2fs /dev/sdb2 /mnt/gentoo
 
+
+################
+### Download ###
+################
+
+### armv7a
+# Local
+wget -c http://desktop/Workstation/RaspberryPi/ISOs/stage3-armv7a-20161129.tar.bz2
+
+wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/current-stage3-armv7a/stage3-armv7a-20161129.tar.bz2
+
+### arm64
+# Local
+wget -c http://desktop/Workstation/RaspberryPi/ISOs/stage3-arm64-arm64-20170223.tar.bz2
+
+wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/current-stage3-arm64/stage3-arm64-20161219.tar.bz2
+
+wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/20161219/stage3-arm64-20161219.tar.bz2
+
+wget -c http://distfiles.gentoo.org/experimental/arm64/stage3-arm64-arm64-20170223.tar.bz2
+
+
 ###############
 ### Stage 3 ###
 ###############
 ## 32 Bits
-#wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/current-stage3-armv7a/stage3-armv7a-20161129.tar.bz2
-#
-wget -c http://desktop/Workstation/RaspberryPi/ISOs/stage3-armv7a-20161129.tar.bz2
 tar xpjf stage3-armv7a-20161129.tar.bz2 -C /mnt/gentoo
 
 ## 64 Bits
-#wget -c http://distfiles.gentoo.org/releases/arm/autobuilds/current-stage3-arm64/stage3-arm64-20161219.tar.bz2
-#tar xpjf stage3-arm64-20161219.tar.bz2 -C /mnt/gentoo
-#
-wget -c http://desktop/Workstation/RaspberryPi/ISOs/stage3-arm64-arm64-20170223.tar.bz2
+tar xpjf stage3-arm64-20161219.tar.bz2 -C /mnt/gentoo
 tar xpjf stage3-arm64-arm64-20170223.tar.bz2 -C /mnt/gentoo
 
 
@@ -222,9 +224,8 @@ userdel --remove demouser
 ### Create user
 useradd \
 --create-home \
---groups "adm,disk,lp,wheel,audio,video,cdrom,usb,users,plugdev,portage" \
---shell /bin/bash \
---comment "luvres" luvres
+-G users,wheel,audio,video,usb,portage \
+-s /bin/bash luvres
 passwd luvres
 
 ### Portage -> https://gentoo-handbook.lugons.org/doc/pt_br/handbook/handbook-x86.xml?style=printable&part=2&chap=1
@@ -244,6 +245,14 @@ emerge --pretend freecad #Simula instalacao
 emerge --fetchonly freecad #Baixa o fonte sem instalar
 emerge -vp freecad #Verificacao de USE doc
 
+## Sudo
+emerge --ask app-admin/sudo
+sed -i '/# %wheel ALL=(ALL) ALL/s/#//' /etc/sudoers
+useradd \
+--create-home \
+--groups "adm,disk,lp,wheel,audio,video,cdrom,usb,users,portage" \
+--shell /bin/bash luvres
+passwd luvres
 
 ### FreeCAD Build
 emerge -pv freecad

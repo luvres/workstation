@@ -85,12 +85,12 @@ git build-essential cmake python python-matplotlib libtool libcoin80-dev libsoqt
 # Source FreeCAD
 #tmux new-session -s freecad
 #tmux attach -t freecad
-mkdir 1uvr3z && cd 1uvr3z
-git clone https://github.com/FreeCAD/FreeCAD.git
-mkdir freecad-build && cd freecad-build
+mkdir $HOME/1uvr3z 2>/dev/null && cd $HOME/1uvr3z
+git clone https://github.com/FreeCAD/FreeCAD.git $HOME/FreeCAD
+mkdir -p $HOME/1uvr3z/freecad-build 2>/dev/null && cd $HOME/1uvr3z/freecad-build
 
 # Build
-cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON ../FreeCAD
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON $HOME/1uvr3z/FreeCAD
 time make #-j3
 
 # Reset git

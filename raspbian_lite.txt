@@ -36,9 +36,44 @@ echo 'dtparam=sd_overclock=100' >>boot/config.txt #Class 10 SD card
 
 sync; umount /dev/sdb1 /dev/sdb2
 
+##############
+### Access ###
+##############
+pi
+raspberry
+sudo systemctl enable ssh.service
+reboot
+
+echo '' >$HOME/.ssh/known_hosts
+ssh -l pi raspberrypi
+raspberry
+sudo su
+echo "root:aamu02" | chpasswd
+echo "pi:aamu02" | chpasswd
+<ctrl>+d
+
+# Update
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get dist-upgrade
+sudo apt-get clean
+sudo reboot
+
+### PIXEL Desktop
+sudo apt-get install --no-install-recommends xserver-xorg xinit
+sudo apt-get install raspberrypi-ui-mods
 
 
+#################
 
+### Stretch repo
+sudo sed -i 's/jessie/stretch/' /etc/apt/sources.list
+#sudo sed -i 's/jessie/stretch/' /etc/apt/sources.list.d/raspi.list 
+
+sudo sed -i 's/stretch/jessie/' /etc/apt/sources.list
+sudo sed -i 's/stretch/jessie/' /etc/apt/sources.list.d/raspi.list 
+
+
+#################
 
 # Config (Plug keyboard)
 pi
@@ -49,8 +84,6 @@ sudo raspi-config
 ← <Enter>
 <Enter>
 <Tab><Tab><Enter>
-
-
 
 # ssh Host access
 echo '' >$HOME/.ssh/known_hosts
@@ -66,11 +99,7 @@ sudo sed -i '/StrictHostKeyChecking/s/ask/no/g' /etc/ssh/ssh_config
 # Mount HD
 echo /dev/sda1 /mnt auto defaults 0 0 >>/etc/fstab
 
-
-
-
 # Install docker
-apt-get update && apt-get upgrade
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
 
@@ -99,6 +128,8 @@ rm 20160517-raspi3-arm64-firmware-kernel.tar.xz boot/ lib/ -fR
 reboot
 
 ########################
+# Stretch repo
+sudo sh -c 'echo "deb http://mirrordirector.raspbian.org/raspbian/ stretch main contrib non-free rpi" >/etc/apt/sources.list.d/stretch.list'
 
 # Testing
 sudo sed -i 's/jessie/testing/' /etc/apt/sources.list.d/raspi.list 
@@ -127,11 +158,4 @@ sudo apt-get -t stretch install deluge
 #sudo apt-get install software-properties-common
 #sudo apt-get -t stable dist-upgrade
 
-
-### Stratch repo
-sudo sh -c 'echo "deb http://mirrordirector.raspbian.org/raspbian/ stretch main contrib non-free rpi" >/etc/apt/sources.list.d/stretch.list'
-
-### PIXEL Desktop
-sudo apt-get install --no-install-recommends xserver-xorg
-sudo apt-get install raspberrypi-ui-mods
 

@@ -4,14 +4,27 @@ https://wiki.gentoo.org/wiki/Raspberry_Pi/Quick_Install_Guide
 ### Boot -> minimal
 # ip link set enp0s3
 
-
-
 ##################
 ### Partitions ###
 ##################
+fdisk /dev/sda
+n
+p
+1
+<Enter>
++100M
+n
+p
+2
+<Enter>
+<Enter>
+w
+
+## Format
+mkfs.ext2 /dev/sda1 && mkdir /mnt/gentoo/boot && mount /dev/sda1 /mnt/gentoo/boot
+mkfs.ext4 /dev/sda2 && mount -t ext4 /dev/sda2 /mnt/gentoo
 
 ### GPT
-
 parted -a optimal /dev/sda
 mklagel gpt
 unit mib
@@ -41,7 +54,7 @@ mount /dev/sda2 /mnt/gentoo/boot
 ### Stage 3 ###
 ###############
 cd /mnt/gentoo
-links http://www.gentoo.org/downloads/mirros
+links http://www.gentoo.org/downloads/mirrors
   Downloads
     stage3 2017 .. MiB
     [save]
@@ -49,15 +62,25 @@ links http://www.gentoo.org/downloads/mirros
 
 tar jxvfp stage3-...tar.bz2 --xattrs
 
+echo 'MAKEOPTS="-j4"' >>/mnt/gentoo/etc/portage/make.conf
+
+### make.conf
+USE="-gnome -kde -minimal -qt4 dbus jpeg lock session startup-notification thunar udev X dvd alsa cdr bindist mmx sse sse2 systemd"
+CPU_FLAGS_X86="mmx sse sse2 mmxext"
+ACCEPT_LICENSE="*"
+LINGUAS="pt pt_BR"
+#############
+
 
 ### Stage 4
-# mirrorselect -i -o >>/mnt/gentoo/portage/make.conf
+mirrorselect -i -o >>/mnt/gentoo/etc/portage/make.conf
 [ ] ftp..
 [ ] http..
 [ ] rsync..
 
 mkdir /mnt/gentoo/etc/portage/repos.conf
-cp /mnt/gentoo/usr/share/portage/config/repos.confmkdir /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+cp /mnt/gentoo/usr/share/portage/config/repos.conf /mnt/gentoo/etc/portage/repos.conf/gentoo.conf
+
 cp -L /etc/resolv.conf /mnt/gentoo/etc/
 
 mount -t proc proc /mnt/gentoo/proc
@@ -66,6 +89,9 @@ mount --make-rslave /mnt/gentoo/sys
 mount --rbind /dev /mnt/gentoo/dev
 mount --make-rslave /mnt/gentoo/dev
 
+# mount -o bind /dev /mnt/gentoo/dev
+# mount -o bind /proc /mnt/gentoo/proc
+
 chroot /mnt/gentoo /bin/bash
 source /etc/profile
 export PS1="(chroot) $PS1"
@@ -73,8 +99,11 @@ export PS1="(chroot) $PS1"
 emerge --sync
 eselect profile list
 eselect profile set 1
-emerge --ask --update --deep --newuse @world
+
 emerge --info | grep ^USE
+emerge --ask --update --deep --newuse @world
+emerge -p --depclean
+revdep-rebuild
 
 # Timezone
 echo "America/Sao_Paulo" >/etc/timezone
@@ -82,7 +111,7 @@ emerge --config sys-libs/timezone-data
 
 # Locale
 echo "pt_BR.UTF-8 UTF-8" >>/etc/locale.gen
-locale.gen
+locale-gen
 eselect locale list
 eselect locale set 3
 
@@ -92,14 +121,13 @@ ls -l /usr/src/linux
 emerge --ask sys-kernel/genkernel
 
 # fstab
-sed 's/BOOT/sda1/' /etc/fstab #defaults,noatime 0 2
-sed '/ROOT/s/ext3/ext4/' /etc/fstab
-sed 's/ROOT/sda2/' /etc/fstab #defaults
+echo '/dev/sda1 /boot auto defaults,noatime 0 2' >>/etc/fstab
+echo '/dev/sda2 / ext4 noatime 0 1' >>/etc/fstab
 
 genkernel all
 
 # hostname
-sed 's/localhost/gentoo/' /etc/conf.d/hostname
+sed -i 's/localhost/gentoo/' /etc/conf.d/hostname
 echo 'config_enp0s3="dhcp"' /etc/conf.d/net
 #echo 'dns_domain_lo="homenetwork"' /etc/conf.d/net
 
@@ -113,7 +141,7 @@ echo '127.0.0.1 gentoo' >>/etc/hosts
 passwd
 
 ## Keymap
-sed '/keymaps/s/us/"br-abnt2"/' /etc/conf.d/keymaps
+sed -i '/keymap/s/us/br-abnt2/' /etc/conf.d/keymaps
 rc-update add keymaps boot
 
 emerge --ask app-admin/sysklogd
@@ -128,14 +156,9 @@ emerge --ask net-misc/dhcpcd
 
 # Grub
 emerge --ask sys-boot/grub:2
-grub2-install /dev/sda
-grub2-mkconfig -o /boot/grub/grub.cfg
+grub-install /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
 
-cd
-umount -l /mnt/gentoo
-umount -l /mnt/dev
-umount -l /mnt/proc
-umount -l /mnt/sys
 reboot
 
 ### Kernel
@@ -144,11 +167,33 @@ make menuconfig
 make
 make modules_install
 
-emerge xorg-server
-emerge xterm
+### Portage
+# eselect profile list
+# eselect profile set 3
+# emerge --ask --update --deep --newuse @world
+
+emerge --sync
+emerge -avuND world
+etc-update
+
+### Xorg
+emerge --ask x11-base/xorg-server # Minimal X
+emerge --ask x11-base/xorg-x11 # Full X
+emerge --ask x11-base/xorg-drivers
+emerge --ask x11-terms/xterm
 echo "xterm" >$HOME/.xinitrc
 startx
 
+### LXQT -> https://wiki.gentoo.org/wiki/LXQt
+emerge --ask lxqt-base/lxqt-meta
+echo "exec ck-launch-session startlxqt" >>$HOME/.xinitrc
+echo "exec ck-launch-session dbus-launch --exit-with-session startlxqt" >>$HOME/.xinitrc
+
+### LXDE -> https://wiki.gentoo.org/wiki/LXDE
+emerge --ask lxde-base/lxde-meta
+echo "exec startlxde" >>$HOME/.xinitrc
+
+### Cinnamon
 emerge --ask x11-libs/gtk+extra
 emerge --ask gnome-extra/cinnamon
 
