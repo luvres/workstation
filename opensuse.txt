@@ -6,24 +6,14 @@ wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/
 xzcat openSUSE-Tumbleweed-ARM-JeOS-raspberrypi3.aarch64.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
 
 # LXQT
-wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-LXQT-raspberrypi3.aarch64-2017.02.24-Build3.3.raw.xz
+wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-LXQT-raspberrypi3.aarch64-2017.02.24-Build3.13.raw.xz
 
-xzcat openSUSE-Tumbleweed-ARM-LXQT-raspberrypi3.aarch64-2017.02.24-Build3.3.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
+xzcat openSUSE-Tumbleweed-ARM-LXQT-raspberrypi3.aarch64-2017.02.24-Build3.13.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
 
 # XFCE
-wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-XFCE-raspberrypi3.aarch64.raw.xz
+wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-XFCE-raspberrypi3.aarch64-2017.02.24-Build3.13.raw.xz
 
-xzcat openSUSE-Tumbleweed-ARM-XFCE-raspberrypi3.aarch64.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
-
-# X11
-wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-X11-raspberrypi3.aarch64.raw.xz
-
-xzcat openSUSE-Tumbleweed-ARM-X11-raspberrypi3.aarch64.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
-
-# E20
-wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-E20-raspberrypi3.aarch64.raw.xz
-
-xzcat openSUSE-Tumbleweed-ARM-E20-raspberrypi3.aarch64.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
+xzcat openSUSE-Tumbleweed-ARM-XFCE-raspberrypi3.aarch64-2017.02.24-Build3.13.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
 
 
 ### Install
