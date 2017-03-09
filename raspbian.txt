@@ -81,7 +81,7 @@ git build-essential cmake python python-matplotlib libtool libcoin80-dev libsoqt
 #tmux new-session -s freecad
 #tmux attach -t freecad
 mkdir $HOME/1uvr3z 2>/dev/null && cd $HOME/1uvr3z
-git clone https://github.com/FreeCAD/FreeCAD.git $HOME/FreeCAD
+git clone https://github.com/FreeCAD/FreeCAD.git $HOME/1uvr3z/FreeCAD
 mkdir -p $HOME/1uvr3z/freecad-build 2>/dev/null && cd $HOME/1uvr3z/freecad-build
 
 # Build

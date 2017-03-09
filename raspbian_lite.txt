@@ -64,7 +64,8 @@ sudo apt-get install -y raspberrypi-ui-mods
 
 ### Packages
 sudo apt-get install -y \
-htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools gftp deluge chromium-browser
+htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools gftp deluge \
+libreoffice chromium-browser leafpad 
 
 ### Docker
 curl -sSL https://get.docker.com | sh
@@ -94,7 +95,7 @@ git build-essential cmake python python-matplotlib libtool libcoin80-dev libsoqt
 #tmux new-session -s freecad
 #tmux attach -t freecad
 mkdir $HOME/1uvr3z 2>/dev/null && cd $HOME/1uvr3z
-git clone https://github.com/FreeCAD/FreeCAD.git $HOME/FreeCAD
+git clone https://github.com/FreeCAD/FreeCAD.git $HOME/1uvr3z/FreeCAD
 mkdir -p $HOME/1uvr3z/freecad-build 2>/dev/null && cd $HOME/1uvr3z/freecad-build
 
 # Build
