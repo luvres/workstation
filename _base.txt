@@ -1,11 +1,15 @@
-### Particoes
+### Partitions
 fdisk -l
 
 fdisk /dev/sda
-p
 n
 p
 1
+<Enter>
++100M
+n
+p
+2
 <Enter>
 <Enter>
 w

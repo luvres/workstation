@@ -1,10 +1,15 @@
 #!/bin/bash
 
-# ssh-keygen -f "$HOME/.ssh/known_hosts" -R 191.96.255.110
+if [ $# -ne 2 ]; then
+  echo ""
+  echo "   sh [username] [password]"
+  echo ""
+  exit 1
+fi
 
 MOUNTPOINT="/mnt"
-USER="luvres"
-PASS="aamu02"
+USER=$1
+PASS=$2
 
 arch_chroot(){
 	arch-chroot $MOUNTPOINT /bin/bash -c "${1}"
