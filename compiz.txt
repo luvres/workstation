@@ -1,0 +1,35 @@
+pacman -S \
+xfce4-terminal leafpad \
+thunar thunar-archive-plugin thunar-volman \
+file-roller gvfs gksu polkit-gnome gnome-keyring \
+xfce4-panel xfce4-notifyd xfce4-power-manager xfce4-whiskermenu-plugin \
+lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings \
+networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
+dconf-editor xdg-user-dirs numix-themes lxappearance
+
+yaourt -S compiz
+ccsm
+echo "exec compiz" >>$HOME/.xinitrc
+
+echo "xfce4-panel &" >>$HOME/.xprofile
+echo "xfce4-power-manager &" >>$HOME/.xprofile
+echo "nm-applet &" >>$HOME/.xprofile
+echo "parcelite &" >>$HOME/.xprofile
+echo "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &" >>$HOME/.xprofile
+
+mkdir /usr/share/xsessions
+
+tee /usr/share/xsessions/compiz.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Compiz
+Comment=Start Compiz Window Manager
+Exec=compiz
+EOF
+
+systemctl enable lightdm.service
+systemctl enable NetworkManager
+
+reboot
+# 13:00
+
