@@ -41,7 +41,7 @@ virtualbox-guest-utils
 reboot
 
 ### Openbox
-git clone https://github.com/midfingr/obx_2016
+git clone https://github.com/midfingr/obx_2016.git
 chmod +x obx_2016/ins
 obx_2016/ins
 
