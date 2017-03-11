@@ -28,8 +28,9 @@ lsblk
 
 ### Install
 # curl http://desktop/Workstation/Arch/install.sh | sh
-curl https://raw.githubusercontent.com/luvres/workstation/master/_install.sh | sh
-
+# curl https://raw.githubusercontent.com/luvres/workstation/master/_install.sh | sh
+curl -O https://raw.githubusercontent.com/luvres/workstation/master/_install.sh
+sh _install.sh [username] [password]
 reboot
 
 ### Xorg
