@@ -1,0 +1,20 @@
+### Particoes
+fdisk -l
+
+fdisk /dev/sda
+p
+n
+p
+1
+<Enter>
+<Enter>
+w
+
+### mkfs
+mkfs.ext4 /dev/sda1
+mount /dev/sda1 /mnt
+
+### Install
+curl http://desktop/Workstation/Arch/install.sh | sh
+
+
