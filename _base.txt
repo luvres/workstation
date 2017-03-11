@@ -1,3 +1,8 @@
+### Boot
+passwd
+systemctl start sshd.service
+ifconfig
+
 ### Partitions
 fdisk -l
 
@@ -19,6 +24,7 @@ mkfs.ext2 /dev/sda1
 mkfs.ext4 /dev/sda2
 mount /dev/sda2 /mnt
 mkdir /mnt/boot && mount /dev/sda1 /mnt/boot
+lsblk
 
 ### Install
 # curl http://desktop/Workstation/Arch/install.sh | sh
