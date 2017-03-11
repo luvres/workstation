@@ -11,10 +11,27 @@ p
 w
 
 ### mkfs
-mkfs.ext4 /dev/sda1
+mkfs.ext2 /dev/sda1
+mkfs.ext4 /dev/sda2
 mount /dev/sda1 /mnt
+mkdir /mnt/boot && mount /dev/sda1 /mnt/boot
 
 ### Install
-curl http://desktop/Workstation/Arch/install.sh | sh
+# curl http://desktop/Workstation/Arch/install.sh | sh
+curl https://raw.githubusercontent.com/luvres/workstation/master/_install.sh | sh
+
+reboot
+
+### Xorg
+pacman -Sy \
+ttf-dejavu alsa-utils xorg-server xorg-xinit xorg-twm xterm xorg-server-devel \
+virtualbox-guest-utils
+
+reboot
+
+### Openbox
+git clone https://github.com/midfingr/obx_2016
+chmod +x obx_2016/ins
+obx_2016/ins
 
 
