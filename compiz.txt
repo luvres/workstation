@@ -5,7 +5,7 @@ file-roller gvfs gksu polkit-gnome gnome-keyring \
 xfce4-panel xfce4-notifyd xfce4-power-manager xfce4-whiskermenu-plugin \
 lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings \
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
-dconf-editor xdg-user-dirs numix-themes lxappearance
+dconf-editor xdg-user-dirs numix-gtk-theme lxappearance
 
 yaourt -S compiz
 ccsm
