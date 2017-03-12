@@ -1,4 +1,5 @@
-pacman -S \
+pacman -Syyu
+pacman -S --noconfirm \
 xfce4-terminal leafpad chromium gftp \
 thunar thunar-archive-plugin thunar-volman \
 file-roller gvfs gksu polkit-gnome gnome-keyring \
@@ -13,6 +14,9 @@ reflector xorg-xprop xarchiver
 systemctl enable lightdm.service
 systemctl enable NetworkManager
 
+cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+reflector --verbose -l 10 -p http --sort rate --save /etc/pacman.d/mirrorlist
+
 sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
 sed -i '/MAKEFLAGS/s/2/8/' /etc/makepkg.conf
 sed -i '/BUILDDIR/s/#//' /etc/makepkg.conf
@@ -20,7 +24,8 @@ sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
 sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
 
 
-yaourt -S compiz gtk-theme-config numix-circle-icon-theme-git engrampa-thunar
+yaourt -S --noconfirm \
+compiz gtk-theme-config numix-circle-icon-theme-git engrampa-thunar
 startx
 xfce4-terminal
 ccsm
