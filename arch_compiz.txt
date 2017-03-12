@@ -8,7 +8,7 @@ networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 dconf-editor xdg-user-dirs numix-gtk-theme lxappearance \
 faenza-icon-theme archlinux-wallpaper gtk-engine-aurora \
 wireless_tools wpa_supplicant dialog \
-reflector xorg-xprop
+reflector xorg-xprop xarchiver
 
 systemctl enable lightdm.service
 systemctl enable NetworkManager
