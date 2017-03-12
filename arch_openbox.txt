@@ -1,0 +1,35 @@
+### Openbox
+sudo pacman -S \
+openbox obconf lxappearance-obconf \
+thunar thunar-volman thunar-archive-plugin leafpad \
+gvfs xfce4-panel xfce4-terminal xfce4-whiskermenu-plugin \
+file-roller gmrum tumbler gpicview nitrogen oblogout parcellite python2-xdg \
+mate-themes networkmanager
+# mate-themes-extra
+
+yaourt -S \
+locatepurge obkey-git compton-git gtk-theme-config wallpaper-archpaint2
+
+cp /etc/xdg/compton.conf.example $HOME/.config/compton.conf
+sed -i '/shadow/s/true/false/' $HOME/.config/compton.conf
+echo 'xfce4-panel &' >>$HOME/.config/openbox/autostart
+echo 'compton -b &' >>$HOME/.config/openbox/autostart
+cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
+sed -i "/fi/s/fi/fi\nexec openbox-session" $HOME/.xinitrc
+
+mkdir -p $HOME/.config/openbox
+cp /etc/xdg/openbox/* $HOME/.config/openbox
+
+##########
+sudo pacman -S \
+tint2  arandr  xfdesktop xfce4-notifyd \
+xarchiver zip unzip unrar p7zip \
+archlinux-wallpaper xdg-user-dirs ttf-liberation \
+polkit-gnome gnome-keyring gksu gsimplecal \
+mate-system-monitor gtk-engines gtk-engine-murrine \
+gnome-themes-standard gnome-icon-theme networkmanager \
+networkmanager-dispatcher-ntpd network-manager-applet \
+lightdm lightdm-gtk-greeter ncdu ristretto wmctrl \
+xorg-xprop xfce4-power-manager xdotool \
+chromium
+##########
