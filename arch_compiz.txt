@@ -1,5 +1,5 @@
 pacman -S \
-xfce4-terminal leafpad chromium \
+xfce4-terminal leafpad chromium gftp \
 thunar thunar-archive-plugin thunar-volman \
 file-roller gvfs gksu polkit-gnome gnome-keyring \
 xfce4-panel xfce4-notifyd xfce4-power-manager xfce4-whiskermenu-plugin \
