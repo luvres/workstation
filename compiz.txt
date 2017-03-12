@@ -5,7 +5,16 @@ file-roller gvfs gksu polkit-gnome gnome-keyring \
 xfce4-panel xfce4-notifyd xfce4-power-manager xfce4-whiskermenu-plugin \
 lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings \
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
-dconf-editor xdg-user-dirs numix-gtk-theme lxappearance
+dconf-editor xdg-user-dirs numix-gtk-theme lxappearance \
+faenza-icon-theme archlinux-wallpaper \
+wireless_tools wpa_supplicant dialog
+###reflector
+
+sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
+sed -i '/MAKEFLAGS/s/2/8/' /etc/makepkg.conf
+sed -i '/BUILDDIR/s/#//' /etc/makepkg.conf
+sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
+sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
 
 yaourt -S compiz
 startx
