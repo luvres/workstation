@@ -6,7 +6,7 @@ file-roller gvfs gksu polkit-gnome gnome-keyring \
 xfce4-panel xfce4-notifyd xfce4-power-manager xfce4-whiskermenu-plugin \
 lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings \
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
-dconf-editor xdg-user-dirs numix-gtk-theme lxappearance \
+dconf-editor xdg-user-dirs numix-gtk-theme lxappearance oblogout \
 faenza-icon-theme archlinux-wallpaper gtk-engine-aurora \
 wireless_tools wpa_supplicant dialog \
 reflector xorg-xprop xarchiver
@@ -24,16 +24,10 @@ sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
 sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
 
 
-yaourt -S --noconfirm \
-compiz gtk-theme-config numix-circle-icon-theme-git engrampa-thunar
-startx
-xfce4-terminal
-ccsm
- [x]Commands
-   xfce4-terminal
+yaourt -S --noconfirm compiz
+yaourt -S --noconfirm gtk-theme-config numix-circle-icon-theme-git engrampa-thunar
 
 echo "exec compiz" >>$HOME/.xinitrc
-
 echo "xfce4-panel &" >>$HOME/.xprofile
 echo "xfce4-power-manager &" >>$HOME/.xprofile
 echo "nm-applet &" >>$HOME/.xprofile
@@ -49,6 +43,13 @@ Name=Compiz
 Comment=Start Compiz Window Manager
 Exec=compiz
 EOF
+
+startx
+xfce4-terminal
+ccsm
+ [x]Commands
+   xfce4-terminal
+
 
 
 sudo reboot
