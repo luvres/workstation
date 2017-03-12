@@ -4,7 +4,7 @@ systemctl start sshd.service
 ifconfig
 
 ### Partitions
-fdisk -l
+fdisk -l /dev/sda
 
 fdisk /dev/sda
 n
@@ -16,21 +16,32 @@ n
 p
 2
 <Enter>
++4096M
+n
+p
+3
 <Enter>
+<Enter>
+t
+82
 w
 
 ### mkfs
 mkfs.ext2 /dev/sda1
-mkfs.ext4 /dev/sda2
-mount /dev/sda2 /mnt
+mkswap /dev/sda2
+mkfs.ext4 /dev/sda3
+
+swapon /dev/sda2
+mount /dev/sda3 /mnt
 mkdir /mnt/boot && mount /dev/sda1 /mnt/boot
+
 lsblk
 
 ### Install
 # curl http://desktop/Workstation/Arch/arch_install.sh | sh
 # curl https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh | sh
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh
-sh _install.sh [username] [password]
+sh arch_install.sh [username] [password]
 reboot
 
 ### Xorg
