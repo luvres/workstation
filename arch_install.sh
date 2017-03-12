@@ -27,7 +27,8 @@ arch_chroot "hwclock --systohc --utc"
 arch_chroot "echo desktop > /etc/hostname"
 arch_chroot "echo 'KEYMAP=br-abnt2' > /etc/vconsole.conf"
 
-arch_chroot "sed -i '/pt_BR/s/^#//' /etc/locale.gen"
+#arch_chroot "sed -i '/pt_BR/s/^#//' /etc/locale.gen"
+arch_chroot "sed -i '/#en_US/s/^#//' /etc/locale.gen"
 
 arch_chroot "locale-gen"
 arch_chroot "useradd $USER -s /bin/bash -G wheel -m"
