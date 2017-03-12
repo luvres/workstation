@@ -8,18 +8,23 @@ networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 dconf-editor xdg-user-dirs numix-gtk-theme lxappearance
 
 yaourt -S compiz
+startx
+xfce4-terminal
 ccsm
+ [x]Commands
+   xfce4-terminal
+
 echo "exec compiz" >>$HOME/.xinitrc
 
 echo "xfce4-panel &" >>$HOME/.xprofile
 echo "xfce4-power-manager &" >>$HOME/.xprofile
 echo "nm-applet &" >>$HOME/.xprofile
-echo "parcelite &" >>$HOME/.xprofile
+echo "parcellite &" >>$HOME/.xprofile
 echo "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &" >>$HOME/.xprofile
+      /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+sudo mkdir /usr/share/xsessions
 
-mkdir /usr/share/xsessions
-
-tee /usr/share/xsessions/compiz.desktop <<EOF
+sudo tee /usr/share/xsessions/compiz.desktop <<EOF
 [Desktop Entry]
 Type=Application
 Name=Compiz
@@ -27,8 +32,8 @@ Comment=Start Compiz Window Manager
 Exec=compiz
 EOF
 
-systemctl enable lightdm.service
-systemctl enable NetworkManager
+sudo systemctl enable lightdm.service
+sudo systemctl enable NetworkManager
 
 reboot
 # 13:00
