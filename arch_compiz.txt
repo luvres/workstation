@@ -20,7 +20,7 @@ sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
 sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
 
 
-yaourt -S compiz gtk-theme-config numix-circle-icon-theme-git
+yaourt -S compiz gtk-theme-config numix-circle-icon-theme-git engrampa-thunar
 startx
 xfce4-terminal
 ccsm
