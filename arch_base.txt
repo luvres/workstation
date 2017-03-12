@@ -27,9 +27,9 @@ mkdir /mnt/boot && mount /dev/sda1 /mnt/boot
 lsblk
 
 ### Install
-# curl http://desktop/Workstation/Arch/install.sh | sh
-# curl https://raw.githubusercontent.com/luvres/workstation/master/_install.sh | sh
-curl -O https://raw.githubusercontent.com/luvres/workstation/master/_install.sh
+# curl http://desktop/Workstation/Arch/arch_install.sh | sh
+# curl https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh | sh
+curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh
 sh _install.sh [username] [password]
 reboot
 
