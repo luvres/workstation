@@ -5,7 +5,7 @@ thunar thunar-volman thunar-archive-plugin leafpad \
 gvfs xfce4-panel xfce4-terminal xfce4-whiskermenu-plugin \
 file-roller gmrum tumbler gpicview nitrogen oblogout parcellite python2-xdg \
 mate-themes networkmanager
-# mate-themes-extra
+## mate-themes-extra
 
 yaourt -S \
 locatepurge obkey-git compton-git gtk-theme-config wallpaper-archpaint2
