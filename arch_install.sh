@@ -63,6 +63,6 @@ arch_chroot "grub-install --target=i386-pc --recheck /dev/sda"
 # arch_chroot "sed -i 's/part_msdos/part_msdos lvm/' /etc/default/grub"
 
 arch_chroot "mkinitcpio -p linux"
-arch_chroot "/sbin/bash/grub-mkconfig -o /boot/grub/grub.cfg"
+arch_chroot "/usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg"
 
 arch_chroot "exit"
