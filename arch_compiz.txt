@@ -1,10 +1,16 @@
 sudo su
 
+### Swap File
+dd if=/dev/zero of=/swapfile bs=1M count=4096
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap defaults 0 0' >>/etc/fstab
 pacman -Syyu
 
 pacman -S --noconfirm \
 xorg-server xorg-xinit xorg-twm xterm xorg-xclock xorg-server-devel \
-xf86-video-vesa ttf-dejavu alsa-utils
+xf86-video-vesa xf86-video-intel ttf-dejavu alsa-utils
 
 pacman -S --noconfirm \
 xfce4-terminal leafpad chromium gftp \

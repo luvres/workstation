@@ -16,13 +16,6 @@ mount /dev/sda1 /mnt
 
 lsblk
 
-### Swap File
-dd if=/dev/zero of=/mnt/swapfile bs=1M count=4096
-chmod 600 /mnt/swapfile
-mkswap /mnt/swapfile
-swapon /mnt/swapfile
-echo '/swapfile none swap defaults 0 0' >>/mnt/etc/fstab
-
 
 ### Install
 # curl http://desktop/Workstation/Arch/arch_install.sh | sh
