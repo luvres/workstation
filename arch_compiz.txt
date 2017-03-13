@@ -16,7 +16,7 @@ networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 dconf-editor xdg-user-dirs numix-gtk-theme lxappearance oblogout \
 faenza-icon-theme archlinux-wallpaper gtk-engine-aurora \
 wireless_tools wpa_supplicant dialog \
-reflector xorg-xprop xarchiver
+reflector xorg-xprop xarchiver parcellite
 
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
@@ -47,6 +47,8 @@ Name=Compiz
 Comment=Start Compiz Window Manager
 Exec=compiz
 EOF
+
+sed -i '/logout = openbox/s/openbox --exit/pkill -KILL -u $USER/' /etc/oblogout.conf
 
 sudo systemctl enable lightdm.service
 sudo systemctl enable NetworkManager
