@@ -18,8 +18,8 @@ cfdisk /dev/sda
 
 
 ### mkfs
-mkfs.ext4 /dev/sda1
-mount /dev/sda1 /mnt
+mkfs.ext4 /dev/sda2
+mount /dev/sda2 /mnt
 
 lsblk
 
