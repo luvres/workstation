@@ -46,7 +46,7 @@ arch_chroot "echo 'Server = http://repo.archlinux.fr/\$arch' >> /etc/pacman.conf
 arch_chroot "pacman -Sy --noconfirm \
              grub os-prober yaourt dmidecode acpi acpid mlocate bash-completion \
              pkgstats namcap tmux htop net-tools docker \
-             zip unzip unrar p7zip"
+             zip unzip unrar p7zip f2fs.tools"
 
 arch_chroot "systemctl enable dhcpcd"
 arch_chroot "systemctl enable acpid"
