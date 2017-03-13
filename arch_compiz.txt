@@ -1,4 +1,9 @@
 pacman -Syyu
+
+pacman -S --noconfirm \
+xorg-server xorg-xinit xorg-twm xterm xorg-xclock xorg-server-devel \
+xf86-video-vesa ttf-dejavu alsa-utils
+
 pacman -S --noconfirm \
 xfce4-terminal leafpad chromium gftp \
 thunar thunar-archive-plugin thunar-volman \

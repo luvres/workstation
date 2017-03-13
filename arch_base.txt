@@ -6,54 +6,31 @@ ifconfig
 ### Partitions
 fdisk -l /dev/sda
 
-fdisk /dev/sda
-n
-p
-1
-<Enter>
-+100M
-n
-p
-2
-<Enter>
-+4096M
-n
-p
-3
-<Enter>
-<Enter>
-t
-82
-w
+cfdisk /dev/sda
+[New] [Primary] [Bootable]
+
 
 ### mkfs
-mkfs.ext2 /dev/sda1
-mkswap /dev/sda2
-mkfs.ext4 /dev/sda3
-
-swapon /dev/sda2
-mount /dev/sda3 /mnt
-mkdir /mnt/boot && mount /dev/sda1 /mnt/boot
+mkfs.btrfs -f /dev/sda1
+mount /dev/sda1 /mnt
 
 lsblk
+
 
 ### Install
 # curl http://desktop/Workstation/Arch/arch_install.sh | sh
 # curl https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh | sh
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh
 sh arch_install.sh [username] [password]
-reboot
-
-### Xorg
-pacman -Sy \
-xorg-server xorg-xinit xorg-twm xterm xorg-xclock xorg-server-devel xf86-video-vesa ttf-dejavu alsa-utils \
-virtualbox-guest-utils
 
 reboot
 
-### Openbox
-git clone https://github.com/midfingr/obx_2016.git
-chmod +x obx_2016/ins
-obx_2016/ins
+
+### Swap File
+dd if=/dev/zero of=/swapfile bs=1M count=4096
+chmod 0600 /swapfile 
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap defaults 0 0' >>/etc/fstab
 
 
