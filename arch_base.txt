@@ -6,12 +6,19 @@ ifconfig
 ### Partitions
 fdisk -l /dev/sda
 
+fdisk /dev/sda
+n
+p
+1
+<Enter>
+<Enter>
+
 cfdisk /dev/sda
-[New] [Primary] [Bootable]
+[Bootable]
 
 
 ### mkfs
-mkfs.btrfs -f /dev/sda1
+mkfs.ext4 /dev/sda1
 mount /dev/sda1 /mnt
 
 lsblk
