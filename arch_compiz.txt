@@ -32,6 +32,7 @@ sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
 sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
 sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
 sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
+# nano /etc/makepkg.conf #line 63
 
 <ctrl>d
 
