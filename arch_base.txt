@@ -33,5 +33,3 @@ sh arch_install.sh [username] [password]
 reboot
 
 
-
-
