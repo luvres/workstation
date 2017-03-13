@@ -15,7 +15,7 @@ systemctl enable lightdm.service
 systemctl enable NetworkManager
 
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
-reflector --verbose -l 10 -p http --sort rate --save /etc/pacman.d/mirrorlist
+reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
 
 sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
 sed -i '/MAKEFLAGS/s/2/8/' /etc/makepkg.conf
