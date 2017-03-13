@@ -11,9 +11,6 @@ faenza-icon-theme archlinux-wallpaper gtk-engine-aurora \
 wireless_tools wpa_supplicant dialog \
 reflector xorg-xprop xarchiver
 
-systemctl enable lightdm.service
-systemctl enable NetworkManager
-
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
 
@@ -43,6 +40,9 @@ Name=Compiz
 Comment=Start Compiz Window Manager
 Exec=compiz
 EOF
+
+systemctl enable lightdm.service
+systemctl enable NetworkManager
 
 startx
 xfce4-terminal
