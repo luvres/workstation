@@ -1,3 +1,5 @@
+sudo su
+
 pacman -Syyu
 
 pacman -S --noconfirm \
@@ -20,11 +22,11 @@ cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
 reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
 
 sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
-sed -i '/MAKEFLAGS/s/2/8/' /etc/makepkg.conf
-sed -i '/BUILDDIR/s/#//' /etc/makepkg.conf
+sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
 sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
 sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
 
+<ctrl>d
 
 yaourt -S --noconfirm compiz
 yaourt -S --noconfirm gtk-theme-config numix-circle-icon-theme-git engrampa-thunar

@@ -6,22 +6,22 @@ ifconfig
 ### Partitions
 fdisk -l /dev/sda
 
-fdisk /dev/sda
-n
-p
-1
-<Enter>
-<Enter>
-
 cfdisk /dev/sda
-[Bootable]
+[New]<Emter>[primary][Bootable]
 
 
 ### mkfs
-mkfs.ext4 /dev/sda2
-mount /dev/sda2 /mnt
+mkfs.ext4 /dev/sda1
+mount /dev/sda1 /mnt
 
 lsblk
+
+
+### Swap File
+dd if=/dev/zero of=/mnt/swapfile bs=1M count=4096
+chmod 600 /mnt/swapfile
+mkswap /mnt/swapfile
+swapon /mnt/swapfile
 
 
 ### Install
@@ -33,11 +33,5 @@ sh arch_install.sh [username] [password]
 reboot
 
 
-### Swap File
-dd if=/dev/zero of=/swapfile bs=1M count=4096
-chmod 0600 /swapfile 
-mkswap /swapfile
-swapon /swapfile
-echo '/swapfile none swap defaults 0 0' >>/etc/fstab
 
 
