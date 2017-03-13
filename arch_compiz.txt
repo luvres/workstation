@@ -56,7 +56,7 @@ Comment=Start Compiz Window Manager
 Exec=compiz
 EOF
 
-sed -i '/logout = openbox/s/openbox --exit/pkill -KILL -u $USER/' /etc/oblogout.conf
+sudo sed -i '/logout = openbox/s/openbox --exit/pkill -KILL -u $USER/' /etc/oblogout.conf
 
 sudo systemctl enable lightdm.service
 sudo systemctl enable NetworkManager
