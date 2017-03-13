@@ -45,8 +45,8 @@ sudo systemctl enable lightdm.service
 sudo systemctl enable NetworkManager
 
 curl -L https://github.com/luvres/workstation/blob/master/background.zip?raw=true -o ./background.zip
-unzip background.zip
-mv background $HOME/Pictures
+unzip background.zip -d $HOME/Pictures
+rm background.zip
 
 startx
 xfce4-terminal
