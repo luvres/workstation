@@ -44,7 +44,7 @@ EOF
 sudo systemctl enable lightdm.service
 sudo systemctl enable NetworkManager
 
-curl -L https://github.com/luvres/workstation/blob/master/.background.zip?raw=true -o ./background.zip
+curl -L https://github.com/luvres/workstation/blob/master/background.zip?raw=true -o ./background.zip
 unzip background.zip
 mv background $HOME/Pictures
 
