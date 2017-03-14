@@ -21,8 +21,9 @@ genfstab -p /mnt /mnt/etc/fstab
 
 arch_chroot "sed -i 's/modconf block/modconf block lvm2/' /etc/mkinitcpio.conf"
 
-arch_chroot "echo "root:$PASS" | chpasswd" #
-arch_chroot "ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime" #
+arch_chroot "echo "root:$PASS" | chpasswd"
+arch_chroot "unlink /etc/localtime"
+arch_chroot "ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime"
 arch_chroot "hwclock --systohc --utc"
 arch_chroot "echo desktop > /etc/hostname"
 arch_chroot "echo 'KEYMAP=br-abnt2' > /etc/vconsole.conf"

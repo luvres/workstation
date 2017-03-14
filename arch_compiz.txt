@@ -8,8 +8,10 @@ sudo sh -c "echo '/swapfile none swap defaults 0 0' >>/etc/fstab"
 sudo pacman -Syyu
 
 sudo pacman -S --noconfirm \
-xorg-server xorg-xinit xorg-twm xterm xorg-xclock xorg-server-devel \
-xf86-video-vesa xf86-video-intel ttf-dejavu alsa-utils
+xorg-server xorg-server-devel xorg-server-utils xorg-server-xwayland \
+xorg-xinit xorg-twm xorg-xkill xterm xorg-xclock  xorg-xinput \
+xf86-video-vesa xf86-video-intel xf86-input-libinput \
+ttf-dejavu alsa-utils mesa
 
 ############
 ## Compiz ##
