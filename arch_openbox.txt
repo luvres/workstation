@@ -16,12 +16,14 @@ xf86-video-vesa xf86-video-intel ttf-dejavu alsa-utils
 #############
 sudo pacman -S --noconfirm \
 openbox obconf lxappearance-obconf \
-thunar thunar-volman thunar-archive-plugin leafpad \
-gvfs xfce4-panel xfce4-terminal xfce4-whiskermenu-plugin \
+thunar thunar-volman thunar-archive-plugin gvfs \
+xfce4-panel xfce4-terminal xfce4-power-manager xfce4-whiskermenu-plugin xfce4-notifyd \
 file-roller gmrun tumbler gpicview nitrogen oblogout parcellite python2-xdg \
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 faenza-icon-theme archlinux-wallpaper gtk-engine-aurora \
-mate-system-monitor cairo-dock cairo-dock-plug-ins
+mate-system-monitor cairo-dock cairo-dock-plug-ins \
+wireless_tools wpa_supplicant dialog \
+xarchiver leafpad chromium gftp
 
 sudo sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
 sudo sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
@@ -39,16 +41,28 @@ cp /etc/xdg/compton.conf.example $HOME/.config/compton.conf
 sed -i '/shadow/s/true/false/' $HOME/.config/compton.conf
 echo 'nitrogen --restore &' >>$HOME/.config/openbox/autostart
 echo 'xfce4-panel &' >>$HOME/.config/openbox/autostart
+echo 'xfce4-power-manager &' >>$HOME/.config/openbox/autostart
+echo 'nm-applet &' >>$HOME/.config/openbox/autostart
 echo 'compton -b &' >>$HOME/.config/openbox/autostart
 echo 'cairo-dock &' >>$HOME/.config/openbox/autostart
 
+sudo sed -i '/logout = openbox/s/openbox --exit/pkill -KILL -u $USER/' /etc/oblogout.conf
+sudo sed -i '/buttons/s/, suspend, hibernate, lock//' /etc/oblogout.conf
+
+curl -L https://github.com/luvres/workstation/blob/master/background.zip?raw=true -o ./background.zip
+unzip background.zip -d $HOME/Pictures
+rm background.zip
 
 echo 'hsetroot -fill $HOME/Pictures/background/arch-fantasy.png &' >>$HOME/.config/openbox/autostart
 
 cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 sed -i "/twm/s/twm &/exec openbox-session\n&/" $HOME/.xinitrc
 
+sudo systemctl enable NetworkManager
+
+
 sudo reboot
+
 
 
 ##########
