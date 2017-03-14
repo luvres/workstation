@@ -18,8 +18,6 @@ lsblk
 
 
 ### Install
-# curl http://desktop/Workstation/Arch/arch_install.sh | sh
-# curl https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh | sh
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh
 sh arch_install.sh [username] [password]
 
