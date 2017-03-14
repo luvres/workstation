@@ -37,9 +37,14 @@ mkdir -p $HOME/.config/openbox
 cp /etc/xdg/openbox/* $HOME/.config/openbox
 cp /etc/xdg/compton.conf.example $HOME/.config/compton.conf
 sed -i '/shadow/s/true/false/' $HOME/.config/compton.conf
+echo 'nitrogen --restore &' >>$HOME/.config/openbox/autostart
 echo 'xfce4-panel &' >>$HOME/.config/openbox/autostart
 echo 'compton -b &' >>$HOME/.config/openbox/autostart
 echo 'cairo-dock &' >>$HOME/.config/openbox/autostart
+
+
+echo 'hsetroot -fill $HOME/Pictures/background/arch-fantasy.png &' >>$HOME/.config/openbox/autostart
+
 cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 sed -i "/twm/s/twm &/exec openbox-session\n&/" $HOME/.xinitrc
 
