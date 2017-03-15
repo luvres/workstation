@@ -13,22 +13,14 @@ xorg-xinit xorg-twm xorg-xkill xterm xorg-xclock  xorg-xinput \
 xf86-video-vesa xf86-video-intel xf86-input-libinput ttf-dejavu alsa-utils \
 mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
 
-#############
-## Openbox ##
-#############
+###########
+## Xfce4 ##
+###########
 sudo pacman -S --noconfirm \
-openbox obconf lxappearance-obconf \
-thunar thunar-volman thunar-archive-plugin gvfs \
-xfce4-panel xfce4-terminal xfce4-power-manager xfce4-whiskermenu-plugin \
-xfce4-notifyd xfce4-pulseaudio-plugin \
-file-roller gmrun tumbler nitrogen oblogout parcellite python2-xdg \
-networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
-faenza-icon-theme gtk-engine-aurora macos-arc-white-theme mac-os-lion-cursors \
-wireless_tools wpa_supplicant dialog pulseaudio-alsa \
-cairo-dock cairo-dock-plug-ins mate-system-monitor \
-xarchiver gpicview leafpad chromium gftp youtube-dl
+xfce4 xfce4-goodies \
 
-
+firefox flashplugin chromium youtube-dl \
+leafpad gftp 
 
 sudo sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
 sudo sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
@@ -37,8 +29,41 @@ sudo sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.deskt
 # sudo nano /etc/makepkg.conf #line 63
 
 yaourt -S --noconfirm \
+google-chrome
+
 localepurge obkey-git compton-git gtk-theme-config wallpaper-archpaint2 \
 numix-circle-icon-theme-git engrampa-thunar
+
+
+
+sed -i "/startxfce4/s/#//" $HOME/.xinitrc
+
+
+
+#################
+#################
+#################
+sudo pacman -S --noconfirm \
+xfce4-whiskermenu-plugin xdg-user-dirs gvfs arc-gtk-theme arc-icon-theme \
+
+wireless_tools wpa_supplicant dialog pulseaudio-alsa \
+networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
+faenza-icon-theme gtk-engine-aurora macos-arc-white-theme mac-os-lion-cursors \
+cairo-dock cairo-dock-plug-ins \
+gvfs gvfs-smb gvfs-nfs gvfs-mtp gvfs-gphoto2 gvfs-afc \
+mtpfs ifuse exfat-utils ntfs-3g f2fs-tools \
+
+xarchiver gpicview leafpad chromium gftp youtube-dl \
+
+file-roller gmrun tumbler nitrogen oblogout parcellite python2-xdg
+
+screenfatch
+echo "screenfatch" >>$HOME/.bashrc
+
+neofetch
+echo "neofetch" >>$HOME/.bashrc
+
+#################
 
 mkdir -p $HOME/.config/openbox
 cp /etc/xdg/openbox/* $HOME/.config/openbox
