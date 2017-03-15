@@ -10,8 +10,8 @@ sudo pacman -Syyu
 sudo pacman -S --noconfirm \
 xorg-server xorg-server-devel xorg-server-utils xorg-server-xwayland \
 xorg-xinit xorg-twm xorg-xkill xterm xorg-xclock  xorg-xinput \
-xf86-video-vesa xf86-video-intel xf86-input-libinput \
-ttf-dejavu alsa-utils mesa
+xf86-video-vesa xf86-video-intel xf86-input-libinput ttf-dejavu alsa-utils \
+mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
 
 #############
 ## Openbox ##
@@ -21,12 +21,13 @@ openbox obconf lxappearance-obconf \
 thunar thunar-volman thunar-archive-plugin gvfs \
 xfce4-panel xfce4-terminal xfce4-power-manager xfce4-whiskermenu-plugin \
 xfce4-notifyd xfce4-pulseaudio-plugin \
-file-roller gmrun tumbler gpicview nitrogen oblogout parcellite python2-xdg \
+file-roller gmrun tumbler nitrogen oblogout parcellite python2-xdg \
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
-faenza-icon-theme archlinux-wallpaper gtk-engine-aurora \
-mate-system-monitor cairo-dock cairo-dock-plug-ins \
-wireless_tools wpa_supplicant dialog \
-pulseaudio-alsa xarchiver leafpad chromium gftp
+faenza-icon-theme gtk-engine-aurora macos-arc-white-theme mac-os-lion-cursors \
+wireless_tools wpa_supplicant dialog pulseaudio-alsa \
+xarchiver gpicview leafpad chromium gftp 
+cairo-dock cairo-dock-plug-ins mate-system-monitor
+
 
 sudo sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
 sudo sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
