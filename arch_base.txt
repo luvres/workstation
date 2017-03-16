@@ -7,7 +7,7 @@ ifconfig
 fdisk -l /dev/sda
 
 cfdisk /dev/sda
-[New]<Emter>[primary][Bootable]
+[New]<Enter>[primary][Bootable]
 
 
 ### mkfs

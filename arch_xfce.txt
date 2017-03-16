@@ -23,13 +23,10 @@ sudo su
 pacman -S --noconfirm \
 xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4 \
 xfce4-terminal thunar thunar-volman gvfs xfce4-power-manager lxappearance \
-xdg-user-dirs leafpad ristretto gksu gftp youtube-dl \
+mate-system-monitor xdg-user-dirs leafpad ristretto gksu gftp youtube-dl \
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 wireless_tools dialog pulseaudio-alsa \
-screenfetch 
-
-pacman -S --noconfirm \
-firefox flashplugin 
+screenfetch firefox flashplugin vlc qt4
 
 systemctl enable NetworkManager
 
@@ -59,6 +56,14 @@ sudo su
 curl -L https://github.com/luvres/workstation/blob/master/background.zip?raw=true -o ./background.zip
 unzip background.zip -d /usr/share/backgrounds
 rm background.zip
+
+## Plank
+pacman -S --noconfirm plank
+git clone https://github.com/mateuspv/plank-themes.git
+sudo cp -a plank-themes/themes/Translucent-Panel /usr/share/plank/themes/
+rm plank-themes/ -fR
+sudo cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
+
 
 <ctrl>d
 yaourt -S --noconfirm \
@@ -95,13 +100,6 @@ curl -L https://github.com/hbin/top-programming-fonts/blob/master/Menlo-Regular.
 # [x] Text selection color: #BFBFBF
 # [x] Bold text color: #000000
 
-## Plank
-pacman -S --noconfirm plank
-git clone https://github.com/mateuspv/plank-themes.git
-sudo cp -a plank-themes/themes/Translucent-Panel /usr/share/plank/themes/
-rm plank-themes/ -fR
-sudo cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
-
 
 sudo reboot
 
@@ -126,5 +124,28 @@ localepurge obkey-git compton-git gtk-theme-config wallpaper-archpaint2 \
 slim
 ## Congigure
 update-alternatives --config x-session-manager
+
+
+
+libdvdcss: for decoding encrypted DVDs
+lirc: for lirc plugin
+libdc1394: for IEEE 1394 plugin
+kdelibs: KDE Solid hardware integration
+libva-vdpau-driver: vdpau back-end for nvidia
+libva-intel-driver: back-end for intel cards
+libbluray: for Blu-Ray support [installed]
+portaudio: for portaudio support
+twolame: for TwoLAME mpeg2 encoder plugin
+projectm: for ProjectM visualisation plugin
+libcaca: for colored ASCII art video output
+libgme: for libgme plugin
+libgoom2: for libgoom plugin
+vcdimager: navigate VCD with libvcdinfo
+aalib: for ASCII art plugin
+libmtp: for MTP devices support
+smbclient: for SMB access plugin
+ttf-freefont: for subtitle font 
+opus: for opus support [installed]
+lua-socket: for http interface
 
 
