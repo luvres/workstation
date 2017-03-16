@@ -18,9 +18,11 @@ mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
 #############
 sudo pacman -S --noconfirm \
 openbox obconf lxappearance-obconf \
-thunar thunar-volman thunar-archive-plugin gvfs \
+thunar thunar-volman thunar-archive-plugin gvfs gksu \
+
 xfce4-panel xfce4-terminal xfce4-power-manager xfce4-whiskermenu-plugin \
 xfce4-notifyd xfce4-pulseaudio-plugin \
+
 file-roller gmrun tumbler nitrogen oblogout parcellite python2-xdg \
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 faenza-icon-theme gtk-engine-aurora macos-arc-white-theme mac-os-lion-cursors \
