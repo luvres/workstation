@@ -5,7 +5,7 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 sudo sh -c "echo '/swapfile none swap defaults 0 0' >>/etc/fstab"
 
-sudo pacman -Syyu
+sudo pacman -Syu
 
 sudo pacman -S --noconfirm \
 xorg-server xorg-server-devel xorg-server-utils xorg-server-xwayland \
@@ -17,10 +17,25 @@ mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
 ## Xfce4 ##
 ###########
 sudo pacman -S --noconfirm \
-xfce4 xfce4-goodies \
+xfce4 xfce4-goodies leafpad \
+slim slim-themes archlinux-themes-slim \
 
+sudo systemctl enable slim.service
+sudo sed -i '/#default_user/s/#//' /etc/slim.conf
+sudo sed -i "s/simone/$USER/" /etc/slim.conf
+sudo sed -i '/current_theme/s/default/archlinux-simplyblack/' /etc/slim.conf
+# sudo sed -i '/auto_login/s/#//' /etc/slim.conf
+# sudo sed -i '/auto_login/s/no/yes/' /etc/slim.conf
+
+cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
+sed -i 's/exec xterm/#exec xterm/' $HOME/.xinitrc
+echo 'exec startxfce4' >>$HOME/.xinitrc
+
+
+
+##########
 firefox flashplugin chromium youtube-dl \
-leafpad gftp 
+ gftp 
 
 sudo sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
 sudo sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
@@ -28,16 +43,13 @@ sudo sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
 sudo sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
 # sudo nano /etc/makepkg.conf #line 63
 
+
+
 yaourt -S --noconfirm \
 google-chrome
 
 localepurge obkey-git compton-git gtk-theme-config wallpaper-archpaint2 \
 numix-circle-icon-theme-git engrampa-thunar
-
-
-
-sed -i "/startxfce4/s/#//" $HOME/.xinitrc
-
 
 
 #################

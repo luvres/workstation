@@ -29,7 +29,6 @@ cairo-dock cairo-dock-plug-ins mate-system-monitor \
 xarchiver gpicview leafpad chromium gftp youtube-dl
 
 
-
 sudo sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
 sudo sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
 sudo sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
