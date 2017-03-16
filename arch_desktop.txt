@@ -3,6 +3,7 @@
 yaourt -S --noconfirm \
 engrampa-thunar numix-circle-icon-theme-git \
 mac-os-lion-cursors osx-el-capitan-theme-git
+google-chrome
 
 localectl set-x11-keymap br abnt2
 xdg-user-dirs-update
