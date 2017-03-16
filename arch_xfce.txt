@@ -29,7 +29,7 @@ sudo sed -i '/current_theme/s/default/archlinux-simplyblack/' /etc/slim.conf
 
 cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
 sed -i 's/exec xterm/#exec xterm/' $HOME/.xinitrc
-echo 'exec startxfce4' >>$HOME/.xinitrc
+sed -i "/twm/s/twm &/exec startxfce4\n&/" $HOME/.xinitrc
 
 
 
