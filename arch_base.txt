@@ -24,3 +24,8 @@ sh arch_install.sh [username] [password]
 reboot
 
 
+### XFCE
+sudo su
+curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_xfce.txt
+
+
