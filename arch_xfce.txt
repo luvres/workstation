@@ -22,7 +22,9 @@ xfce4 xfce4-goodies xdg-user-dirs leafpad youtube-dl gftp \
 slim slim-themes archlinux-themes-slim \
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 wireless_tools dialog pulseaudio-alsa \
-screenfetch neofetch
+gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb \
+screenfetch neofetch \
+firefox flashplugin 
 
 sudo systemctl enable NetworkManager
 
@@ -34,8 +36,10 @@ sudo systemctl enable slim.service
 sudo sed -i '/#default_user/s/#//' /etc/slim.conf
 sudo sed -i "s/simone/$USER/" /etc/slim.conf
 sudo sed -i '/current_theme/s/default/archlinux-simplyblack/' /etc/slim.conf
-sudo sed -i '/auto_login/s/#//' /etc/slim.conf
-sudo sed -i '/auto_login/s/no/yes/' /etc/slim.conf
+# sudo sed -i '/auto_login/s/#//' /etc/slim.conf
+# sudo sed -i '/auto_login/s/no/yes/' /etc/slim.conf
+## sudo sed -i 's/auto_login/#auto_login/' /etc/slim.conf
+## sudo sed -i '/auto_login/s/yes/no/' /etc/slim.conf
 
 sudo sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
 sudo sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
@@ -45,8 +49,8 @@ sudo sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.deskt
 
 yaourt -S --noconfirm \
 engrampa-thunar numix-circle-icon-theme-git \
-mac-os-lion-cursors osx-el-capitan-theme-git
-
+mac-os-lion-cursors osx-el-capitan-theme-git \
+google-chrome
 
 localectl set-x11-keymap br abnt2
 xdg-user-dirs-update
@@ -88,7 +92,7 @@ rm plank-themes/ -fR
 ########################################
 ########################################
 
-firefox flashplugin 
+
 chromium 
 
 yaourt -S \
@@ -99,7 +103,6 @@ sudo pacman -S --noconfirm \
 xdg-user-dirs gvfs arc-gtk-theme arc-icon-theme \
 faenza-icon-theme gtk-engine-aurora macos-arc-white-theme mac-os-lion-cursors \
 cairo-dock cairo-dock-plug-ins \
-gvfs gvfs-smb gvfs-nfs gvfs-mtp gvfs-gphoto2 gvfs-afc \
 mtpfs ifuse exfat-utils ntfs-3g f2fs-tools \
 xarchiver gpicview leafpad chromium gftp youtube-dl \
 file-roller gmrun tumbler nitrogen oblogout parcellite python2-xdg
