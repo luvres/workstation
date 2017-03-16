@@ -1,0 +1,78 @@
+### Configurations
+
+yaourt -S --noconfirm \
+engrampa-thunar numix-circle-icon-theme-git \
+mac-os-lion-cursors osx-el-capitan-theme-git
+
+localectl set-x11-keymap br abnt2
+xdg-user-dirs-update
+
+
+## Themes Mac OS X
+# Themes
+mkdir $HOME/.themes
+curl http://logico.com.ar/downloads/xosemite-gtk.tar.gz | tar -xzf - -C $HOME/.themes
+curl http://logico.com.ar/downloads/xosemite-xfce.tar.gz | tar -xzf - -C $HOME/.themes
+# Fonts
+mkdir $HOME/.fonts
+curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Bold.ttf?raw=true -o $HOME/.fonts/System\ San\ Francisco\ Display\ Bold.ttf
+curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Regular.ttf?raw=true -o $HOME/.fonts/System\ San\ Francisco\ Display\ Regular.ttf
+curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Thin.ttf?raw=true -o $HOME/.fonts/System\ San\ Francisco\ Display\ Thin.ttf
+curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Ultralight.ttf?raw=true -o $HOME/.fonts/System\ San\ Francisco\ Display\ Ultralight.ttf
+curl -L https://github.com/hbin/top-programming-fonts/blob/master/Menlo-Regular.ttf?raw=true -o $HOME/.fonts/Menlo-Regular.ttf
+# Text color: #000000
+# Background color: #FFFFFF 
+# Cursor color: #929292
+# Tab active color: #BFBFBF
+# [x] Text selection color: #BFBFBF
+# [x] Bold text color: #000000
+
+
+sudo reboot
+
+########################################
+########################################
+########################################
+########################################
+########################################
+pacman -S --noconfirm \
+gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb \
+mtpfs ifuse exfat-utils ntfs-3g f2fs-tools \
+faenza-icon-theme gtk-engine-aurora \
+macos-arc-white-theme mac-os-lion-cursors \
+cairo-dock cairo-dock-plug-ins \
+file-roller gmrun tumbler nitrogen oblogout parcellite python2-xdg
+
+yaourt  -S --noconfirm \
+localepurge obkey-git compton-git gtk-theme-config wallpaper-archpaint2 \
+google-chrome neofetch
+
+### Display Manager
+slim
+## Congigure
+update-alternatives --config x-session-manager
+
+
+
+libdvdcss: for decoding encrypted DVDs
+lirc: for lirc plugin
+libdc1394: for IEEE 1394 plugin
+kdelibs: KDE Solid hardware integration
+libva-vdpau-driver: vdpau back-end for nvidia
+libva-intel-driver: back-end for intel cards
+libbluray: for Blu-Ray support [installed]
+portaudio: for portaudio support
+twolame: for TwoLAME mpeg2 encoder plugin
+projectm: for ProjectM visualisation plugin
+libcaca: for colored ASCII art video output
+libgme: for libgme plugin
+libgoom2: for libgoom plugin
+vcdimager: navigate VCD with libvcdinfo
+aalib: for ASCII art plugin
+libmtp: for MTP devices support
+smbclient: for SMB access plugin
+ttf-freefont: for subtitle font 
+opus: for opus support [installed]
+lua-socket: for http interface
+
+

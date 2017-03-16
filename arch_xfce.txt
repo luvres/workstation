@@ -1,12 +1,12 @@
 ### Swap File
-sudo su
+# sudo su
 dd if=/dev/zero of=/swapfile bs=1M count=4096
 chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
 sh -c "echo '/swapfile none swap defaults 0 0' >>/etc/fstab"
 
-pacman -Syu
+pacman -Syu --noconfirm
 
 pacman -S --noconfirm \
 xorg-server xorg-server-devel xorg-server-utils xorg-server-xwayland \
@@ -19,7 +19,7 @@ mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
 ## Xfce4 ##
 ###########
 # xfce4-appfinder xfwm4-themes
-sudo su
+# sudo su
 pacman -S --noconfirm \
 xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4 \
 xfce4-terminal thunar thunar-volman gvfs xfce4-power-manager lxappearance \
@@ -31,8 +31,7 @@ screenfetch firefox flashplugin vlc qt4
 systemctl enable NetworkManager
 
 ## Slim
-`users` | awk '{print $1}'
-sudo su
+# sudo su
 pacman -S --noconfirm slim slim-themes archlinux-themes-slim
 systemctl enable slim.service
 sed -i '/#default_user/s/#//' /etc/slim.conf
@@ -44,7 +43,7 @@ sed -i '/current_theme/s/default/archlinux-simplyblack/' /etc/slim.conf
 ## sed -i '/auto_login/s/yes/no/' /etc/slim.conf
 
 ## Makepkg
-sudo su
+# sudo su
 sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
 sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
 sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
@@ -52,7 +51,7 @@ sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
 # nano /etc/makepkg.conf #line 63
 
 ## Background
-sudo su
+# sudo su
 curl -L https://github.com/luvres/workstation/blob/master/background.zip?raw=true -o ./background.zip
 unzip background.zip -d /usr/share/backgrounds
 rm background.zip
@@ -64,88 +63,10 @@ sudo cp -a plank-themes/themes/Translucent-Panel /usr/share/plank/themes/
 rm plank-themes/ -fR
 sudo cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
 
+cp /etc/X11/xinit/xinitrc /home/`users | awk '{print $1}'`/.xinitrc
+sed -i 's/exec xterm/#exec xterm/' /home/`users | awk '{print $1}'`/.xinitrc
+sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`users | awk '{print $1}'`/.xinitrc
 
-<ctrl>d
-yaourt -S --noconfirm \
-engrampa-thunar numix-circle-icon-theme-git \
-mac-os-lion-cursors osx-el-capitan-theme-git
-
-yaourt -S --noconfirm \
-google-chrome neofetch
-
-cp /etc/X11/xinit/xinitrc $HOME/.xinitrc
-sed -i 's/exec xterm/#exec xterm/' $HOME/.xinitrc
-sed -i "/twm/s/twm &/exec startxfce4\n&/" $HOME/.xinitrc
-
-localectl set-x11-keymap br abnt2
-xdg-user-dirs-update
-
-
-## Themes Mac OS X
-# Themes
-mkdir $HOME/.themes
-curl http://logico.com.ar/downloads/xosemite-gtk.tar.gz | tar -xzf - -C $HOME/.themes
-curl http://logico.com.ar/downloads/xosemite-xfce.tar.gz | tar -xzf - -C $HOME/.themes
-# Fonts
-mkdir $HOME/.fonts
-curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Bold.ttf?raw=true -o $HOME/.fonts/System\ San\ Francisco\ Display\ Bold.ttf
-curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Regular.ttf?raw=true -o $HOME/.fonts/System\ San\ Francisco\ Display\ Regular.ttf
-curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Thin.ttf?raw=true -o $HOME/.fonts/System\ San\ Francisco\ Display\ Thin.ttf
-curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Ultralight.ttf?raw=true -o $HOME/.fonts/System\ San\ Francisco\ Display\ Ultralight.ttf
-curl -L https://github.com/hbin/top-programming-fonts/blob/master/Menlo-Regular.ttf?raw=true -o $HOME/.fonts/Menlo-Regular.ttf
-# Text color: #000000
-# Background color: #FFFFFF 
-# Cursor color: #929292
-# Tab active color: #BFBFBF
-# [x] Text selection color: #BFBFBF
-# [x] Bold text color: #000000
-
-
-sudo reboot
-
-########################################
-########################################
-########################################
-########################################
-########################################
-pacman -S --noconfirm \
-gvfs gvfs-afc gvfs-gphoto2 gvfs-mtp gvfs-nfs gvfs-smb \
-mtpfs ifuse exfat-utils ntfs-3g f2fs-tools \
-faenza-icon-theme gtk-engine-aurora \
-macos-arc-white-theme mac-os-lion-cursors \
-cairo-dock cairo-dock-plug-ins \
-file-roller gmrun tumbler nitrogen oblogout parcellite python2-xdg
-
-yaourt -S \
-localepurge obkey-git compton-git gtk-theme-config wallpaper-archpaint2 \
-
-
-### Display Manager
-slim
-## Congigure
-update-alternatives --config x-session-manager
-
-
-
-libdvdcss: for decoding encrypted DVDs
-lirc: for lirc plugin
-libdc1394: for IEEE 1394 plugin
-kdelibs: KDE Solid hardware integration
-libva-vdpau-driver: vdpau back-end for nvidia
-libva-intel-driver: back-end for intel cards
-libbluray: for Blu-Ray support [installed]
-portaudio: for portaudio support
-twolame: for TwoLAME mpeg2 encoder plugin
-projectm: for ProjectM visualisation plugin
-libcaca: for colored ASCII art video output
-libgme: for libgme plugin
-libgoom2: for libgoom plugin
-vcdimager: navigate VCD with libvcdinfo
-aalib: for ASCII art plugin
-libmtp: for MTP devices support
-smbclient: for SMB access plugin
-ttf-freefont: for subtitle font 
-opus: for opus support [installed]
-lua-socket: for http interface
+reboot
 
 
