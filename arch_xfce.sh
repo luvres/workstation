@@ -29,7 +29,7 @@ lxappearance mate-system-monitor xdg-user-dirs leafpad ristretto gksu gftp youtu
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 wireless_tools dialog pulseaudio-alsa \
 screenfetch firefox flashplugin vlc qt4 \
-gimp libreoffice-fresh qt5-base qtcreator
+libreoffice-fresh gimp qt5-base qtcreator
 
 systemctl enable NetworkManager
 
