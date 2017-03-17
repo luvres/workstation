@@ -68,6 +68,7 @@ sudo cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/th
 cp /etc/X11/xinit/xinitrc /home/`users | awk '{print $1}'`/.xinitrc
 sed -i 's/exec xterm/#exec xterm/' /home/`users | awk '{print $1}'`/.xinitrc
 sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`users | awk '{print $1}'`/.xinitrc
+echo "plank &" >>/home/`users | awk '{print $1}'`/.xinitrc
 chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.xinitrc
 
 ## Mac OS X Themes
