@@ -28,7 +28,8 @@ xfce4-terminal thunar thunar-volman gvfs xfce4-power-manager xfce4-pulseaudio-pl
 lxappearance mate-system-monitor xdg-user-dirs leafpad ristretto gksu gftp youtube-dl \
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 wireless_tools dialog pulseaudio-alsa \
-screenfetch firefox flashplugin vlc qt4
+screenfetch firefox flashplugin vlc qt4 \
+gimp libreoffice-fresh qt5-base qtcreator
 
 systemctl enable NetworkManager
 
