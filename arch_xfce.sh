@@ -68,12 +68,14 @@ sudo cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/th
 cp /etc/X11/xinit/xinitrc /home/`users | awk '{print $1}'`/.xinitrc
 sed -i 's/exec xterm/#exec xterm/' /home/`users | awk '{print $1}'`/.xinitrc
 sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`users | awk '{print $1}'`/.xinitrc
+chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.xinitrc
 
 ## Mac OS X Themes
 # Themes
 mkdir /home/`users | awk '{print $1}'`/.themes
 curl http://logico.com.ar/downloads/xosemite-gtk.tar.gz | tar -xzf - -C /home/`users | awk '{print $1}'`/.themes
 curl http://logico.com.ar/downloads/xosemite-xfce.tar.gz | tar -xzf - -C /home/`users | awk '{print $1}'`/.themes
+chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.themes
 # Fonts
 mkdir /home/`users | awk '{print $1}'`/.fonts
 curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Bold.ttf?raw=true -o /home/`users | awk '{print $1}'`/.fonts/System\ San\ Francisco\ Display\ Bold.ttf
@@ -81,6 +83,7 @@ curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/Syste
 curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Thin.ttf?raw=true -o /home/`users | awk '{print $1}'`/.fonts/System\ San\ Francisco\ Display\ Thin.ttf
 curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Ultralight.ttf?raw=true -o /home/`users | awk '{print $1}'`/.fonts/System\ San\ Francisco\ Display\ Ultralight.ttf
 curl -L https://github.com/hbin/top-programming-fonts/blob/master/Menlo-Regular.ttf?raw=true -o /home/`users | awk '{print $1}'`/.fonts/Menlo-Regular.ttf
+chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.fonts
 
 reboot
 
