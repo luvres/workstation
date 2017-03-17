@@ -71,6 +71,16 @@ sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`users | awk '{print $1}'`/.xini
 echo "plank &" >>/home/`users | awk '{print $1}'`/.xinitrc
 chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.xinitrc
 
+## Virtualbox
+pacman -S virtualbox linux-headers
+gpasswd -a $USER vboxusers
+sudo sh -c "echo 'vboxdrv' >>/etc/modules-load.d/virtualbox.conf"
+sudo sh -c "echo 'vboxnetadp' >>/etc/modules-load.d/virtualbox.conf"
+sudo sh -c "echo 'vboxnetflt' >>/etc/modules-load.d/virtualbox.conf"
+# http://download.virtualbox.org/virtualbox/
+# depmod -a
+# modprobe -a vboxnetadp vboxnetflt
+
 ## Mac OS X Themes
 # Themes
 mkdir /home/`users | awk '{print $1}'`/.themes
