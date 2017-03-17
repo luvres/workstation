@@ -5,8 +5,8 @@ engrampa-thunar numix-circle-icon-theme-git \
 mac-os-lion-cursors osx-el-capitan-theme-git \
 thunar-split
 
-localectl set-x11-keymap br abnt2
-xdg-user-dirs-update
+# localectl set-x11-keymap br abnt2
+# xdg-user-dirs-update
 
 ## Themes Mac OS X
 # Text color: #000000
