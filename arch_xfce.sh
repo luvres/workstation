@@ -73,7 +73,7 @@ chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.xinitrc
 
 ## Virtualbox
 pacman -S virtualbox linux-headers
-gpasswd -a $USER vboxusers
+gpasswd -a `users | awk '{print $1}'` vboxusers
 sudo sh -c "echo 'vboxdrv' >>/etc/modules-load.d/virtualbox.conf"
 sudo sh -c "echo 'vboxnetadp' >>/etc/modules-load.d/virtualbox.conf"
 sudo sh -c "echo 'vboxnetflt' >>/etc/modules-load.d/virtualbox.conf"
