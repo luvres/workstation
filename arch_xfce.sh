@@ -78,7 +78,6 @@ _networkmanager(){
   wireless_tools dialog pulseaudio-alsa
 }
 
-
 ## Packages
 _packages(){
   gftp youtube-dl screenfetch octopi \
@@ -172,7 +171,24 @@ _macosx(){
 }
 
 
+if [[ $1 == "xorg" ]]; then
+  _swapfile
+  _xorgMinimal
+  _makepkg
+fi
+
 if [[ $1 == "xfce" ]]; then
+  _xfce4
+  _thunar
+  _networkmanager
+  _sddm
+  _background
+  _plank
+  _virtualbox
+  _macosx
+fi
+
+if [[ $1 == "xfce4" ]]; then
   _swapfile
   _xorgMinimal
   _xfce4
@@ -188,5 +204,4 @@ fi
 
 
 reboot
-
 
