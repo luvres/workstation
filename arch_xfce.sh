@@ -93,6 +93,10 @@ libreoffice-fresh gimp qt5-base qtcreator
 
 systemctl enable NetworkManager
 
+## sddm
+pacman -S --noconfirm sddm
+systemctl enable sddm.service
+
 ## Slim
 # sudo su
 #pacman -S --noconfirm slim slim-themes archlinux-themes-slim
