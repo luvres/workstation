@@ -58,6 +58,10 @@ _xfce4(){
   # Core
   pacman -S --noconfirm \
   xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4
+  # cp /etc/X11/xinit/xinitrc /home/`users | awk '{print $1}'`/.xinitrc
+  # sed -i 's/exec xterm/#exec xterm/' /home/`users | awk '{print $1}'`/.xinitrc
+  # sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`users | awk '{print $1}'`/.xinitrc
+  echo "exec startxfce4 &" >>/home/`users | awk '{print $1}'`/.xinitrc
 
   # Packages base
   pacman -S --noconfirm \
@@ -131,13 +135,10 @@ _background(){
 _plank(){
   pacman -S --noconfirm plank
   git clone https://github.com/mateuspv/plank-themes.git
-  sudo cp -a plank-themes/themes/Translucent-Panel /usr/share/plank/themes/
+  cp -a plank-themes/themes/Translucent-Panel /usr/share/plank/themes/
   rm plank-themes/ -fR
-  sudo cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
+  cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
 
-  cp /etc/X11/xinit/xinitrc /home/`users | awk '{print $1}'`/.xinitrc
-  sed -i 's/exec xterm/#exec xterm/' /home/`users | awk '{print $1}'`/.xinitrc
-  sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`users | awk '{print $1}'`/.xinitrc
   echo "plank &" >>/home/`users | awk '{print $1}'`/.xinitrc
   chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.xinitrc
 }
