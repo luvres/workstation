@@ -55,6 +55,13 @@ xf86-input-keyboard xf86-input-mouse
 ## Video drivers
 virtualbox-guest-utils
 
+## Xorg
+#pacman -S --noconfirm \
+#xorg-server xorg-server-devel xorg-server-utils xorg-server-xwayland \
+#xorg-xinit xorg-twm xorg-xkill xterm xorg-xclock xorg-xinput \
+#xf86-video-vesa xf86-video-intel xf86-input-libinput \
+#ttf-dejavu ttf-liberation alsa-utils \
+#mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
 
 
 ########################################
