@@ -172,6 +172,21 @@ _macosx(){
 }
 
 
+if [[ $1 == "xfce" ]]; then
+  _swapfile
+  _xorgMinimal
+  _xfce4
+  _thunar
+  _networkmanager
+  _sddm
+  _makepkg
+  _background
+  _plank
+  _virtualbox
+  _macosx
+fi
+
+
 reboot
 
 
