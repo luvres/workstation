@@ -34,6 +34,10 @@ sh arch_xfce.sh xfce
 
 sh arch_xfce.sh xfce4
 
+sh arch_xfce.sh packages
+
+sh arch_xfce.sh virtualbox
+
 
 ## arch_desktop.txt
 
