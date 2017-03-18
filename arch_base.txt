@@ -27,7 +27,13 @@ reboot
 ### XFCE
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_xfce.sh
-sh arch_xfce.sh [ xorg , xfce , xfce4 ]
+
+sh arch_xfce.sh xorg
+
+sh arch_xfce.sh xfce
+
+sh arch_xfce.sh xfce4
+
 
 ## arch_desktop.txt
 
