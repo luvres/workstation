@@ -199,8 +199,9 @@ if [[ $1 == "xfce4" ]]; then
   _makepkg
   _background
   _plank
-  _virtualbox
   _macosx
+  _packages
+  _virtualbox
 fi
 
 if [[ $1 == "packages" ]]; then
