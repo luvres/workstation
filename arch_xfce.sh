@@ -20,7 +20,6 @@ pacman -Syu --noconfirm
 #ttf-dejavu ttf-liberation alsa-utils \
 #mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
 
-
 ####################
 ### Xorg Minimal ###
 ####################
