@@ -186,7 +186,6 @@ if [[ $1 == "xfce" ]]; then
   _sddm
   _background
   _plank
-  _virtualbox
   _macosx
 fi
 
@@ -202,6 +201,14 @@ if [[ $1 == "xfce4" ]]; then
   _plank
   _virtualbox
   _macosx
+fi
+
+if [[ $1 == "packages" ]]; then
+  _packages
+fi
+
+if [[ $1 == "virtualbox" ]]; then
+  _virtualbox
 fi
 
 
