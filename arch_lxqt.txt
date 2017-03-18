@@ -1,0 +1,20 @@
+############
+### LXQt ###
+############
+pacman -S --noconfirm \
+lxqt lxappearance connman sddm libpulse
+
+systemctl enable sddm.service
+
+yaourt -S --noconfirm \
+lxqt-connman-applet-git lximage-qt obconf-qt
+
+
+## VirtualBox Guest
+pacman -S --noconfirm virtualbox-guest-utils
+echo "vboxguest" >>/etc/modules-load.d/virtualbox.conf
+echo "vboxsf" >>/etc/modules-load.d/virtualbox.conf
+echo "vboxvideo" >>/etc/modules-load.d/virtualbox.conf
+
+
+reboot

@@ -2,6 +2,7 @@
 
 ### Swap File
 # sudo su
+# dd if=/dev/zero of=/swapfile bs=1M count=512
 dd if=/dev/zero of=/swapfile bs=1M count=4096
 chmod 600 /swapfile
 mkswap /swapfile
@@ -9,6 +10,7 @@ swapon /swapfile
 echo '/swapfile none swap defaults 0 0' >>/etc/fstab
 
 sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
+sed -i '/Color/s/#//' /etc/pacman.conf
 pacman -Syu --noconfirm
 
 pacman -S --noconfirm \
@@ -17,6 +19,7 @@ xorg-xinit xorg-twm xorg-xkill xterm xorg-xclock xorg-xinput \
 xf86-video-vesa xf86-video-intel xf86-input-libinput \
 ttf-dejavu ttf-liberation alsa-utils \
 mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
+
 
 ###########
 ## Xfce4 ##
@@ -31,7 +34,7 @@ xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4
 # Packages base
 pacman -S --noconfirm \
 xfce4-power-manager xfce4-pulseaudio-plugin \
-lxappearance mate-system-monitor gksu \
+lxappearance gnome-system-monitor gksu \
 xfce4-terminal ristretto leafpad
 
 # Thunar

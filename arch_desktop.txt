@@ -1,9 +1,18 @@
 ### Configurations
 
+# Themes
 yaourt -S --noconfirm \
-engrampa-thunar numix-circle-icon-theme-git \
-mac-os-lion-cursors osx-el-capitan-theme-git \
-thunar-split
+numix-circle-icon-theme-git \
+mac-os-lion-cursors osx-el-capitan-theme-git
+
+faenza-icon-theme \
+gtk-engine-aurora \
+
+
+# Thunar
+yaourt -S --noconfirm \
+engrampa-thunar thunar-split
+
 
 # localectl set-x11-keymap br abnt2
 # xdg-user-dirs-update
@@ -16,7 +25,7 @@ thunar-split
 # [x] Text selection color: #BFBFBF
 # [x] Bold text color: #000000
 
-
+# xterm -fa "Menlo:size=10" -fg black -cr rgb:92/92/92
 ########################################
 ########################################
 ########################################
