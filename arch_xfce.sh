@@ -74,17 +74,19 @@ _thunar(){
 
 ## NetworkManager
 _networkmanager(){
+  pacman -S --noconfirm \
   networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
   wireless_tools dialog pulseaudio-alsa
+
+  systemctl enable NetworkManager
 }
 
 ## Packages
 _packages(){
+  pacman -S --noconfirm \
   gftp youtube-dl screenfetch octopi \
   firefox flashplugin vlc qt4 \
   libreoffice-fresh gimp qt5-base qtcreator
-
-  systemctl enable NetworkManager
 }
 
 ## sddm
@@ -142,7 +144,7 @@ _plank(){
 
 ## Virtualbox
 _virtualbox(){
-  pacman -S virtualbox linux-headers
+  pacman -S virtualbox linux-headers playonlinux
   gpasswd -a `users | awk '{print $1}'` vboxusers
   sudo sh -c "echo 'vboxdrv' >>/etc/modules-load.d/virtualbox.conf"
   sudo sh -c "echo 'vboxnetadp' >>/etc/modules-load.d/virtualbox.conf"
