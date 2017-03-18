@@ -69,6 +69,7 @@ _xfce4(){
   xfce4-power-manager xfce4-pulseaudio-plugin \
   lxappearance gnome-system-monitor gksu \
   xfce4-terminal ristretto leafpad chromium
+  sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
 }
 
 ## Thunar
@@ -120,7 +121,6 @@ _makepkg(){
   sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
   sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
   sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
-  sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
   # nano /etc/makepkg.conf #line 63
 }
 
