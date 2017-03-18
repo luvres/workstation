@@ -5,8 +5,8 @@ yaourt -S --noconfirm \
 numix-circle-icon-theme-git \
 mac-os-lion-cursors osx-el-capitan-theme-git
 
-faenza-icon-theme \
-gtk-engine-aurora \
+yaourt -S --noconfirm \
+faenza-icon-theme gtk-engine-aurora
 
 
 # Thunar
