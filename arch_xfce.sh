@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ $# -ne 1 ]; then
+  echo ""
+  echo "   sh arch_xfce.sh [xfce]"
+  echo ""
+  exit 1
+fi
+
 ### Swap File
 # sudo su
 # dd if=/dev/zero of=/swapfile bs=1M count=512
@@ -50,6 +57,7 @@ cups ghostscript cups-pdf
 
 systemctl enable org.cups.cupsd
 
+if [[ $1 == "xfce" ]]; then
 
 ###########
 ## Xfce4 ##
@@ -75,6 +83,9 @@ thunar thunar-volman gvfs xdg-user-dirs
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 wireless_tools dialog pulseaudio-alsa \
 
+fi
+
+
 ## Packages
 gftp youtube-dl screenfetch octopi \
 firefox flashplugin vlc qt4 \
@@ -84,11 +95,12 @@ systemctl enable NetworkManager
 
 ## Slim
 # sudo su
-pacman -S --noconfirm slim slim-themes archlinux-themes-slim
-systemctl enable slim.service
-sed -i '/#default_user/s/#//' /etc/slim.conf
-sed -i "s/simone/`users | awk '{print $1}'`/" /etc/slim.conf
-sed -i '/current_theme/s/default/archlinux-simplyblack/' /etc/slim.conf
+#pacman -S --noconfirm slim slim-themes archlinux-themes-slim
+#systemctl enable slim.service
+#sed -i '/#default_user/s/#//' /etc/slim.conf
+#sed -i "s/simone/`users | awk '{print $1}'`/" /etc/slim.conf
+#sed -i '/current_theme/s/default/archlinux-simplyblack/' /etc/slim.conf
+##
 # sed -i '/auto_login/s/#//' /etc/slim.conf
 # sed -i '/auto_login/s/no/yes/' /etc/slim.conf
 ## sed -i 's/auto_login/#auto_login/' /etc/slim.conf
