@@ -63,7 +63,7 @@ _xfce4(){
   pacman -S --noconfirm \
   xfce4-power-manager xfce4-pulseaudio-plugin \
   lxappearance gnome-system-monitor gksu \
-  xfce4-terminal ristretto leafpad
+  xfce4-terminal ristretto leafpad chromium
 }
 
 ## Thunar
