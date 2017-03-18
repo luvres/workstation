@@ -23,13 +23,28 @@ mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
 ###########
 # xfce4-appfinder xfwm4-themes 
 # sudo su
+
+# Core
 pacman -S --noconfirm \
-xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4 \
-xfce4-terminal thunar thunar-volman gvfs xfce4-power-manager xfce4-pulseaudio-plugin \
-lxappearance mate-system-monitor xdg-user-dirs leafpad ristretto gksu gftp youtube-dl \
+xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4
+
+# Packages base
+pacman -S --noconfirm \
+xfce4-power-manager xfce4-pulseaudio-plugin \
+lxappearance mate-system-monitor gksu \
+xfce4-terminal ristretto leafpad
+
+# Thunar
+pacman -S --noconfirm \
+thunar thunar-volman gvfs xdg-user-dirs
+
+# Network
 networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
 wireless_tools dialog pulseaudio-alsa \
-screenfetch firefox flashplugin vlc qt4 \
+
+## Packages
+gftp youtube-dl screenfetch octopi \
+firefox flashplugin vlc qt4 \
 libreoffice-fresh gimp qt5-base qtcreator
 
 systemctl enable NetworkManager
