@@ -6,8 +6,9 @@ dd if=/dev/zero of=/swapfile bs=1M count=4096
 chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
-sh -c "echo '/swapfile none swap defaults 0 0' >>/etc/fstab"
+echo '/swapfile none swap defaults 0 0' >>/etc/fstab
 
+sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
 pacman -Syu --noconfirm
 
 pacman -S --noconfirm \
