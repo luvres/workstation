@@ -27,6 +27,35 @@ engrampa-thunar thunar-split
 
 # xterm -fa "Menlo:size=10" -fg black -cr rgb:92/92/92
 # xterm -fa "Menlo:size=10" -fg rgb:00/00/00 -cr rgb:92/92/92 -geometry 99x24+80300
+
+yaourt -Syua # Upgrade with yaourt
+pacman -Syu # Upgrade
+pacman -Rns $(pacman -Qqtd) # Clean orphan
+pacman -Sc # Clean cache
+
+
+## Sound
+alsa-utils alsa-plugins pulseaudio pulseaudio-alsa
+
+## Print
+cups ghostscript cups-pdf
+systemctl enable org.cups.cupsd
+
+## Xorg
+xorg-server xorg-xinit xorg-utils
+
+## Fonts
+artwiz-fonts font-bh-ttf font-bitstream-speedo gsfonts sdl_ttf \
+ttf-bitstream-vera ttf-cheapskate ttf-dejavu ttf-liberation xorg-fonts-type1
+
+## Input Drivers
+xf86-input-keyboard xf86-input-mouse
+
+## Video drivers
+virtualbox-guest-utils
+
+
+
 ########################################
 ########################################
 ########################################
