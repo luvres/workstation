@@ -28,6 +28,7 @@ engrampa-thunar thunar-split
 # xterm -fa "Menlo:size=10" -fg black -cr rgb:92/92/92
 # xterm -fa "Menlo:size=10" -fg rgb:00/00/00 -cr rgb:92/92/92 -geometry 99x24+80300
 
+## AUR
 yaourt -Syua # Upgrade with yaourt
 pacman -Syu # Upgrade
 pacman -Rns $(pacman -Qqtd) # Clean orphan
