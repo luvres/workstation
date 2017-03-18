@@ -76,7 +76,7 @@ _thunar(){
 _networkmanager(){
   pacman -S --noconfirm \
   networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
-  wireless_tools dialog pulseaudio-alsa
+  wireless_tools dialog
 
   systemctl enable NetworkManager
 }
