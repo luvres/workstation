@@ -13,12 +13,43 @@ sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
 sed -i '/Color/s/#//' /etc/pacman.conf
 pacman -Syu --noconfirm
 
+#pacman -S --noconfirm \
+#xorg-server xorg-server-devel xorg-server-utils xorg-server-xwayland \
+#xorg-xinit xorg-twm xorg-xkill xterm xorg-xclock xorg-xinput \
+#xf86-video-vesa xf86-video-intel xf86-input-libinput \
+#ttf-dejavu ttf-liberation alsa-utils \
+#mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
+
+
+####################
+### Xorg Minimal ###
+####################
 pacman -S --noconfirm \
-xorg-server xorg-server-devel xorg-server-utils xorg-server-xwayland \
-xorg-xinit xorg-twm xorg-xkill xterm xorg-xclock xorg-xinput \
-xf86-video-vesa xf86-video-intel xf86-input-libinput \
-ttf-dejavu ttf-liberation alsa-utils \
-mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
+xorg-server xorg-xinit xorg-utils
+
+## Sound
+pacman -S --noconfirm \
+alsa-utils alsa-plugins pulseaudio pulseaudio-alsa
+
+## Input Drivers
+pacman -S --noconfirm \
+xf86-input-keyboard xf86-input-mouse
+
+## Video drivers
+pacman -S --noconfirm \
+xf86-video-vesa xf86-video-intel
+#virtualbox-guest-utils
+
+## Fonts
+pacman -S --noconfirm \
+artwiz-fonts font-bh-ttf font-bitstream-speedo gsfonts sdl_ttf \
+ttf-bitstream-vera ttf-cheapskate ttf-dejavu ttf-liberation xorg-fonts-type1
+
+## Print
+pacman -S --noconfirm \
+cups ghostscript cups-pdf
+
+systemctl enable org.cups.cupsd
 
 
 ###########
