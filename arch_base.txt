@@ -29,14 +29,11 @@ sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_xfce.sh
 
 sh arch_xfce.sh xorg
-
 sh arch_xfce.sh xfce
+sh arch_xfce.sh packages
+sh arch_xfce.sh virtualbox
 
 sh arch_xfce.sh xfce4
-
-sh arch_xfce.sh packages
-
-sh arch_xfce.sh virtualbox
 
 
 ### arch_desktop.txt
