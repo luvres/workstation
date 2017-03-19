@@ -2,7 +2,7 @@
 
 if [ $# -ne 1 ]; then
   echo ""
-  echo "   sh arch_xfce.sh [ xorg , xfce , xfce4 , packages , virtualbox ]"
+  echo "   sh arch_xfce.sh [ xorg , xfce , xfce4 , packages , virtualbox , development ]"
   echo ""
   exit 1
 fi
@@ -113,7 +113,13 @@ _packages(){
   pacman -S --noconfirm \
   gftp youtube-dl screenfetch \
   firefox flashplugin vlc qt4 \
-  libreoffice-fresh gimp qt5-base qtcreator
+  libreoffice-fresh gimp blender
+}
+
+## Development
+_development(){
+  pacman -S --noconfirm \
+  qt5-base qtcreator eclipse-jee netbeans arduino atom
 }
 
 ## sddm
@@ -208,6 +214,10 @@ if [[ $1 == "virtualbox" ]]; then
   _virtualbox
 fi
 
+if [[ $1 == "development" ]]; then
+  _development
+fi
+
 if [[ $1 == "xfce4" ]]; then
   _swapfile
   _bashrc
@@ -222,5 +232,6 @@ if [[ $1 == "xfce4" ]]; then
   _macosx
   _packages
   _virtualbox
+  _development
 fi
 
