@@ -187,26 +187,26 @@ if [[ $1 == "xfce" ]]; then
   _macosx
 fi
 
-if [[ $1 == "xfce4" ]]; then
-  _swapfile
-  _xorgMinimal
-  _xfce4
-  _thunar
-  _networkmanager
-  _sddm
-  _makepkg
-  _background
-  _plank
-  _macosx
-  _packages
-  _virtualbox
-fi
-
 if [[ $1 == "packages" ]]; then
   _packages
 fi
 
 if [[ $1 == "virtualbox" ]]; then
+  _virtualbox
+fi
+
+if [[ $1 == "xfce4" ]]; then
+  _swapfile
+  _xorgMinimal
+  _makepkg
+  _xfce4
+  _thunar
+  _networkmanager
+  _sddm
+  _background
+  _plank
+  _macosx
+  _packages
   _virtualbox
 fi
 
