@@ -1,5 +1,7 @@
 ### Configurations
 
+sudo nano /etc/makepkg.conf #line 63
+
 # Themes
 yaourt -S --noconfirm \
 numix-circle-icon-theme-git \
