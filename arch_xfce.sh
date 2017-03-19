@@ -21,6 +21,13 @@ _swapfile(){
   pacman -Syu --noconfirm
 }
 
+## Bashrc
+_bashrc(){
+  curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C /home/`ls /home/`/
+  echo '' >>/home/`ls /home/`/.bashrc
+  echo screenfetch >>/home/`ls /home/`/.bashrc
+}
+
 ## Xorg Minimal
 _xorgMinimal(){
   # Xorg
@@ -173,6 +180,7 @@ _macosx(){
 
 if [[ $1 == "xorg" ]]; then
   _swapfile
+  _bashrc
   _xorgMinimal
   _makepkg
 fi
@@ -197,6 +205,7 @@ fi
 
 if [[ $1 == "xfce4" ]]; then
   _swapfile
+  _bashrc
   _xorgMinimal
   _makepkg
   _xfce4
@@ -209,5 +218,4 @@ if [[ $1 == "xfce4" ]]; then
   _packages
   _virtualbox
 fi
-
 
