@@ -61,7 +61,7 @@ _xfce4(){
   # cp /etc/X11/xinit/xinitrc /home/`users | awk '{print $1}'`/.xinitrc
   # sed -i 's/exec xterm/#exec xterm/' /home/`users | awk '{print $1}'`/.xinitrc
   # sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`users | awk '{print $1}'`/.xinitrc
-  echo "exec startxfce4 &" >>/home/`users | awk '{print $1}'`/.xinitrc
+  echo "exec startxfce4 &" >/home/`users | awk '{print $1}'`/.xinitrc
   chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.xinitrc
 
   # Packages base
