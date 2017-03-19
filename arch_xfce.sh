@@ -9,7 +9,6 @@ fi
 
 ## Swap File
 _swapfile(){
-  # sudo su
   # dd if=/dev/zero of=/swapfile bs=1M count=512
   dd if=/dev/zero of=/swapfile bs=1M count=4096
   chmod 600 /swapfile
@@ -55,7 +54,6 @@ _xorgMinimal(){
 
 ## Makepkg
 _makepkg(){
-  # sudo su
   sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
   sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
   sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
@@ -126,7 +124,6 @@ _slim(){
 
 ## Background
 _background(){
-  # sudo su
   curl -L https://github.com/luvres/workstation/blob/master/background.zip?raw=true -o ./background.zip
   unzip background.zip -d /usr/share/backgrounds
   rm background.zip
@@ -148,9 +145,8 @@ _plank(){
 _virtualbox(){
   pacman -S virtualbox linux-headers playonlinux
   gpasswd -a `ls /home/` vboxusers
-  sudo sh -c "echo 'vboxdrv' >>/etc/modules-load.d/virtualbox.conf"
-  sudo sh -c "echo 'vboxnetadp' >>/etc/modules-load.d/virtualbox.conf"
-  sudo sh -c "echo 'vboxnetflt' >>/etc/modules-load.d/virtualbox.conf"
+  echo 'vboxnetadp' >>/etc/modules-load.d/virtualbox.conf
+  echo 'vboxnetflt' >>/etc/modules-load.d/virtualbox.conf
   # http://download.virtualbox.org/virtualbox/
   # depmod -a
   # modprobe -a vboxnetadp vboxnetflt
