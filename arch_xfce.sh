@@ -140,7 +140,7 @@ _plank(){
   rm plank-themes/ -fR
   cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
 
-  echo "plank &" >>/home/`ls /home/`/.xinitrc
+  #echo "plank &" >>/home/`ls /home/`/.xinitrc
   chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
 }
 
