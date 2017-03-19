@@ -54,7 +54,7 @@ faenza-icon-theme gtk-engine-aurora octopi-git
 
 
 # Thunar
-sudo pacman -R thunar && \
+sudo pacman -R --noconfirm thunar && \
 yaourt -S --noconfirm \
 engrampa-thunar thunar-split
 
