@@ -104,8 +104,10 @@ _networkmanager(){
   pacman -S --noconfirm \
   networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
   wireless_tools dialog
-
   systemctl enable NetworkManager
+  # Bluetooth
+  pacman -S blueman bluez-utils
+  systemctl enable bluetooth.service
 }
 
 ## Packages
