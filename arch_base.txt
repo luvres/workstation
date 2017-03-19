@@ -51,8 +51,7 @@ faenza-icon-theme gtk-engine-aurora octopi-git
 
 
 # Thunar
-sudo pacman -R --noconfirm thunar && \
-yaourt -S --noconfirm \
+yaourt -S \
 engrampa-thunar thunar-split
 
 ## Themes Mac OS X
