@@ -23,9 +23,9 @@ _swapfile(){
   pacman -Syu --noconfirm
 
   # Reflector
-  sudo pacman -S --noconfirm reflector
-  sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
-  sudo reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
+  pacman -S --noconfirm reflector
+  cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+  reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
 }
 
 ## Bashrc
