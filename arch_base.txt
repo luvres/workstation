@@ -63,6 +63,26 @@ engrampa-thunar thunar-split
 # [x] Bold text color: #000000
 
 
+## QtCreator
+tee /home/luvres/.config/plank/dock1/launchers/qtcreator.dockitem <<EOF
+[PlankDockItemPreferences]
+Launcher=file:///usr/share/applications/qtcreator.desktop
+EOF
+
+sudo tee /usr/share/applications/qtcreator.desktop <<EOF
+[Desktop Entry]
+Name=QtCreator
+Comment=A hackable text editor for the 21st Century
+GenericName=Text Editor
+Exec=/usr/bin/qtcreator
+Icon=qtcreator
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Utility;TextEditor;Development;
+MimeType=text/plain;
+EOF
+
+
 ## Freecad
 #yaourt -S freecad-netgen-git
 #pacman -S vtk
