@@ -79,24 +79,10 @@ sudo locale-gen
 sudo sh -c "echo 'export LANG=en_US.UTF-8' >>/etc/profile"
 sudo sh -c "echo 'export LC_ALL=en_US.UTF-8' >>/etc/profile"
 
-# Bashrc
-nano $HOME/.bashrc
-alias ls='ls --color=auto'
-alias ll='ls -lA'
-alias l='ll -h'
-alias pacman='pacman --color=auto'
-alias h='history'
-alias grep='grep --color'
-source $HOME/.bashrc
-
 # Docker
 systemctl status docker
 sudo systemctl enable docker
 sudo usermod -aG docker $USER
-
-### packer
-sudo pacman -S packer
-sudo sed -i '/${EDITOR:-vi}/s/vi/nano/g' /usr/bin/packer
 
 ### Apache
 pacman -S apache
@@ -110,12 +96,194 @@ systemctl start httpd
 # Mountpoint
 echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab
 
-# Swap File
-dd if=/dev/zero of=/swapfile bs=1M count=512
-chmod 0600 /swapfile 
-mkswap /swapfile
-swapon /swapfile
-echo '/swapfile none swap defaults 0 0' >>/etc/fstab
+## Swap File
+_swapfile(){
+  dd if=/dev/zero of=/swapfile bs=1M count=512
+  chmod 0600 /swapfile 
+  mkswap /swapfile
+  swapon /swapfile
+  echo '/swapfile none swap defaults 0 0' >>/etc/fstab
+# ILoveCnady
+  sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
+  sed -i '/Color/s/#//' /etc/pacman.conf
+# Reflector
+  pacman -S --noconfirm reflector
+  cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+  reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
+  pacman -Syu --noconfirm
+}; _swapfile
+
+## Bashrc
+_bashrc(){
+  curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C /home/`ls /home/`/
+  echo '' >>/home/`ls /home/`/.bashrc
+  echo screenfetch >>/home/`ls /home/`/.bashrc
+}; _bashrc
+
+##############
+### Yaourt ###
+##############
+_yaourt(){
+  sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
+  sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
+  sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
+  curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
+  tar zxvf package-query.tar.gz
+  cd package-query
+  makepkg -si
+  sudo pacman -S yaourt
+
+  cd
+  git clone https://github.com/robclark/libdri2.git
+  cd $HOME/libdri2
+  ./autogen.sh --prefix=/usr
+  sudo make install
+}
+
+############
+### Xorg ###
+############
+_xorgMinimal(){
+  # Xorg
+  pacman -S --noconfirm \
+  xorg-server xorg-xinit xorg-utils
+
+  # Sound
+  pacman -S --noconfirm \
+  alsa-utils alsa-plugins pulseaudio pulseaudio-alsa
+
+  # Input Drivers
+  pacman -S --noconfirm \
+  xf86-input-keyboard xf86-input-mouse
+
+  # Video drivers
+  pacman -S --noconfirm \
+  xf86-video-vesa xf86-video-intel
+  #virtualbox-guest-utils
+
+  # Fonts
+  pacman -S --noconfirm \
+  artwiz-fonts font-bh-ttf font-bitstream-speedo gsfonts sdl_ttf \
+  ttf-bitstream-vera ttf-cheapskate ttf-dejavu ttf-liberation xorg-fonts-type1
+
+  # Print
+  pacman -S --noconfirm \
+  cups cups-pdf ghostscript
+
+  systemctl enable org.cups.cupsd
+}; _xorgMinimal
+
+#############
+### Xfce4 ###
+#############
+_xfce4(){
+  # Core
+  pacman -S --noconfirm \
+  xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4
+  # cp /etc/X11/xinit/xinitrc /home/`ls /home/`/.xinitrc
+  # sed -i 's/exec xterm/#exec xterm/' /home/`ls /home/`/.xinitrc
+  # sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`ls /home/`/.xinitrc
+  echo "exec startxfce4 &" >/home/`ls /home/`/.xinitrc
+  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
+
+  # Packages base
+  pacman -S --noconfirm \
+  xfce4-power-manager xfce4-pulseaudio-plugin \
+  lxappearance gnome-system-monitor gksu \
+  xfce4-terminal ristretto leafpad chromium
+  sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
+}; _xfce4
+
+## Thunar
+_thunar(){
+  pacman -S --noconfirm \
+  thunar thunar-volman gvfs xdg-user-dirs
+}; _thunar
+
+## NetworkManager
+_networkmanager(){
+  pacman -S --noconfirm \
+  networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
+  wireless_tools dialog
+  systemctl enable NetworkManager
+  # Bluetooth
+  pacman -S blueman bluez-utils
+  systemctl enable bluetooth.service
+}; _networkmanager
+
+## sddm
+_sddm(){
+  pacman -S --noconfirm sddm
+  systemctl enable sddm.service
+}; _sddm
+
+## Packages
+_packages(){
+  pacman -S --noconfirm \
+  gftp youtube-dl screenfetch \
+  firefox flashplugin vlc qt4 \
+  libreoffice-fresh gimp blender
+}; _packages
+
+## Development
+_development(){
+  pacman -S --noconfirm \
+  qt5-base qtcreator eclipse-jee netbeans arduino atom
+}; _development
+
+## Background
+_background(){
+  curl -L https://github.com/luvres/workstation/blob/master/background.tar.gz?raw=true | tar -xzf - -C /usr/share/backgrounds/
+}; _background
+
+## Plank
+_plank(){
+  pacman -S --noconfirm plank
+  git clone https://github.com/mateuspv/plank-themes.git
+  cp -a plank-themes/themes/Translucent-Panel /usr/share/plank/themes/
+  rm plank-themes/ -fR
+  cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
+
+  #echo "plank &" >>/home/`ls /home/`/.xinitrc
+  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
+}; _plank
+
+## Mac OS X Themes
+_macosx(){
+  # Themes
+  mkdir /home/`ls /home/`/.themes
+  curl http://logico.com.ar/downloads/xosemite-gtk.tar.gz | tar -xzf - -C /home/`ls /home/`/.themes
+  curl http://logico.com.ar/downloads/xosemite-xfce.tar.gz | tar -xzf - -C /home/`ls /home/`/.themes
+  chown -R `ls /home/`. /home/`ls /home/`/.themes
+
+  # Fonts
+  mkdir /home/`ls /home/`/.fonts
+  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Bold.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Bold.ttf
+  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Regular.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Regular.ttf
+  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Thin.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Thin.ttf
+  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Ultralight.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Ultralight.ttf
+  curl -L https://github.com/hbin/top-programming-fonts/blob/master/Menlo-Regular.ttf?raw=true -o /home/`ls /home/`/.fonts/Menlo-Regular.ttf
+  chown -R `ls /home/`. /home/`ls /home/`/.fonts
+}; _macosx
+
+###########################
+###########################
+###########################
+
+# Bashrc
+nano $HOME/.bashrc
+alias ls='ls --color=auto'
+alias ll='ls -lA'
+alias l='ll -h'
+alias pacman='pacman --color=auto'
+alias h='history'
+alias grep='grep --color'
+source $HOME/.bashrc
+
+### packer
+sudo pacman -S packer
+sudo sed -i '/${EDITOR:-vi}/s/vi/nano/g' /usr/bin/packer
+
 
 ###############
 ### Desktop ###
@@ -124,22 +292,6 @@ sudo pacman -S \
 xorg-server-devel xorg-server \
 xf86-video-fbdev xorg-xrefresh xorg-util-macros mesa-libgl \
 make gcc git-core automake autoconf pkg-config libtool
-
-### Yaourt
-sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
-sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
-sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
-curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
-tar zxvf package-query.tar.gz
-cd package-query
-makepkg -si
-sudo pacman -S yaourt
-
-cd
-git clone https://github.com/robclark/libdri2.git
-cd $HOME/libdri2
-./autogen.sh --prefix=/usr
-sudo make install
 
 cd
 git clone https://github.com/ssvb/xf86-video-fbturbo
@@ -168,6 +320,7 @@ usbhid.mousepoll=0
 echo 'setxkbmap -model abnt2 -layout br -variant abnt2' >>$HOME/.bashrc
 
 sudo reboot
+
 
 sudo nano /etc/sddm.conf
   [Autologin]
@@ -204,18 +357,6 @@ packer -S chromium gimp blender
 ### Conky
 packer -S conky-manager
 
-
-
-### FreeCAD
-sudo mount -o remount,size=1G,noatime /tmp
-sudo pacman -S freecad
-packer -S freecad-git
-
-packer -S netgen-git
-
-# CalculiX
-export EDITOR=nano
-packer -S calculix
 
 #######################
 #######################
