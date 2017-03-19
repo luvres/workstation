@@ -53,6 +53,15 @@ _xorgMinimal(){
   systemctl enable org.cups.cupsd
 }
 
+## Makepkg
+_makepkg(){
+  # sudo su
+  sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
+  sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
+  sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
+  # nano /etc/makepkg.conf #line 63
+}
+
 ## Xfce4
 _xfce4(){
   # Core
@@ -113,15 +122,6 @@ _slim(){
   # sed -i '/auto_login/s/no/yes/' /etc/slim.conf
   ## sed -i 's/auto_login/#auto_login/' /etc/slim.conf
   ## sed -i '/auto_login/s/yes/no/' /etc/slim.conf
-}
-
-## Makepkg
-_makepkg(){
-  # sudo su
-  sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
-  sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
-  sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
-  # nano /etc/makepkg.conf #line 63
 }
 
 ## Background
