@@ -1,33 +1,5 @@
-### Configurations
-
-sudo nano /etc/makepkg.conf #line 63
-
-# Themes
-yaourt -S --noconfirm \
-numix-circle-icon-theme-git \
-mac-os-lion-cursors osx-el-capitan-theme-git
-
-yaourt -S --noconfirm \
-faenza-icon-theme gtk-engine-aurora octopi-git
-
-
-# Thunar
-yaourt -S --noconfirm \
-engrampa-thunar thunar-split
-
-#################
-#################
-
 # localectl set-x11-keymap br abnt2
 # xdg-user-dirs-update
-
-## Themes Mac OS X
-# Text color: #000000
-# Background color: #FFFFFF 
-# Cursor color: #929292
-# Tab active color: #BFBFBF
-# [x] Text selection color: #BFBFBF
-# [x] Bold text color: #000000
 
 # xterm -fa "Menlo:size=10" -fg black -cr rgb:92/92/92
 # xterm -fa "Menlo:size=10" -fg rgb:00/00/00 -cr rgb:92/92/92 -geometry 99x24+80300

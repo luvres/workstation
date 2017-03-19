@@ -39,6 +39,30 @@ sh arch_xfce.sh packages
 sh arch_xfce.sh virtualbox
 
 
-## arch_desktop.txt
+### arch_desktop.txt
+## Configurations
+
+sudo nano /etc/makepkg.conf #line 63
+
+# Themes
+yaourt -S --noconfirm \
+numix-circle-icon-theme-git \
+mac-os-lion-cursors osx-el-capitan-theme-git
+
+yaourt -S --noconfirm \
+faenza-icon-theme gtk-engine-aurora octopi-git
+
+
+# Thunar
+yaourt -S --noconfirm \
+engrampa-thunar thunar-split
+
+## Themes Mac OS X
+# Text color: #000000
+# Background color: #FFFFFF 
+# Cursor color: #929292
+# Tab active color: #BFBFBF
+# [x] Text selection color: #BFBFBF
+# [x] Bold text color: #000000
 
 
