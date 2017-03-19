@@ -215,5 +215,3 @@ if [[ $1 == "virtualbox" ]]; then
 fi
 
 
-sleep 3 && shutdown -r now
-
