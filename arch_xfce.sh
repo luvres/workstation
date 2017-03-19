@@ -71,7 +71,7 @@ _xfce4(){
   # sed -i 's/exec xterm/#exec xterm/' /home/`ls /home/`/.xinitrc
   # sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`ls /home/`/.xinitrc
   echo "exec startxfce4 &" >/home/`ls /home/`/.xinitrc
-  chown -R `ls /home/`. `ls /home/`/.xinitrc
+  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
 
   # Packages base
   pacman -S --noconfirm \
@@ -141,7 +141,7 @@ _plank(){
   cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
 
   echo "plank &" >>/home/`ls /home/`/.xinitrc
-  chown -R `ls /home/`. `ls /home/`/.xinitrc
+  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
 }
 
 ## Virtualbox
@@ -162,7 +162,7 @@ _macosx(){
   mkdir /home/`ls /home/`/.themes
   curl http://logico.com.ar/downloads/xosemite-gtk.tar.gz | tar -xzf - -C /home/`ls /home/`/.themes
   curl http://logico.com.ar/downloads/xosemite-xfce.tar.gz | tar -xzf - -C /home/`ls /home/`/.themes
-  chown -R `ls /home/`. `ls /home/`/.themes
+  chown -R `ls /home/`. /home/`ls /home/`/.themes
 
   # Fonts
   mkdir /home/`ls /home/`/.fonts
@@ -171,7 +171,7 @@ _macosx(){
   curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Thin.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Thin.ttf
   curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Ultralight.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Ultralight.ttf
   curl -L https://github.com/hbin/top-programming-fonts/blob/master/Menlo-Regular.ttf?raw=true -o /home/`ls /home/`/.fonts/Menlo-Regular.ttf
-  chown -R `ls /home/`. `ls /home/`/.fonts
+  chown -R `ls /home/`. /home/`ls /home/`/.fonts
 }
 
 
