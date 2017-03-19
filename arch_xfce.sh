@@ -131,9 +131,7 @@ _slim(){
 
 ## Background
 _background(){
-  curl -L https://github.com/luvres/workstation/blob/master/background.zip?raw=true -o ./background.zip
-  unzip background.zip -d /usr/share/backgrounds
-  rm background.zip
+  curl -L https://github.com/luvres/workstation/blob/master/background.tar.gz?raw=true | tar -xzf - -C /usr/share/backgrounds/
 }
 
 ## Plank
