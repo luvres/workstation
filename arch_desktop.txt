@@ -13,6 +13,8 @@ faenza-icon-theme gtk-engine-aurora
 yaourt -S --noconfirm \
 engrampa-thunar thunar-split
 
+#################
+#################
 
 # localectl set-x11-keymap br abnt2
 # xdg-user-dirs-update
