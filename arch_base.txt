@@ -62,6 +62,9 @@ engrampa-thunar thunar-split
 # [x] Text selection color: #BFBFBF
 # [x] Bold text color: #000000
 
+## Freecad
+#yaourt -S freecad-netgen-git
+#pacman -S vtk
 
 # Source FreeCAD
 mkdir 1uvr3z && cd 1uvr3z
@@ -75,6 +78,17 @@ time make -j4
 
 # Calculix
 yaourt -S --noconfirm calculix
+
+
+# Deps
+sudo pacman -S --noconfirm \
+boost-libs curl hicolor-icon-theme libspnav opencascade xerces-c python2-pivy python2-pyside \
+libtheora shared-mime-info jsoncpp \
+python2-pyside-tools vtk python2-matplotlib
+
+yaourt -S --noconfirm \
+med vtk-qt4 qtwebkit netgen-nogui \
+pycollada-git
 
 
 
