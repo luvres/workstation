@@ -6,7 +6,7 @@ numix-circle-icon-theme-git \
 mac-os-lion-cursors osx-el-capitan-theme-git
 
 yaourt -S --noconfirm \
-faenza-icon-theme gtk-engine-aurora
+faenza-icon-theme gtk-engine-aurora octopi
 
 
 # Thunar

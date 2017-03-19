@@ -99,7 +99,7 @@ _networkmanager(){
 ## Packages
 _packages(){
   pacman -S --noconfirm \
-  gftp youtube-dl screenfetch octopi \
+  gftp youtube-dl screenfetch \
   firefox flashplugin vlc qt4 \
   libreoffice-fresh gimp qt5-base qtcreator
 }
