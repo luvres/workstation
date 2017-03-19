@@ -58,11 +58,11 @@ _xfce4(){
   # Core
   pacman -S --noconfirm \
   xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4
-  # cp /etc/X11/xinit/xinitrc /home/`users | awk '{print $1}'`/.xinitrc
-  # sed -i 's/exec xterm/#exec xterm/' /home/`users | awk '{print $1}'`/.xinitrc
-  # sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`users | awk '{print $1}'`/.xinitrc
-  echo "exec startxfce4 &" >/home/`users | awk '{print $1}'`/.xinitrc
-  chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.xinitrc
+  # cp /etc/X11/xinit/xinitrc /home/`ls /home/`/.xinitrc
+  # sed -i 's/exec xterm/#exec xterm/' /home/`ls /home/`/.xinitrc
+  # sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`ls /home/`/.xinitrc
+  echo "exec startxfce4 &" >/home/`ls /home/`/.xinitrc
+  chown -R `ls /home/`. `ls /home/`/.xinitrc
 
   # Packages base
   pacman -S --noconfirm \
@@ -106,7 +106,7 @@ _slim(){
   pacman -S --noconfirm slim slim-themes archlinux-themes-slim
   systemctl enable slim.service
   sed -i '/#default_user/s/#//' /etc/slim.conf
-  sed -i "s/simone/`users | awk '{print $1}'`/" /etc/slim.conf
+  sed -i "s/simone/`ls /home/`/" /etc/slim.conf
   sed -i '/current_theme/s/default/archlinux-simplyblack/' /etc/slim.conf
   ##
   # sed -i '/auto_login/s/#//' /etc/slim.conf
@@ -140,14 +140,14 @@ _plank(){
   rm plank-themes/ -fR
   cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
 
-  echo "plank &" >>/home/`users | awk '{print $1}'`/.xinitrc
-  chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.xinitrc
+  echo "plank &" >>/home/`ls /home/`/.xinitrc
+  chown -R `ls /home/`. `ls /home/`/.xinitrc
 }
 
 ## Virtualbox
 _virtualbox(){
   pacman -S virtualbox linux-headers playonlinux
-  gpasswd -a `users | awk '{print $1}'` vboxusers
+  gpasswd -a `ls /home/` vboxusers
   sudo sh -c "echo 'vboxdrv' >>/etc/modules-load.d/virtualbox.conf"
   sudo sh -c "echo 'vboxnetadp' >>/etc/modules-load.d/virtualbox.conf"
   sudo sh -c "echo 'vboxnetflt' >>/etc/modules-load.d/virtualbox.conf"
@@ -159,19 +159,19 @@ _virtualbox(){
 ## Mac OS X Themes
 _macosx(){
   # Themes
-  mkdir /home/`users | awk '{print $1}'`/.themes
-  curl http://logico.com.ar/downloads/xosemite-gtk.tar.gz | tar -xzf - -C /home/`users | awk '{print $1}'`/.themes
-  curl http://logico.com.ar/downloads/xosemite-xfce.tar.gz | tar -xzf - -C /home/`users | awk '{print $1}'`/.themes
-  chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.themes
+  mkdir /home/`ls /home/`/.themes
+  curl http://logico.com.ar/downloads/xosemite-gtk.tar.gz | tar -xzf - -C /home/`ls /home/`/.themes
+  curl http://logico.com.ar/downloads/xosemite-xfce.tar.gz | tar -xzf - -C /home/`ls /home/`/.themes
+  chown -R `ls /home/`. `ls /home/`/.themes
 
   # Fonts
-  mkdir /home/`users | awk '{print $1}'`/.fonts
-  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Bold.ttf?raw=true -o /home/`users | awk '{print $1}'`/.fonts/System\ San\ Francisco\ Display\ Bold.ttf
-  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Regular.ttf?raw=true -o /home/`users | awk '{print $1}'`/.fonts/System\ San\ Francisco\ Display\ Regular.ttf
-  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Thin.ttf?raw=true -o /home/`users | awk '{print $1}'`/.fonts/System\ San\ Francisco\ Display\ Thin.ttf
-  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Ultralight.ttf?raw=true -o /home/`users | awk '{print $1}'`/.fonts/System\ San\ Francisco\ Display\ Ultralight.ttf
-  curl -L https://github.com/hbin/top-programming-fonts/blob/master/Menlo-Regular.ttf?raw=true -o /home/`users | awk '{print $1}'`/.fonts/Menlo-Regular.ttf
-  chown -R `users | awk '{print $1}'`. `users | awk '{print $1}'`/.fonts
+  mkdir /home/`ls /home/`/.fonts
+  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Bold.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Bold.ttf
+  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Regular.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Regular.ttf
+  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Thin.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Thin.ttf
+  curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Ultralight.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Ultralight.ttf
+  curl -L https://github.com/hbin/top-programming-fonts/blob/master/Menlo-Regular.ttf?raw=true -o /home/`ls /home/`/.fonts/Menlo-Regular.ttf
+  chown -R `ls /home/`. `ls /home/`/.fonts
 }
 
 
