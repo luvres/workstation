@@ -61,7 +61,7 @@ _xorgMinimal(){
 
   # Print
   pacman -S --noconfirm \
-  cups ghostscript cups-pdf
+  cups cups-pdf ghostscript
 
   systemctl enable org.cups.cupsd
 }
