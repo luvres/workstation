@@ -84,17 +84,14 @@ EOF
 
 
 ## FreeCAD
-sudo tee /usr/share/applications/freecad.desktop <<EOF
+sudo tee /usr/share/applications/freecad-build.desktop <<EOF
 [Desktop Entry]
 Name=FreeCAD
-Comment=A hackable text editor for the 21st Century
-GenericName=Text Editor
 Exec=/home/luvres/1uvr3z/freecad-build/bin/FreeCAD
 Icon=/home/luvres/1uvr3z/freecad-build/data/Mod/Start/StartPage/images/FreeCAD.png
 Type=Application
 StartupNotify=true
 Categories=GNOME;GTK;Utility;TextEditor;Development;
-MimeType=text/plain;
 EOF
 
 tee /home/luvres/.config/plank/dock1/launchers/freecad.dockitem <<EOF

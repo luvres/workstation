@@ -23,24 +23,15 @@ w
 
 dd bs=1024M if=/dev/zero of=/dev/sdb status=progress
 
-### Format
-mkfs.vfat /dev/sdb1 && mkdir boot && mount /dev/sdb1 boot
-mkfs.f2fs /dev/sdb2 && mkdir root && mount -t f2fs /dev/sdb2 root
+## Format
+mkdir boot root
+mkfs.vfat /dev/sdb1 && mount /dev/sdb1 boot
+mkfs.f2fs /dev/sdb2 && mount -t f2fs /dev/sdb2 root
 
-### Install
-# RPI 2
-#wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
-#cp /aux/Workstation/RaspberryPi/ArchLinuxARM-rpi-2-latest.tar.gz .
-bsdtar -xpf ArchLinuxARM-rpi-2-latest.tar.gz -C root
+## Install
+# wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
+bsdtar -xpf ArchLinuxARM-rpi-2-latest.tar.gz -C root; sync
 
-# RPI 3
-#wget -c http://archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz
-#wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-3-latest.tar.gz
-#cp /aux/Workstation/RaspberryPi/ArchLinuxARM-rpi-3-latest.tar.gz .
-#bsdtar -xpf ArchLinuxARM-aarch64-latest.tar.gz -C root
-#bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
-
-sync
 mv root/boot/* boot
 
 #### https://www.zybuluo.com/yangxuan/note/344907
@@ -53,9 +44,9 @@ _f2fs(){
   echo 'dtparam=audio=on' >>boot/config.txt
   echo 'hdmi_drive=2' >>boot/config.txt
   echo 'dtparam=sd_overclock=100' >>boot/config.txt #Class 10 SD card
+  umount boot root
 }; _f2fs
 
-umount boot root
 
 ############
 ### Init ###
@@ -68,34 +59,56 @@ echo "root:aamu02" | chpasswd
 echo "alarm:aamu02" | chpasswd
 
 ## Swap File
-dd if=/dev/zero of=/swapfile bs=1M count=512
-chmod 0600 /swapfile 
-mkswap /swapfile
-swapon /swapfile
-echo '/swapfile none swap defaults 0 0' >>/etc/fstab
-#ILoveCnady
-sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
-sed -i '/Color/s/#//' /etc/pacman.conf
-#Reflector
-#pacman -S --noconfirm reflector
-#cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
-#reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
-#pacman-key --init
-pacman -Syu --noconfirm
+_swap(){
+  dd if=/dev/zero of=/swapfile bs=1M count=512
+  chmod 0600 /swapfile 
+  mkswap /swapfile
+  swapon /swapfile
+  echo '/swapfile none swap defaults 0 0' >>/etc/fstab
+}
 
-### Configurations
-pacman -S --noconfirm sudo rsync git docker wget screen tmux htop cpio screenfetch
-## Sudo
-echo 'alarm  ALL=NOPASSWD: ALL' >>/etc/sudoers.d/myOverrides
-#echo 'alarm ALL=(ALL) ALL' >>/etc/sudoers
-## Locale
-sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
-locale-gen
-echo 'export LANG=en_US.UTF-8' >>/etc/profile
-echo 'export LC_ALL=en_US.UTF-8' >>/etc/profile
-## Docker
-systemctl enable docker
-usermod -aG docker `ls /home/`
+## ILoveCandy
+_ilovecandy(){
+  sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
+  sed -i '/Color/s/#//' /etc/pacman.conf
+  pacman -Syu --noconfirm
+}
+
+## Configurations
+_congigs(){
+  pacman -S --noconfirm sudo rsync git docker wget screen tmux htop cpio screenfetch
+# Sudo
+  echo 'alarm  ALL=NOPASSWD: ALL' >>/etc/sudoers.d/myOverrides
+  #echo 'alarm ALL=(ALL) ALL' >>/etc/sudoers
+# Locale
+  sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
+  locale-gen
+  echo 'export LANG=en_US.UTF-8' >>/etc/profile
+  echo 'export LC_ALL=en_US.UTF-8' >>/etc/profile
+# Docker
+  systemctl enable docker
+  usermod -aG docker `ls /home/`
+}
+
+### Web Server
+_webserver(){
+  pacman -S --noconfirm apache
+  sed -i '/DocumentRoot/s/\/srv\/http/\/srv\/http\/ftp/g' /etc/httpd/conf/httpd.conf
+  ln -s /mnt/ftp/ /srv/http/ftp
+  systemctl enable httpd
+  systemctl start httpd
+  #rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
+  #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
+# Mountpoint
+  echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab
+}; _webserver
+
+
+
+#####################
+### <ctrl>d alarm ###
+#####################
+
 ## Bashrc
 _bashrc(){
   curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C /home/`ls /home/`/
@@ -103,19 +116,7 @@ _bashrc(){
   echo screenfetch >>/home/`ls /home/`/.bashrc
 }; _bashrc
 
-
-### Web Server
-pacman -S --noconfirm apache
-sed -i '/DocumentRoot/s/\/srv\/http/\/srv\/http\/ftp/g' /etc/httpd/conf/httpd.conf
-ln -s /mnt/ftp/ /srv/http/ftp
-systemctl enable httpd
-systemctl start httpd
-#rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
-#sshpass -p "aamu02" rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
-#Mountpoint
-echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab
-
-### Yaourt
+## Yaourt
 sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
 sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
 sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
@@ -129,7 +130,7 @@ cd && rm package-query* -fR
 #git clone https://github.com/robclark/libdri2.git
 #cd $HOME/libdri2
 #./autogen.sh --prefix=/usr
-sudo make install
+#sudo make install
 
 
 ############
@@ -523,4 +524,12 @@ sudo systemctl enable rpc-idmapd
 sudo systemctl start rpc-idmapd
 sudo systemctl enable rpc-mountd
 sudo systemctl start rpc-mountd
+
+
+# RPI 3
+#wget -c http://archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz
+#wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-3-latest.tar.gz
+#cp /aux/Workstation/RaspberryPi/ArchLinuxARM-rpi-3-latest.tar.gz .
+#bsdtar -xpf ArchLinuxARM-aarch64-latest.tar.gz -C root
+#bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
 
