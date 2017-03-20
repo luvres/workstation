@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ###############
 ### Install ###
 ###############
@@ -27,91 +29,86 @@ mkfs.f2fs /dev/sdb2 && mkdir root && mount -t f2fs /dev/sdb2 root
 
 ### Install
 # RPI 2
-wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
-cp /aux/Workstation/RaspberryPi/ArchLinuxARM-rpi-2-latest.tar.gz .
+#wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
+#cp /aux/Workstation/RaspberryPi/ArchLinuxARM-rpi-2-latest.tar.gz .
 bsdtar -xpf ArchLinuxARM-rpi-2-latest.tar.gz -C root
 
 # RPI 3
-wget -c http://archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz
-wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-3-latest.tar.gz
-cp /aux/Workstation/RaspberryPi/ArchLinuxARM-rpi-3-latest.tar.gz .
-
-bsdtar -xpf ArchLinuxARM-aarch64-latest.tar.gz -C root
-bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
+#wget -c http://archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz
+#wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-3-latest.tar.gz
+#cp /aux/Workstation/RaspberryPi/ArchLinuxARM-rpi-3-latest.tar.gz .
+#bsdtar -xpf ArchLinuxARM-aarch64-latest.tar.gz -C root
+#bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
 
 sync
 mv root/boot/* boot
 
 #### https://www.zybuluo.com/yangxuan/note/344907
-echo '/dev/mmcblk0p2 / f2fs defaults,noatime,discard 0 0' >>root/etc/fstab
-echo 'tmpfs   /tmp     tmpfs   nodev,nosuid,size=2G  0 0' >>root/etc/fstab
-cp root/bin/true root/sbin/fsck.f2fs
-sed -i 's/$/& rootfstype=f2fs/' boot/cmdline.txt # Mouse lag
-sed -i 's/$/& usbhid.mousepoll=0/' boot/cmdline.txt # Rootfs type
-echo 'dtparam=audio=on' >>boot/config.txt
-echo 'hdmi_drive=2' >>boot/config.txt
-echo 'dtparam=sd_overclock=100' >>boot/config.txt #Class 10 SD card
+_f2fs(){
+  echo '/dev/mmcblk0p2 / f2fs defaults,noatime,discard 0 0' >>root/etc/fstab
+  echo 'tmpfs   /tmp     tmpfs   nodev,nosuid,size=2G  0 0' >>root/etc/fstab
+  cp root/bin/true root/sbin/fsck.f2fs
+  sed -i 's/$/& rootfstype=f2fs/' boot/cmdline.txt # Mouse lag
+  sed -i 's/$/& usbhid.mousepoll=0/' boot/cmdline.txt # Rootfs type
+  echo 'dtparam=audio=on' >>boot/config.txt
+  echo 'hdmi_drive=2' >>boot/config.txt
+  echo 'dtparam=sd_overclock=100' >>boot/config.txt #Class 10 SD card
+}; _f2fs
 
 umount boot root
 
 ############
 ### Init ###
 ############
-ssh -l root pi
-# login: root
+ssh -l alarm pi
+passwd: alarm
+sudo
 # passwd: root
 echo "root:aamu02" | chpasswd
 echo "alarm:aamu02" | chpasswd
 
-### Configurations
-pacman-key --init
-pacman -Syu
-pacman -S sudo rsync vim git docker wget screen tmux htop cpio
+## Swap File
+dd if=/dev/zero of=/swapfile bs=1M count=512
+chmod 0600 /swapfile 
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap defaults 0 0' >>/etc/fstab
+#ILoveCnady
+sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
+sed -i '/Color/s/#//' /etc/pacman.conf
+#Reflector
+#pacman -S --noconfirm reflector
+#cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+#reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
+#pacman-key --init
+pacman -Syu --noconfirm
 
-# Sudo
+### Configurations
+pacman -S --noconfirm sudo rsync git docker wget screen tmux htop cpio
+## Sudo
 echo 'alarm  ALL=NOPASSWD: ALL' >>/etc/sudoers.d/myOverrides
 #echo 'alarm ALL=(ALL) ALL' >>/etc/sudoers
-su alarm
+## Locale
+sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
+locale-gen
+echo 'export LANG=en_US.UTF-8' >>/etc/profile
+echo 'export LC_ALL=en_US.UTF-8' >>/etc/profile
+## Docker
+systemctl enable docker
+usermod -aG docker `ls /home/`
 
-# Locale
-sudo sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
-sudo locale-gen
-sudo sh -c "echo 'export LANG=en_US.UTF-8' >>/etc/profile"
-sudo sh -c "echo 'export LC_ALL=en_US.UTF-8' >>/etc/profile"
 
-# Docker
-systemctl status docker
-sudo systemctl enable docker
-sudo usermod -aG docker $USER
-
-### Apache
-pacman -S apache
+### Web Server
+pacman -S --noconfirm apache
 sed -i '/DocumentRoot/s/\/srv\/http/\/srv\/http\/ftp/g' /etc/httpd/conf/httpd.conf
 ln -s /mnt/ftp/ /srv/http/ftp
 systemctl enable httpd
 systemctl start httpd
 #rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
 #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
-
-# Mountpoint
+#Mountpoint
 echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab
 
-## Swap File
-_swapfile(){
-  dd if=/dev/zero of=/swapfile bs=1M count=512
-  chmod 0600 /swapfile 
-  mkswap /swapfile
-  swapon /swapfile
-  echo '/swapfile none swap defaults 0 0' >>/etc/fstab
-# ILoveCnady
-  sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
-  sed -i '/Color/s/#//' /etc/pacman.conf
-# Reflector
-  pacman -S --noconfirm reflector
-  cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
-  reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
-  pacman -Syu --noconfirm
-}; _swapfile
 
 ## Bashrc
 _bashrc(){
@@ -123,22 +120,20 @@ _bashrc(){
 ##############
 ### Yaourt ###
 ##############
-_yaourt(){
-  sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
-  sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
-  sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
-  curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
-  tar zxvf package-query.tar.gz
-  cd package-query
-  makepkg -si
-  sudo pacman -S yaourt
+sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
+sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
+sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
+curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
+tar zxvf package-query.tar.gz
+cd package-query
+makepkg -si
+sudo pacman -S yaourt
+cd
+git clone https://github.com/robclark/libdri2.git
+cd $HOME/libdri2
+./autogen.sh --prefix=/usr
+sudo make install
 
-  cd
-  git clone https://github.com/robclark/libdri2.git
-  cd $HOME/libdri2
-  ./autogen.sh --prefix=/usr
-  sudo make install
-}
 
 ############
 ### Xorg ###
