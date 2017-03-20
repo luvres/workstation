@@ -64,11 +64,6 @@ engrampa-thunar thunar-split
 
 
 ## QtCreator
-tee /home/luvres/.config/plank/dock1/launchers/qtcreator.dockitem <<EOF
-[PlankDockItemPreferences]
-Launcher=file:///usr/share/applications/qtcreator.desktop
-EOF
-
 sudo tee /usr/share/applications/qtcreator.desktop <<EOF
 [Desktop Entry]
 Name=QtCreator
@@ -81,6 +76,12 @@ StartupNotify=true
 Categories=GNOME;GTK;Utility;TextEditor;Development;
 MimeType=text/plain;
 EOF
+
+tee /home/luvres/.config/plank/dock1/launchers/qtcreator.dockitem <<EOF
+[PlankDockItemPreferences]
+Launcher=file:///usr/share/applications/qtcreator.desktop
+EOF
+
 
 
 ## Freecad
