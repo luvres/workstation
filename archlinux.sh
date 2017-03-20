@@ -65,17 +65,19 @@ _swap(){
   mkswap /swapfile
   swapon /swapfile
   echo '/swapfile none swap defaults 0 0' >>/etc/fstab
-}
+}; _swap
 
 ## ILoveCandy
 _ilovecandy(){
   sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
   sed -i '/Color/s/#//' /etc/pacman.conf
+  #pacman-key --init && pacman-key --refresh-keys && pacman -Syyu --noconfirm
+  #pacman-key --refresh-keys && pacman-key --init && pacman -Syyu --noconfirm
   pacman -Syu --noconfirm
-}
+}; _ilovecandy
 
 ## Configurations
-_congigs(){
+_configs(){
   pacman -S --noconfirm sudo rsync git docker wget screen tmux htop cpio screenfetch
 # Sudo
   echo 'alarm  ALL=NOPASSWD: ALL' >>/etc/sudoers.d/myOverrides
@@ -88,7 +90,10 @@ _congigs(){
 # Docker
   systemctl enable docker
   usermod -aG docker `ls /home/`
-}
+}; _configs
+
+#####################
+#####################
 
 ### Web Server
 _webserver(){
@@ -103,35 +108,29 @@ _webserver(){
   echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab
 }; _webserver
 
-
-
 #####################
 ### <ctrl>d alarm ###
 #####################
 
 ## Bashrc
 _bashrc(){
-  curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C /home/`ls /home/`/
-  echo '' >>/home/`ls /home/`/.bashrc
-  echo screenfetch >>/home/`ls /home/`/.bashrc
+  curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C $HOME
+  echo '' >>$HOME/.bashrc
+  echo screenfetch >>$HOME/.bashrc
 }; _bashrc
 
 ## Yaourt
-sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
-sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
-sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
-pacman -S --needed base-devel
-curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
-tar zxvf package-query.tar.gz
-cd package-query
-makepkg -si
-pacman -S yaourt
-cd && rm package-query* -fR
-#git clone https://github.com/robclark/libdri2.git
-#cd $HOME/libdri2
-#./autogen.sh --prefix=/usr
-#sudo make install
-
+_yaourt(){
+  sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
+  sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
+  sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
+  pacman -Syy && pacman -S --needed base-devel
+  cd && curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
+  tar zxvf package-query.tar.gz && cd package-query
+  makepkg -si
+  pacman -S yaourt
+  cd && rm package-query* -fR
+}
 
 ############
 ### Xorg ###
@@ -166,6 +165,18 @@ _xorgMinimal(){
   systemctl enable org.cups.cupsd
 }; _xorgMinimal
 
+#################
+## Xorg
+1) xf86-video-vesa  2) xorg-bdftopcf  3) xorg-docs  4) xorg-font-util  5) xorg-fonts-100dpi
+6) xorg-fonts-75dpi  7) xorg-fonts-encodings  8) xorg-iceauth  9) xorg-luit  10) xorg-mkfontdir
+11) xorg-mkfontscale  12) xorg-server  13) xorg-server-common  14) xorg-server-devel  15) xorg-server-xdmx
+16) xorg-server-xephyr  17) xorg-server-xnest  18) xorg-server-xvfb  19) xorg-server-xwayland
+20) xorg-sessreg  21) xorg-setxkbmap  22) xorg-smproxy  23) xorg-x11perf  24) xorg-xauth
+25) xorg-xbacklight  26) xorg-xcmsdb  27) xorg-xcursorgen  28) xorg-xdpyinfo  29) xorg-xdriinfo
+30) xorg-xev  31) xorg-xgamma  32) xorg-xhost  33) xorg-xinput  34) xorg-xkbcomp  35) xorg-xkbevd
+36) xorg-xkbutils  37) xorg-xkill  38) xorg-xlsatoms  39) xorg-xlsclients  40) xorg-xmodmap  41) xorg-xpr
+42) xorg-xprop  43) xorg-xrandr  44) xorg-xrdb  45) xorg-xrefresh  46) xorg-xset  47) xorg-xsetroot
+48) xorg-xvinfo  49) xorg-xwd  50) xorg-xwininfo  51) xorg-xwud
 #############
 ### Xfce4 ###
 #############
@@ -532,4 +543,11 @@ sudo systemctl start rpc-mountd
 #cp /aux/Workstation/RaspberryPi/ArchLinuxARM-rpi-3-latest.tar.gz .
 #bsdtar -xpf ArchLinuxARM-aarch64-latest.tar.gz -C root
 #bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
+
+
+#git clone https://github.com/robclark/libdri2.git
+#cd $HOME/libdri2
+#./autogen.sh --prefix=/usr
+#sudo make install
+
 
