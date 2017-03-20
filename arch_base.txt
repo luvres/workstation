@@ -96,7 +96,7 @@ EOF
 
 tee /home/luvres/.config/plank/dock1/launchers/freecad.dockitem <<EOF
 [PlankDockItemPreferences]
-Launcher=file:///usr/share/applications/freecad.desktop
+Launcher=file:///usr/share/applications/freecad-build.desktop
 EOF
 
 
