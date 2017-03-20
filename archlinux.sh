@@ -96,6 +96,12 @@ echo 'export LC_ALL=en_US.UTF-8' >>/etc/profile
 ## Docker
 systemctl enable docker
 usermod -aG docker `ls /home/`
+## Bashrc
+_bashrc(){
+  curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C /home/`ls /home/`/
+  echo '' >>/home/`ls /home/`/.bashrc
+  echo screenfetch >>/home/`ls /home/`/.bashrc
+}; _bashrc
 
 
 ### Web Server
@@ -109,17 +115,7 @@ systemctl start httpd
 #Mountpoint
 echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab
 
-
-## Bashrc
-_bashrc(){
-  curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C /home/`ls /home/`/
-  echo '' >>/home/`ls /home/`/.bashrc
-  echo screenfetch >>/home/`ls /home/`/.bashrc
-}; _bashrc
-
-##############
-### Yaourt ###
-##############
+### Yaourt
 sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
 sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
 sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
