@@ -62,7 +62,7 @@ umount boot root
 ############
 ssh -l alarm pi
 passwd: alarm
-sudo
+su
 # passwd: root
 echo "root:aamu02" | chpasswd
 echo "alarm:aamu02" | chpasswd
@@ -84,7 +84,7 @@ sed -i '/Color/s/#//' /etc/pacman.conf
 pacman -Syu --noconfirm
 
 ### Configurations
-pacman -S --noconfirm sudo rsync git docker wget screen tmux htop cpio
+pacman -S --noconfirm sudo rsync git docker wget screen tmux htop cpio screenfetch
 ## Sudo
 echo 'alarm  ALL=NOPASSWD: ALL' >>/etc/sudoers.d/myOverrides
 #echo 'alarm ALL=(ALL) ALL' >>/etc/sudoers
@@ -119,15 +119,16 @@ echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab
 sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
 sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
 sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
+pacman -S --needed base-devel
 curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
 tar zxvf package-query.tar.gz
 cd package-query
 makepkg -si
-sudo pacman -S yaourt
-cd
-git clone https://github.com/robclark/libdri2.git
-cd $HOME/libdri2
-./autogen.sh --prefix=/usr
+pacman -S yaourt
+cd && rm package-query* -fR
+#git clone https://github.com/robclark/libdri2.git
+#cd $HOME/libdri2
+#./autogen.sh --prefix=/usr
 sudo make install
 
 
@@ -137,7 +138,12 @@ sudo make install
 _xorgMinimal(){
   # Xorg
   pacman -S --noconfirm \
-  xorg-server xorg-xinit xorg-utils
+  xorg-server #xorg-xinit xorg-utils
+
+  # Video drivers
+  pacman -S --noconfirm \
+  xf86-video-vesa xf86-video-fbdev
+  #virtualbox-guest-utils
 
   # Sound
   pacman -S --noconfirm \
@@ -146,11 +152,6 @@ _xorgMinimal(){
   # Input Drivers
   pacman -S --noconfirm \
   xf86-input-keyboard xf86-input-mouse
-
-  # Video drivers
-  pacman -S --noconfirm \
-  xf86-video-vesa xf86-video-intel
-  #virtualbox-guest-utils
 
   # Fonts
   pacman -S --noconfirm \
@@ -198,7 +199,7 @@ _networkmanager(){
   wireless_tools dialog
   systemctl enable NetworkManager
   # Bluetooth
-  pacman -S blueman bluez-utils
+  pacman -S --noconfirm blueman bluez-utils
   systemctl enable bluetooth.service
 }; _networkmanager
 
@@ -256,6 +257,15 @@ _macosx(){
   curl -L https://github.com/hbin/top-programming-fonts/blob/master/Menlo-Regular.ttf?raw=true -o /home/`ls /home/`/.fonts/Menlo-Regular.ttf
   chown -R `ls /home/`. /home/`ls /home/`/.fonts
 }; _macosx
+
+
+###########
+### VNC ###
+###########
+pacman -S tigervnc
+vncserver
+x0vncserver -display :0 -passwordfile ~/.vnc/passwd
+
 
 ###########################
 ###########################
