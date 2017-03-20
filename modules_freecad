@@ -1,4 +1,5 @@
 sudo apt-get install git python-numpy python-pyside
+sudo pacman -S git python-numpy python-pyside
 mkdir $HOME/.FreeCAD/Mod
 
 ### Drawing Dimensioning
