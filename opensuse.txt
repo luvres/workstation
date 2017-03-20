@@ -11,9 +11,9 @@ wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/
 xzcat openSUSE-Tumbleweed-ARM-LXQT-raspberrypi3.aarch64-2017.02.24-Build3.13.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
 
 # XFCE
-wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-XFCE-raspberrypi3.aarch64-2017.02.24-Build3.13.raw.xz
+wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-XFCE-raspberrypi3.aarch64-2017.03.13-Build3.10.raw.xz
 
-xzcat openSUSE-Tumbleweed-ARM-XFCE-raspberrypi3.aarch64-2017.02.24-Build3.13.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
+xzcat openSUSE-Tumbleweed-ARM-XFCE-raspberrypi3.aarch64-2017.03.13-Build3.10.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
 
 
 ### Install
