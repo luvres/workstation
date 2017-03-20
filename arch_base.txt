@@ -84,7 +84,7 @@ EOF
 
 
 ## FreeCAD
-sudo tee /usr/share/applications/freecad-build.desktop <<EOF
+sudo tee /usr/share/applications/freecad.desktop <<EOF
 [Desktop Entry]
 Name=FreeCAD
 Exec=/home/luvres/1uvr3z/freecad-build/bin/FreeCAD
@@ -96,7 +96,7 @@ EOF
 
 tee /home/luvres/.config/plank/dock1/launchers/freecad.dockitem <<EOF
 [PlankDockItemPreferences]
-Launcher=file:///usr/share/applications/freecad-build.desktop
+Launcher=file:///usr/share/applications/freecad.desktop
 EOF
 
 
