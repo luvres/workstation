@@ -71,9 +71,7 @@ _swap(){
 _ilovecandy(){
   sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
   sed -i '/Color/s/#//' /etc/pacman.conf
-  #pacman-key --init && pacman-key --refresh-keys && pacman -Syyu --noconfirm
-  #pacman-key --refresh-keys && pacman-key --init && pacman -Syyu --noconfirm
-  pacman -Syu --noconfirm
+  pacman-key --init && pacman -Syu --noconfirm
 }; _ilovecandy
 
 ## Configurations
@@ -81,7 +79,6 @@ _configs(){
   pacman -S --noconfirm sudo rsync git docker wget screen tmux htop cpio screenfetch
 # Sudo
   echo 'alarm  ALL=NOPASSWD: ALL' >>/etc/sudoers.d/myOverrides
-  #echo 'alarm ALL=(ALL) ALL' >>/etc/sudoers
 # Locale
   sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
   locale-gen
@@ -138,7 +135,7 @@ _yaourt(){
 _xorgMinimal(){
   # Xorg
   pacman -S --noconfirm \
-  xorg-server #xorg-xinit xorg-utils
+  xorg-server xf86-video-fbdev xorg-xrefresh #xorg-xinit xorg-utils
 
   # Video drivers
   pacman -S --noconfirm \
@@ -164,6 +161,23 @@ _xorgMinimal(){
 
   systemctl enable org.cups.cupsd
 }; _xorgMinimal
+
+## xf86-video-fbturbo
+_fbturbo(){
+    sudo pacman -S make gcc git-core automake autoconf pkg-config libtool
+    cd ~
+    git clone https://github.com/robclark/libdri2.git
+    git clone https://github.com/ssvb/xf86-video-fbturbo
+    cd ~/libdri2
+    ./autogen.sh --prefix=/usr
+    sudo make install
+    cd ~/xf86-video-fbturbo
+    autoreconf -vi
+    ./configure --prefix=/usr
+    make
+    sudo make install
+    sudo cp xorg.conf /usr/share/X11/xorg.conf.d/99-fbturbo.conf
+}; _fbturbo
 
 #################
 ## Xorg
