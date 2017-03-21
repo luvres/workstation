@@ -90,7 +90,7 @@ _xfce4(){
   pacman -S --noconfirm \
   xfce4-power-manager xfce4-pulseaudio-plugin \
   lxappearance gnome-system-monitor gksu \
-  xfce4-terminal ristretto leafpad chromium
+  xfce4-terminal ristretto leafpad chromium zathura zathura-pdf-poppler
   sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
 }
 
