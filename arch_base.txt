@@ -43,18 +43,16 @@ sudo nano /etc/makepkg.conf #line 63
 
 # Themes
 yaourt -S --noconfirm \
-numix-circle-icon-theme-git \
-mac-os-lion-cursors osx-el-capitan-theme-git
-
-yaourt -S --noconfirm \
-faenza-icon-theme gtk-engine-aurora octopi-git
+faenza-icon-theme numix-circle-icon-theme-git \
+mac-os-lion-cursors osx-el-capitan-theme-git \
+gtk-engine-aurora octopi-git
 
 
 # Thunar
 yaourt -S \
 engrampa-thunar thunar-split
 
-## Themes Mac OS X
+## Terminal Mac OS X
 # Text color: #000000
 # Background color: #FFFFFF 
 # Cursor color: #929292

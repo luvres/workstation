@@ -91,6 +91,9 @@ _desktop(){
 # Xorg
   pacman -S --noconfirm \
   xorg-server xf86-video-fbdev xorg-xrefresh
+# Sound
+  pacman -S --noconfirm \
+  alsa-utils alsa-plugins pulseaudio pulseaudio-alsa
 # xfce4 Core
   pacman -S --noconfirm \
   xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4
@@ -116,10 +119,16 @@ _networkmanager(){
   networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
   wireless_tools dialog
   systemctl enable NetworkManager
-  # Bluetooth
-  pacman -S --noconfirm blueman bluez-utils
-  systemctl enable bluetooth.service
 }; _networkmanager
+
+## Bluetooth
+_bluetooth(){
+  sudo pacman -S blueman bluez-utils
+  yaourt -S pi-bluetooth
+  sudo systemctl start bluetooth.service
+  sudo systemctl enable bluetooth.service
+  sudo systemctl enable brcm43438.service
+}; _bluetooth
 
 ## Plank
 _plank(){
@@ -181,8 +190,8 @@ _macosx(){
 ## Packages
 _packages(){
   pacman -S --noconfirm \
-  gftp youtube-dl screenfetch \
-  firefox flashplugin vlc qt4 \
+  gftp youtube-dl \
+  firefox vlc qt4 \
   libreoffice-fresh gimp blender
 }; _packages
 
@@ -229,29 +238,39 @@ _yaourt(){
   cd ~ && rm package-query* -fR
 }; _yaourt
 
-
 #################
 ### Customers ###
 #################
 ## Themes
 yaourt -S --noconfirm \
-numix-circle-icon-theme-git \
-mac-os-lion-cursors osx-el-capitan-theme-git
-
-yaourt -S --noconfirm \
-faenza-icon-theme gtk-engine-aurora octopi-git
+faenza-icon-theme numix-circle-icon-theme-git
 
 ## Thunar
 yaourt -S \
 engrampa-thunar thunar-split
 
-## Themes Mac OS X
+## Terminal Mac OS X
 # Text color: #000000
 # Background color: #FFFFFF 
 # Cursor color: #929292
 # Tab active color: #BFBFBF
 # [x] Text selection color: #BFBFBF
 # [x] Bold text color: #000000
+
+
+## Compile FreeCAD
+sudo mount -o remount,size=1G,noatime /tmp
+# Swap File
+sudo swapon /mnt/swapfile
+# FreeCAD Netgen Git
+yaourt -S freecad-netgen-git
+# Source FreeCAD
+mkdir 1uvr3z && cd 1uvr3z
+git clone https://github.com/FreeCAD/FreeCAD.git
+mkdir freecad-build && cd freecad-build
+# Build
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON ../FreeCAD
+time make
 
 
 ######################
