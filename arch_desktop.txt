@@ -39,6 +39,12 @@ virtualbox-guest-utils
 #ttf-dejavu ttf-liberation alsa-utils \
 #mesa mesa-libgl lib32-mesa-libgl mesa-vdpau lib32-mesa-vdpau
 
+## Bash Completion
+sed -i '/#if/s/#//' /etc/bash.bashrc
+sed -i '/#  if/s/#//' /etc/bash.bashrc
+sed -i '/bash_completion/s/#//' /etc/bash.bashrc
+sed -i '/#  fi/s/#//' /etc/bash.bashrc
+sed -i '/#fi/s/#//' /etc/bash.bashrc
 
 ########################################
 ########################################
