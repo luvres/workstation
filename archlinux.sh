@@ -177,6 +177,8 @@ _macosx(){
   echo 'export LANG=en_US.UTF-8' >>/etc/profile
   echo 'export LC_ALL=en_US.UTF-8' >>/etc/profile
 # Docker
+  #pacman -Rns docker
+  #rm -rf /var/lib/docker
   systemctl enable docker
   usermod -aG docker `ls /home/`
 # sddm
