@@ -71,7 +71,9 @@ _swap(){
 _ilovecandy(){
   sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
   sed -i '/Color/s/#//' /etc/pacman.conf
-  pacman-key --init && pacman -Syu --noconfirm
+  rm /etc/ssl/certs/ca-certificates.crt
+  pacman-key --init
+  pacman -Syu --noconfirm
 }; _ilovecandy
 
 ## Configurations
