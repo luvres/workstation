@@ -185,6 +185,8 @@ _macosx(){
   sed -i '6s/$/&xfce.desktop/' /etc/sddm.conf
   sed -i "9s/$/&`ls /home`/" /etc/sddm.conf
   #sed -i '30s/$/&archlinux-simplyblack/' /etc/sddm.conf
+# Java 8
+  archlinux-java set java-8-openjdk/jre
 }; _configs
 
 ## Packages
@@ -198,7 +200,7 @@ _packages(){
 ## Development
 _development(){
   pacman -S --noconfirm \
-  qt5-base qtcreator eclipse-jee netbeans \
+  qt5-base qtcreator netbeans \
   mysql-workbench arduino atom
 }; _development
 
@@ -244,10 +246,6 @@ _yaourt(){
 ## Themes
 yaourt -S --noconfirm \
 faenza-icon-theme numix-circle-icon-theme-git
-
-## Thunar
-yaourt -S \
-engrampa-thunar thunar-split
 
 ## Terminal Mac OS X
 # Text color: #000000
