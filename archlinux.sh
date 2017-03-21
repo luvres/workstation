@@ -123,13 +123,13 @@ _yaourt(){
   sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
   sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
   sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
-  pacman -Syy && pacman -S --needed base-devel
-  cd && curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
+  sudo pacman -Syy && pacman -S --needed base-devel
+  cd ~ && curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
   tar zxvf package-query.tar.gz && cd package-query
   makepkg -si
-  pacman -S yaourt
-  cd && rm package-query* -fR
-}
+  sudo pacman -S yaourt
+  cd ~ && rm package-query* -fR
+}; _yaourt
 
 ############
 ### Xorg ###

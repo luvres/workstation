@@ -19,8 +19,7 @@ _swapfile(){
 # ILoveCnady
   sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
   sed -i '/Color/s/#//' /etc/pacman.conf
-  #pacman-key --init && pacman-key --refresh-keys && pacman -Syyu --noconfirm
-  #pacman-key --refresh-keys && pacman-key --init && pacman -Syyu --noconfirm
+  #pacman-key --refresh-keys && pacman-key --init && pacman -Syu --noconfirm
   pacman -Syyu --noconfirm
 
 # Reflector
