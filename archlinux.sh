@@ -50,10 +50,13 @@ _f2fs(){
 ############
 ssh -l alarm pi
 passwd: alarm
-su
-# passwd: root
-echo "root:aamu02" | chpasswd
-echo "alarm:aamu02" | chpasswd
+su # passwd: root
+
+## Pass
+_pass(){
+  echo "root:aamu02" | chpasswd
+  echo "alarm:aamu02" | chpasswd
+}; _pass
 
 ## Swap File
 _swap(){
@@ -68,156 +71,38 @@ _swap(){
 _ilovecandy(){
   sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
   sed -i '/Color/s/#//' /etc/pacman.conf
-  rm /etc/ssl/certs/ca-certificates.crt
-  pacman-key --init
-  pacman -Syu --noconfirm
 }; _ilovecandy
 
-## Configurations
-_configs(){
-  pacman -S --noconfirm sudo rsync git docker wget screen tmux htop cpio screenfetch
-# Sudo
-  echo 'alarm  ALL=NOPASSWD: ALL' >>/etc/sudoers.d/myOverrides
-# Locale
-  sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
-  locale-gen
-  echo 'export LANG=en_US.UTF-8' >>/etc/profile
-  echo 'export LC_ALL=en_US.UTF-8' >>/etc/profile
-# Docker
-  systemctl enable docker
-  usermod -aG docker `ls /home/`
-}; _configs
-
-#####################
-#####################
-
-### Web Server
-_webserver(){
-  pacman -S --noconfirm apache
-  sed -i '/DocumentRoot/s/\/srv\/http/\/srv\/http\/ftp/g' /etc/httpd/conf/httpd.conf
-  ln -s /mnt/ftp/ /srv/http/ftp
-  systemctl enable httpd
-  systemctl start httpd
-  #rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
-  #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
-# Mountpoint
-  echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab
-}; _webserver
-
-#####################
-### <ctrl>d alarm ###
-#####################
-
-## Bashrc
-_bashrc(){
-  curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C $HOME
-  echo '' >>$HOME/.bashrc
-  echo screenfetch >>$HOME/.bashrc
-}; _bashrc
-
-## Yaourt
-_yaourt(){
-  sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
-  sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
-  sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
-  sudo pacman -S --noconfirm --needed base-devel
-  cd ~ && curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
-  tar zxvf package-query.tar.gz && cd package-query
-  makepkg -si
-  sudo pacman -S --noconfirm yaourt
-  cd ~ && rm package-query* -fR
-}; _yaourt
-
-############
-### Xorg ###
-############
-sudo pacman -S --noconfirm xfce4 xfce4-goodies xarchiver sddm
-sudo sh -c "sddm --example-config > /etc/sddm.conf"
-
-_xorgMinimal(){
-  # Xorg
-  sudo pacman -S --noconfirm \
-  xorg-server xf86-video-fbdev xorg-xrefresh #xorg-xinit xorg-utils xterm
-
-  # Video drivers
+## Update
+_update(){
+  rm /etc/ssl/certs/ca-certificates.crt 2>/dev/null
+  pacman-key --init
+  pacman -Syu --noconfirm
+# Base
   pacman -S --noconfirm \
-  xf86-video-vesa xf86-video-fbdev
-  #virtualbox-guest-utils
+  sudo rsync git docker wget screen tmux htop cpio screenfetch
+# Base devel
+  pacman -Sy --noconfirm --needed base-devel
+}; _update
 
-  # Sound
+
+## Desktop
+_desktop(){
+# Xorg
   pacman -S --noconfirm \
-  alsa-utils alsa-plugins pulseaudio pulseaudio-alsa
-
-  # Input Drivers
-  pacman -S --noconfirm \
-  xf86-input-keyboard xf86-input-mouse
-
-  # Fonts
-  pacman -S --noconfirm \
-  artwiz-fonts font-bh-ttf font-bitstream-speedo gsfonts sdl_ttf \
-  ttf-bitstream-vera ttf-cheapskate ttf-dejavu ttf-liberation xorg-fonts-type1
-
-  # Print
-  pacman -S --noconfirm \
-  cups cups-pdf ghostscript
-
-  systemctl enable org.cups.cupsd
-}; _xorgMinimal
-
-## xf86-video-fbturbo
-_fbturbo(){
-    sudo pacman -S make gcc git-core automake autoconf pkg-config libtool
-    cd ~
-    git clone https://github.com/robclark/libdri2.git
-    git clone https://github.com/ssvb/xf86-video-fbturbo
-    cd ~/libdri2
-    ./autogen.sh --prefix=/usr
-    sudo make install
-    cd ~/xf86-video-fbturbo
-    autoreconf -vi
-    ./configure --prefix=/usr
-    make
-    sudo make install
-    sudo cp xorg.conf /usr/share/X11/xorg.conf.d/99-fbturbo.conf
-}; _fbturbo
-
-#################
-## Xorg
-1) xf86-video-vesa  2) xorg-bdftopcf  3) xorg-docs  4) xorg-font-util  5) xorg-fonts-100dpi
-6) xorg-fonts-75dpi  7) xorg-fonts-encodings  8) xorg-iceauth  9) xorg-luit  10) xorg-mkfontdir
-11) xorg-mkfontscale  12) xorg-server  13) xorg-server-common  14) xorg-server-devel  15) xorg-server-xdmx
-16) xorg-server-xephyr  17) xorg-server-xnest  18) xorg-server-xvfb  19) xorg-server-xwayland
-20) xorg-sessreg  21) xorg-setxkbmap  22) xorg-smproxy  23) xorg-x11perf  24) xorg-xauth
-25) xorg-xbacklight  26) xorg-xcmsdb  27) xorg-xcursorgen  28) xorg-xdpyinfo  29) xorg-xdriinfo
-30) xorg-xev  31) xorg-xgamma  32) xorg-xhost  33) xorg-xinput  34) xorg-xkbcomp  35) xorg-xkbevd
-36) xorg-xkbutils  37) xorg-xkill  38) xorg-xlsatoms  39) xorg-xlsclients  40) xorg-xmodmap  41) xorg-xpr
-42) xorg-xprop  43) xorg-xrandr  44) xorg-xrdb  45) xorg-xrefresh  46) xorg-xset  47) xorg-xsetroot
-48) xorg-xvinfo  49) xorg-xwd  50) xorg-xwininfo  51) xorg-xwud
-#############
-### Xfce4 ###
-#############
-sudo pacman -S --noconfirm xfce4 xfce4-goodies xarchiver sddm
-sudo sh -c "sddm --example-config > /etc/sddm.conf"
-sudo systemctl enable sddm
-sudo reboot
-
-_xfce4(){
-  # Core
+  xorg-server xf86-video-fbdev xorg-xrefresh
+# xfce4 Core
   pacman -S --noconfirm \
   xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4
-  # cp /etc/X11/xinit/xinitrc /home/`ls /home/`/.xinitrc
-  # sed -i 's/exec xterm/#exec xterm/' /home/`ls /home/`/.xinitrc
-  # sed -i "/twm/s/twm &/exec startxfce4\n&/" /home/`ls /home/`/.xinitrc
-  echo "exec startxfce4 &" >/home/`ls /home/`/.xinitrc
-  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
-
-  # Packages base
+# sddm
+  pacman -S --noconfirm sddm
+  #sddm --example-config >/etc/sddm.conf
+# Packages base
   pacman -S --noconfirm \
   xfce4-power-manager xfce4-pulseaudio-plugin \
   lxappearance gnome-system-monitor gksu \
   xfce4-terminal ristretto leafpad chromium
-  sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
-}; _xfce4
+}; _desktop
 
 ## Thunar
 _thunar(){
@@ -236,42 +121,21 @@ _networkmanager(){
   systemctl enable bluetooth.service
 }; _networkmanager
 
-## sddm
-_sddm(){
-  pacman -S --noconfirm sddm
-  systemctl enable sddm.service
-}; _sddm
-
-## Packages
-_packages(){
-  pacman -S --noconfirm \
-  gftp youtube-dl screenfetch \
-  firefox flashplugin vlc qt4 \
-  libreoffice-fresh gimp blender
-}; _packages
-
-## Development
-_development(){
-  pacman -S --noconfirm \
-  qt5-base qtcreator eclipse-jee netbeans arduino atom
-}; _development
+## Plank
+_plank(){
+  pacman -S --noconfirm plank && \
+  git clone https://github.com/mateuspv/plank-themes.git
+  cp -a plank-themes/themes/Translucent-Panel /usr/share/plank/themes/
+  rm plank-themes/ -fR
+  cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
+  #echo "plank &" >>/home/`ls /home/`/.xinitrc
+  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
+}; _plank
 
 ## Background
 _background(){
   curl -L https://github.com/luvres/workstation/blob/master/background.tar.gz?raw=true | tar -xzf - -C /usr/share/backgrounds/
 }; _background
-
-## Plank
-_plank(){
-  pacman -S --noconfirm plank
-  git clone https://github.com/mateuspv/plank-themes.git
-  cp -a plank-themes/themes/Translucent-Panel /usr/share/plank/themes/
-  rm plank-themes/ -fR
-  cp /usr/share/plank/themes/Translucent-Panel/dock.theme /usr/share/plank/themes/Default/
-
-  #echo "plank &" >>/home/`ls /home/`/.xinitrc
-  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
-}; _plank
 
 ## Mac OS X Themes
 _macosx(){
@@ -291,17 +155,147 @@ _macosx(){
   chown -R `ls /home/`. /home/`ls /home/`/.fonts
 }; _macosx
 
+## Configurations
+# archlinuxfr
+  echo '[archlinuxfr]' >> /etc/pacman.conf
+  echo 'SigLevel = Never' >> /etc/pacman.conf
+  echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf
+# Sudo
+  echo 'alarm  ALL=NOPASSWD: ALL' >>/etc/sudoers.d/myOverrides
+# Locale
+  sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
+  locale-gen
+  echo 'export LANG=en_US.UTF-8' >>/etc/profile
+  echo 'export LC_ALL=en_US.UTF-8' >>/etc/profile
+# Docker
+  systemctl enable docker
+  usermod -aG docker `ls /home/`
+# sddm
+  systemctl enable sddm.service
+  #autologin
+  sed -i '6s/$/&xfce.desktop/' /etc/sddm.conf
+  sed -i "9s/$/&`ls /home`/" /etc/sddm.conf
+  #sed -i '30s/$/&archlinux-simplyblack/' /etc/sddm.conf
+}; _configs
 
-###########
-### VNC ###
-###########
+## Packages
+_packages(){
+  pacman -S --noconfirm \
+  gftp youtube-dl screenfetch \
+  firefox flashplugin vlc qt4 \
+  libreoffice-fresh gimp blender
+}; _packages
+
+## Development
+_development(){
+  pacman -S --noconfirm \
+  qt5-base qtcreator eclipse-jee netbeans \
+  mysql-workbench arduino atom
+}; _development
+
+
+reboot
+
+#####################
+### <ctrl>d alarm ###
+#####################
+## Files
+_files(){
+# Mountpoint
+  sudo sh -c "echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab"
+# Lighttpd
+  docker run --name ftp -h ftp \
+  -p 80:80 \
+  -v /mnt/ftp:/var/www \
+  -d izone/arm:lighttpd
+  #rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
+  #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
+}; _files
+
+## Bashrc
+_bashrc(){
+  curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C $HOME
+  echo '' >>$HOME/.bashrc
+  echo screenfetch >>$HOME/.bashrc
+}; _bashrc
+
+## Yaourt
+_yaourt(){
+  #sudo pacman -Sy --noconfirm --needed base-devel
+  cd ~ && curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
+  tar zxvf package-query.tar.gz && cd package-query
+  makepkg -si
+  sudo pacman -S --noconfirm yaourt
+  cd ~ && rm package-query* -fR
+}; _yaourt
+
+
+#################
+### Customers ###
+#################
+## Themes
+yaourt -S --noconfirm \
+numix-circle-icon-theme-git \
+mac-os-lion-cursors osx-el-capitan-theme-git
+
+yaourt -S --noconfirm \
+faenza-icon-theme gtk-engine-aurora octopi-git
+
+## Thunar
+yaourt -S \
+engrampa-thunar thunar-split
+
+## Themes Mac OS X
+# Text color: #000000
+# Background color: #FFFFFF 
+# Cursor color: #929292
+# Tab active color: #BFBFBF
+# [x] Text selection color: #BFBFBF
+# [x] Bold text color: #000000
+
+
+######################
+######################
+######################
+
+
+
+## xf86-video-fbturbo
+_fbturbo(){
+    sudo pacman -S make gcc git-core automake autoconf pkg-config libtool
+    cd ~
+    git clone https://github.com/robclark/libdri2.git
+    git clone https://github.com/ssvb/xf86-video-fbturbo
+    cd ~/libdri2
+    ./autogen.sh --prefix=/usr
+    sudo make install
+    cd ~/xf86-video-fbturbo
+    autoreconf -vi
+    ./configure --prefix=/usr
+    make
+    sudo make install
+    sudo cp xorg.conf /usr/share/X11/xorg.conf.d/99-fbturbo.conf
+}; _fbturbo
+
+
+### Web Server
+_webserver(){
+  pacman -S --noconfirm apache
+  sed -i '/DocumentRoot/s/\/srv\/http/\/srv\/http\/ftp/g' /etc/httpd/conf/httpd.conf
+  ln -s /mnt/ftp/ /srv/http/ftp
+  systemctl enable httpd
+  systemctl start httpd
+  #rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
+  #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ alarm@pi:/mnt/ftp
+# Mountpoint
+  echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab
+}; _webserver
+
+## VNC
 pacman -S tigervnc
 vncserver
 x0vncserver -display :0 -passwordfile ~/.vnc/passwd
 
-
-###########################
-###########################
 ###########################
 
 # Bashrc
@@ -318,138 +312,10 @@ source $HOME/.bashrc
 sudo pacman -S packer
 sudo sed -i '/${EDITOR:-vi}/s/vi/nano/g' /usr/bin/packer
 
-
-###############
-### Desktop ###
-###############
-sudo pacman -S \
-xorg-server-devel xorg-server \
-xf86-video-fbdev xorg-xrefresh xorg-util-macros mesa-libgl \
-make gcc git-core automake autoconf pkg-config libtool
-
-cd
-git clone https://github.com/ssvb/xf86-video-fbturbo
-cd $HOME/xf86-video-fbturbo
-autoreconf -vi
-./configure --prefix=/usr
-make
-sudo make install
-sudo cp xorg.conf /usr/share/X11/xorg.conf.d/99-fbturbo.conf
-
-### XFCE4
-sudo pacman -S xfce4 xfce4-goodies xarchiver
-sudo pacman -S sddm fakeroot
-sudo sh -c "sddm --example-config >/etc/sddm.conf"
-
-# SDDM theme
-packer -S archlinux-themes-sddm
-sudo systemctl enable sddm
-sudo systemctl start sddm
-
-# Mouse lag
-nano /boot/cmdline.txt
-usbhid.mousepoll=0
-
 # Keyboard map
 echo 'setxkbmap -model abnt2 -layout br -variant abnt2' >>$HOME/.bashrc
 
-sudo reboot
-
-
-sudo nano /etc/sddm.conf
-  [Autologin]
-  Session=xfce.desktop
-  User=alarm
-  ......
-  Current=archlinux-simplyblack
-  
-# icon, theme, font, terminal font:
-packer -S \
-paper-icon-theme-git \
-gtk-theme-arc-git \
-ttf-roboto \
-ttf-roboto-mono
-
-# Wi-Fi
-sudo pacman -Syu networkmanager network-manager-applet
-systemctl enable NetworkManager
-#systemctl start NetworkManager
-sudo ifconfig wlan0 up
-ifconfig wlan0
-
-# Bluetooth
-packer -S yaourt blueman bluez-utils
-yaourt -S --noconfirm pi-bluetooth
-#systemctl start bluetooth.service
-systemctl enable bluetooth.service
-systemctl enable brcm43438.service
-sudo reboot
-
-# Chromium
-packer -S chromium gimp blender 
-
-### Conky
-packer -S conky-manager
-
-
 #######################
-#######################
-#######################
-
-# FFmpeg with MMAL
-mkdir ffmpeg_build
-cd ffmpeg_build
-mkdir $(date +%Y-%m-%d)
-cd $(date +%Y-%m-%d)
-wget https://raw.githubusercontent.com/archlinuxarm/PKGBUILDs/master/extra/ffmpeg/PKGBUILD
-sed -i "/arch=/s/'i686' 'x86_64'/'any'/g" PKGBUILD
-sed -i 's/enable-x11grab/enable-x11grab \\\n    --enable-mmal/' PKGBUILD
-sudo sed -i 's/#MAKEFLAGS=/MAKEFLAGS=/' /etc/makepkg.conf
-sudo sed -i '/MAKEFLAGS=/s/j2/j4/g' /etc/makepkg.conf
-sudo sed -i '/COMPRESSXZ=/s/-)/- --threads=4)/g' /etc/makepkg.conf
-
-makepkg
-sudo pacman -U *.pkg.tar.xz
-
-sudo nano /etc/pacman.conf
-  IgnorePkg = ffmpeg
-
-sudo pacman -Rdd openjpeg2
-sudo pacman -S openjpeg2
-
-
-# wallpaper -> http://img2.goodfon.su/original/1366x768/3/b6/android-5-0-lollipop-material-5355.jpg
-
-# menu icon -> https://icons8.com/web-app/11287/raspberry-pi
-	    -> /usr/share/raspberrypi-artwork/raspitr.png
-	    
-# Disable screen saver blanking
-xset q
-# if you got:
-xset:  unable to open display ""
-# type:
-export DISPLAY=:0
-# then disable DPMS and prevent screen from blanking:
-xset s off -dpms
-
-
-## Window tiling
-# Windows Manager -> Advanced -> Wrap workspaces when reaching the screen edge
-# uncheck: With a dragged windows
-# Windows Manager Tweaks -> Accessibility
-# check: Automatically tile windows when moving toward the screen edge
-
-### Conky
-packer -S conky-lua conky-manager
-# then select the widgets from Conky Manager, select Gotham for example
-# check
-cat $HOME/.conky/Gotham/Gotham
-
-# you can edit the file manually in a text editor
-# here is some reference:
-# https://ubuntuforums.org/showthread.php?t=1943490&p=11778553#post11778553
-
-
 ### Powerline
 sudo pip install powerline-status
 packer -S powerline-fonts-git tmux
@@ -479,7 +345,7 @@ powerline-daemon --replace
 
 # Tmux
 cat >>$HOME/.tmux.conf <<EOF
-
+# 256 Color
 source /usr/lib/python3.5/site-packages/powerline/bindings/tmux/powerline.conf
 set-option -g default-terminal "screen-256color"
 EOF
@@ -491,7 +357,6 @@ set  rtp+=/usr/lib/python3.5/site-packages/powerline/bindings/vim
 set laststatus=2
 set t_Co=256
 EOF
-
 
 ### backup/migration
 sudo pacman -Syu rsync
@@ -505,31 +370,10 @@ sudo systemctl start smbd nmbd
 sudo systemctl enable smbd nmbd
 sudo pacman -S gvfs-smb
 
-
-### VNC ###
-pacman –S tigervnc
-vncserver
-x0vncserver -display :0 -passwordfile ~/.vnc/passwd
-
-pacman -Syu networkmanager network-manager-applet
-systemctl enable NetworkManager
-systemctl start NetworkManager
-ifconfig wlan0 up
-pacman -Sc
-
-
-### XFCE
-pacman -S xorg-server
-pacman -S xf86-video-fbdev xf86-video-vesa
-pacman -S xfce4 xfce4-goodies xarchiver
-pacman –S git zsh wget base-devel diffutils libnewt dialog wpa_supplicant wireless_tools iw crda lshw
-
-
 ### MATE ###
 sudo pacman -S xorg-server xorg-server-utils xorg-xinit xorg-utils 
 sudo pacman -S mate mate-extra
 echo 'exec mate-session' >$HOME/.xinitrc
-
 
 ### NFS
 pacman -S nfs-utils rpcbind
@@ -564,11 +408,5 @@ sudo systemctl start rpc-mountd
 #cp /aux/Workstation/RaspberryPi/ArchLinuxARM-rpi-3-latest.tar.gz .
 #bsdtar -xpf ArchLinuxARM-aarch64-latest.tar.gz -C root
 #bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
-
-
-#git clone https://github.com/robclark/libdri2.git
-#cd $HOME/libdri2
-#./autogen.sh --prefix=/usr
-#sudo make install
 
 

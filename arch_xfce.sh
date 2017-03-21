@@ -121,7 +121,8 @@ _packages(){
 ## Development
 _development(){
   pacman -S --noconfirm \
-  qt5-base qtcreator eclipse-jee netbeans arduino atom
+  qt5-base qtcreator eclipse-jee netbeans \
+  mysql-workbench arduino atom
 }
 
 ## sddm
