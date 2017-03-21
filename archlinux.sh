@@ -24,7 +24,7 @@ w
 dd bs=1024M if=/dev/zero of=/dev/sdb status=progress
 
 ## Format
-mkdir boot root
+rm boot root -fR; mkdir boot root
 mkfs.vfat /dev/sdb1 && mount /dev/sdb1 boot
 mkfs.f2fs /dev/sdb2 && mount -t f2fs /dev/sdb2 root
 
