@@ -1,10 +1,6 @@
 #!/bin/bash
 
-###############
-### Install ###
-###############
-
-### Partitions
+## Partitions
 fdisk /dev/sdb
 n
 p
@@ -23,19 +19,20 @@ w
 
 dd bs=1024M if=/dev/zero of=/dev/sdb status=progress
 
-## Format
-rm boot root -fR; mkdir boot root
-mkfs.vfat /dev/sdb1 && mount /dev/sdb1 boot
-mkfs.f2fs /dev/sdb2 && mount -t f2fs /dev/sdb2 root
+_install(){
+# Format
+  rm boot root -fR; mkdir boot root
+  mkfs.vfat /dev/sdb1 && mount /dev/sdb1 boot
+  mkfs.f2fs /dev/sdb2 && mount -t f2fs /dev/sdb2 root
+# Install
+  # wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
+  bsdtar -xpf ArchLinuxARM-rpi-2-latest.tar.gz -C root; sync
+  mv root/boot/* boot
+}; _install
 
-## Install
-# wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
-bsdtar -xpf ArchLinuxARM-rpi-2-latest.tar.gz -C root; sync
 
-mv root/boot/* boot
-
-#### https://www.zybuluo.com/yangxuan/note/344907
 _f2fs(){
+# https://www.zybuluo.com/yangxuan/note/344907
   echo '/dev/mmcblk0p2 / f2fs defaults,noatime,discard 0 0' >>root/etc/fstab
   echo 'tmpfs   /tmp     tmpfs   nodev,nosuid,size=2G  0 0' >>root/etc/fstab
   cp root/bin/true root/sbin/fsck.f2fs
@@ -123,21 +120,24 @@ _yaourt(){
   sudo sh -c "echo '[archlinuxfr]' >> /etc/pacman.conf"
   sudo sh -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
   sudo sh -c "echo 'Server = http://repo.archlinux.fr/arm' >> /etc/pacman.conf"
-  sudo pacman -Syy && pacman -S --needed base-devel
+  sudo pacman -S --noconfirm --needed base-devel
   cd ~ && curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
   tar zxvf package-query.tar.gz && cd package-query
   makepkg -si
-  sudo pacman -S yaourt
+  sudo pacman -S --noconfirm yaourt
   cd ~ && rm package-query* -fR
 }; _yaourt
 
 ############
 ### Xorg ###
 ############
+sudo pacman -S --noconfirm xfce4 xfce4-goodies xarchiver sddm
+sudo sh -c "sddm --example-config > /etc/sddm.conf"
+
 _xorgMinimal(){
   # Xorg
-  pacman -S --noconfirm \
-  xorg-server xf86-video-fbdev xorg-xrefresh #xorg-xinit xorg-utils
+  sudo pacman -S --noconfirm \
+  xorg-server xf86-video-fbdev xorg-xrefresh #xorg-xinit xorg-utils xterm
 
   # Video drivers
   pacman -S --noconfirm \
@@ -196,6 +196,11 @@ _fbturbo(){
 #############
 ### Xfce4 ###
 #############
+sudo pacman -S --noconfirm xfce4 xfce4-goodies xarchiver sddm
+sudo sh -c "sddm --example-config > /etc/sddm.conf"
+sudo systemctl enable sddm
+sudo reboot
+
 _xfce4(){
   # Core
   pacman -S --noconfirm \
