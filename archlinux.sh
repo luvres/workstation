@@ -258,8 +258,6 @@ engrampa-thunar thunar-split
 ######################
 ######################
 
-
-
 ## xf86-video-fbturbo
 _fbturbo(){
     sudo pacman -S make gcc git-core automake autoconf pkg-config libtool
