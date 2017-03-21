@@ -200,8 +200,7 @@ _packages(){
 ## Development
 _development(){
   pacman -S --noconfirm \
-  qt5-base qtcreator netbeans \
-  mysql-workbench arduino atom
+  qt5-base qtcreator netbeans mysql-workbench
 }; _development
 
 
