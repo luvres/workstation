@@ -205,6 +205,15 @@ _development(){
   qt5-base qtcreator netbeans mysql-workbench
 }; _development
 
+## Arduino IDE
+_arduino(){
+  VERSION_ARDUINO=1.8.1
+  wget -c https://downloads.arduino.cc/arduino-${VERSION_ARDUINO}-linuxarm.tar.xz
+  tar Jxf arduino-${VERSION_ARDUINO}-linuxarm.tar.xz
+  rm arduino-${VERSION_ARDUINO}-linuxarm.tar.xz
+  arduino-${VERSION_ARDUINO}/install.sh
+}; _arduino
+
 
 reboot
 
@@ -221,7 +230,7 @@ _files(){
   -v /mnt/ftp:/var/www \
   -d izone/arm:lighttpd
   #rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
-  #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
+  #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ alarm@alarmpi:/mnt/ftp
 }; _files
 
 ## Bashrc
@@ -255,6 +264,7 @@ faenza-icon-theme numix-circle-icon-theme-git
 # Tab active color: #BFBFBF
 # [x] Text selection color: #BFBFBF
 # [x] Bold text color: #000000
+
 
 
 ## Compile FreeCAD
