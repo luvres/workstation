@@ -141,5 +141,7 @@ netgen-nogui \
 pycollada-git \
 calculix
 
+pacman -S \
+filesystem program_options regex signals system thread
 
 

@@ -24,9 +24,14 @@ _install(){
   rm boot root -fR; mkdir boot root
   mkfs.vfat /dev/sdb1 && mount /dev/sdb1 boot
   mkfs.f2fs /dev/sdb2 && mount -t f2fs /dev/sdb2 root
-# Install
+##Install
+ # RPI 2
   # wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
   bsdtar -xpf ArchLinuxARM-rpi-2-latest.tar.gz -C root; sync
+ # RPI 3
+  #wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-3-latest.tar.gz
+  bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root; sync
+
   mv root/boot/* boot
 }; _install
 
@@ -426,13 +431,5 @@ sudo systemctl enable rpc-idmapd
 sudo systemctl start rpc-idmapd
 sudo systemctl enable rpc-mountd
 sudo systemctl start rpc-mountd
-
-
-# RPI 3
-#wget -c http://archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz
-#wget -c http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-3-latest.tar.gz
-#cp /aux/Workstation/RaspberryPi/ArchLinuxARM-rpi-3-latest.tar.gz .
-#bsdtar -xpf ArchLinuxARM-aarch64-latest.tar.gz -C root
-#bsdtar -xpf ArchLinuxARM-rpi-3-latest.tar.gz -C root
 
 
