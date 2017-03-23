@@ -106,7 +106,7 @@ _networkmanager(){
   wireless_tools dialog
   systemctl enable NetworkManager
   # Bluetooth
-  pacman -S blueman bluez-utils
+  pacman -S --noconfirm blueman bluez-utils
   systemctl enable bluetooth.service
 }
 
