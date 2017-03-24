@@ -113,7 +113,7 @@ _networkmanager(){
 ## Packages
 _packages(){
   pacman -S --noconfirm \
-  gftp youtube-dl screenfetch \
+  gftp youtube-dl screenfetch transmission-gtk \
   firefox flashplugin vlc qt4 \
   libreoffice-fresh gimp blender
 }
