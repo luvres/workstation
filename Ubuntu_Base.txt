@@ -1,6 +1,6 @@
 ##### Packages
 sudo apt-get update && sudo apt-get upgrade
-sudo apt-get install git mercurial-git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic filezilla youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping f2fs-tools autoconf
+sudo apt-get install git mercurial-git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic filezilla youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping f2fs-tools autoconf hddtemp
 
 ##### Ubuntu Software
 # vlc
@@ -41,6 +41,20 @@ sudo chown $USER. .mozilla/firefox/gz1b8fnv.default/revocations.txt
 ##### Docker
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
+
+# Lighttpd
+docker run --name ftp -h ftp \
+-p 80:80 \
+-v /aux:/var/www \
+-d izone/alpine:lighttpd
+#docker start ftp
+
+# Php
+docker run --name ftp -h ftp \
+-p 80:80 \
+-v /aux:/var/www \
+-d izone/alpine:php7
+#docker start ftp
 
 #sudo rm /etc/init.d/docker
 #sudo rm /etc/rc*/*docker
