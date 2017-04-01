@@ -81,6 +81,40 @@ Launcher=file:///usr/share/applications/qtcreator.desktop
 EOF
 
 
+## Eclipse
+sudo tee /usr/share/applications/eclipse-neon.desktop <<EOF
+[Desktop Entry]
+Name=Eclipse
+Exec=/usr/bin/eclipse-neon
+Icon=/usr/share/icons/icons/javaee.png
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Utility;TextEditor;Development;
+EOF
+
+tee /home/luvres/.config/plank/dock1/launchers/eclipse-neon.dockitem <<EOF
+[PlankDockItemPreferences]
+Launcher=file:///usr/share/applications/eclipse-neon.desktop
+EOF
+
+
+## Atom
+sudo tee /usr/share/applications/atom.desktop <<EOF
+[Desktop Entry]
+Name=Atom
+Exec=/usr/bin/atom
+Icon=/home/luvres/Downloads/atom-amd64/usr/share/atom/atom.png
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Utility;TextEditor;Development;
+EOF
+
+tee /home/luvres/.config/plank/dock1/launchers/atom.dockitem <<EOF
+[PlankDockItemPreferences]
+Launcher=file:///usr/share/applications/atom.desktop
+EOF
+
+
 ## FreeCAD
 sudo tee /usr/share/applications/freecad.desktop <<EOF
 [Desktop Entry]
