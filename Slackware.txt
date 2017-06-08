@@ -390,11 +390,3 @@ update-grub
 curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C ~
 complete -cf sudo
 
-# Sudo
-echo 'Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' >>/etc/sudoers
-
-# Network 14.2
-sed -i '/USE_DHCP\[0\]/s/""/"yes"/' /etc/rc.d/rc.inet1.conf
-/etc/rc.d/rc.inet1 eth0_restart
-
-
