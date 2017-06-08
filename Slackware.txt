@@ -225,6 +225,13 @@ tar jxvf blender-2.78c-linux-glibc219-x86_64.tar.bz2
 sudo mv blender-2.78c-linux-glibc219-x86_64 /opt/blender
 sudo ln -s /opt/blender/blender /usr/bin/blender
 
+# Atom
+-------
+wget -c https://atom.io/download/deb
+# Extract Heres -> deb
+sudo cp -a deb_FILES/usr/share/atom /opt/
+/opt/atom/atom
+
 # Netbeans
 #----------
 wget -c http://download.netbeans.org/netbeans/8.2/final/zip/netbeans-8.2-201609300101.zip
@@ -268,11 +275,10 @@ EOF
 ############################
 ############################
 
-
-freecad
-atom
 mysql-workbench
+
 codeblocks
+freecad
 playonlinux wine skype teamviewer vlc
 
 
