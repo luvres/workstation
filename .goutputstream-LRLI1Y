@@ -1,0 +1,388 @@
+###############
+### Install ###
+###############
+
+## Grub
+---------
+menu
+  [ ] elilo
+  [ ] lilo
+  [ ] ttf-indic-fonts # Para rodar wine (X Window System)
+
+# MBR
+fdisk /dev/sda
+o
+------
+chroot /mnt
+grub-install /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+reboot
+
+# GPT
+fdisk /dev/sda
+g
+cgdisk /dev/sda
+200M ef00 EFI
+107G 8300 BOOT
+4096G 8200 Swap
+------
+chroot /mnt
+grub-install /dev/sda1
+grub-mkconfig -o /boot/grub/grub.cfg
+reboot
+
+
+###############
+### Configs ###
+###############
+
+# User
+#-------
+groupadd sudo
+useradd -m -g users -G wheel,sudo,floppy,cdrom,scanner,lp,audio,video,power,plugdev,netdev -s /bin/bash luvres
+passwd luvres
+
+# Sudo
+#-------
+sed -i '/%sudo/s/# //' /etc/sudoers
+sed -i 's/games/games:\/usr\/sbin:\/sbin/' /etc/profile
+
+# dmesg
+chmod +s /bin/dmesg
+
+# Timezone
+#------------
+cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+
+# Teclado no X
+#----------------
+# Current
+cp /usr/share/X11/xorg.conf.d/90-keyboard-layout-evdev.conf /etc/X11/xorg.conf.d/90-keyboard-layout.conf
+
+# 14.2
+cp /usr/share/X11/xorg.conf.d/90-keyboard-layout.conf /etc/X11/xorg.conf.d/90-keyboard-layout.conf
+
+sed -i '/XkbLayout/s/us/br/' /etc/X11/xorg.conf.d/90-keyboard-layout.conf
+
+
+## Java JDK
+#------------
+JAVA_VERSION_MAJOR=8 && \
+JAVA_VERSION_MINOR=131 && \
+JAVA_VERSION_BUILD=11 && \
+JAVA_PACKAGE=jdk && \ 
+curl -jkSLH "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/d54c1d3a095b4ff2b6607d096fa80163/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz | tar -xzf - -C /usr/local
+sed -i "s/games/games:\/usr\/local\/${JAVA_PACKAGE}1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR}\/bin/" /etc/profile
+
+
+# Themes
+#-----------
+wget -c https://dl.opendesktop.org/api/files/download/id/1461767736/90145-axiom.tar.gz
+tar zxvf 90145-axiom.tar.gz
+mv -v axiom axiomd /usr/share/themes/
+
+# Icons
+#--------
+wget -c https://dl.opendesktop.org/api/files/download/id/1493070701/xatane-icons.tar.gz
+tar zxvf xatane-icons.tar.gz
+mv -v xatane-icons /usr/share/icons/
+
+# Cursors
+#----------
+wget -c https://dl.opendesktop.org/api/files/download/id/1493318153/BMZ.tar.gz
+tar zxvf BMZ.tar.gz
+mv -v BMZ /usr/share/icons/
+
+# Xterm
+#--------
+tee ~/.Xresources <<EOF
+xterm*faceName: Monospace
+xterm*faceSize: 10
+xterm*vt100*geometry: 80x24
+xterm*saveLines: 16384
+xterm*foreground: rgb:00/00/00
+xterm*background: rgb:fe/fe/fe
+xterm*cursorColor: rgb:92/92/92
+xterm*highlightColor: rgb:b0/c4/de
+xterm*highlightTextColor: rgb:00/00/00
+EOF
+xrdb -merge .Xresources
+
+
+## Slackpkg
+#-----------
+# Mirrors
+VERSION=14.2 && sed -i "/ftp:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+VERSION=14.2 && sed -i "/http:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+VERSION=14.2 && sed -i "/ftp:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+VERSION=14.2 && sed -i "/http:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+
+VERSION=current && sed -i "/ftp:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+VERSION=current && sed -i "/http:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+VERSION=current && sed -i "/ftp:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+VERSION=current && sed -i "/http:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+
+slackpkg update gpg
+slackpkg update
+slackpkg install-new
+slackpkg upgrade-all # O
+grub-install /dev/sda1 && grub-mkconfig -o /boot/grub/grub.cfg
+slackpkg file-search bash-completion
+slackpkg install bash-completion-2.2-noarch-3
+
+
+## Multilibs
+#----------------------
+# Download
+VERSAO=14.2 && lftp -c "open http://www.slackware.com/~alien/multilib/ ; mirror -c -e $VERSAO" ; cd $VERSAO
+upgradepkg --reinstall --install-new *.t?z # Instalar somente o GCC
+upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao completa (wine/skype)
+
+
+########################
+### Package Managers ###
+########################
+ls /var/log/packages/ # Listar pacotes instalados
+
+## Sbopkg
+#----------
+wget -c https://github.com/sbopkg/sbopkg/releases/download/0.38.1/sbopkg-0.38.1-noarch-1_wsr.tgz
+installpkg sbopkg-0.38.1-noarch-1_wsr.tgz
+rm sbopkg-0.38.1-noarch-1_wsr.tgz
+sbopkg -> (C)reate -> [Sync, Browse, Search]
+sbopkg -r # Sincronizar
+sbopkg -o # Remover cache de pacotes obsoletos
+sbopkg -c # Verificar se tem atualizacoes
+sbopkg -s FreeCAD # Pesquisar
+sbopkg -g 'terminator plank' # Pesquisar diversos
+sqg -p vlc # Verifica dependencias
+sbopkg -i vlc # Instalar
+
+
+## Slpkg
+#--------
+wget -c https://github.com/dslackw/slpkg/archive/v3.2.7.tar.gz
+tar zxvf v3.2.7.tar.gz
+cd slpkg-3.2.7
+./install.sh
+sed -i '/alien/s/# //' /etc/slpkg/repositories.conf
+sed -i '/salix/s/# //' /etc/slpkg/repositories.conf
+slpkg update
+slpkg update slpkg
+slpkg health # Verificar saude dos pacotes
+slpkg repo-list
+
+
+################
+### Packages ###
+################
+
+PACKAGE=numix-icon-theme-circle && sudo sqg -p $PACKAGE ; sudo sbopkg -i $PACKAGE
+
+sudo slpkg -s sbo \
+Vanilla-DMZ faenza-icon-theme slack-wallpapers \
+xfce4-whiskermenu-plugin alien youtube-dl \
+thunar-archive-plugin file-roller unrar p7zip \
+gedit terminator plank brasero
+
+sudo slpkg -s sbo \
+chromium light-firefox
+
+# Google-chrome
+#---------------
+wget -c http://mirrors.slackware.com/slackware/slackware64-14.2/extra/google-chrome/google-chrome.SlackBuild
+wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+chmod +x google-chrome.SlackBuild
+sudo ./google-chrome.SlackBuild
+sudo upgradepkg --install-new /tmp/google-chrome*.txz
+
+# Whatsapp
+#----------
+/opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
+
+
+# LibreOffice
+#--------------
+wget -c http://linorg.usp.br/LibreOffice/libreoffice/stable/5.3.3/rpm/x86_64/LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
+tar zxvf LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
+cd LibreOffice_*_rpm/RPMS/
+sudo rpm -ivh --nodeps *.rpm
+sudo gtk-update-icon-cache
+
+# Firefox
+#---------
+wget -c https://download-installer.cdn.mozilla.net/pub/firefox/releases/53.0.3/linux-x86_64/pt-BR/firefox-53.0.3.tar.bz2
+tar jxvf firefox-53.0.3.tar.bz2
+sudo mv firefox /opt/
+sudo unlink /usr/bin/firefox
+sudo ln -s /opt/firefox/firefox /usr/bin/firefox
+sudo removepkg mozilla-firefox
+
+# Blender
+#--------
+wget -c http://ftp.nluug.nl/pub/graphics/blender/release/Blender2.78/blender-2.78c-linux-glibc219-x86_64.tar.bz2
+tar jxvf blender-2.78c-linux-glibc219-x86_64.tar.bz2
+sudo mv blender-2.78c-linux-glibc219-x86_64 /opt/blender
+sudo ln -s /opt/blender/blender /usr/bin/blender
+
+# Atom
+-------
+wget -c https://atom.io/download/deb
+# Extract Heres -> deb
+sudo cp -a deb_FILES/usr/share/atom /opt/
+/opt/atom/atom
+
+# Netbeans
+#----------
+wget -c http://download.netbeans.org/netbeans/8.2/final/zip/netbeans-8.2-201609300101.zip
+sudo unzip netbeans-8.2-201609300101.zip -d /opt/
+sudo ln -sf /opt/netbeans/bin/netbeans /usr/bin/netbeans
+
+# Eclipse -> NEON 3
+#--------------------
+wget -c http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-linux-gtk-x86_64.tar.gz
+tar zxvf eclipse-jee-neon-3-linux-gtk-x86_64.tar.gz
+sudo mv eclipse /opt/eclipse-neon
+sudo ln -sf /opt/eclipse-neon/eclipse /usr/bin/eclipse-neon
+
+# QtCreator
+#------------
+wget -c http://download.qt.io/official_releases/qt/5.9/5.9.0/qt-opensource-linux-x64-5.9.0.run
+chmod +x qt-opensource-linux-x64-5.9.0.run
+sudo ./qt-opensource-linux-x64-5.9.0.run
+
+# virtualbox
+#------------
+groupadd -g 215 vboxusers
+sudo usermod -a -G vboxusers $USER
+sudo slpkg -s sbo virtualbox
+
+cat >>/etc/rc.d/rc.local <<EOF
+
+# Start vboxdrv
+if [ -x /etc/rc.d/rc.vboxdrv ]; then
+  /etc/rc.d/rc.vboxdrv start
+fi
+EOF
+cat >>/etc/rc.d/rc.local_shutdown <<EOF
+
+# Stop vboxdrv
+if [ -x /etc/rc.d/rc.vboxdrv ]; then
+  /etc/rc.d/rc.vboxdrv stop
+fi
+EOF
+
+############################
+############################
+
+mysql-workbench
+
+codeblocks
+freecad
+playonlinux wine skype teamviewer vlc
+
+
+### Pendentes
+
+# Docker
+---------
+sudo groupadd -r -g 281 docker
+sudo usermod -a -G docker $USER
+sudo slpkg -s sbo docker
+
+
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/docker/docker-17.03.1-x86_64-4_slonly.txz
+sudo upgradepkg --install-new docker-17.03.1-x86_64-4_slonly.txz
+
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/runc/runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz
+sudo upgradepkg --install-new runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz
+
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/containerd/containerd-0.2.3_4ab9917-x86_64-2_slonly.txz
+sudo upgradepkg --install-new containerd-0.2.3_4ab9917-x86_64-2_slonly.txz
+
+
+cat >>/etc/rc.d/rc.local <<EOF
+
+  if [ -x /etc/rc.d/rc.docker ]; then
+    /etc/rc.d/rc.docker start
+  fi
+EOF
+cat >>/etc/rc.d/rc.local_shutdown <<EOF
+
+  if [ -x /etc/rc.d/rc.docker ]; then
+    /etc/rc.d/rc.docker stop
+  fi
+EOF
+########
+
+
+############################
+############################
+############################
+
+## Slapt-get & gslapt
+# Slapt-get
+wget -c http://software.jaos.org/slackpacks/14.2-x86_64/slapt-get/slapt-get-0.10.2t-x86_64-1.tgz
+installpkg slapt-get-0.10.2t-x86_64-1.tgz
+# gslapt
+wget -c http://software.jaos.org/slackpacks/14.2-x86_64/gslapt/gslapt-0.5.4c-x86_64-1.tgz
+installpkg gslapt-0.5.4c-x86_64-1.tgz
+
+# /etc/slackpkg/mirrors -> Adicionar repo no gslapt
+#alien pacote.deb
+#rpm2tgz pacote.tgz
+
+
+## Fonts infinality
+#git clone https://github.com/nihilismus/bob-infinality-bundle.git
+git clone https://github.com/ericfernandesferreira/infinality-fonts.git
+cd infinality-fonts
+./build-infinality-fonts.sh
+
+
+## Compilar programas
+wget pacote.tar.gz
+tar zxvf pacote.tar.gz
+cd pacote
+./configure --prefix=/usr --sysconfdir=/etc
+make
+make clean
+mkdir /tmp/pacote
+make install DISTDIR=/tmp/pacote
+
+
+## Criar pacotes .txz
+wget pacote.tar.gz
+tar zxvf pacote.tar.gz
+mkdir /tmp/build
+mv pacote /tmp/build/
+cd /tmp/build 
+./configure --prefix=/usr --sysconfdir=/etc
+make
+make install DISTDIR=/tmp/build/pacote
+strip --strip-unneeded /tmp/build/pacote/ /usr/bin/*
+makepkg -c n ../pacote.txz
+installpkg pacote.txz
+
+
+### Compiar Kernel
+wget -c https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.11.3.tar.xz
+tar Jxf linux-4.11.3.tar.xz -C /usr/src
+cd /usr/src
+ln -s linux-4.11.3 linux
+cd linux
+make menuconfig
+# Makefile -> EXTRAVERSION = meukernel
+make bzImage
+make modules
+make modules_install
+make install
+cd /boot
+mkinitramfs -o initrd.img-4.7.3meukernel 4.7.3meukernel
+update-grub
+
+
+# Bashrc
+curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C ~
+complete -cf sudo
+
