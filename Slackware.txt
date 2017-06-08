@@ -321,7 +321,6 @@ EOF
 ############################
 
 ## Slapt-get & gslapt
-----------------------
 # Slapt-get
 wget -c http://software.jaos.org/slackpacks/14.2-x86_64/slapt-get/slapt-get-0.10.2t-x86_64-1.tgz
 installpkg slapt-get-0.10.2t-x86_64-1.tgz
@@ -335,25 +334,13 @@ installpkg gslapt-0.5.4c-x86_64-1.tgz
 
 
 ## Fonts infinality
---------------------
 #git clone https://github.com/nihilismus/bob-infinality-bundle.git
 git clone https://github.com/ericfernandesferreira/infinality-fonts.git
 cd infinality-fonts
 ./build-infinality-fonts.sh
 
 
-## Chrome (Slackbuild)
------------------------
-http://packages.slackware.com/
-wget google-chrome.SlackBuild
-wget google.com/chrome.deb
-chmod +x google-chrome.SlackBuild
-./google-chrome.SlackBuild
-upgradepkg --install-new /tmp/google-chome..txz
-
-
 ## Compilar programas
-----------------------
 wget pacote.tar.gz
 tar zxvf pacote.tar.gz
 cd pacote
@@ -365,7 +352,6 @@ make install DISTDIR=/tmp/pacote
 
 
 ## Criar pacotes .txz
-----------------------
 wget pacote.tar.gz
 tar zxvf pacote.tar.gz
 mkdir /tmp/build
@@ -379,13 +365,11 @@ makepkg -c n ../pacote.txz
 installpkg pacote.txz
 
 ## rpm
--------
 cd Pacote/RPMS
 rpm -Uvh --nodeps *.rpm
 
 
 ### Compiar Kernel
--------------------
 wget -c https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.11.3.tar.xz
 tar Jxf linux-4.11.3.tar.xz -C /usr/src
 cd /usr/src
