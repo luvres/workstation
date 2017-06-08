@@ -364,10 +364,6 @@ strip --strip-unneeded /tmp/build/pacote/ /usr/bin/*
 makepkg -c n ../pacote.txz
 installpkg pacote.txz
 
-## rpm
-cd Pacote/RPMS
-rpm -Uvh --nodeps *.rpm
-
 
 ### Compiar Kernel
 wget -c https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.11.3.tar.xz
