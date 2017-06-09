@@ -93,6 +93,15 @@ wget -c https://dl.opendesktop.org/api/files/download/id/1493318153/BMZ.tar.gz
 tar zxvf BMZ.tar.gz
 mv -v BMZ /usr/share/icons/
 
+# Noto Fonts
+wget -c https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip
+sudo unzip Noto-hinted.zip -d /usr/share/icons/
+
+cp -a xatane-icons /usr/share/icons/
+
+mkdir $HOME/.fonts
+unzip Noto-hinted.zip -d $HOME/.fonts
+
 # Xterm
 #--------
 tee ~/.Xresources <<EOF
@@ -129,11 +138,6 @@ slackpkg upgrade-all # O
 grub-install /dev/sda1 && grub-mkconfig -o /boot/grub/grub.cfg
 slackpkg file-search bash-completion
 slackpkg install bash-completion-2.2-noarch-3
-
-# Noto Fonts
-wget -c https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip
-mkdir $HOME/.fonts
-unzip Noto-hinted.zip -d $HOME/.fonts
 
 
 ########################
