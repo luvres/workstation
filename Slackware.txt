@@ -99,22 +99,6 @@ mkdir $HOME/.fonts
 unzip Noto-hinted.zip -d $HOME/.fonts
 rm Noto-hinted.zip
 
-# Xterm
-#--------
-tee ~/.Xresources <<EOF
-xterm*faceName: Monospace
-xterm*faceSize: 10
-xterm*vt100*geometry: 80x24
-xterm*saveLines: 16384
-xterm*foreground: rgb:00/00/00
-xterm*background: rgb:fe/fe/fe
-xterm*cursorColor: rgb:92/92/92
-xterm*highlightColor: rgb:b0/c4/de
-xterm*highlightTextColor: rgb:00/00/00
-EOF
-xrdb -merge .Xresources
-
-
 ## Slackpkg
 #-----------
 # Mirrors
@@ -135,6 +119,32 @@ slackpkg upgrade-all # O
 grub-install /dev/sda1 && grub-mkconfig -o /boot/grub/grub.cfg
 slackpkg file-search bash-completion
 slackpkg install bash-completion-2.2-noarch-3
+
+
+############
+### User ###
+############
+
+# Xterm
+#--------
+tee ~/.Xresources <<EOF
+xterm*faceName: Monospace
+xterm*faceSize: 10
+xterm*vt100*geometry: 80x24
+xterm*saveLines: 16384
+xterm*foreground: rgb:00/00/00
+xterm*background: rgb:fe/fe/fe
+xterm*cursorColor: rgb:92/92/92
+xterm*highlightColor: rgb:b0/c4/de
+xterm*highlightTextColor: rgb:00/00/00
+EOF
+xrdb -merge .Xresources
+
+# Photogimp
+wget -c http://download2008.mediafire.com/2l8lxhrj0e8g/5w7hl95c99i86nd/PhotoGIMP+-+Ubuntu.zip
+unzip PhotoGIMP*.zip
+cp -a .gimp-2.8/ $HOME
+rm .gimp-2.8/ Install.txt PhotoGIMP*.zip -fR
 
 
 ########################
@@ -279,12 +289,6 @@ EOF
 
 ############################
 ############################
-
-# Photogimp
-wget -c http://download2008.mediafire.com/2l8lxhrj0e8g/5w7hl95c99i86nd/PhotoGIMP+-+Ubuntu.zip
-unzip PhotoGIMP*.zip
-cp -a .gimp-2.8/ $HOME
-rm .gimp-2.8/ Install.txt PhotoGIMP*.zip -fR
 
 
 # codeblocks
