@@ -97,6 +97,7 @@ mv -v BMZ /usr/share/icons/
 wget -c https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip
 mkdir $HOME/.fonts
 unzip Noto-hinted.zip -d $HOME/.fonts
+rm Noto-hinted.zip
 
 # Xterm
 #--------
