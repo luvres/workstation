@@ -95,10 +95,6 @@ mv -v BMZ /usr/share/icons/
 
 # Noto Fonts
 wget -c https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip
-sudo unzip Noto-hinted.zip -d /usr/share/icons/
-
-cp -a xatane-icons /usr/share/icons/
-
 mkdir $HOME/.fonts
 unzip Noto-hinted.zip -d $HOME/.fonts
 
