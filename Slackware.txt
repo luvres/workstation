@@ -284,7 +284,7 @@ EOF
 wget -c http://download2008.mediafire.com/2l8lxhrj0e8g/5w7hl95c99i86nd/PhotoGIMP+-+Ubuntu.zip
 unzip PhotoGIMP*.zip
 cp -a .gimp-2.8/ $HOME
-rm .gimp-2.8/ Install.txt PhotoGIMP+-+Ubuntu.zip -fR
+rm .gimp-2.8/ Install.txt PhotoGIMP*.zip -fR
 
 
 # codeblocks
