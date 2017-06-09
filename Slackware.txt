@@ -300,7 +300,7 @@ mysql-workbench
 
 
 freecad
-playonlinux wine skype teamviewer vlc
+playonlinux wine skype teamviewer
 
 
 ### Pendentes
