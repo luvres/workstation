@@ -130,13 +130,10 @@ grub-install /dev/sda1 && grub-mkconfig -o /boot/grub/grub.cfg
 slackpkg file-search bash-completion
 slackpkg install bash-completion-2.2-noarch-3
 
-
-## Multilibs
-#----------------------
-# Download
-VERSAO=14.2 && lftp -c "open http://www.slackware.com/~alien/multilib/ ; mirror -c -e $VERSAO" ; cd $VERSAO
-upgradepkg --reinstall --install-new *.t?z # Instalar somente o GCC
-upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao completa (wine/skype)
+# Noto Fonts
+wget -c https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip
+mkdir $HOME/.fonts
+unzip Noto-hinted.zip -d $HOME/.fonts
 
 
 ########################
@@ -278,8 +275,10 @@ if [ -x /etc/rc.d/rc.vboxdrv ]; then
 fi
 EOF
 
+
 ############################
 ############################
+
 # Photogimp
 wget -c http://download2008.mediafire.com/2l8lxhrj0e8g/5w7hl95c99i86nd/PhotoGIMP+-+Ubuntu.zip
 unzip PhotoGIMP*.zip
@@ -402,4 +401,12 @@ update-grub
 # Bashrc
 curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C ~
 complete -cf sudo
+
+
+## Multilibs
+#----------------------
+# Download
+VERSAO=14.2 && lftp -c "open http://www.slackware.com/~alien/multilib/ ; mirror -c -e $VERSAO" ; cd $VERSAO
+upgradepkg --reinstall --install-new *.t?z # Instalar somente o GCC
+upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao completa (wine/skype)
 
