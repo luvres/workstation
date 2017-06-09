@@ -275,9 +275,23 @@ EOF
 ############################
 ############################
 
+# Vlc
+------
+groupadd -g 214 avahi
+useradd -u 214 -g 214 -c Avahi -d /dev/null -s /bin/false avahi
+slpkg -s sbo vlc
+
+slpkg -s sbo gedit-plugins
+
+# codeblocks
+wget -c http://www.slackel.gr/repo/x86_64/current/slackel/extra/codeblocks-16.01-x86_64-1dj.txz
+upgradepkg --install-new codeblocks-16.01-x86_64-1dj.txz
+
+
+
 mysql-workbench
 
-codeblocks
+
 freecad
 playonlinux wine skype teamviewer vlc
 
