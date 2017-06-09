@@ -183,10 +183,10 @@ sudo slpkg -s sbo \
 Vanilla-DMZ faenza-icon-theme slack-wallpapers \
 xfce4-whiskermenu-plugin alien youtube-dl \
 thunar-archive-plugin file-roller unrar p7zip \
-gedit terminator plank brasero
+gedit gedit-plugins terminator plank brasero
 
 sudo slpkg -s sbo \
-chromium light-firefox
+chromium light-firefox transmission
 
 # Google-chrome
 #---------------
@@ -224,6 +224,12 @@ wget -c http://ftp.nluug.nl/pub/graphics/blender/release/Blender2.78/blender-2.7
 tar jxvf blender-2.78c-linux-glibc219-x86_64.tar.bz2
 sudo mv blender-2.78c-linux-glibc219-x86_64 /opt/blender
 sudo ln -s /opt/blender/blender /usr/bin/blender
+
+# Vlc
+------
+groupadd -g 214 avahi
+useradd -u 214 -g 214 -c Avahi -d /dev/null -s /bin/false avahi
+slpkg -s sbo vlc
 
 # Atom
 -------
@@ -274,19 +280,16 @@ EOF
 
 ############################
 ############################
+# Photogimp
+wget -c http://download2008.mediafire.com/2l8lxhrj0e8g/5w7hl95c99i86nd/PhotoGIMP+-+Ubuntu.zip
+unzip PhotoGIMP*.zip
+cp -a .gimp-2.8/ $HOME
+rm .gimp-2.8/ Install.txt PhotoGIMP+-+Ubuntu.zip -fR
 
-# Vlc
-------
-groupadd -g 214 avahi
-useradd -u 214 -g 214 -c Avahi -d /dev/null -s /bin/false avahi
-slpkg -s sbo vlc
-
-slpkg -s sbo gedit-plugins
 
 # codeblocks
 wget -c http://www.slackel.gr/repo/x86_64/current/slackel/extra/codeblocks-16.01-x86_64-1dj.txz
 upgradepkg --install-new codeblocks-16.01-x86_64-1dj.txz
-
 
 
 mysql-workbench
