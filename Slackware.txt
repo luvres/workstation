@@ -406,3 +406,79 @@ upgradepkg --reinstall --install-new *.t?z # Instalar somente o GCC
 upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao completa (wine/skype)
 
 
+
+##### FreeCAD
+
+shiboken                1.2.2              x86_64         SBo
+pyside                  qt4.8+1.2.2        x86_64         SBo
+six                     1.10.0             x86_64         SBo
+backports-abc           0.5                x86_64         SBo
+backports-ssl-match-hostname 3.5.0.1            x86_64         SBo
+numpy                   1.11.1             x86_64         SBo
+python-dateutil         2.6.0              x86_64         SBo
+pytz                    2016.10            x86_64         SBo
+tornado                 4.5.1              x86_64         SBo
+pyparsing               2.1.8              x86_64         SBo
+cycler                  0.10.0             x86_64         SBo
+Coin                    3.1.3              x86_64         SBo
+SoQt                    1.5.0              x86_64         SBo
+VTK                     7.1.1              x86_64         SBo
+OpenCASCADE             6.9.1              x86_64         SBo
+Pivy                    hg_20101207        x86_64         SBo
+matplotlib              1.5.2              x86_64         SBo
+pyside-tools            0.2.15             x86_64         SBo
+xerces-c                3.1.4              x86_64         SBo    
+
+
+
+
+sudo slpkg -s sbo \
+shiboken \
+pyside \
+six \
+backports-abc \
+backports-ssl-match-hostname \
+numpy \
+python-dateutil \
+pytz \
+tornado \
+pyparsing \
+cycler \
+Coin \
+SoQt \
+VTK \
+OpenCASCADE \
+Pivy \
+matplotlib \
+pyside-tools \
+xerces-c
+
+
+wget -c https://ufpr.dl.sourceforge.net/project/netgen-mesher/netgen-mesher/5.3/netgen-5.3.1.tar.gz
+tar zxvf netgen-5.3.1.tar.gz
+cd netgen-5.3.1
+./configure --prefix=/usr --sysconfdir=/etc
+make
+make clean
+make install DISTDIR=/tmp/netgen.txz
+
+strip --strip-unneeded /tmp/netgen.txz /usr/bin/*
+makepkg -c n ../netgen.txz
+installpkg netgen.txz
+
+
+
+### Criar pacotes .txz
+wget pacote.tar.gz
+tar zxvf pacote.tar.gz
+mkdir /tmp/build
+mv pacote /tmp/build/
+cd /tmp/build 
+./configure --prefix=/usr --sysconfdir=/etc
+make
+make install DISTDIR=/tmp/build/pacote
+strip --strip-unneeded /tmp/build/pacote/ /usr/bin/*
+makepkg -c n ../pacote.txz
+installpkg pacote.txz
+
+
