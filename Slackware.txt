@@ -93,24 +93,18 @@ wget -c https://dl.opendesktop.org/api/files/download/id/1493318153/BMZ.tar.gz
 tar zxvf BMZ.tar.gz
 mv -v BMZ /usr/share/icons/
 
-# Noto Fonts
-wget -c https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip
-mkdir $HOME/.fonts
-unzip Noto-hinted.zip -d $HOME/.fonts
-rm Noto-hinted.zip
 
 ## Slackpkg
 #-----------
 # Mirrors
-VERSION=14.2 && sed -i "/ftp:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
-VERSION=14.2 && sed -i "/http:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
-VERSION=14.2 && sed -i "/ftp:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
 VERSION=14.2 && sed -i "/http:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
-
-VERSION=current && sed -i "/ftp:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
-VERSION=current && sed -i "/http:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
-VERSION=current && sed -i "/ftp:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
-VERSION=current && sed -i "/http:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+#VERSION=14.2 && sed -i "/ftp:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+#VERSION=14.2 && sed -i "/http:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+#VERSION=14.2 && sed -i "/ftp:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+#VERSION=current && sed -i "/http:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+#VERSION=current && sed -i "/ftp:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+#VERSION=current && sed -i "/http:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+#VERSION=current && sed -i "/ftp:\/\/ftp.slackware-brasil.com.br\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
 
 slackpkg update gpg
 slackpkg update
@@ -139,6 +133,12 @@ xterm*highlightColor: rgb:b0/c4/de
 xterm*highlightTextColor: rgb:00/00/00
 EOF
 xrdb -merge .Xresources
+
+# Noto Fonts
+wget -c https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip
+mkdir $HOME/.fonts
+unzip Noto-hinted.zip -d $HOME/.fonts
+rm Noto-hinted.zip
 
 # Photogimp
 wget -c http://download2008.mediafire.com/2l8lxhrj0e8g/5w7hl95c99i86nd/PhotoGIMP+-+Ubuntu.zip
@@ -311,16 +311,7 @@ sudo groupadd -r -g 281 docker
 sudo usermod -a -G docker $USER
 sudo slpkg -s sbo docker
 
-
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/docker/docker-17.03.1-x86_64-4_slonly.txz
-sudo upgradepkg --install-new docker-17.03.1-x86_64-4_slonly.txz
-
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/runc/runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz
-sudo upgradepkg --install-new runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz
-
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/containerd/containerd-0.2.3_4ab9917-x86_64-2_slonly.txz
-sudo upgradepkg --install-new containerd-0.2.3_4ab9917-x86_64-2_slonly.txz
-
+chmod +x /etc/rc.d/rc.docker
 
 cat >>/etc/rc.d/rc.local <<EOF
 
@@ -336,12 +327,13 @@ cat >>/etc/rc.d/rc.local_shutdown <<EOF
 EOF
 ########
 
+sudo sh /etc/rc.d/rc.docker start
 
 ############################
 ############################
 ############################
 
-## Slapt-get & gslapt
+### Slapt-get & gslapt
 # Slapt-get
 wget -c http://software.jaos.org/slackpacks/14.2-x86_64/slapt-get/slapt-get-0.10.2t-x86_64-1.tgz
 installpkg slapt-get-0.10.2t-x86_64-1.tgz
@@ -354,14 +346,14 @@ installpkg gslapt-0.5.4c-x86_64-1.tgz
 #rpm2tgz pacote.tgz
 
 
-## Fonts infinality
+### Fonts infinality
 #git clone https://github.com/nihilismus/bob-infinality-bundle.git
 git clone https://github.com/ericfernandesferreira/infinality-fonts.git
 cd infinality-fonts
 ./build-infinality-fonts.sh
 
 
-## Compilar programas
+### Compilar programas
 wget pacote.tar.gz
 tar zxvf pacote.tar.gz
 cd pacote
@@ -372,7 +364,7 @@ mkdir /tmp/pacote
 make install DISTDIR=/tmp/pacote
 
 
-## Criar pacotes .txz
+### Criar pacotes .txz
 wget pacote.tar.gz
 tar zxvf pacote.tar.gz
 mkdir /tmp/build
@@ -403,15 +395,25 @@ mkinitramfs -o initrd.img-4.7.3meukernel 4.7.3meukernel
 update-grub
 
 
-# Bashrc
+### Bashrc
 curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C ~
 complete -cf sudo
 
 
 ## Multilibs
-#----------------------
 # Download
 VERSAO=14.2 && lftp -c "open http://www.slackware.com/~alien/multilib/ ; mirror -c -e $VERSAO" ; cd $VERSAO
 upgradepkg --reinstall --install-new *.t?z # Instalar somente o GCC
 upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao completa (wine/skype)
+
+
+### Docker
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/docker/docker-17.03.1-x86_64-4_slonly.txz
+sudo upgradepkg --install-new docker-17.03.1-x86_64-4_slonly.txz
+
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/runc/runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz
+sudo upgradepkg --install-new runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz
+
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/containerd/containerd-0.2.3_4ab9917-x86_64-2_slonly.txz
+sudo upgradepkg --install-new containerd-0.2.3_4ab9917-x86_64-2_slonly.txz
 
