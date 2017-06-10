@@ -120,7 +120,7 @@ slackpkg install bash-completion-2.2-noarch-3
 ############
 
 # Xterm
-#--------
+#-------
 tee ~/.Xresources <<EOF
 xterm*faceName: Monospace
 xterm*faceSize: 10
@@ -135,12 +135,14 @@ EOF
 xrdb -merge .Xresources
 
 # Noto Fonts
+#------------
 wget -c https://noto-website.storage.googleapis.com/pkgs/Noto-hinted.zip
 mkdir $HOME/.fonts
 unzip Noto-hinted.zip -d $HOME/.fonts
 rm Noto-hinted.zip
 
 # Photogimp
+#-----------
 wget -c http://download2008.mediafire.com/2l8lxhrj0e8g/5w7hl95c99i86nd/PhotoGIMP+-+Ubuntu.zip
 unzip PhotoGIMP*.zip
 cp -a .gimp-2.8/ $HOME
@@ -153,11 +155,11 @@ rm .gimp-2.8/ Install.txt PhotoGIMP*.zip -fR
 ls /var/log/packages/ # Listar pacotes instalados
 
 ## Sbopkg
-#----------
+#---------
 wget -c https://github.com/sbopkg/sbopkg/releases/download/0.38.1/sbopkg-0.38.1-noarch-1_wsr.tgz
 installpkg sbopkg-0.38.1-noarch-1_wsr.tgz
 rm sbopkg-0.38.1-noarch-1_wsr.tgz
-sbopkg -> (C)reate -> [Sync, Browse, Search]
+#sbopkg -> (C)reate -> [Sync, Browse, Search]
 sbopkg -r # Sincronizar
 sbopkg -o # Remover cache de pacotes obsoletos
 sbopkg -c # Verificar se tem atualizacoes
@@ -210,7 +212,7 @@ sudo upgradepkg --install-new /tmp/google-chrome*.txz
 
 
 # LibreOffice
-#--------------
+#-------------
 wget -c http://linorg.usp.br/LibreOffice/libreoffice/stable/5.3.3/rpm/x86_64/LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
 tar zxvf LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
 cd LibreOffice_*_rpm/RPMS/
@@ -227,7 +229,7 @@ sudo ln -s /opt/firefox/firefox /usr/bin/firefox
 sudo removepkg mozilla-firefox
 
 # Blender
-#--------
+#---------
 wget -c http://ftp.nluug.nl/pub/graphics/blender/release/Blender2.78/blender-2.78c-linux-glibc219-x86_64.tar.bz2
 tar jxvf blender-2.78c-linux-glibc219-x86_64.tar.bz2
 sudo mv blender-2.78c-linux-glibc219-x86_64 /opt/blender
@@ -253,14 +255,14 @@ sudo unzip netbeans-8.2-201609300101.zip -d /opt/
 sudo ln -sf /opt/netbeans/bin/netbeans /usr/bin/netbeans
 
 # Eclipse -> NEON 3
-#--------------------
+#-------------------
 wget -c http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-linux-gtk-x86_64.tar.gz
 tar zxvf eclipse-jee-neon-3-linux-gtk-x86_64.tar.gz
 sudo mv eclipse /opt/eclipse-neon
 sudo ln -sf /opt/eclipse-neon/eclipse /usr/bin/eclipse-neon
 
 # QtCreator
-#------------
+#-----------
 wget -c http://download.qt.io/official_releases/qt/5.9/5.9.0/qt-opensource-linux-x64-5.9.0.run
 chmod +x qt-opensource-linux-x64-5.9.0.run
 sudo ./qt-opensource-linux-x64-5.9.0.run
@@ -286,33 +288,19 @@ if [ -x /etc/rc.d/rc.vboxdrv ]; then
 fi
 EOF
 
-
-############################
-############################
-
-
-# codeblocks
-wget -c http://www.slackel.gr/repo/x86_64/current/slackel/extra/codeblocks-16.01-x86_64-1dj.txz
-upgradepkg --install-new codeblocks-16.01-x86_64-1dj.txz
-
-
-mysql-workbench
-
-
-freecad
-playonlinux wine skype teamviewer
-
-
-### Pendentes
-
 # Docker
----------
-sudo groupadd -r -g 281 docker
-sudo usermod -a -G docker $USER
-sudo slpkg -s sbo docker
-
+#--------
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/docker/docker-17.03.1-x86_64-4_slonly.txz
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/development/google-go-lang/google-go-lang-1.8.1-x86_64-1_slonly.txz # google-go-lang # docker
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/libraries/libseccomp/libseccomp-2.3.2-x86_64-1_slonly.txz # libseccomp 
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/runc/runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz # runc
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/containerd/containerd-0.2.3_4ab9917-x86_64-2_slonly.txz # containerd 
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/docker-proxy/docker-proxy-20161020_0f53435-x86_64-3_slonly.txz # docker-proxy
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/tini/tini-0.13.0_949e6fa-x86_64-1_slonly.txz # tini
+upgradepkg --install-new *.txz && rm *.txz
 chmod +x /etc/rc.d/rc.docker
-
+groupadd -r -g 281 docker
+usermod -a -G docker $USER
 cat >>/etc/rc.d/rc.local <<EOF
 
   if [ -x /etc/rc.d/rc.docker ]; then
@@ -325,9 +313,18 @@ cat >>/etc/rc.d/rc.local_shutdown <<EOF
     /etc/rc.d/rc.docker stop
   fi
 EOF
-########
 
-sudo sh /etc/rc.d/rc.docker start
+############################
+############################
+
+# codeblocks
+wget -c http://www.slackel.gr/repo/x86_64/current/slackel/extra/codeblocks-16.01-x86_64-1dj.txz
+upgradepkg --install-new codeblocks-16.01-x86_64-1dj.txz
+
+mysql-workbench
+
+freecad
+playonlinux wine skype teamviewer
 
 ############################
 ############################
@@ -406,14 +403,4 @@ VERSAO=14.2 && lftp -c "open http://www.slackware.com/~alien/multilib/ ; mirror 
 upgradepkg --reinstall --install-new *.t?z # Instalar somente o GCC
 upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao completa (wine/skype)
 
-
-### Docker
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/docker/docker-17.03.1-x86_64-4_slonly.txz
-sudo upgradepkg --install-new docker-17.03.1-x86_64-4_slonly.txz
-
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/runc/runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz
-sudo upgradepkg --install-new runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz
-
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/containerd/containerd-0.2.3_4ab9917-x86_64-2_slonly.txz
-sudo upgradepkg --install-new containerd-0.2.3_4ab9917-x86_64-2_slonly.txz
 
