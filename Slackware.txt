@@ -300,7 +300,7 @@ wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/tini/tini
 upgradepkg --install-new *.txz && rm *.txz
 chmod +x /etc/rc.d/rc.docker
 groupadd -r -g 281 docker
-usermod -a -G docker $USER
+
 cat >>/etc/rc.d/rc.local <<EOF
 
   if [ -x /etc/rc.d/rc.docker ]; then
@@ -313,6 +313,8 @@ cat >>/etc/rc.d/rc.local_shutdown <<EOF
     /etc/rc.d/rc.docker stop
   fi
 EOF
+
+sudo usermod -a -G docker $USER
 
 ############################
 ############################
