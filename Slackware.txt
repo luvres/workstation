@@ -197,7 +197,7 @@ gedit gedit-plugins terminator plank brasero \
 light-firefox transmission python3
 
 sudo slpkg -s sbo \
-chromium 
+chromium codeblocks
 
 # Google-chrome
 #---------------
@@ -329,8 +329,6 @@ upgradepkg --install-new mysql-workbench-6.3.9-x86_64-4_slonly.txz
 
 ############################
 ############################
-
-codeblocks
 
 freecad
 playonlinux
