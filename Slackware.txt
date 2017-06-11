@@ -317,22 +317,26 @@ EOF
 
 sudo usermod -a -G docker $USER
 
-############################
-############################
 
 # mysql-workbench
-sudo slpkg -s sbo geos proj ptyprocess pyparsing six pycparser pyasn1 cffi enum34 ipaddress idna packaging asn1crypto cryptography tinyxml mysql-connector-c++ vsqlite++ ctemplate paramiko pexpect lua wxPython gdal
-
+#-----------------
+sudo slpkg -s sbo \
+geos proj ptyprocess pyparsing six pycparser pyasn1 cffi enum34 ipaddress idna packaging asn1crypto cryptography tinyxml mysql-connector-c++ vsqlite++ ctemplate paramiko pexpect lua wxPython gdal
 wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/development/mysql-workbench/mysql-workbench-6.3.9-x86_64-4_slonly.txz
 upgradepkg --install-new mysql-workbench-6.3.9-x86_64-4_slonly.txz
+#PACKAGE=mysql-workbench && sudo sqg -p $PACKAGE ; sudo sbopkg -i $PACKAGE
 
 
-# codeblocks
-wget -c http://www.slackel.gr/repo/x86_64/current/slackel/extra/codeblocks-16.01-x86_64-1dj.txz
-upgradepkg --install-new codeblocks-16.01-x86_64-1dj.txz
+############################
+############################
+
+codeblocks
 
 freecad
-playonlinux wine skype teamviewer
+playonlinux
+wine
+skype
+teamviewer
 
 ############################
 ############################
