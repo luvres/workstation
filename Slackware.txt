@@ -193,10 +193,11 @@ sudo slpkg -s sbo \
 Vanilla-DMZ faenza-icon-theme slack-wallpapers \
 xfce4-whiskermenu-plugin alien youtube-dl \
 thunar-archive-plugin file-roller unrar p7zip \
-gedit gedit-plugins terminator plank brasero
+gedit gedit-plugins terminator plank brasero \
+light-firefox transmission python3
 
 sudo slpkg -s sbo \
-chromium light-firefox transmission
+chromium 
 
 # Google-chrome
 #---------------
@@ -319,11 +320,16 @@ sudo usermod -a -G docker $USER
 ############################
 ############################
 
+# mysql-workbench
+sudo slpkg -s sbo geos proj ptyprocess pyparsing six pycparser pyasn1 cffi enum34 ipaddress idna packaging asn1crypto cryptography tinyxml mysql-connector-c++ vsqlite++ ctemplate paramiko pexpect lua wxPython gdal
+
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/development/mysql-workbench/mysql-workbench-6.3.9-x86_64-4_slonly.txz
+upgradepkg --install-new mysql-workbench-6.3.9-x86_64-4_slonly.txz
+
+
 # codeblocks
 wget -c http://www.slackel.gr/repo/x86_64/current/slackel/extra/codeblocks-16.01-x86_64-1dj.txz
 upgradepkg --install-new codeblocks-16.01-x86_64-1dj.txz
-
-mysql-workbench
 
 freecad
 playonlinux wine skype teamviewer
@@ -408,6 +414,9 @@ upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao comp
 
 
 ##### FreeCAD
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/graphics/FreeCAD/FreeCAD-0.16-x86_64-2_slonly.txz
+upgradepkg --install-new FreeCAD-0.16-x86_64-2_slonly.txz
+
 
 shiboken                1.2.2              x86_64         SBo
 pyside                  qt4.8+1.2.2        x86_64         SBo
@@ -428,8 +437,6 @@ Pivy                    hg_20101207        x86_64         SBo
 matplotlib              1.5.2              x86_64         SBo
 pyside-tools            0.2.15             x86_64         SBo
 xerces-c                3.1.4              x86_64         SBo    
-
-
 
 
 sudo slpkg -s sbo \
@@ -460,9 +467,8 @@ cd netgen-5.3.1
 ./configure --prefix=/usr --sysconfdir=/etc
 make
 make clean
-make install DISTDIR=/tmp/netgen.txz
-
-strip --strip-unneeded /tmp/netgen.txz /usr/bin/*
+make install DISTDIR=/tmp/netgen-5.3.1-x86_64.txz
+strip --strip-unneeded /tmp/netgen-5.3.1-x86_64.txz /usr/bin/*
 makepkg -c n ../netgen.txz
 installpkg netgen.txz
 
