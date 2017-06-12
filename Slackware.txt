@@ -143,7 +143,7 @@ rm Noto-hinted.zip
 
 # Photogimp
 #-----------
-wget -c http://download2008.mediafire.com/2l8lxhrj0e8g/5w7hl95c99i86nd/PhotoGIMP+-+Ubuntu.zip
+wget -c http://download2008.mediafire.com/hkajf8v6fw0g/5w7hl95c99i86nd/PhotoGIMP+-+Ubuntu.zip
 unzip PhotoGIMP*.zip
 cp -a .gimp-2.8/ $HOME
 rm .gimp-2.8/ Install.txt PhotoGIMP*.zip -fR
@@ -325,6 +325,16 @@ geos proj ptyprocess pyparsing six pycparser pyasn1 cffi enum34 ipaddress idna p
 wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/development/mysql-workbench/mysql-workbench-6.3.9-x86_64-4_slonly.txz
 upgradepkg --install-new mysql-workbench-6.3.9-x86_64-4_slonly.txz
 #PACKAGE=mysql-workbench && sudo sqg -p $PACKAGE ; sudo sbopkg -i $PACKAGE
+
+# Popcorntime
+#-------------
+wget https://get.popcorntime.sh/build/Popcorn-Time-0.3.10-Linux-64.tar.xz -O popcorntime.tar.xz
+sudo mkdir /opt/popcorntime
+sudo tar Jxf popcorntime.tar.xz -C /opt/popcorntime/
+sudo ln -sf /opt/popcorntime/Popcorn-Time /usr/bin/Popcorn-Time
+# OR
+wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/multimedia/popcorntime/popcorntime-0.3.10-x86_64-2_slonly.txz
+upgradepkg --install-new popcorntime-0.3.10-x86_64-2_slonly.txz
 
 
 ############################
