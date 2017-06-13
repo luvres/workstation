@@ -349,6 +349,10 @@ upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao comp
 wget -c https://ufpr.dl.sourceforge.net/project/wine/Slackware%20Packages/2.9/x86_64/wine-2.9-x86_64-1sg.txz
 upgradepkg --install-new *.txz && rm *.txz
 #
+# Playonlinux
+#-------------
+slpkg -s sbo playonlinux
+#
 # Skype
 #-------
 wget -c http://repository.slacky.eu/slackware64-14.2/network/skype_static/4.3.0.37/skype_static-4.3.0.37-x86_64-4sl.txz
