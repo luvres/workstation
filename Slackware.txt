@@ -354,13 +354,7 @@ upgradepkg --install-new skype_static-4.3.0.37-x86_64-4sl.txz
 #------------
 wget -c https://packages.slackonly.com/pub/packages/14.2-x86/network/teamviewer/teamviewer-12.0.76279-i486-1_slonly.txz
 upgradepkg --install-new teamviewer-12.0.76279-i486-1_slonly.txz
-chmod +x /etc/rc.d/rc.teamviewerd
-cat >>/etc/rc.d/rc.local <<EOF
-
-  if [ -x /etc/rc.d/rc.teamviewerd ]; then
-    /etc/rc.d/rc.teamviewerd start
-  fi
-EOF
+sh /etc/rc.d/rc.teamviewerd start
 
 ############################
 ############################
