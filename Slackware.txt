@@ -344,14 +344,6 @@ upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao comp
 #------
 wget -c https://ufpr.dl.sourceforge.net/project/wine/Slackware%20Packages/2.9/x86_64/wine-2.9-x86_64-1sg.txz
 upgradepkg --install-new *.txz && rm *.txz
-
-############################
-############################
-
-#
-# playonlinux
-#-------------
-slpkg -s sbo playonlinux
 #
 # Skype
 #-------
@@ -359,18 +351,9 @@ wget -c http://repository.slacky.eu/slackware64-14.2/network/skype_static/4.3.0.
 upgradepkg --install-new skype_static-4.3.0.37-x86_64-4sl.txz
 #
 # TeamViewer
-wget -c https://download.teamviewer.com/download/teamviewer_i386.tar.xz
-sudo tar Jxf teamviewer_i386.tar.xz -C /opt/
-sudo ln -sf /opt/teamviewer/teamviewer /usr/bin/teamviewer
-
-
+#------------
 wget -c https://packages.slackonly.com/pub/packages/14.2-x86/network/teamviewer/teamviewer-12.0.76279-i486-1_slonly.txz
 upgradepkg --install-new teamviewer-12.0.76279-i486-1_slonly.txz
-
-wget -c http://helmut.hullen.de/filebox/Linux/slackware/x/teamviewer-8.0.17147-i486-1_SBo.tgz
-upgradepkg --install-new teamviewer-8.0.17147-i486-1_SBo.tgz
-
-
 chmod +x /etc/rc.d/rc.teamviewerd
 cat >>/etc/rc.d/rc.local <<EOF
 
