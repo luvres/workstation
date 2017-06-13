@@ -118,6 +118,10 @@ slackpkg install bash-completion-2.2-noarch-3
 ############
 ### User ###
 ############
+# Bashrc
+#--------
+curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.xz?raw=true | tar -Jxf - -C ~
+complete -cf sudo
 
 # Xterm
 #-------
