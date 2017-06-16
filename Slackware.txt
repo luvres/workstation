@@ -147,13 +147,7 @@ rm Noto-hinted.zip
 
 # Photogimp
 #-----------
-wget -c https://raw.githubusercontent.com/luvres/workstation/master/PhotoGIMP.tar.xz
-tar Jxf PhotoGIMP.tar.xz -C $HOME
-
 curl https://raw.githubusercontent.com/luvres/workstation/master/PhotoGIMP.tar.xz | tar Jxf - -C $HOME
-
-cp -a .gimp-2.8/ $HOME
-rm .gimp-2.8/ Install.txt PhotoGIMP*.zip -fR
 
 
 ########################
