@@ -502,6 +502,11 @@ wget -c https://ufpr.dl.sourceforge.net/project/togl/Togl/2.0/Togl2.0-8.4-Linux6
 tar zxf Togl2.0-8.4-Linux64.tar.gz && pushd Togl2.0-8.4-Linux
 sudo cp -a Togl2.0-8.4-Linux/lib/Togl2.0/ /usr/lib64/Togl2
 
+wget -c https://ufpr.dl.sourceforge.net/project/togl/Togl/1.7/Togl-1.7.tar.gz
+tar zxf Togl-1.7.tar.gz && pushd Togl-1.7
+sudo cp -a Togl2.0-8.4-Linux/lib/Togl2.0/ /usr/lib64/Togl1
+
+
 # Netgen
 wget -c https://ufpr.dl.sourceforge.net/project/netgen-mesher/netgen-mesher/5.3/netgen-5.3.1.tar.gz
 tar zxf netgen-5.3.1.tar.gz && pushd netgen-5.3.1
