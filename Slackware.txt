@@ -194,7 +194,7 @@ sudo slpkg -s sbo \
 Vanilla-DMZ faenza-icon-theme slack-wallpapers \
 xfce4-whiskermenu-plugin alien youtube-dl \
 thunar-archive-plugin file-roller unrar p7zip \
-gedit gedit-plugins terminator plank brasero \
+gedit gedit-plugins terminator evince plank brasero \
 light-firefox transmission python3
 
 sudo slpkg -s sbo \
