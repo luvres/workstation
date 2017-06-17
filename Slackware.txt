@@ -221,6 +221,12 @@ cd LibreOffice_*_rpm/RPMS/
 sudo rpm -ivh --nodeps *.rpm
 sudo gtk-update-icon-cache
 
+# WPS-Office
+#------------
+wget -c http://kdl.cc.ksosoft.com/wps-community/download/a21/wps-office_10.1.0.5672~a21_x86_64.tar.xz
+tar Jxf wps-office_10.1.0.5672~a21_x86_64.tar.xz
+mv wps-office_10.1.0.5672~a21_x86_64 /opt/wps-office
+
 # Firefox
 #---------
 wget -c https://download-installer.cdn.mozilla.net/pub/firefox/releases/53.0.3/linux-x86_64/pt-BR/firefox-53.0.3.tar.bz2
