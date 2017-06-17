@@ -434,6 +434,9 @@ complete -cf sudo
 
 
 ##### FreeCAD
+# Build
+
+
 wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/graphics/FreeCAD/FreeCAD-0.16-x86_64-2_slonly.txz
 upgradepkg --install-new FreeCAD-0.16-x86_64-2_slonly.txz
 
