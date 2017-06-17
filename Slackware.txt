@@ -492,11 +492,15 @@ pyside-tools \
 xerces-c \
 hdf5
 
+wget -c http://dl.fedoraproject.org/pub/fedora/linux/releases/25/Everything/x86_64/os/Packages/m/med-devel-3.1.0-2.fc25.x86_64.rpm
+sudo rpm -ivh --nodeps *.rpm
+
 
 wget -c https://ufpr.dl.sourceforge.net/project/netgen-mesher/netgen-mesher/5.3/netgen-5.3.1.tar.gz
-tar zxvf netgen-5.3.1.tar.gz
-cd netgen-5.3.1
-./configure --prefix=/usr --sysconfdir=/etc
+tar zxf netgen-5.3.1.tar.gz && pushd netgen-5.3.1
+
+./configure --prefix=/usr --sysconfdir=/etc --enable-occ --with-occ=/opt/OpenCASCADE/inc --with-tcl=/usr/lib64/ --enable-jpeglib --enable-ffmpeg
+
 make
 make clean
 make install DISTDIR=/tmp/netgen-5.3.1-x86_64.txz
