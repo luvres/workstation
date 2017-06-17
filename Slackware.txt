@@ -489,7 +489,8 @@ OpenCASCADE \
 Pivy \
 matplotlib \
 pyside-tools \
-xerces-c
+xerces-c \
+hdf5
 
 
 wget -c https://ufpr.dl.sourceforge.net/project/netgen-mesher/netgen-mesher/5.3/netgen-5.3.1.tar.gz
