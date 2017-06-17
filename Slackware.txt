@@ -492,14 +492,33 @@ pyside-tools \
 xerces-c \
 hdf5
 
+# Med
+#-----
 wget -c http://dl.fedoraproject.org/pub/fedora/linux/releases/25/Everything/x86_64/os/Packages/m/med-devel-3.1.0-2.fc25.x86_64.rpm
 sudo rpm -ivh --nodeps *.rpm
 
+# Togl
+wget -c https://ufpr.dl.sourceforge.net/project/togl/Togl/2.0/Togl2.0-8.4-Linux64.tar.gz
+tar zxf Togl2.0-8.4-Linux64.tar.gz && pushd Togl2.0-8.4-Linux
+sudo cp -a Togl2.0-8.4-Linux/lib/Togl2.0/ /usr/lib64/Togl2
 
+# Netgen
 wget -c https://ufpr.dl.sourceforge.net/project/netgen-mesher/netgen-mesher/5.3/netgen-5.3.1.tar.gz
 tar zxf netgen-5.3.1.tar.gz && pushd netgen-5.3.1
 
-./configure --prefix=/usr --sysconfdir=/etc --enable-occ --with-occ=/opt/OpenCASCADE/inc --with-tcl=/usr/lib64/ --enable-jpeglib --enable-ffmpeg
+wget -c https://ufpr.dl.sourceforge.net/project/netgen-mesher/netgen-mesher/4.9.13/netgen-4.9.13.tar.gz
+tar zxf netgen-4.9.13.tar.gz && pushd netgen-4.9.13
+
+
+./configure \
+--prefix=/usr --sysconfdir=/etc \
+--enable-occ --with-occ=/opt/OpenCASCADE/inc \
+--with-tcl=/usr/lib64/ \
+--with-libtogl=/usr/lib64/Togl2/ \
+--with-tk=/usr/lib64/ \
+--enable-jpeglib --enable-ffmpeg
+
+
 
 make
 make clean
