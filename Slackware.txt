@@ -515,6 +515,7 @@ wget -c https://ufpr.dl.sourceforge.net/project/netgen-mesher/netgen-mesher/4.9.
 tar zxf netgen-4.9.13.tar.gz && pushd netgen-4.9.13
 
 
+env CPPFLAGS=-I/usr/local/include LDFLAGS=-s \
 ./configure \
 --prefix=/usr --sysconfdir=/etc \
 --enable-occ --with-occ=/opt/OpenCASCADE/inc \
