@@ -2,44 +2,40 @@ sudo mkfs.vfat -I /dev/sdc
 sudo dd if=/aux/ISOs/debian-9.0.0-amd64-netinst.iso of=/dev/sdc && sync
 
 
+### Sid
+#-------
 su
-apt-get update && apt-get upgrade
+sed -i '/^deb/s/deb/###deb/' /etc/apt/sources.list
+echo 'deb http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
+echo 'deb-src http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
+echo 'deb http://http.debian.net/debian/ sid main contrib non-free' >>/etc/apt/sources.list
+apt-get update && apt-get dist-upgrade
+
+apt-get install -y \
+sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
+cifs-utils f2fs-tools gfortran freeglut3-dev \
+arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
+git gedit gedit-plugins xclip terminator docker.io amd64-microcode 
+
+# Sudo
+#------
+usermod -aG docker `ls /home/`
 
 ### Guest
 #---------
 apt-get install -y \
 build-essential module-assistant linux-headers-$(uname -r)
 
-# Sudo
-#------
-apt-get install -y sudo
-usermod -a -G sudo `ls /home/`
+
+reboot
+
 
 # Configs
 #---------
+#sed -i '/GRUB_TIMEOUT/s/5/1/' /etc/default/grub
+sed -i '/=5/s/5/1/' /boot/grub/grub.cfg
 sed -i '/greeter-hide-users/s/true/false/' /usr/share/lightdm/lightdm.conf.d/01_debian.conf
 
-reboot
-
-
-apt-get install -y \
-net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
-cifs-utils f2fs-tools gfortran freeglut3-dev \
-arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
-git gedit gedit-plugins xclip terminator
-
-
-### Docker
-#----------
-curl -sSL https://get.docker.com | sh
-usermod -aG docker `ls /home/`
-
-reboot
-
-# Configs
-#---------
-sudo sed -i '/GRUB_TIMEOUT/s/5/1/' /etc/default/grub
-sudo sed -i '/greeter-hide-users/s/true/false/' /usr/share/lightdm/lightdm.conf.d/01_debian.conf
 
 ### Themes
 #----------
@@ -97,15 +93,9 @@ time make #-j3
 
 
 #######################
-### Sid
-#-------
-sed -i '/^deb/s/deb/###deb/' /etc/apt/sources.list
-#echo 'deb http://ftp.nl.debian.org/debian/ unstable main contrib non-free' >>/etc/apt/sources.list
-echo 'deb http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
-echo 'deb-src http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
-echo 'deb http://http.debian.net/debian/ sid main contrib non-free' >>/etc/apt/sources.list
-apt-get update && apt-get dist-upgrade
 
-#apt-get install amd64-microcode 
-
+### Docker
+#----------
+curl -sSL https://get.docker.com | sh
+usermod -aG docker `ls /home/`
 
