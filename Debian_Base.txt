@@ -6,11 +6,11 @@ su
 sed -i '/GRUB_TIMEOUT/s/5/1/' /etc/default/grub
 sed -i '/greeter-hide-users/s/true/false/' /usr/share/lightdm/lightdm.conf.d/01_debian.conf
 
-apt-get install \
+apt-get install -y \
 sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
 cifs-utils f2fs-tools gfortran freeglut3-dev \
 arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
-git gedit xclip 
+git gedit xclip terminator
 
 usermod -a -G sudo `ls /home/`
 
