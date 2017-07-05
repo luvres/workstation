@@ -31,7 +31,8 @@ build-essential module-assistant linux-headers-$(uname -r)
 ### Themes
 #----------
 mkdir $HOME/{.icons,.themes}
-wget -c https://dl.opendesktop.org/api/files/download/id/1461767736/90145-axiom.tar.gz
+curl https://dl.opendesktop.org/api/files/download/id/1461767736/90145-axiom.tar.gz | tar zxf - -C $HOME/.themes/
+
 wget -c https://dl.opendesktop.org/api/files/download/id/1482636342/la-capitaine-icon-theme-0.4.0.tar.gz1b8fnv
 wget -c https://github.com/daniruiz/Flat-Remix/archive/master.zip
 
