@@ -92,6 +92,16 @@ cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON $HOME/1uvr3z/FreeCAD
 time make #-j3
 
 
+### CalculiX
+#------------
+sudo apt install xorg-dev #libxmu-headers
+git clone https://github.com/luvres/graphics.git
+cd graphics/calculix-2.12/
+./install
+
+sudo mv /usr/bin/ccx /usr/bin/ccx_`ccx -version | grep 'is' | awk '{print $4}'`
+sudo ln -s $HOME/CalculiX-2.12/bin/ccx_2.12 /usr/bin/ccx
+sudo ln -s $HOME/CalculiX-2.12/bin/cgx /usr/bin/cgx
 
 #######################
 
