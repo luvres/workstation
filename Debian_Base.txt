@@ -81,9 +81,8 @@ sudo rm xfce4-dockbarx-plugin -fR
 sudo apt-get install -y \
 git build-essential cmake python python-matplotlib libtool libcoin80-dev libsoqt4-dev libxerces-c-dev libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-program-options-dev libboost-signals-dev libboost-thread-dev libboost-python-dev libqt4-dev libqt4-opengl-dev qt4-dev-tools python-dev python-pyside pyside-tools liboce-modeling-dev liboce-visualization-dev liboce-foundation-dev liboce-ocaf-lite-dev liboce-ocaf-dev oce-draw libeigen3-dev libqtwebkit-dev libshiboken-dev libpyside-dev libode-dev swig libzipios++-dev libfreetype6 libfreetype6-dev netgen-headers libmedc-dev libvtk6-dev libproj-dev
 
-# Source FreeCAD
-#tmux new-session -s freecad
-#tmux attach -t freecad
+## Source FreeCAD
+#-----------------
 mkdir $HOME/1uvr3z 2>/dev/null && cd $HOME/1uvr3z
 git clone https://github.com/FreeCAD/FreeCAD.git $HOME/1uvr3z/FreeCAD
 mkdir -p $HOME/1uvr3z/freecad-build 2>/dev/null && cd $HOME/1uvr3z/freecad-build
