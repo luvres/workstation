@@ -24,7 +24,7 @@ usermod -a -G sudo `ls /home/`
 ### Docker
 #----------
 curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
+usermod -aG docker `ls /home/`
 
 reboot
 
