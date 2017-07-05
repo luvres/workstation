@@ -1,0 +1,61 @@
+sudo sed -i '/GRUB_TIMEOUT/s/5/1/' /etc/default/grub
+sed -i '/greeter-hide-users/s/true/false/' /usr/share/lightdm/lightdm.conf.d/01_debian.conf
+
+### Sid
+#-------
+sed -i '/^deb/s/deb/###deb/' /etc/apt/sources.list
+echo 'deb http://ftp.nl.debian.org/debian/ unstable main contrib non-free' >>/etc/apt/sources.list
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get dist-upgrade
+
+### Themes
+#----------
+mkdir $HOME/.icons $HOME/.themes
+wget -c https://dl.opendesktop.org/api/files/download/id/1461767736/90145-axiom.tar.gz
+wget -c https://dl.opendesktop.org/api/files/download/id/1482636342/la-capitaine-icon-theme-0.4.0.tar.gz1b8fnv
+wget -c https://github.com/daniruiz/Flat-Remix/archive/master.zip
+
+# Paper Icons
+wget -c https://launchpadlibrarian.net/323837306/paper-icon-theme_1.4+r690~daily~ubuntu16.04.1_all.deb
+wget -c https://launchpadlibrarian.net/279316945/paper-gtk-theme_2.1+r265~daily~ubuntu16.04.1_all.deb
+sudo dpkg -i paper*.deb
+sudo apt-get install -f
+
+
+### Sudo
+#--------
+su
+sudo apt-get update && sudo apt-get upgrade
+apt-get install \
+sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
+cifs-utils f2fs-tools gfortran freeglut3-dev amd64-microcode \
+arc-theme moka-icon-theme numix-*-theme lightdm-gtk-greeter-settings \
+build-essential module-assistant linux-headers-$(uname -r)
+
+usermod -a -G sudo `ls /home/`
+
+reboot
+
+### Docker
+#----------
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+
+
+
+### FreeCAD Build
+#-----------------
+sudo apt-get install -y \
+git build-essential cmake python python-matplotlib libtool libcoin80-dev libsoqt4-dev libxerces-c-dev libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-program-options-dev libboost-signals-dev libboost-thread-dev libboost-python-dev libqt4-dev libqt4-opengl-dev qt4-dev-tools python-dev python-pyside pyside-tools liboce-modeling-dev liboce-visualization-dev liboce-foundation-dev liboce-ocaf-lite-dev liboce-ocaf-dev oce-draw libeigen3-dev libqtwebkit-dev libshiboken-dev libpyside-dev libode-dev swig libzipios++-dev libfreetype6 libfreetype6-dev netgen-headers libmedc-dev libvtk6-dev libproj-dev
+
+# Source FreeCAD
+#tmux new-session -s freecad
+#tmux attach -t freecad
+mkdir $HOME/1uvr3z 2>/dev/null && cd $HOME/1uvr3z
+git clone https://github.com/FreeCAD/FreeCAD.git $HOME/1uvr3z/FreeCAD
+mkdir -p $HOME/1uvr3z/freecad-build 2>/dev/null && cd $HOME/1uvr3z/freecad-build
+
+# Build
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON $HOME/1uvr3z/FreeCAD
+time make #-j3
