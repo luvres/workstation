@@ -10,7 +10,7 @@ sed -i '/greeter-hide-users/s/true/false/' /usr/share/lightdm/lightdm.conf.d/01_
 
 sed -i '/^deb/s/deb/###deb/' /etc/apt/sources.list
 echo 'deb http://ftp.nl.debian.org/debian/ unstable main contrib non-free' >>/etc/apt/sources.list
-apt-get update && sudo apt-get upgrade
+apt-get update && apt-get upgrade
 apt-get dist-upgrade
 
 apt-get install \
