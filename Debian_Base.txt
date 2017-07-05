@@ -61,6 +61,10 @@ sudo apt install -y \
 zeitgeist python-wnck python-imaging python-keybinder python-xlib python-gconf
 sudo ./setup.py install
 popd && sudo rm dockbarx -fR
+#dockx
+#sudo zeitgeist-daemon --quit
+#rm -rvf ~/.local/share/zeitgeist/fts.index/
+#zeitgeist-daemon --replace
 
 ### DockbarX Plugin
 #-------------------
