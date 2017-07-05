@@ -16,10 +16,14 @@ apt-get dist-upgrade
 apt-get install \
 sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
 cifs-utils f2fs-tools gfortran freeglut3-dev amd64-microcode \
-arc-theme moka-icon-theme numix-*-theme lightdm-gtk-greeter-settings \
-build-essential module-assistant linux-headers-$(uname -r)
+arc-theme moka-icon-theme numix-*-theme lightdm-gtk-greeter-settings
 
 usermod -a -G sudo `ls /home/`
+
+### Guest
+#---------
+apt-get install \
+build-essential module-assistant linux-headers-$(uname -r)
 
 ### Docker
 #----------
