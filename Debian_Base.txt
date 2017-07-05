@@ -60,6 +60,7 @@ git clone https://github.com/M7S/dockbarx.git && pushd dockbarx
 sudo apt install -y \
 zeitgeist python-wnck python-imaging python-keybinder python-xlib python-gconf
 sudo ./setup.py install
+sudo rm dockbarx -fR
 #dockx
 #sudo zeitgeist-daemon --quit
 #rm -rvf ~/.local/share/zeitgeist/fts.index/
@@ -73,7 +74,7 @@ valac libxfconf-0-2 libxfconf-0-dev libgtk2.0-dev xfce4-panel-dev \
 ./waf configure --prefix=/usr
 ./waf build
 sudo ./waf install
-
+sudo rm xfce4-dockbarx-plugin -fR
 
 ### FreeCAD Build
 #-----------------
