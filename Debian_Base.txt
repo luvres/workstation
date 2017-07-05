@@ -44,6 +44,7 @@ sudo apt-get install -f
 
 
 ### DockbarX
+#------------
 git clone https://github.com/M7S/dockbarx.git && pushd dockbarx
 sudo apt install -y \
 zeitgeist python-wnck python-imaging python-keybinder python-xlib python-gconf
@@ -53,11 +54,12 @@ sudo ./setup.py install
 #rm -rvf ~/.local/share/zeitgeist/fts.index/
 #zeitgeist-daemon --replace
 
+### DockbarX Plugin
+#-------------------
 git clone https://github.com/TiZ-EX1/xfce4-dockbarx-plugin.git && pushd xfce4-dockbarx-plugin
 sudo apt install -y \
-valac libxfconf-0-2 libxfconf-0-dev \
-build-essential xfce4-dev-tools autoconf intltool libtool libgtk2.0-dev libxfce4ui-1-dev xfce4-panel-dev
-
+valac libxfconf-0-2 libxfconf-0-dev libgtk2.0-dev xfce4-panel-dev \
+#build-essential xfce4-dev-tools autoconf intltool libtool libxfce4ui-1-dev
 ./waf configure --prefix=/usr
 ./waf build
 sudo ./waf install
