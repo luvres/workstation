@@ -1,12 +1,33 @@
-sudo sed -i '/GRUB_TIMEOUT/s/5/1/' /etc/default/grub
-sed -i '/greeter-hide-users/s/true/false/' /usr/share/lightdm/lightdm.conf.d/01_debian.conf
+sudo mkfs.vfat -I /dev/sdc
+sudo dd if=/aux/ISOs/debian-9.0.0-amd64-netinst.iso of=/dev/sdc && sync
+
 
 ### Sid
 #-------
+su
+sed -i '/GRUB_TIMEOUT/s/5/1/' /etc/default/grub
+sed -i '/greeter-hide-users/s/true/false/' /usr/share/lightdm/lightdm.conf.d/01_debian.conf
+
 sed -i '/^deb/s/deb/###deb/' /etc/apt/sources.list
 echo 'deb http://ftp.nl.debian.org/debian/ unstable main contrib non-free' >>/etc/apt/sources.list
-sudo apt-get update && sudo apt-get upgrade
-sudo apt-get dist-upgrade
+apt-get update && sudo apt-get upgrade
+apt-get dist-upgrade
+
+apt-get install \
+sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
+cifs-utils f2fs-tools gfortran freeglut3-dev amd64-microcode \
+arc-theme moka-icon-theme numix-*-theme lightdm-gtk-greeter-settings \
+build-essential module-assistant linux-headers-$(uname -r)
+
+usermod -a -G sudo `ls /home/`
+
+### Docker
+#----------
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+reboot
+
 
 ### Themes
 #----------
@@ -20,27 +41,6 @@ wget -c https://launchpadlibrarian.net/323837306/paper-icon-theme_1.4+r690~daily
 wget -c https://launchpadlibrarian.net/279316945/paper-gtk-theme_2.1+r265~daily~ubuntu16.04.1_all.deb
 sudo dpkg -i paper*.deb
 sudo apt-get install -f
-
-
-### Sudo
-#--------
-su
-sudo apt-get update && sudo apt-get upgrade
-apt-get install \
-sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
-cifs-utils f2fs-tools gfortran freeglut3-dev amd64-microcode \
-arc-theme moka-icon-theme numix-*-theme lightdm-gtk-greeter-settings \
-build-essential module-assistant linux-headers-$(uname -r)
-
-usermod -a -G sudo `ls /home/`
-
-reboot
-
-### Docker
-#----------
-curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
-
 
 
 
