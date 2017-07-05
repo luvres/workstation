@@ -11,7 +11,7 @@ echo 'deb-src http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc
 echo 'deb http://http.debian.net/debian/ sid main contrib non-free' >>/etc/apt/sources.list
 apt-get update && apt-get dist-upgrade -y
 
-apt-get install -y \
+apt install -y \
 sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
 cifs-utils f2fs-tools gfortran freeglut3-dev \
 arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
@@ -21,17 +21,19 @@ linux-image-4.11.0-1-amd64
 usermod -aG sudo `ls /home/`
 usermod -aG docker `ls /home/`
 
+reboot
+
+
 ### Guest
 #---------
-apt-get install -y \
+sudo apt install -y \
 build-essential module-assistant linux-headers-$(uname -r)
 
 # Configs
 #---------
 #sed -i '/GRUB_TIMEOUT/s/5/1/' /etc/default/grub
-sed -i '/=5/s/5/1/' /boot/grub/grub.cfg
-sed -i '/greeter-hide-users/s/true/false/' /usr/share/lightdm/lightdm.conf.d/01_debian.conf
-
+sudo sed -i '/=5/s/5/1/' /boot/grub/grub.cfg
+sudo sed -i '/greeter-hide-users/s/true/false/' /usr/share/lightdm/lightdm.conf.d/01_debian.conf
 
 reboot
 
@@ -39,7 +41,7 @@ reboot
 ### Themes
 #----------
 mkdir $HOME/{.icons,.themes}
-curl https://dl.opendesktop.org/api/files/download/id/1461767736/90145-axiom.tar.gz | tar zxf - -C $HOME/.themes/
+sudo curl https://dl.opendesktop.org/api/files/download/id/1461767736/90145-axiom.tar.gz | tar zxf - -C $HOME/.themes/
 
 #wget -c https://dl.opendesktop.org/api/files/download/id/1482636342/la-capitaine-icon-theme-0.4.0.tar.gz1b8fnv
 #wget -c https://github.com/daniruiz/Flat-Remix/archive/master.zip
@@ -48,7 +50,8 @@ curl https://dl.opendesktop.org/api/files/download/id/1461767736/90145-axiom.tar
 wget -c https://launchpadlibrarian.net/323837306/paper-icon-theme_1.4+r690~daily~ubuntu16.04.1_all.deb
 wget -c https://launchpadlibrarian.net/279316945/paper-gtk-theme_2.1+r265~daily~ubuntu16.04.1_all.deb
 sudo dpkg -i paper*.deb
-sudo apt-get install -f
+rm paper-*.deb
+#sudo apt-get install -f
 
 
 ### DockbarX
@@ -67,7 +70,6 @@ sudo ./setup.py install
 git clone https://github.com/TiZ-EX1/xfce4-dockbarx-plugin.git && pushd xfce4-dockbarx-plugin
 sudo apt install -y \
 valac libxfconf-0-2 libxfconf-0-dev libgtk2.0-dev xfce4-panel-dev \
-#build-essential xfce4-dev-tools autoconf intltool libtool libxfce4ui-1-dev
 ./waf configure --prefix=/usr
 ./waf build
 sudo ./waf install
