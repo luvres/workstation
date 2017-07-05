@@ -9,16 +9,16 @@ sed -i '/^deb/s/deb/###deb/' /etc/apt/sources.list
 echo 'deb http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
 echo 'deb-src http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
 echo 'deb http://http.debian.net/debian/ sid main contrib non-free' >>/etc/apt/sources.list
-apt-get update && apt-get dist-upgrade
+apt-get update && apt-get dist-upgrade -y
 
 apt-get install -y \
 sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
 cifs-utils f2fs-tools gfortran freeglut3-dev \
 arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
-git gedit gedit-plugins xclip terminator docker.io amd64-microcode 
+git gedit gedit-plugins xclip terminator docker.io amd64-microcode \
+linux-image-4.11.0-1-amd64
 
-# Sudo
-#------
+usermod -aG sudo `ls /home/`
 usermod -aG docker `ls /home/`
 
 ### Guest
