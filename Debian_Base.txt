@@ -26,15 +26,14 @@ usermod -aG docker `ls /home/`
 apt-get install -y \
 build-essential module-assistant linux-headers-$(uname -r)
 
-
-reboot
-
-
 # Configs
 #---------
 #sed -i '/GRUB_TIMEOUT/s/5/1/' /etc/default/grub
 sed -i '/=5/s/5/1/' /boot/grub/grub.cfg
 sed -i '/greeter-hide-users/s/true/false/' /usr/share/lightdm/lightdm.conf.d/01_debian.conf
+
+
+reboot
 
 
 ### Themes
