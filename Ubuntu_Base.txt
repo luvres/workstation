@@ -7,7 +7,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install -y \
 git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp
 
-#### Ubuntu Software
+### Ubuntu Software
 #--------------------
 # vlc
 # VirtualBox
@@ -626,6 +626,5 @@ git merge upstream/master
 ./configure
 make
 make install
-
 
 
