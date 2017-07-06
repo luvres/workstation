@@ -1,6 +1,9 @@
+sudo mkfs.vfat -I /dev/sdc
+sudo dd if=/aux/ISOs/ubuntu-17.04-desktop-amd64.iso of=/dev/sdc && sync
+
 ##### Packages
-sudo apt-get update && sudo apt-get upgrade
-sudo apt-get install git mercurial-git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic filezilla youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping f2fs-tools autoconf hddtemp
+sudo apt update && sudo apt upgrade
+sudo apt-get install git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp
 
 ##### Ubuntu Software
 # vlc
@@ -86,6 +89,11 @@ node -v
 sudo add-apt-repository ppa:webupd8team/brackets
 sudo apt-get update
 sudo apt-get install brackets
+
+##### Sublime Text
+sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo apt-get update
+sudo apt-get install sublime-text-installer
 
 ##### Simple Screen Recorder
 sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
