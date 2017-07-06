@@ -2,8 +2,9 @@ sudo mkfs.vfat -I /dev/sdc
 sudo dd if=/aux/ISOs/ubuntu-17.04-desktop-amd64.iso of=/dev/sdc && sync
 
 ##### Packages
-sudo apt update && sudo apt upgrade
-sudo apt-get install git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y \
+git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp
 
 ##### Ubuntu Software
 # vlc
