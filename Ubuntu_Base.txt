@@ -178,11 +178,6 @@ sudo add-apt-repository ppa:freecad-maintainers/freecad-daily
 
 ### FreeCAD Build Ubuntu (Atualizado)
 #-------------------------------------
-
-sudo apt install \
-build-essential cmake python python-matplotlib libtool libsoqt4-dev libxerces-c-dev libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-program-options-dev libboost-signals-dev libboost-thread-dev libboost-python-dev libqt4-dev libqt4-opengl-dev qt4-dev-tools python-dev python-pyside pyside-tools libpyside-dev libode-dev swig libzipios++-dev libfreetype6 libfreetype6-dev libmedc-dev libcoin80-dev libqtwebkit-dev libxerces-c-dev liboce*-dev oce-draw libvtk6-dev libshiboken-devel
-
-
 sudo apt install -y \
 git \
 build-essential \
