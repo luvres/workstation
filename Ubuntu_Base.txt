@@ -222,6 +222,10 @@ libmedc-dev \
 libvtk6-dev \
 libproj-dev
 
+### Bug correction
+#--------------------
+sudo ln -s /usr/lib/x86_64-linux-gnu/libfreeimage.so /usr/lib/
+
 ### Compile FreeCAD
 #-------------------
 mkdir 1uvr3z && cd 1uvr3z
@@ -230,12 +234,6 @@ mkdir freecad-build && cd freecad-build
 cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON ../FreeCAD
 cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON -DBUILD_ASSEMBLY=ON ../FreeCAD
 time make -j8
-
-
-### Bug correction
-#--------------------
-sudo ln -s /usr/lib/x86_64-linux-gnu/libfreeimage.so /usr/lib/
-
 
 ### Modules
 #-----------
