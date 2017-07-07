@@ -7,10 +7,6 @@ sudo dd if=/aux/ISOs/slackware64-current-install-dvd.iso of=/dev/sdc && sync
 
 ## Grub
 ---------
-menu
-  [ ] elilo
-  [ ] lilo
-  [ ] ttf-indic-fonts # Para rodar wine (X Window System)
 
 # MBR
 fdisk /dev/sda
@@ -28,6 +24,13 @@ cgdisk /dev/sda
 100M ef00 EFI
 4096M 8200 Swap
 107G 8300 ROOT
+
+------
+setup
+menu
+  [ ] elilo
+  [ ] lilo
+  [ ] ttf-indic-fonts # Para rodar wine (X Window System)
 
 ------
 chroot /mnt
