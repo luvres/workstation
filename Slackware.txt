@@ -27,7 +27,7 @@ g
 cgdisk /dev/sda
 100M ef00 EFI
 4096M 8200 Swap
-107G 8300 BOOT
+107G 8300 ROOT
 
 ------
 chroot /mnt
