@@ -25,9 +25,10 @@ reboot
 fdisk /dev/sda
 g
 cgdisk /dev/sda
-200M ef00 EFI
+100M ef00 EFI
+4096M 8200 Swap
 107G 8300 BOOT
-4096G 8200 Swap
+
 ------
 chroot /mnt
 grub-install /dev/sda1
