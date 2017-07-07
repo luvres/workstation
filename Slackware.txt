@@ -1,3 +1,6 @@
+sudo mkfs.vfat -I /dev/sdc
+sudo dd if=/aux/ISOs/slackware64-current-install-dvd.iso of=/dev/sdc && sync
+
 ###############
 ### Install ###
 ###############
@@ -195,10 +198,16 @@ Vanilla-DMZ faenza-icon-theme slack-wallpapers \
 xfce4-whiskermenu-plugin alien youtube-dl \
 thunar-archive-plugin file-roller unrar p7zip \
 gedit gedit-plugins terminator evince plank brasero \
-light-firefox transmission python3 webcore-fonts google-droid-fonts
+light-firefox transmission python3
 
 sudo slpkg -s sbo \
 chromium codeblocks freecad
+
+### Plank (current)
+#-------------------
+wget https://packages.slackonly.com/pub/packages/14.2-x86_64/libraries/bamf/bamf-0.5.3-x86_64-1_slonly.txz
+sudo upgradepkg --install-new bamf-0.5.3-x86_64-1_slonly.txz
+sudo slpkg -s sbo plank
 
 # Google-chrome
 #---------------
