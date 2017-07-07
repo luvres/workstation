@@ -311,13 +311,17 @@ EOF
 
 # Docker
 #--------
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/docker/docker-17.03.1-x86_64-4_slonly.txz
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/development/google-go-lang/google-go-lang-1.8.1-x86_64-1_slonly.txz # google-go-lang # docker
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/libraries/libseccomp/libseccomp-2.3.2-x86_64-1_slonly.txz # libseccomp 
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/runc/runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz # runc
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/containerd/containerd-0.2.3_4ab9917-x86_64-2_slonly.txz # containerd 
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/docker-proxy/docker-proxy-20161020_0f53435-x86_64-3_slonly.txz # docker-proxy
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/system/tini/tini-0.13.0_949e6fa-x86_64-1_slonly.txz # tini
+VERSION=current-x86_64
+VERSION=14.2-x86_64
+#--------
+wget -c https://packages.slackonly.com/pub/packages/$VERSION/development/google-go-lang/google-go-lang-1.8.1-x86_64-1_slonly.txz # google-go-lang # docker
+wget -c https://packages.slackonly.com/pub/packages/$VERSION/libraries/libseccomp/libseccomp-2.3.2-x86_64-1_slonly.txz # libseccomp 
+wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/runc/runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz # runc
+wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/containerd/containerd-0.2.3_4ab9917-x86_64-2_slonly.txz # containerd 
+wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/docker-proxy/docker-proxy-20161020_0f53435-x86_64-3_slonly.txz # docker-proxy
+wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/tini/tini-0.13.0_949e6fa-x86_64-1_slonly.txz # tini
+
+VERSION=current-x86_64 && wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/docker/docker-17.03.1-x86_64-4_slonly.txz
 upgradepkg --install-new *.txz && rm *.txz
 chmod +x /etc/rc.d/rc.docker
 groupadd -r -g 281 docker
