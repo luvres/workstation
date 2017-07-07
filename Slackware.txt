@@ -24,19 +24,19 @@ cgdisk /dev/sda
 100M ef00 EFI
 4096M 8200 Swap
 107G 8300 ROOT
-
-------
-setup
-menu
-  [ ] elilo
-  [ ] lilo
-  [ ] ttf-indic-fonts # Para rodar wine (X Window System)
-
 ------
 chroot /mnt
 grub-install /dev/sda1
 grub-mkconfig -o /boot/grub/grub.cfg
 reboot
+
+## Setup
+#--------
+setup
+menu
+  [ ] elilo
+  [ ] lilo
+  [ ] ttf-indic-fonts # Para rodar wine (X Window System)
 
 
 ###############
