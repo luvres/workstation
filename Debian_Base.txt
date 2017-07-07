@@ -5,6 +5,7 @@ sudo dd if=/aux/ISOs/debian-9.0.0-amd64-netinst.iso of=/dev/sdc && sync
 ### Sid
 #-------
 su
+cp /etc/apt/sources.list{,.orig}
 sed -i '/^deb/s/deb/###deb/' /etc/apt/sources.list
 echo 'deb http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
 echo 'deb-src http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
@@ -18,6 +19,22 @@ arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-set
 git gedit gedit-plugins xclip terminator docker.io amd64-microcode chromium \
 linux-image-4.11.0-1-amd64
 
+
+### Stretch
+#----------
+su
+apt install -y \
+sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
+cifs-utils f2fs-tools gfortran freeglut3-dev \
+arc-theme moka-icon-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
+git gedit gedit-plugins xclip terminator chromium
+
+# Docker
+curl -sSL https://get.docker.com | sh
+
+
+### Modules
+#-----------
 usermod -aG sudo `ls /home/`
 usermod -aG docker `ls /home/`
 
@@ -105,8 +122,5 @@ sudo ln -s $HOME/CalculiX-2.12/bin/cgx /usr/bin/cgx
 
 #######################
 
-### Docker
-#----------
-curl -sSL https://get.docker.com | sh
-usermod -aG docker `ls /home/`
+
 
