@@ -26,11 +26,23 @@ arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-set
 git gedit gedit-plugins xclip terminator docker.io amd64-microcode chromium \
 linux-image-4.11.0-1-amd64
 
+### Modules
+#-----------
 systemctl set-default graphical.target
+usermod -aG sudo `ls /home/`
+usermod -aG docker `ls /home/`
 
 reboot
-##############
 
+### Guest
+#---------
+sudo apt install -y \
+build-essential module-assistant linux-headers-$(uname -r)
+
+
+############
+### XFCE ###
+############
 
 ### Sid
 #-------
@@ -123,6 +135,11 @@ valac libxfconf-0-2 libxfconf-0-dev libgtk2.0-dev xfce4-panel-dev
 sudo ./waf install
 popd && sudo rm xfce4-dockbarx-plugin -fR
 
+
+###############
+### FreeCAD ###
+###############
+
 ### FreeCAD Build
 #-----------------
 sudo apt-get install -y \
@@ -149,8 +166,5 @@ cd graphics/calculix-2.12/
 sudo mv /usr/bin/ccx /usr/bin/ccx_`ccx -version | grep 'is' | awk '{print $4}'`
 sudo ln -s $HOME/CalculiX-2.12/bin/ccx_2.12 /usr/bin/ccx
 sudo ln -s $HOME/CalculiX-2.12/bin/cgx /usr/bin/cgx
-
-#######################
-
 
 
