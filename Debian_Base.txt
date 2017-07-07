@@ -2,6 +2,27 @@ sudo mkfs.vfat -I /dev/sdc
 sudo dd if=/aux/ISOs/debian-9.0.0-amd64-netinst.iso of=/dev/sdc && sync
 
 
+### KDE Plasma
+[x] standart sysntem utilities
+
+### Sid
+#-------
+su
+cp /etc/apt/sources.list{,.orig}
+sed -i '/^deb/s/deb/###deb/' /etc/apt/sources.list
+echo 'deb http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
+echo 'deb-src http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
+echo 'deb http://http.debian.net/debian/ sid main contrib non-free' >>/etc/apt/sources.list
+apt update && apt dist-upgrade -y
+
+apt install sddm kde-plasma-desktop
+
+systemctl set-default graphical.target
+
+reboot
+##############
+
+
 ### Sid
 #-------
 su
