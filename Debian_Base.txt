@@ -3,6 +3,7 @@ sudo dd if=/aux/ISOs/debian-9.0.0-amd64-netinst.iso of=/dev/sdc && sync
 
 
 ### KDE Plasma
+[x] SSH server
 [x] standart sysntem utilities
 
 ### Sid
