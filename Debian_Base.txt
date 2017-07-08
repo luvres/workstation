@@ -23,7 +23,7 @@ sddm kde-plasma-desktop \
 sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
 cifs-utils f2fs-tools gfortran freeglut3-dev \
 arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
-git gedit gedit-plugins xclip terminator docker.io amd64-microcode chromium \
+git gedit gedit-plugins xclip terminator docker.io amd64-microcode chromium firefox \
 linux-image-4.11.0-1-amd64
 
 ### Modules
