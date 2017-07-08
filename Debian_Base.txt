@@ -40,6 +40,13 @@ wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-
 # Remove
 wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/remove-papirus.sh | sh
 
+### Arc Theme
+#-------------
+# Install
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install-arc-kde-home.sh | sh
+# Remove
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/remove-arc-kde.sh | sh
+
 ### Latte Dock
 #--------------
 wget -c https://github.com/ubuntuvibes/Debs/blob/master/latte-dock_0.6.0-1_all.deb?raw=true -O latte-dock_0.6.0-1_all.deb
