@@ -33,6 +33,12 @@ systemctl set-default graphical.target
 usermod -aG sudo `ls /home/`
 usermod -aG docker `ls /home/`
 
+### Latte Dock
+#--------------
+wget -c https://github.com/ubuntuvibes/Debs/blob/master/latte-dock_0.6.0-1_all.deb?raw=true -O latte-dock_0.6.0-1_all.deb
+dpkg -i latte-dock_0.6.0-1_all.deb
+
+
 reboot
 
 ### Guest
