@@ -58,11 +58,11 @@ arch_chroot "systemctl enable nfs-client.target"
 arch_chroot "systemctl enable docker.service"
 arch_chroot "usermod -aG docker $USER"
 
-if [[ $3 == "efi" ]]; then
-  arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub"
-elif [[ $3 == "mbr" ]]; then
+if [[ $3 == "mbr" ]]; then
   #arch_chroot "grub-install /dev/sda"
   arch_chroot "grub-install --target=i386-pc --recheck /dev/sda"
+elif [[ $3 == "efi" ]]; then
+  arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub"
 fi
 
 # arch_chroot "sed -i 's/quiet/root=\/dev\/vg_zone\/lv_archlinux/' /etc/default/grub"
