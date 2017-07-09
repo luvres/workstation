@@ -141,7 +141,7 @@ _development(){
 
 ## sddm
 _sddm(){
-  pacman -S --noconfirm sddm sddm-kcm
+  pacman -S --noconfirm sddm
   systemctl enable sddm.service
 }
 
