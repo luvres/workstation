@@ -45,7 +45,7 @@ arch_chroot "echo 'SigLevel = Never' >> /etc/pacman.conf"
 arch_chroot "echo 'Server = http://repo.archlinux.fr/\$arch' >> /etc/pacman.conf"
 
 arch_chroot "pacman -Sy --noconfirm \
-             grub os-prober yaourt dmidecode acpi acpid mlocate bash-completion \
+             grub efibootmgr os-prober yaourt dmidecode acpi acpid mlocate bash-completion \
              pkgstats namcap tmux htop net-tools docker \
              zip unzip unrar p7zip \
              dosfstools ntfsprogs f2fs-tools"
@@ -58,8 +58,12 @@ arch_chroot "systemctl enable nfs-client.target"
 arch_chroot "systemctl enable docker.service"
 arch_chroot "usermod -aG docker $USER"
 
-#arch_chroot "grub-install /dev/sda"
-arch_chroot "grub-install --target=i386-pc --recheck /dev/sda"
+if [[ $3 == "efi" ]]; then
+  arch_chroot "grub-install --target=x86_64-efi"
+else
+  #arch_chroot "grub-install /dev/sda"
+  arch_chroot "grub-install --target=i386-pc --recheck /dev/sda"
+fi
 
 # arch_chroot "sed -i 's/quiet/root=\/dev\/vg_zone\/lv_archlinux/' /etc/default/grub"
 # arch_chroot "sed -i 's/part_msdos/part_msdos lvm/' /etc/default/grub"
