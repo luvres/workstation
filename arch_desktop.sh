@@ -2,7 +2,7 @@
 
 if [ $# -ne 1 ]; then
   echo ""
-  echo "   sh arch_xfce.sh [ xorg , xfce , xfce4 , packages , virtualbox , development ]"
+  echo "   sh arch_desktop.sh [ xorg , xfce , xfce4 , packages , virtualbox , development ]"
   echo ""
   exit 1
 fi
