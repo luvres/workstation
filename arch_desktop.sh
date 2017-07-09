@@ -240,6 +240,15 @@ if [[ $1 == "plasma" ]]; then
   _sddm
 fi
 
+if [[ $1 == "xfcemin" ]]; then
+  _thunar
+  _networkmanager
+  _sddm
+  _background
+  _plank
+  _macosx
+fi
+
 if [[ $1 == "xfce4" ]]; then
   _swapfile
   _bashrc
