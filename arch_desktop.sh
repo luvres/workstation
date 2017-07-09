@@ -241,12 +241,8 @@ if [[ $1 == "plasma" ]]; then
   _bashrc
   _xorgMinimal
   _makepkg
-  _development
-  _packages
   _plasma
   _sddm
-  _virtualbox
-  _background
 fi
 
 if [[ $1 == "xfce4" ]]; then
