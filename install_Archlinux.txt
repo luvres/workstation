@@ -25,6 +25,35 @@ reboot
 
 
 ### Desktop
+	################################
+	sudo pacman -S \
+	dvd+rw-tools cdrtools cdrdao autofs \
+	libdvdcss libdvdnav libcddb libcdio
+
+	sudo gpasswd -a $USER audio
+	sudo gpasswd -a $USER video
+	sudo gpasswd -a $USER optial
+
+	sudo groupadd cdrom
+	sudo usermod -a -G cdrom $USER
+
+
+	sudo pacman -S \
+	spectacle \
+	okular \
+	libreoffice-fresh \
+	gwenview \
+	sane \
+	java-runtime \
+	kate \
+	kinfocenter \
+	amarok \
+	firefox \
+	gst-plugins-ugly \
+	kdesdk-thumbnailers \
+	kimageformars \
+	gt5-imageformats..
+	################################
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 
