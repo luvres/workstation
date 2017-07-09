@@ -2,7 +2,7 @@
 
 if [ $# -ne 2 ]; then
   echo ""
-  echo "   sh [username] [password]"
+  echo "   sh [username] [password] [efi -> optional]"
   echo ""
   exit 1
 fi
