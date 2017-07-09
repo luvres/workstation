@@ -45,7 +45,7 @@ arch_chroot "echo 'SigLevel = Never' >> /etc/pacman.conf"
 arch_chroot "echo 'Server = http://repo.archlinux.fr/\$arch' >> /etc/pacman.conf"
 
 arch_chroot "pacman -Sy --noconfirm \
-             grub efibootmgr os-prober yaourt dmidecode acpi acpid mlocate bash-completion \
+             grub grub-efi-x86_64 efibootmgr os-prober yaourt dmidecode acpi acpid mlocate bash-completion \
              pkgstats namcap tmux htop net-tools docker \
              zip unzip unrar p7zip \
              dosfstools ntfsprogs f2fs-tools"
@@ -59,7 +59,7 @@ arch_chroot "systemctl enable docker.service"
 arch_chroot "usermod -aG docker $USER"
 
 if [[ $3 == "efi" ]]; then
-  arch_chroot "grub-install --target=x86_64-efi"
+  arch_chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub"
 elif [[ $3 == "mbr" ]]; then
   #arch_chroot "grub-install /dev/sda"
   arch_chroot "grub-install --target=i386-pc --recheck /dev/sda"
