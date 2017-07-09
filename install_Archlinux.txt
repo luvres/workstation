@@ -78,6 +78,8 @@ sh arch_desktop.sh virtualbox
 
 sh arch_desktop.sh xfce4
 
+sh arch_desktop.sh plasma
+
 
 ### arch_desktop.txt
 ## Configurations
