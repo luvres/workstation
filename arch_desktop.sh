@@ -237,6 +237,7 @@ if [[ $1 == "plasma" ]]; then
   _packages
   _plasma
   _sddm
+  _networkmanager
   _virtualbox
   _background
 fi
