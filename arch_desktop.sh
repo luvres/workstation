@@ -74,6 +74,13 @@ _makepkg(){
   # nano /etc/makepkg.conf #line 63
 }
 
+## KDE Plasma
+_plasma(){
+  # Core
+  pacman -S --noconfirm \
+  plasma-desktop # plasma plasma-meta
+}
+
 ## Xfce4
 _xfce4(){
   # Core

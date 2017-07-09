@@ -19,7 +19,7 @@ echo 'deb http://http.debian.net/debian/ sid main contrib non-free' >>/etc/apt/s
 apt update && apt dist-upgrade -y
 
 apt install -y \
-sddm kde-plasma-desktop \
+sddm kde-plasma-desktop build-essential cmake \
 sudo git net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
 cifs-utils f2fs-tools gfortran freeglut3-dev \
 arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
@@ -55,9 +55,16 @@ wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/maste
 # Remove
 wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/remove-arc-kde.sh | sh
 
+
 ### Active Window Control
 #-------------------------
-sudo wget -c https://github.com/kotelnik/plasma-applet-active-window-control/archive/master.zip -O 
+sudo mkdir -p $HOME/.local/share/plasma/plasmoids
+pushd $HOME/.local/share/plasma/plasmoids
+sudo wget -c https://github.com/kotelnik/plasma-applet-active-window-control/archive/master.zip
+sudo unzip master.zip
+cd plasma-applet-active-window-control-master
+sudo bash install.sh
+
 
 ### Latte Dock
 #--------------
