@@ -39,7 +39,7 @@ _bashrc(){
 _xorgMinimal(){
   # Xorg
   pacman -S --noconfirm \
-  xorg-server xorg-xinit xorg-utils
+  xorg xorg-xinit
 
   # Sound
   pacman -S --noconfirm \
