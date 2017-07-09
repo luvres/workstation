@@ -96,18 +96,18 @@ reboot
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 
+## XFCE
 sh arch_desktop.sh xorg
 sh arch_desktop.sh xfce
-sh arch_desktop.sh packages
-sh arch_desktop.sh virtualbox
+#sh arch_desktop.sh xfce4
 
-sh arch_desktop.sh xfce4
-
-sh arch_desktop.sh xorg
-sh arch_desktop.sh xfcemin
-
+## Plasma
 sh arch_desktop.sh xorg
 sh arch_desktop.sh plasma
+
+## Packages
+sh arch_desktop.sh packages
+sh arch_desktop.sh virtualbox
 
 
 ### arch_desktop.txt
