@@ -24,16 +24,16 @@ sh arch_install.sh [username] [password]
 reboot
 
 
-### XFCE
+### Desktop
 sudo su
-curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_xfce.sh
+curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 
-sh arch_xfce.sh xorg
-sh arch_xfce.sh xfce
-sh arch_xfce.sh packages
-sh arch_xfce.sh virtualbox
+sh arch_desktop.sh xorg
+sh arch_desktop.sh xfce
+sh arch_desktop.sh packages
+sh arch_desktop.sh virtualbox
 
-sh arch_xfce.sh xfce4
+sh arch_desktop.sh xfce4
 
 
 ### arch_desktop.txt
