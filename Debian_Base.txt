@@ -24,11 +24,8 @@ sudo git net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping
 cifs-utils f2fs-tools gfortran freeglut3-dev \
 arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
 xclip docker.io amd64-microcode \
+chromium firefox vlc gftp libreoffice gimp \
 linux-image-4.11.0-1-amd64
-
-apt install -y \
-gedit gedit-plugins terminator chromium firefox vlc gftp libreoffice gimp \
-
 
 ### Modules
 #-----------
