@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 3 && [ $3 != "efi" || $3 != "mbr" ] ]; then
+if [[ ($# -ne 3) || (($# -eq 3) && ("$3" != "mbr")) && (($# -eq 3) && ("$3" != "efi")) ]]; then
   echo ""
   echo "   sh [username] [password] [efi or mbr]"
   echo ""
