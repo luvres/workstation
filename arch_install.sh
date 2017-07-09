@@ -4,6 +4,9 @@ if [ $# -ne 3 ]; then
   echo ""
   echo "   sh [username] [password] [efi or mbr]"
   echo ""
+  if [ $3 -ne efi || $3 -ne efi ]; then
+    echo "   sh [username] [password] [efi or mbr]"
+  fi
   exit 1
 fi
 
