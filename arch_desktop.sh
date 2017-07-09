@@ -81,9 +81,8 @@ _plasma(){
   dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-users-dirs \
   konsole kwrite
 
-  breeze breeze-gtk drkonqi plasma-meta 
-
-  konsole dolphin firefox kate
+#  breeze breeze-gtk drkonqi plasma-meta 
+#  konsole dolphin firefox kate
 
   echo "exec startkde &" >/home/`ls /home/`/.xinitrc
   chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
