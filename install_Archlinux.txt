@@ -3,25 +3,49 @@ sudo dd if=/aux/ISOs/archlinux-2017.07.01-x86_64.iso of=/dev/sdc && sync
 
 
 ### Boot
+#--------
+# echo "root:$PASS" | chpasswd
 passwd
 systemctl start sshd.service
 ifconfig
 
 ### Partitions
+#--------------
 fdisk -l /dev/sda
 
+### MBR
+#-------
+fdisk /dev/sda
+o
 cfdisk /dev/sda
 [New]<Enter>[primary][Bootable]
 
-
-### mkfs
+## mkfs
 mkfs.ext4 /dev/sda1
 mount /dev/sda1 /mnt
 
 lsblk
 
+### GPT
+#-------
+fdisk /dev/sda
+g
+cgdisk /dev/sda
+100M ef00 EFI
+4096M 8200 Swap
+107G 8300 ROOT
+
+## mkfs
+mkfs.fat -F32 /dev/sda1
+mkfs.ext4 /dev/sda2
+
+mount /dev/sda2 /mnt
+mkdir -p /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
+
 
 ### Install
+#-----------
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh
 sh arch_install.sh [username] [password]
 
@@ -29,6 +53,7 @@ reboot
 
 
 ### Desktop
+#-----------
 	################################
 	## CD-DVD
 	#---------
@@ -83,6 +108,7 @@ sh arch_desktop.sh plasma
 
 ### arch_desktop.txt
 ## Configurations
+#-----------------
 
 sudo nano /etc/makepkg.conf #line 63
 
