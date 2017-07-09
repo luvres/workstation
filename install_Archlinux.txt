@@ -18,12 +18,11 @@ fdisk -l /dev/sda
 fdisk /dev/sda
 o
 cfdisk /dev/sda
-[New]<Enter>[primary][Bootable]
+[New]<Enter>[primary][Bootable][Write]
 
 ## mkfs
 mkfs.ext4 /dev/sda1
 mount /dev/sda1 /mnt
-
 lsblk
 
 ### GPT
@@ -43,7 +42,6 @@ mkfs.ext4 /dev/sda2
 mount /dev/sda2 /mnt
 mkdir -p /mnt/boot
 mount /dev/sda1 /mnt/boot
-
 lsblk
 
 
