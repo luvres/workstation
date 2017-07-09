@@ -76,9 +76,12 @@ _makepkg(){
 
 ## KDE Plasma
 _plasma(){
-  # Core
   pacman -S --noconfirm \
-  breeze breeze-gtk drkonqi plasma-meta plasma-desktop
+  plasma-desktop plasma-nm \
+  dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-users-dirs \
+  konsole kwrite
+
+  breeze breeze-gtk drkonqi plasma-meta 
 
   konsole dolphin firefox kate
 
@@ -139,7 +142,7 @@ _development(){
 
 ## sddm
 _sddm(){
-  pacman -S --noconfirm sddm
+  pacman -S --noconfirm sddm sddm-kcm
   systemctl enable sddm.service
 }
 
@@ -242,7 +245,6 @@ if [[ $1 == "plasma" ]]; then
   _packages
   _plasma
   _sddm
-  _networkmanager
   _virtualbox
   _background
 fi
