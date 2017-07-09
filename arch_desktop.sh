@@ -78,7 +78,7 @@ _makepkg(){
 _plasma(){
   # Core
   pacman -S --noconfirm \
-  plasma-desktop # plasma plasma-meta
+  breeze breeze-gtk drkonqi plasma-meta plasma-desktop
 }
 
 ## Xfce4
