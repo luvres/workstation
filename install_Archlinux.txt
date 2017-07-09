@@ -44,11 +44,13 @@ mount /dev/sda2 /mnt
 mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 
+lsblk
+
 
 ### Install
 #-----------
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh
-sh arch_install.sh [username] [password]
+sh arch_install.sh [username] [password] [efi -> optional]
 
 reboot
 
