@@ -26,6 +26,8 @@ reboot
 
 ### Desktop
 	################################
+	## CD-DVD
+	#---------
 	sudo pacman -S \
 	dvd+rw-tools cdrtools cdrdao autofs \
 	libdvdcss libdvdnav libcddb libcdio
@@ -52,7 +54,15 @@ reboot
 	gst-plugins-ugly \
 	kdesdk-thumbnailers \
 	kimageformars \
-	gt5-imageformats..
+	qt5-imageformats \
+	gnome-themes-standard \
+	jdk8-openjdk \
+	k3b \
+
+
+	gt5-gstreamer \
+	gst-plugins-good \
+	pavucontrol
 	################################
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
