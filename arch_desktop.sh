@@ -236,10 +236,6 @@ if [[ $1 == "development" ]]; then
 fi
 
 if [[ $1 == "plasma" ]]; then
-  _swapfile
-  _bashrc
-  _xorgMinimal
-  _makepkg
   _plasma
   _sddm
 fi
