@@ -60,7 +60,7 @@ arch_chroot "usermod -aG docker $USER"
 
 if [[ $3 == "efi" ]]; then
   arch_chroot "grub-install --target=x86_64-efi"
-else
+elif [[ $3 == "mbr" ]]; then
   #arch_chroot "grub-install /dev/sda"
   arch_chroot "grub-install --target=i386-pc --recheck /dev/sda"
 fi
