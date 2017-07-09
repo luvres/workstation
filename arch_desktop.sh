@@ -79,6 +79,11 @@ _plasma(){
   # Core
   pacman -S --noconfirm \
   breeze breeze-gtk drkonqi plasma-meta plasma-desktop
+
+  konsole dolphin firefox kate
+
+  echo "exec startkde &" >/home/`ls /home/`/.xinitrc
+  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
 }
 
 ## Xfce4
