@@ -108,6 +108,28 @@ System Tray
 Digital Clock
 Add Spacer
 
+## Linux LTS
+#------------
+sudo pacman -S linux-lts
+sudo grub-mkconfig -o /boob/grub/grub.cfg
+sudo pacman -S linux-lts-headers
+reboot
+sudo pacman -Rs linux
+
+## Microcode (Intel)
+#------------
+sudo pacman -S intel-ucode
+sudo grub-mkconfig -o /boob/grub/grub.cfg
+
+## Microcode (AMD)
+#------------
+sudo pacman -S linux-firmware
+sudo grub-mkconfig -o /boob/grub/grub.cfg
+
+## Disable grub delay
+#---------------------
+
+
 
 #######################
 # Install nail themes #
