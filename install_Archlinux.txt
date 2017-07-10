@@ -57,6 +57,7 @@ reboot
 ###########
 # Desktop #
 ###########
+
 ## CD-DVD
 #---------
 sudo pacman -S \
