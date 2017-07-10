@@ -78,7 +78,7 @@ _makepkg(){
 _plasma(){
   pacman -S --noconfirm \
   plasma-desktop plasma-nm \
-  dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs \
+  dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs kinfocenter \
   konsole kwrite
 
 #  breeze breeze-gtk drkonqi plasma-meta 
