@@ -86,11 +86,30 @@ sh arch_desktop.sh xfce
 #sh arch_desktop.sh xfce4
 
 
-##########
-# Plasma #
-##########
+##############
+# Plasma KDE #
+##############
 sh arch_desktop.sh xorg
 sh arch_desktop.sh plasma
+
+## Themes
+#---------
+yaourt -S --noconfirm \
+latte-dock arc-kde parirus-icon-theme-git
+
+## Widgets
+#----------
+Application Menu
+Global Menu
+Active Window Control
+Lock/Logout
+System Tray
+Digital Clock
+
+
+#######################
+# Install nail themes #
+#######################
 
 ## Papirus Icons
 #-----------------
@@ -112,16 +131,6 @@ wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/maste
 pacman -S --noconfirm virtualbox-guest-utils linux-headers
 mount /dev/cdrom /mnt/
 sh /mnt/VBoxLinuxAdditions.run
-
-
-## Widgets
-#----------
-Application Menu
-Global Menu
-Active Window Control
-Lock/Logout
-System Tray
-Digital Clock
 
 
 ############
