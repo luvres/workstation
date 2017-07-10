@@ -126,6 +126,11 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo pacman -S linux-firmware
 sudo grub-mkconfig -o /boob/grub/grub.cfg
 
+## Remove Orphans
+#------------------
+sudo pacman -Rns $(pacman -Qtdq)
+
+
 ## Disable grub delay
 #---------------------
 su -c "echo '' >>/etc/default/grub"
@@ -141,10 +146,6 @@ sudo pacman -S ufw
 sudo ufw enable
 sudo systemctl enable ufw.service
 reboot
-
-## Remove Orphans
-#------------------
-sudo pacman -Rns $(pacman -Qtdq)
 
 
 #######################
