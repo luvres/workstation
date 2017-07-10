@@ -109,9 +109,9 @@ sh arch_desktop.sh plasma
 
 ## Guest
 #--------
-sudo pacman -S virtualbox-guest-utils linux-headers
-sudo mount /dev/cdrom /mnt/
-sudo sh VBoxLinuxAdditions.run
+pacman -S virtualbox-guest-utils linux-headers
+mount /dev/cdrom /mnt/
+sh VBoxLinuxAdditions.run
 
 ## Packages
 #-----------
