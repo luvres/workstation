@@ -74,6 +74,7 @@ _makepkg(){
   # nano /etc/makepkg.conf #line 63
 }
 
+
 ## KDE Plasma
 _plasma(){
   pacman -S --noconfirm \
@@ -252,8 +253,8 @@ fi
 
 
 if [[ $1 == "plasma" ]]; then
-  _plasma
   _sddm
+  _plasma
   _networkmanager
 fi
 
