@@ -130,6 +130,9 @@ sudo grub-mkconfig -o /boob/grub/grub.cfg
 #------------------
 sudo pacman -Rns $(pacman -Qtdq)
 
+## Optimize Pacman
+#------------------
+sudo pacman-optimize
 
 ## Disable grub delay
 #---------------------
