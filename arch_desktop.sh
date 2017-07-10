@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 if [ $# -ne 1 ]; then
@@ -57,7 +58,8 @@ _xorgMinimal(){
   # Fonts
   pacman -S --noconfirm \
   artwiz-fonts font-bh-ttf font-bitstream-speedo gsfonts sdl_ttf \
-  ttf-bitstream-vera ttf-cheapskate ttf-dejavu ttf-liberation xorg-fonts-type1
+  ttf-bitstream-vera ttf-cheapskate ttf-dejavu ttf-liberation xorg-fonts-type1 \
+  ttf-droid ttf-gentium ttf-liberation ttf-ubuntu-font-family ttf-anonymous-pro
 
   # Print
   pacman -S --noconfirm \
@@ -78,23 +80,32 @@ _makepkg(){
 ## KDE Plasma
 _plasma(){
   pacman -S --noconfirm \
-  plasma-desktop plasma-nm plasma-pa \
+  plasma-desktop plasma-nm plasma-pa powerdevil \
   breeze-gtk breeze-kde4 kde-gtk-config kdeplasma-addons \
   dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs \
   kinfocenter ark kipi-plugins \
   konsole kwrite kcolorchooser ktorrent \
-  firefox gwenview libreoffice-fresh vlc gimp
+  firefox gwenview libreoffice-fresh vlc gimp jre8-openjdk
   #################
   # kwalletmanager digikam spectacle kruler okular amarok speedcdrunch redshift kompare kfind sddm-kcm
   # pacman -S --noconfirm \
   # adobe-source-sans-pro-fonts aspell-en enchant gst-libav gst-plugins-good hunspell-en \
-  # icedtea-web jre8-openjdk languagetool libmythes mythes-en pkgstats ttf-anonymous-pro \
-  # ttf-bitstream-vera ttf-dejavu ttf-droid ttf-gentium ttf-liberation ttf-ubuntu-font-family
+  # icedtea-web  languagetool libmythes mythes-en pkgstats
   #################
+  # Bluetooth
+  pacman -S --noconfirm bluez bluez-utils bluedevil
+  systemctl enable bluetooth.service
+  # NetworkManager
+  pacman -S --noconfirm networkmanager
+  systemctl enable NetworkManager
+  systemctl disable dhcpcd
+  # openconnect networkmanager-openconnect
   echo "exec startkde &" >/home/`ls /home/`/.xinitrc
   chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
+  # Simple Desktop Display Manager
+  pacman -S --noconfirm sddm
+  systemctl enable sddm.service
   sed -i '/Current=/s/$/&breeze/' /etc/sddm.conf
-  systemctl disable dhcpcd
 }
 
 
@@ -225,9 +236,7 @@ if [[ $1 == "xorg" ]]; then
 fi
 
 if [[ $1 == "plasma" ]]; then
-  _sddm
   _plasma
-  _networkmanager
 fi
 
 if [[ $1 == "xfce" ]]; then
