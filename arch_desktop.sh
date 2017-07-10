@@ -79,17 +79,15 @@ _plasma(){
   pacman -S --noconfirm \
   plasma-desktop plasma-nm plasma-pa \
   breeze-gtk breeze-kde4 kde-gtk-config kdeplasma-addons \
-
-
   dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs \
-  kinfocenter konsole kwrite firefox 
-
-# konsole firefox kate
-
-
+  kinfocenter ark kipi-plugins \
+  konsole kwrite kcolorchooser ktorrent \
+  firefox gwenview libreoffice-fresh vlc gimp
+  # kwalletmanager digikam spectacle kruler okular amarok speedcdrunch redshift kompare kfind sddm-kcm
   echo "exec startkde &" >/home/`ls /home/`/.xinitrc
   chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
   sed -i '/Current=/s/$/&breeze/' /etc/sddm.conf
+  systemctl disable dhcpcd
 }
 
 ## Xfce4
