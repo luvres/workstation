@@ -224,6 +224,12 @@ if [[ $1 == "xorg" ]]; then
   _makepkg
 fi
 
+if [[ $1 == "plasma" ]]; then
+  _sddm
+  _plasma
+  _networkmanager
+fi
+
 if [[ $1 == "xfce" ]]; then
   _xfce4
   _thunar
@@ -251,12 +257,6 @@ if [[ $1 == "networkmanager" ]]; then
   _networkmanager
 fi
 
-
-if [[ $1 == "plasma" ]]; then
-  _sddm
-  _plasma
-  _networkmanager
-fi
 
 if [[ $1 == "xfce4" ]]; then
   _swapfile
