@@ -109,12 +109,14 @@ Add Spacer
 weather widget
 
 ## Microcode (Intel)
-#------------
+#--------------------
+#sudo mount /dev/sda1 /boot/
 sudo pacman -S intel-ucode
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 ## Microcode (AMD)
-#------------
+#------------------
+#sudo mount /dev/sda1 /boot/
 sudo pacman -S linux-firmware
 sudo grub-mkconfig -o /boob/grub/grub.cfg
 
