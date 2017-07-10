@@ -134,6 +134,12 @@ sudo pacman -Rns $(pacman -Qtdq)
 #------------------
 sudo pacman-optimize
 
+
+## Check for Errors
+#-------------------
+sudo systemctl --failed
+sudo journalctl -p 3 -xb
+
 ## Disable grub delay
 #---------------------
 su -c "echo '' >>/etc/default/grub"
