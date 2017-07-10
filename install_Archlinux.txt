@@ -51,67 +51,64 @@ sh arch_install.sh [username] [password] [efi -> optional]
 
 reboot
 
-
-### Desktop
-#-----------
-	################################
-	## CD-DVD
-	#---------
-	sudo pacman -S \
-	dvd+rw-tools cdrtools cdrdao autofs \
-	libdvdcss libdvdnav libcddb libcdio
-
-	sudo gpasswd -a $USER audio
-	sudo gpasswd -a $USER video
-	sudo gpasswd -a $USER optial
-
-	sudo groupadd cdrom
-	sudo usermod -a -G cdrom $USER
-
+###########
+# Desktop #
+###########
+## CD-DVD
+#---------
+sudo pacman -S \
+dvd+rw-tools cdrtools cdrdao autofs \
+libdvdcss libdvdnav libcddb libcdio
+sudo gpasswd -a $USER audio
+sudo gpasswd -a $USER video
+sudo gpasswd -a $USER optial
+sudo groupadd cdrom
+sudo usermod -a -G cdrom $USER
 
 sudo pacman -S \
-	spectacle \
-	okular \
-	libreoffice-fresh \
-	gwenview \
-	sane \
-	java-runtime \
-	kate \
-	kinfocenter \
-	amarok \
-	firefox \
-	gst-plugins-ugly \
-	kdesdk-thumbnailers \
-	kimageformars \
-	qt5-imageformats \
-	gnome-themes-standard \
-	jdk8-openjdk \
-	k3b \
+spectacle sane java-runtime kate gst-plugins-ugly kdesdk-thumbnailers \
+kimageformars qt5-imageformats gnome-themes-standard k3b qt5-gstreamer pavucontrol
 
-sudo pacman -S \
-qt5-gstreamer \
-gst-plugins-good \
-pavucontrol
 ################################
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 
-## XFCE
-#-------
+
+########
+# XFCE #
+########
 sh arch_desktop.sh xorg
 sh arch_desktop.sh xfce
 #sh arch_desktop.sh xfce4
 
-## Plasma
-#---------
+
+##########
+# Plasma #
+##########
 sh arch_desktop.sh xorg
 sh arch_desktop.sh plasma
+
+## Papirus Icons
+#-----------------
+# Install
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-kde.sh | sh
+# Remove
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/remove-papirus.sh | sh
+
+## Arc Theme
+#-------------
+# Install
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install-arc-kde-home.sh | sh
+# Remove
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/remove-arc-kde.sh | sh
+
 
 ## Guest
 #--------
 pacman -S --noconfirm virtualbox-guest-utils linux-headers
 mount /dev/cdrom /mnt/
 sh /mnt/VBoxLinuxAdditions.run
+
 
 ## Packages
 #-----------

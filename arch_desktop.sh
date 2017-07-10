@@ -109,7 +109,6 @@ _plasma(){
 }
 
 
-
 ## Xfce4
 _xfce4(){
   # Core
