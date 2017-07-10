@@ -119,7 +119,7 @@ sudo pacman -Rs linux
 ## Microcode (Intel)
 #------------
 sudo pacman -S intel-ucode
-sudo grub-mkconfig -o /boob/grub/grub.cfg
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 ## Microcode (AMD)
 #------------
