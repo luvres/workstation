@@ -95,7 +95,7 @@ sh arch_desktop.sh plasma
 ## Themes
 #---------
 yaourt -S --noconfirm \
-latte-dock arc-kde parirus-icon-theme-git
+latte-dock arc-kde papirus-icon-theme-git
 
 ## Widgets
 #----------
