@@ -254,6 +254,7 @@ fi
 if [[ $1 == "plasma" ]]; then
   _plasma
   _sddm
+  _networkmanager
 fi
 
 if [[ $1 == "xfce4" ]]; then
