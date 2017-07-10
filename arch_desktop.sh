@@ -77,15 +77,19 @@ _makepkg(){
 ## KDE Plasma
 _plasma(){
   pacman -S --noconfirm \
-  plasma-desktop plasma-nm \
-  dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs kinfocenter \
-  konsole kwrite
+  plasma-desktop plasma-nm plasma-pa \
+  breeze-gtk breeze-kde4 kde-gtk-config kdeplasma-addons \
 
-#  breeze breeze-gtk drkonqi plasma-meta 
-#  konsole dolphin firefox kate
+
+  dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs \
+  kinfocenter konsole kwrite firefox 
+
+# konsole firefox kate
+
 
   echo "exec startkde &" >/home/`ls /home/`/.xinitrc
   chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
+  sed -i '/Current=/s/$/&breeze/' /etc/sddm.conf
 }
 
 ## Xfce4
@@ -117,7 +121,7 @@ _thunar(){
 _networkmanager(){
   pacman -S --noconfirm \
   networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
-  wireless_tools dialog
+  wireless_tools dialog openconnect networkmanager-openconnect
   systemctl enable NetworkManager
   # Bluetooth
   pacman -S --noconfirm blueman bluez-utils

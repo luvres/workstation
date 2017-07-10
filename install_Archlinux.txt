@@ -69,7 +69,7 @@ reboot
 	sudo usermod -a -G cdrom $USER
 
 
-	sudo pacman -S \
+sudo pacman -S \
 	spectacle \
 	okular \
 	libreoffice-fresh \
@@ -88,11 +88,11 @@ reboot
 	jdk8-openjdk \
 	k3b \
 
-
-	gt5-gstreamer \
-	gst-plugins-good \
-	pavucontrol
-	################################
+sudo pacman -S \
+qt5-gstreamer \
+gst-plugins-good \
+pavucontrol
+################################
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 
