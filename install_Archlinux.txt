@@ -44,12 +44,15 @@ mount /dev/sda1 /mnt/boot
 lsblk
 
 
-### Base
-#-----------
+########
+# Base #
+########
+
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh
 sh arch_install.sh [username] [password] [efi -> optional]
 
 reboot
+
 
 ###########
 # Desktop #
