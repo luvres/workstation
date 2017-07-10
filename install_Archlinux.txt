@@ -132,6 +132,7 @@ sudo pacman-optimize
 
 ## Linux LTS
 #------------
+#sudo mount /dev/sda1 /boot/
 sudo pacman -S linux-lts
 sudo grub-mkconfig -o /boob/grub/grub.cfg
 sudo pacman -S linux-lts-headers
