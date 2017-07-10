@@ -39,8 +39,7 @@ mkfs.vfat /dev/sda1
 mkfs.ext4 /dev/sda2
 
 mount /dev/sda2 /mnt
-mkdir -p /mnt/boot
-mount /dev/sda1 /mnt/boot
+mkdir -p /mnt/boot/ && mount /dev/sda1 /mnt/boot/
 lsblk
 
 
