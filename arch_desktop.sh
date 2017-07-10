@@ -83,12 +83,20 @@ _plasma(){
   kinfocenter ark kipi-plugins \
   konsole kwrite kcolorchooser ktorrent \
   firefox gwenview libreoffice-fresh vlc gimp
+  #################
   # kwalletmanager digikam spectacle kruler okular amarok speedcdrunch redshift kompare kfind sddm-kcm
+  # pacman -S --noconfirm \
+  # adobe-source-sans-pro-fonts aspell-en enchant gst-libav gst-plugins-good hunspell-en \
+  # icedtea-web jre8-openjdk languagetool libmythes mythes-en pkgstats ttf-anonymous-pro \
+  # ttf-bitstream-vera ttf-dejavu ttf-droid ttf-gentium ttf-liberation ttf-ubuntu-font-family
+  #################
   echo "exec startkde &" >/home/`ls /home/`/.xinitrc
   chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
   sed -i '/Current=/s/$/&breeze/' /etc/sddm.conf
   systemctl disable dhcpcd
 }
+
+
 
 ## Xfce4
 _xfce4(){
