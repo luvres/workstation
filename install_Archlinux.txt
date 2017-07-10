@@ -105,6 +105,7 @@ Active Window Control
 Lock/Logout
 System Tray
 Digital Clock
+Add Spacer
 
 
 #######################

@@ -199,7 +199,7 @@ _plank(){
 
 ## Virtualbox
 _virtualbox(){
-  pacman -S virtualbox linux-headers playonlinux
+  pacman -S virtualbox linux-headers 
   gpasswd -a `ls /home/` vboxusers
   echo 'vboxnetadp' >>/etc/modules-load.d/virtualbox.conf
   echo 'vboxnetflt' >>/etc/modules-load.d/virtualbox.conf
