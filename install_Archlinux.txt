@@ -111,7 +111,7 @@ sh arch_desktop.sh plasma
 #--------
 pacman -S --noconfirm virtualbox-guest-utils linux-headers
 mount /dev/cdrom /mnt/
-sh VBoxLinuxAdditions.run
+sh /mnt/VBoxLinuxAdditions.run
 
 ## Packages
 #-----------
