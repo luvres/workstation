@@ -91,6 +91,7 @@ sh arch_desktop.sh xfce
 ##############
 sh arch_desktop.sh xorg
 sh arch_desktop.sh plasma
+sh arch_desktop.sh virtualbox
 
 ## Themes
 #---------
