@@ -236,6 +236,11 @@ if [[ $1 == "development" ]]; then
   _development
 fi
 
+if [[ $1 == "networkmanager" ]]; then
+  _networkmanager
+fi
+
+
 if [[ $1 == "plasma" ]]; then
   _plasma
   _sddm
