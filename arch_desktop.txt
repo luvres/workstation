@@ -49,8 +49,7 @@ sed -i '/#fi/s/#//' /etc/bash.bashrc
 ########################################
 ########################################
 ########################################
-########################################
-########################################
+
 ## Themes Mac OS X
 # Themes
 mkdir $HOME/.themes
@@ -103,4 +102,86 @@ ttf-freefont: for subtitle font
 opus: for opus support [installed]
 lua-socket: for http interface
 
+########################################
+########################################
+
+### Swap File
+sudo dd if=/dev/zero of=/swapfile bs=1M count=4096
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo sh -c "echo '/swapfile none swap defaults 0 0' >>/etc/fstab"
+
+sudo pacman -Syyu
+
+sudo pacman -S --noconfirm \
+xorg-server xorg-server-devel xorg-server-utils xorg-server-xwayland \
+xorg-xinit xorg-twm xorg-xkill xterm xorg-xclock  xorg-xinput \
+xf86-video-vesa xf86-video-intel xf86-input-libinput \
+ttf-dejavu alsa-utils mesa
+
+############
+## Compiz ##
+############
+sudo pacman -S --noconfirm \
+xfce4-terminal leafpad chromium gftp \
+thunar thunar-archive-plugin thunar-volman \
+file-roller gvfs gksu polkit-gnome gnome-keyring \
+xfce4-panel xfce4-notifyd xfce4-power-manager xfce4-whiskermenu-plugin \
+lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings \
+networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
+dconf-editor xdg-user-dirs numix-gtk-theme lxappearance oblogout \
+faenza-icon-theme archlinux-wallpaper gtk-engine-aurora \
+wireless_tools wpa_supplicant dialog \
+reflector xorg-xprop xarchiver parcellite
+
+sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+sudo reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
+
+sudo sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
+sudo sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
+sudo sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
+sudo sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
+# sudo nano /etc/makepkg.conf #line 63
+
+yaourt -S --noconfirm compiz
+yaourt -S --noconfirm gtk-theme-config numix-circle-icon-theme-git engrampa-thunar
+
+sudo sh -c "echo 'exec compiz' >>$HOME/.xinitrc"
+sudo sh -c "echo 'xfce4-panel &' >>$HOME/.xprofile"
+sudo sh -c "echo 'xfce4-power-manager &' >>$HOME/.xprofile"
+sudo sh -c "echo 'nm-applet &' >>$HOME/.xprofile"
+sudo sh -c "echo 'parcellite &' >>$HOME/.xprofile"
+sudo sh -c "echo '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &' >>$HOME/.xprofile"
+
+sudo mkdir /usr/share/xsessions
+
+sudo tee /usr/share/xsessions/compiz.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Compiz
+Comment=Start Compiz Window Manager
+Exec=compiz
+EOF
+
+sudo sed -i '/logout = openbox/s/openbox --exit/pkill -KILL -u $USER/' /etc/oblogout.conf
+sudo sed -i '/buttons/s/, suspend, hibernate, lock//' /etc/oblogout.conf
+
+sudo systemctl enable lightdm.service
+sudo systemctl enable NetworkManager
+
+curl -L https://github.com/luvres/workstation/blob/master/background.zip?raw=true -o ./background.zip
+unzip background.zip -d $HOME/Pictures
+rm background.zip
+
+
+startx
+xfce4-terminal
+ccsm
+ [x]Commands
+   xfce4-terminal
+
+
+sudo reboot
+# 13:00
 
