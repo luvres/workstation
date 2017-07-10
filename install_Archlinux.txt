@@ -142,6 +142,10 @@ sudo ufw enable
 sudo systemctl enable ufw.service
 reboot
 
+## Remove Orphans
+#------------------
+sudo pacman -Rns $(pacman -Qtdq)
+
 
 #######################
 # Install nail themes #
