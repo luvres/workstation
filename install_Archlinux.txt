@@ -107,14 +107,7 @@ Lock/Logout
 System Tray
 Digital Clock
 Add Spacer
-
-## Linux LTS
-#------------
-sudo pacman -S linux-lts
-sudo grub-mkconfig -o /boob/grub/grub.cfg
-sudo pacman -S linux-lts-headers
-reboot
-sudo pacman -Rs linux
+weather widget
 
 ## Microcode (Intel)
 #------------
@@ -134,6 +127,15 @@ sudo pacman -Rns $(pacman -Qtdq)
 #------------------
 sudo pacman-optimize
 
+####################
+
+## Linux LTS
+#------------
+sudo pacman -S linux-lts
+sudo grub-mkconfig -o /boob/grub/grub.cfg
+sudo pacman -S linux-lts-headers
+reboot
+sudo pacman -Rs linux
 
 ## Check for Errors
 #-------------------
