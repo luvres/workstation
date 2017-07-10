@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# 1uvr3z
-
 if [ $# -ne 1 ]; then
   echo ""
   echo "   sh arch_desktop.sh [ xorg , plasma, xfce , xfce4 , packages , virtualbox , development, networkmanager ]"
