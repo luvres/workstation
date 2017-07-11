@@ -101,7 +101,7 @@ sh arch_desktop.sh xfce
 ## Themes
 #---------
 yaourt -S --noconfirm \
-latte-dock arc-gtk-theme papirus-icon-theme-git
+xfce4-dockbarx-plugin arc-gtk-theme papirus-icon-theme-git
 
 
 ###
