@@ -88,6 +88,7 @@ sh /mnt/VBoxLinuxAdditions.run
 # End Xorg #
 ############
 
+
 ########
 # XFCE #
 ###
