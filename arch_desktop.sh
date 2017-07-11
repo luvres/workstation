@@ -17,16 +17,16 @@ _swapfile(){
   swapon /swapfile
   echo '/swapfile none swap defaults 0 0' >>/etc/fstab
 
-# ILoveCnady
+ # ILoveCnady
   sed -i 's/VerbosePkgLists/VerbosePkgLists\nILoveCandy/' /etc/pacman.conf
   sed -i '/Color/s/#//' /etc/pacman.conf
   #pacman-key --refresh-keys && pacman-key --init && pacman -Syu --noconfirm
   pacman -Syyu --noconfirm
 
-# Correction Makepkg
+ # Correction Makepkg
   sed -i '/If using/s/--/#--/' /etc/makepkg.conf
 
-# Reflector
+ # Reflector
   pacman -S --noconfirm reflector
   cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
   reflector --verbose -l 30 -p http --sort rate --save /etc/pacman.d/mirrorlist
