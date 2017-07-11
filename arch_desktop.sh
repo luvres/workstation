@@ -41,30 +41,30 @@ _bashrc(){
 
 ## Xorg Minimal
 _xorgMinimal(){
-  # Xorg
+ # Xorg
   pacman -S --noconfirm \
   xorg xorg-xinit
 
-  # Sound
+ # Sound
   pacman -S --noconfirm \
   alsa-utils alsa-plugins pulseaudio pulseaudio-alsa
 
-  # Input Drivers
+ # Input Drivers
   pacman -S --noconfirm \
   xf86-input-keyboard xf86-input-mouse
 
-  # Video drivers
+ # Video drivers
   pacman -S --noconfirm \
   xf86-video-vesa xf86-video-intel
   #virtualbox-guest-utils
 
-  # Fonts
+ # Fonts
   pacman -S --noconfirm \
   artwiz-fonts font-bh-ttf font-bitstream-speedo gsfonts sdl_ttf \
   ttf-bitstream-vera ttf-cheapskate ttf-dejavu ttf-liberation xorg-fonts-type1 \
   ttf-droid ttf-gentium ttf-liberation ttf-ubuntu-font-family ttf-anonymous-pro
 
-  # Print
+ # Print
   pacman -S --noconfirm \
   cups cups-pdf ghostscript
 
@@ -82,38 +82,38 @@ _makepkg(){
 
 ## KDE Plasma
 _plasma(){
-  # Core
+ # Core
   pacman -S --noconfirm \
   plasma-desktop
   echo "exec startkde &" >/home/`ls /home/`/.xinitrc
   chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
 
-  # Base
+ # Base
   pacman -S --noconfirm \
   plasma-nm plasma-pa powerdevil \
   breeze-gtk breeze-kde4 kde-gtk-config kdeplasma-addons kinfocenter
 
-  # Packages base
+ # Packages base
   pacman -S --noconfirm \
   dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs \
   ark kipi-plugins \
   konsole kwrite kate kcolorchooser ktorrent gwenview
 
-  # Packages
+ # Packages
   pacman -S --noconfirm \
   gftp xclip jdk8-openjdk firefox chromium libreoffice-fresh vlc gimp
 
-  # Bluetooth
+ # Bluetooth
   pacman -S --noconfirm bluez bluez-utils bluedevil
   systemctl enable bluetooth.service
 
-  # NetworkManager
+ # NetworkManager
   pacman -S --noconfirm networkmanager
   systemctl enable NetworkManager
   systemctl disable dhcpcd
-  # openconnect networkmanager-openconnect
+ # openconnect networkmanager-openconnect
 
-  # Simple Desktop Display Manager
+ # Simple Desktop Display Manager
   pacman -S --noconfirm sddm
   systemctl enable sddm.service
   sed -i '/Current=/s/$/&breeze/' /etc/sddm.conf
@@ -129,7 +129,7 @@ _plasma(){
 
 ## Xfce4
 _xfce4(){
-  # Core
+ # Core
   pacman -S --noconfirm \
   xfce4-panel xfce4-session xfce4-settings xfdesktop xfwm4
   # cp /etc/X11/xinit/xinitrc /home/`ls /home/`/.xinitrc
@@ -138,7 +138,7 @@ _xfce4(){
   echo "exec startxfce4 &" >/home/`ls /home/`/.xinitrc
   chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
 
-  # Packages base
+ # Packages base
   pacman -S --noconfirm \
   xfce4-power-manager xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin \
   lxappearance gnome-system-monitor gksu \
@@ -228,13 +228,13 @@ _virtualbox(){
 
 ## Mac OS X Themes
 _macosx(){
-  # Themes
+ # Themes
   mkdir /home/`ls /home/`/.themes
   curl http://logico.com.ar/downloads/xosemite-gtk.tar.gz | tar -xzf - -C /home/`ls /home/`/.themes
   curl http://logico.com.ar/downloads/xosemite-xfce.tar.gz | tar -xzf - -C /home/`ls /home/`/.themes
   chown -R `ls /home/`. /home/`ls /home/`/.themes
 
-  # Fonts
+ # Fonts
   mkdir /home/`ls /home/`/.fonts
   curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Bold.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Bold.ttf
   curl -L https://github.com/supermarin/YosemiteSanFranciscoFont/blob/master/System%20San%20Francisco%20Display%20Regular.ttf?raw=true -o /home/`ls /home/`/.fonts/System\ San\ Francisco\ Display\ Regular.ttf
