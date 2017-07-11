@@ -92,12 +92,10 @@ sh /mnt/VBoxLinuxAdditions.run
 ########
 # XFCE #
 ###
-
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 sh arch_desktop.sh xfce
 #sh arch_desktop.sh xfce4
-
 ###
 # End XFCE #
 ############
@@ -106,10 +104,8 @@ sh arch_desktop.sh xfce
 ##############
 # Plasma KDE #
 ###
-
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
-
 sh arch_desktop.sh plasma
 sh arch_desktop.sh virtualbox
 reboot
