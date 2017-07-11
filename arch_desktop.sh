@@ -240,10 +240,10 @@ if [[ $1 == "plasma" ]]; then
 fi
 
 if [[ $1 == "xfce" ]]; then
+  _sddm
   _xfce4
   _thunar
   _networkmanager
-  _sddm
   _background
   _plank
   _macosx
