@@ -101,7 +101,8 @@ _plasma(){
 
  # Packages
   pacman -S --noconfirm \
-  gftp xclip jdk8-openjdk firefox chromium libreoffice-fresh vlc gimp
+  gftp xclip jdk8-openjdk wine \
+  firefox chromium libreoffice-fresh vlc gimp 
 
  # Bluetooth
   pacman -S --noconfirm bluez bluez-utils bluedevil
@@ -217,7 +218,7 @@ _plank(){
 
 ## Virtualbox
 _virtualbox(){
-  pacman -S virtualbox linux-headers wine 
+  pacman -S virtualbox linux-headers  
   gpasswd -a `ls /home/` vboxusers
   echo 'vboxnetadp' >>/etc/modules-load.d/virtualbox.conf
   echo 'vboxnetflt' >>/etc/modules-load.d/virtualbox.conf
