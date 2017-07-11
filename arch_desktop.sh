@@ -245,8 +245,6 @@ if [[ $1 == "xfce" ]]; then
   _thunar
   _networkmanager
   _background
-#  _plank
-#  _macosx
 fi
 
 
