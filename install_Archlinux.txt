@@ -75,7 +75,7 @@ kimageformars qt5-imageformats gnome-themes-standard k3b qt5-gstreamer pavucontr
 ################################
 
 ########
-# XFCE #
+# Xorg #
 ###
 
 sudo su
@@ -88,6 +88,13 @@ mount /dev/cdrom /mnt/
 sh /mnt/VBoxLinuxAdditions.run
 ###
 
+
+########
+# XFCE #
+###
+
+sudo su
+curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 sh arch_desktop.sh xfce
 #sh arch_desktop.sh xfce4
 
@@ -102,13 +109,6 @@ sh arch_desktop.sh xfce
 
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
-sh arch_desktop.sh xorg
-
-### Guest
-pacman -S --noconfirm virtualbox-guest-utils linux-headers
-mount /dev/cdrom /mnt/
-sh /mnt/VBoxLinuxAdditions.run
-###
 
 sh arch_desktop.sh plasma
 sh arch_desktop.sh virtualbox
