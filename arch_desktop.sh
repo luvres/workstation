@@ -85,7 +85,7 @@ _plasma(){
   dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs \
   kinfocenter ark kipi-plugins \
   konsole kate kcolorchooser ktorrent \
-  gftp xclip gwenview jre8-openjdk \
+  gftp xclip gwenview jdk8-openjdk \
   firefox chromium libreoffice-fresh vlc gimp
   #################
   # kwalletmanager digikam spectacle kruler okular amarok speedcdrunch redshift kompare kfind sddm-kcm
