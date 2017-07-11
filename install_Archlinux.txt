@@ -134,7 +134,7 @@ Lock/Logout
 System Tray
 Digital Clock
 Add Spacer
-weather widget
+weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
 
 ###
 # End Plasma KDE #
