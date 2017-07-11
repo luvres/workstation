@@ -77,11 +77,20 @@ kimageformars qt5-imageformats gnome-themes-standard k3b qt5-gstreamer pavucontr
 ########
 # XFCE #
 ###
+
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 sh arch_desktop.sh xorg
+
+### Guest
+pacman -S --noconfirm virtualbox-guest-utils linux-headers
+mount /dev/cdrom /mnt/
+sh /mnt/VBoxLinuxAdditions.run
+###
+
 sh arch_desktop.sh xfce
 #sh arch_desktop.sh xfce4
+
 ###
 # End XFCE #
 ############
@@ -90,9 +99,17 @@ sh arch_desktop.sh xfce
 ##############
 # Plasma KDE #
 ###
+
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 sh arch_desktop.sh xorg
+
+### Guest
+pacman -S --noconfirm virtualbox-guest-utils linux-headers
+mount /dev/cdrom /mnt/
+sh /mnt/VBoxLinuxAdditions.run
+###
+
 sh arch_desktop.sh plasma
 sh arch_desktop.sh virtualbox
 reboot
@@ -112,9 +129,11 @@ System Tray
 Digital Clock
 Add Spacer
 weather widget
+
 ###
 # End Plasma KDE #
 ##################
+
 
 ## Microcode (Intel)
 #--------------------
@@ -190,13 +209,6 @@ wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-
 wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install-arc-kde-home.sh | sh
 # Remove
 wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/remove-arc-kde.sh | sh
-
-
-## Guest
-#--------
-pacman -S --noconfirm virtualbox-guest-utils linux-headers
-mount /dev/cdrom /mnt/
-sh /mnt/VBoxLinuxAdditions.run
 
 
 ############
