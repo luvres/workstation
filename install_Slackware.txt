@@ -1,6 +1,9 @@
 sudo mkfs.vfat -I /dev/sdc
 sudo dd if=/aux/ISOs/slackware64-current-install-dvd.iso of=/dev/sdc && sync
 
+# http://bear.alienbase.nl/mirrors/slackware-live/latest/
+sudo dd if=/aux/ISOs/slackware64-live-plasma5-current.iso of=/dev/sdc && sync
+
 ###############
 ### Install ###
 ###############
