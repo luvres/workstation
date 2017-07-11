@@ -94,6 +94,7 @@ sh /mnt/VBoxLinuxAdditions.run
 ###
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
+#sh arch_desktop.sh xorg
 sh arch_desktop.sh xfce
 #sh arch_desktop.sh xfce4
 ###
@@ -106,6 +107,7 @@ sh arch_desktop.sh xfce
 ###
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
+#sh arch_desktop.sh xorg
 sh arch_desktop.sh plasma
 sh arch_desktop.sh virtualbox
 reboot
