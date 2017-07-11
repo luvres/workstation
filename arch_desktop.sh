@@ -86,7 +86,7 @@ _plasma(){
   kinfocenter ark kipi-plugins \
   konsole kwrite kcolorchooser ktorrent \
   gftp xclip gwenview jre8-openjdk \
-  firefox libreoffice-fresh vlc gimp
+  firefox chromium libreoffice-fresh vlc gimp
   #################
   # kwalletmanager digikam spectacle kruler okular amarok speedcdrunch redshift kompare kfind sddm-kcm
   # pacman -S --noconfirm \
