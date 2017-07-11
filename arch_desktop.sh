@@ -84,7 +84,7 @@ _plasma(){
   breeze-gtk breeze-kde4 kde-gtk-config kdeplasma-addons \
   dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs \
   kinfocenter ark kipi-plugins \
-  konsole kwrite kate kcolorchooser ktorrent \
+  konsole kate kcolorchooser ktorrent \
   gftp xclip gwenview jre8-openjdk \
   firefox chromium libreoffice-fresh vlc gimp
   #################
