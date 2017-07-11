@@ -79,34 +79,48 @@ _makepkg(){
 
 ## KDE Plasma
 _plasma(){
+  # Core
   pacman -S --noconfirm \
-  plasma-desktop plasma-nm plasma-pa powerdevil \
-  breeze-gtk breeze-kde4 kde-gtk-config kdeplasma-addons \
+  plasma-desktop
+  echo "exec startkde &" >/home/`ls /home/`/.xinitrc
+  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
+
+  # Base
+  pacman -S --noconfirm \
+  plasma-nm plasma-pa powerdevil \
+  breeze-gtk breeze-kde4 kde-gtk-config kdeplasma-addons kinfocenter
+
+  # Packages base
+  pacman -S --noconfirm \
   dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs \
-  kinfocenter ark kipi-plugins \
-  konsole kate kcolorchooser ktorrent \
-  gftp xclip gwenview jdk8-openjdk \
-  firefox chromium libreoffice-fresh vlc gimp
+  ark kipi-plugins \
+  konsole kwrite kate kcolorchooser ktorrent gwenview
+
+  # Packages
+  pacman -S --noconfirm \
+  gftp xclip jdk8-openjdk firefox chromium libreoffice-fresh vlc gimp
+
+  # Bluetooth
+  pacman -S --noconfirm bluez bluez-utils bluedevil
+  systemctl enable bluetooth.service
+
+  # NetworkManager
+  pacman -S --noconfirm networkmanager
+  systemctl enable NetworkManager
+  systemctl disable dhcpcd
+  # openconnect networkmanager-openconnect
+
+  # Simple Desktop Display Manager
+  pacman -S --noconfirm sddm
+  systemctl enable sddm.service
+  sed -i '/Current=/s/$/&breeze/' /etc/sddm.conf
+
   #################
   # pacman -S --noconfirm \
   # kwalletmanager digikam spectacle kruler okular amarok speedcdrunch redshift kompare kfind sddm-kcm
   # adobe-source-sans-pro-fonts aspell-en enchant gst-libav gst-plugins-good hunspell-en \
   # icedtea-web  languagetool libmythes mythes-en pkgstats
   #################
-  # Bluetooth
-  pacman -S --noconfirm bluez bluez-utils bluedevil
-  systemctl enable bluetooth.service
-  # NetworkManager
-  pacman -S --noconfirm networkmanager
-  systemctl enable NetworkManager
-  systemctl disable dhcpcd
-  # openconnect networkmanager-openconnect
-  echo "exec startkde &" >/home/`ls /home/`/.xinitrc
-  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
-  # Simple Desktop Display Manager
-  pacman -S --noconfirm sddm
-  systemctl enable sddm.service
-  sed -i '/Current=/s/$/&breeze/' /etc/sddm.conf
 }
 
 
@@ -123,7 +137,7 @@ _xfce4(){
 
   # Packages base
   pacman -S --noconfirm \
-  xfce4-power-manager xfce4-pulseaudio-plugin \
+  xfce4-power-manager xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin \
   lxappearance gnome-system-monitor gksu \
   xfce4-terminal ristretto leafpad chromium zathura zathura-pdf-poppler
   sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
