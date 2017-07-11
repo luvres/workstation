@@ -140,9 +140,9 @@ _xfce4(){
 
   # Packages base
   pacman -S --noconfirm \
-  xfce4-power-manager xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin \
+  xfce4-power-manager xfce4-pulseaudio-plugin xfce4-whiskermenu-plugin xfce4-dockbarx-plugin \
   lxappearance gnome-system-monitor gksu \
-  xfce4-terminal ristretto leafpad chromium zathura zathura-pdf-poppler
+  terminator ristretto leafpad chromium zathura zathura-pdf-poppler
   sed -i 's/NotShowIn/#NotShowIn/' /usr/share/applications/lxappearance.desktop
 }
 
