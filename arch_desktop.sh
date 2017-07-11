@@ -88,8 +88,8 @@ _plasma(){
   gftp xclip gwenview jdk8-openjdk \
   firefox chromium libreoffice-fresh vlc gimp
   #################
-  # kwalletmanager digikam spectacle kruler okular amarok speedcdrunch redshift kompare kfind sddm-kcm
   # pacman -S --noconfirm \
+  # kwalletmanager digikam spectacle kruler okular amarok speedcdrunch redshift kompare kfind sddm-kcm
   # adobe-source-sans-pro-fonts aspell-en enchant gst-libav gst-plugins-good hunspell-en \
   # icedtea-web  languagetool libmythes mythes-en pkgstats
   #################
