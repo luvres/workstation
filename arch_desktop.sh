@@ -23,6 +23,9 @@ _swapfile(){
   #pacman-key --refresh-keys && pacman-key --init && pacman -Syu --noconfirm
   pacman -Syyu --noconfirm
 
+# Correction Makepkg
+  sed -i '/If using/s/--/#--/' /etc/makepkg.conf
+
 # Reflector
   pacman -S --noconfirm reflector
   cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak

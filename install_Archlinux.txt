@@ -97,6 +97,13 @@ curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop
 #sh arch_desktop.sh xorg
 sh arch_desktop.sh xfce
 #sh arch_desktop.sh xfce4
+
+## Themes
+#---------
+yaourt -S --noconfirm \
+latte-dock arc-gtk-theme papirus-icon-theme-git
+
+
 ###
 # End XFCE #
 ############
