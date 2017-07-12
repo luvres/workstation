@@ -126,12 +126,13 @@ curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop
 #sudo sh arch_desktop.sh xorg
 sudo sh arch_desktop.sh xfce
 #sudo sh arch_desktop.sh xfce4
-reboot
 
 ## Themes
 #---------
 yaourt -S --noconfirm \
 xfce4-dockbarx-plugin arc-gtk-theme papirus-icon-theme-git
+
+reboot
 
 ###
 # End XFCE #
