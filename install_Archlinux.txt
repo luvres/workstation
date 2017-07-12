@@ -346,7 +346,8 @@ sudo pacman -S --noconfirm \
 boost-libs \
 curl \
 hicolor-icon-theme \
-libspnav opencascade \
+libspnav \
+opencascade \
 xerces-c \
 python2-pivy \
 python2-pyside \
