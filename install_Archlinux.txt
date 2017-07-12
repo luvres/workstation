@@ -95,12 +95,13 @@ curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop
 #sh arch_desktop.sh xorg
 sudo sh arch_desktop.sh plasma
 sudo sh arch_desktop.sh virtualbox
-reboot
 
 ## Themes
 #---------
 yaourt -S --noconfirm \
 latte-dock arc-kde papirus-icon-theme-git
+
+reboot
 
 ## Widgets
 #----------
