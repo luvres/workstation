@@ -89,27 +89,6 @@ sh /mnt/VBoxLinuxAdditions.run
 ############
 
 
-########
-# XFCE #
-###
-sudo su
-curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
-#sh arch_desktop.sh xorg
-sh arch_desktop.sh xfce
-#sh arch_desktop.sh xfce4
-reboot
-
-## Themes
-#---------
-yaourt -S --noconfirm \
-xfce4-dockbarx-plugin arc-gtk-theme papirus-icon-theme-git
-
-
-###
-# End XFCE #
-############
-
-
 ##############
 # Plasma KDE #
 ###
@@ -140,6 +119,40 @@ weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
 # End Plasma KDE #
 ##################
 
+
+########
+# XFCE #
+###
+sudo su
+curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
+#sh arch_desktop.sh xorg
+sh arch_desktop.sh xfce
+#sh arch_desktop.sh xfce4
+reboot
+
+## Themes
+#---------
+yaourt -S --noconfirm \
+xfce4-dockbarx-plugin arc-gtk-theme papirus-icon-theme-git
+
+
+###
+# End XFCE #
+############
+
+
+##########
+# Deepin #
+###
+sudo su
+curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
+#sh arch_desktop.sh xorg
+sh arch_desktop.sh deepin
+reboot
+
+###
+# End Deepin #
+##############
 
 ## Microcode (Intel)
 #--------------------
