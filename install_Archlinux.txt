@@ -81,7 +81,7 @@ sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 sh arch_desktop.sh xorg
 ### Guest
-pacman -S --noconfirm virtualbox-guest-utils linux-headers
+pacman -S --noconfirm virtualbox-guest-utils virtualbox-guest-dkms linux-headers
 mount /dev/cdrom /mnt/
 sh /mnt/VBoxLinuxAdditions.run
 ###
