@@ -77,13 +77,12 @@ kimageformars qt5-imageformats gnome-themes-standard k3b qt5-gstreamer pavucontr
 ########
 # Xorg #
 ###
-sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
-sh arch_desktop.sh xorg
+sudo sh arch_desktop.sh xorg
 ### Guest
 pacman -S --noconfirm virtualbox-guest-utils virtualbox-guest-dkms linux-headers
 mount /dev/cdrom /mnt/
-sh /mnt/VBoxLinuxAdditions.run
+sudo sh /mnt/VBoxLinuxAdditions.run
 ###
 # End Xorg #
 ############
@@ -92,11 +91,10 @@ sh /mnt/VBoxLinuxAdditions.run
 ##############
 # Plasma KDE #
 ###
-sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 #sh arch_desktop.sh xorg
-sh arch_desktop.sh plasma
-sh arch_desktop.sh virtualbox
+sudo sh arch_desktop.sh plasma
+sudo sh arch_desktop.sh virtualbox
 reboot
 
 ## Themes
