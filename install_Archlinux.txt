@@ -92,7 +92,7 @@ sudo sh /mnt/VBoxLinuxAdditions.run
 # Plasma KDE #
 ###
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
-#sh arch_desktop.sh xorg
+#sudo sh arch_desktop.sh xorg
 sudo sh arch_desktop.sh plasma
 sudo sh arch_desktop.sh virtualbox
 
@@ -122,10 +122,9 @@ weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
 ########
 # XFCE #
 ###
-sudo su
-curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
-#sh arch_desktop.sh xorg
-sh arch_desktop.sh xfce
+sudo curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
+#sudo sh arch_desktop.sh xorg
+sudo sh arch_desktop.sh xfce
 #sh arch_desktop.sh xfce4
 reboot
 
