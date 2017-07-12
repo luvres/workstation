@@ -145,7 +145,7 @@ xfce4-dockbarx-plugin arc-gtk-theme papirus-icon-theme-git
 sudo su
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 #sh arch_desktop.sh xorg
-sh arch_desktop.sh deepin
+sudo sh arch_desktop.sh deepin
 reboot
 
 ###
