@@ -48,7 +48,7 @@ lsblk
 ########
 
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh
-sh arch_install.sh [username] [password] [efi -> optional]
+sh arch_install.sh [username] [password] [efi or mbr]
 
 reboot
 
