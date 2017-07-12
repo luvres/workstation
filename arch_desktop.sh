@@ -3,7 +3,7 @@
 
 if [ $# -ne 1 ]; then
   echo ""
-  echo "   sh arch_desktop.sh [ xorg , plasma, xfce , xfce4 , packages , virtualbox , development, networkmanager ]"
+  echo "   sh arch_desktop.sh [ xorg , plasma, xfce , xfce4 , packages , virtualbox , development, networkmanager, bluetooth ]"
   echo ""
   exit 1
 fi
@@ -40,6 +40,7 @@ _bashrc(){
 }
 
 ## Xorg Minimal
+#---------------
 _xorgMinimal(){
  # Xorg
   pacman -S --noconfirm \
@@ -72,6 +73,7 @@ _xorgMinimal(){
 }
 
 ## Makepkg
+#----------
 _makepkg(){
   sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
   sed -i '/MAKEFLAGS/s/2/4/' /etc/makepkg.conf
@@ -81,6 +83,7 @@ _makepkg(){
 
 
 ## KDE Plasma
+#-------------
 _plasma(){
  # Core
   pacman -S --noconfirm \
@@ -116,8 +119,8 @@ _plasma(){
   # openconnect networkmanager-openconnect
 
  # Simple Desktop Display Manager
-  pacman -S --noconfirm sddm
-  systemctl enable sddm.service
+  #pacman -S --noconfirm sddm
+  #systemctl enable sddm.service
   sed -i '/Current=/s/$/&breeze/' /etc/sddm.conf
 
   #################
@@ -128,8 +131,26 @@ _plasma(){
   #################
 }
 
+## Deepin
+#---------
+_deepin(){
+ # Core
+  pacman -S --noconfirm \
+  deepin
+  echo "exec startkde &" >/home/`ls /home/`/.xinitrc
+  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
+
+ # Base
+  pacman -S --noconfirm \
+  deepin-extra
+
+ # LightDM
+  sed -i '/#greeter-sess/s/example-gtk-gnome/lightdm-deepin-greeter/' /etc/lightdm/lightdm.conf
+  sed -i '/#greeter-sess/s/#//' /etc/lightdm/lightdm.conf
+}
 
 ## Xfce4
+#--------
 _xfce4(){
  # Core
   pacman -S --noconfirm \
@@ -149,23 +170,31 @@ _xfce4(){
 }
 
 ## Thunar
+#---------
 _thunar(){
   pacman -S --noconfirm \
   thunar thunar-volman gvfs xdg-user-dirs
 }
 
 ## NetworkManager
+#-----------------
 _networkmanager(){
   pacman -S --noconfirm \
   networkmanager networkmanager-dispatcher-ntpd network-manager-applet \
   wireless_tools dialog openconnect networkmanager-openconnect
   systemctl enable NetworkManager
-  # Bluetooth
-  pacman -S --noconfirm blueman bluez-utils
+}
+
+## Bluetooth
+#------------
+_bluetooth(){
+  pacman -S --noconfirm \
+  blueman bluez-utils
   systemctl enable bluetooth.service
 }
 
 ## Packages
+#-----------
 _packages(){
   pacman -S --noconfirm \
   gftp youtube-dl screenfetch transmission-gtk \
@@ -174,19 +203,29 @@ _packages(){
 }
 
 ## Development
+#--------------
 _development(){
   pacman -S --noconfirm \
   qt5-base qtcreator eclipse-jee netbeans \
   mysql-workbench arduino atom
 }
 
-## sddm
+## SDDM
+#-------
 _sddm(){
   pacman -S --noconfirm sddm
   systemctl enable sddm.service
 }
 
+## LightDM
+#----------
+_lightdm(){
+  pacman -S --noconfirm lightdm
+  systemctl enable lightdm.service
+}
+
 ## Slim
+#-------
 _slim(){
   pacman -S --noconfirm slim slim-themes archlinux-themes-slim
   systemctl enable slim.service
@@ -201,11 +240,13 @@ _slim(){
 }
 
 ## Background
+#-------------
 _background(){
   curl -L https://github.com/luvres/workstation/blob/master/background.tar.gz?raw=true | tar -xzf - -C /usr/share/backgrounds/
 }
 
 ## Plank
+#--------
 _plank(){
   pacman -S --noconfirm plank
   git clone https://github.com/mateuspv/plank-themes.git
@@ -218,6 +259,7 @@ _plank(){
 }
 
 ## Virtualbox
+#-------------
 _virtualbox(){
   pacman -S virtualbox linux-headers  
   gpasswd -a `ls /home/` vboxusers
@@ -229,6 +271,7 @@ _virtualbox(){
 }
 
 ## Mac OS X Themes
+#------------------
 _macosx(){
  # Themes
   mkdir /home/`ls /home/`/.themes
@@ -254,8 +297,16 @@ if [[ $1 == "xorg" ]]; then
   _makepkg
 fi
 
+
 if [[ $1 == "plasma" ]]; then
+  _sddm
   _plasma
+fi
+
+if [[ $1 == "deepin" ]]; then
+  _lightdm
+  _deepin
+  _networkmanager
 fi
 
 if [[ $1 == "xfce" ]]; then
@@ -263,6 +314,7 @@ if [[ $1 == "xfce" ]]; then
   _xfce4
   _thunar
   _networkmanager
+  _bluetooth
   _background
 fi
 
@@ -283,17 +335,25 @@ if [[ $1 == "networkmanager" ]]; then
   _networkmanager
 fi
 
+if [[ $1 == "bluetooth" ]]; then
+  _bluetooth
+fi
+
 
 if [[ $1 == "xfce4" ]]; then
+ # Xorg
   _swapfile
   _bashrc
   _xorgMinimal
   _makepkg
+ # XFCE
+  _sddm
   _xfce4
   _thunar
   _networkmanager
-  _sddm
+  _bluetooth
   _background
+ # Extras
   _plank
   _macosx
   _packages
