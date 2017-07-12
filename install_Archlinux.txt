@@ -122,10 +122,10 @@ weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
 ########
 # XFCE #
 ###
-sudo curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
+curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 #sudo sh arch_desktop.sh xorg
 sudo sh arch_desktop.sh xfce
-#sh arch_desktop.sh xfce4
+#sudo sh arch_desktop.sh xfce4
 reboot
 
 ## Themes
