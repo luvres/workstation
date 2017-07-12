@@ -133,7 +133,6 @@ reboot
 yaourt -S --noconfirm \
 xfce4-dockbarx-plugin arc-gtk-theme papirus-icon-theme-git
 
-
 ###
 # End XFCE #
 ############
