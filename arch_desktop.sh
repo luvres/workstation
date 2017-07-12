@@ -113,7 +113,7 @@ _plasma(){
   pacman -S --noconfirm networkmanager
   systemctl enable NetworkManager
   systemctl disable dhcpcd
- # openconnect networkmanager-openconnect
+  # openconnect networkmanager-openconnect
 
  # Simple Desktop Display Manager
   pacman -S --noconfirm sddm
