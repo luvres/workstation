@@ -2,26 +2,41 @@ sudo mkfs.vfat -I /dev/sdc
 sudo dd if=/aux/ISOs/ubuntu-17.04-desktop-amd64.iso of=/dev/sdc && sync
 
 ### Packages
-#------------
+#-------------------
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y \
-git openssh-server sshpass vim tree playonlinux htop unrar openjdk-8-jdk openjfx xclip synaptic youtube-dl cifs-utils gfortran freeglut3-dev faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp
+build-essential git cmake openssh-server vim openjdk-8-jdk unrar \
+tree htop xclip cifs-utils gfortran freeglut3-dev faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp sshpass \
+playonlinux synaptic youtube-dl  vlc VirtualBox Gimp Blender  gftp
 
 ### Ubuntu Software
 #--------------------
-# vlc
-# VirtualBox
-# Gimp
-# Blender
-# cmake
-# gftp
 # brasero
 # [x] Canonical Partners
 # skype (synaptic)
 
+### Papirus Icons
+#-------------------------
+sudo add-apt-repository ppa:papirus/papirus
+sudo apt-get update
+sudo apt-get install papirus-icon-theme
+
+### Arc Theme
+#---------------------
+sudo add-apt-repository ppa:papirus/arc-kde
+sudo apt-get update
+sudo apt-get install arc-kde
+
+### Latte Dock
+#--------------
+sudo add-apt-repository ppa:rikmills/latte-dock
+sudo apt-get update
+sudo apt-get install latte-dock
+
 ### SQLite
 #----------
 sudo apt-get install sqlite3 libsqlite3-dev sqlitebrowser
+
 
 ### i-Nex
 #---------
