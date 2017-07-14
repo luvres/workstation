@@ -261,7 +261,8 @@ _plank(){
 ## Virtualbox
 #-------------
 _virtualbox(){
-  pacman -S virtualbox virtualbox-host-dkms linux-headers  
+  pacman -S --noconfirm \
+  virtualbox virtualbox-host-dkms linux-headers  
   gpasswd -a `ls /home/` vboxusers
   echo 'vboxnetadp' >>/etc/modules-load.d/virtualbox.conf
   echo 'vboxnetflt' >>/etc/modules-load.d/virtualbox.conf
