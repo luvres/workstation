@@ -93,6 +93,8 @@ sudo sh /mnt/VBoxLinuxAdditions.run
 ###
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 #sudo sh arch_desktop.sh xorg
+sudo pacman -S nvidia-340xx
+#sudo pacman -S nvidia-340xx-lts
 sudo sh arch_desktop.sh plasma
 sudo sh arch_desktop.sh virtualbox
 
