@@ -122,6 +122,25 @@ weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
 sudo mkdir /aux && sudo chown luvres. /aux
 sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
 
+docker run --name ftp -h ftp \
+-p 80:80 \
+-v /aux:/var/www \
+-d izone/alpine:lighttpd
+
+docker run --name MariaDB \
+-p 3308:3306 \
+-e MYSQL_ROOT_PASSWORD=maria \
+-d mariadb
+
+docker run --name Postgres -h postgres \
+-p 5432:5432 \
+-e POSTGRES_PASSWORD=postgres \
+-d postgres:alpine
+
+docker run --name OracleXE -h oraclexe  \
+-p 1521:1521 \
+-d izone/oracle
+	
 ###
 # End Plasma KDE #
 ##################
