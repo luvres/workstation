@@ -140,7 +140,12 @@ docker run --name Postgres -h postgres \
 docker run --name OracleXE -h oraclexe  \
 -p 1521:1521 \
 -d izone/oracle
-	
+
+### WhatsApp
+#------------
+/usr/bin/chromium --app=https://web.whatsapp.com/
+
+
 ###
 # End Plasma KDE #
 ##################
