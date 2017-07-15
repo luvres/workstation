@@ -282,6 +282,9 @@ sudo mv /usr/bin/ccx /usr/bin/ccx_`ccx -version | grep 'is' | awk '{print $4}'`
 sudo ln -s $HOME/CalculiX-2.12/bin/ccx_2.12 /usr/bin/ccx
 sudo ln -s $HOME/CalculiX-2.12/bin/cgx /usr/bin/cgx
 
+sudo cp $HOME/CalculiX-2.12/bin/ccx_2.12 /usr/bin/ccx
+sudo cp $HOME/CalculiX-2.12/bin/cgx /usr/bin/cgx
+
 
 
 ### Compilando com clang
