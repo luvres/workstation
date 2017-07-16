@@ -128,7 +128,7 @@ docker run --name ftp -h ftp \
 -d izone/alpine:lighttpd
 
 docker run --name MariaDB \
--p 3308:3306 \
+-p 3306:3306 \
 -e MYSQL_ROOT_PASSWORD=maria \
 -d mariadb
 
