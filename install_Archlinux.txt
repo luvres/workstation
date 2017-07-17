@@ -205,7 +205,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 #------------------
 #sudo mount /dev/sda1 /boot/
 sudo pacman -S linux-firmware
-sudo grub-mkconfig -o /boob/grub/grub.cfg
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 ## Remove Orphans
 #------------------
