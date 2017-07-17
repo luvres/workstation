@@ -221,7 +221,7 @@ sudo pacman-optimize
 #------------
 #sudo mount /dev/sda1 /boot/
 sudo pacman -S linux-lts
-sudo grub-mkconfig -o /boob/grub/grub.cfg
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo pacman -S linux-lts-headers
 reboot
 sudo pacman -Rs linux
@@ -242,7 +242,7 @@ su -c "echo '# Achieve the faster possible boot:' >>/etc/default/grub"
 su -c "echo 'GRUB_FORCE_HIDDEN_MENU="true"' >>/etc/default/grub"
 sudo wget -c https://gist.githubusercontent.com/anonymous/8eb2019db2e278ba99be/raw/255100fd46aeeb8e33a7629b209d0a14b9975/gistfile1.sh -O /etc/grub.d/31_hold_shift
 sudo chmod a+x /etc/grub.d/31_hold_shift
-sudo grub-mkconfig -o /boob/grub/grub.cfg
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 ## Firewall
 #-----------
