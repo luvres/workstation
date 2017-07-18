@@ -122,9 +122,38 @@ sudo sh arch_desktop.sh virtualbox
 yaourt -S --noconfirm \
 latte-dock arc-kde papirus-icon-theme-git
 
+### Mountpoint
+#--------------
+sudo mkdir /aux && sudo chown luvres. /aux
+sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
+
+### IMPRESSORA HP
+#-----------------
+sudo pacman -S --noconfirm \
+cups cups-pdf lib32-libcups foomatic-db foomatic-filters foomatic-db-engine \
+hplip system-config-printer pyqt
+yaourt -S --noconfirm hplip-plugin
+#systemctl start org.cups.cupsd.service # http://localhost:631
+#systemctl start cups-browsed.service
+
+
 reboot
 
-## Widgets
+### Git
+#------
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+git config --list
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+
+git add . && git commit -am "Primeiro commit" && git push
+
+### Widgets
 #----------
 Application Menu
 Global Menu
@@ -135,23 +164,9 @@ Digital Clock
 Add Spacer
 weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
 
-### Mountpoint
-#--------------
-sudo mkdir /aux && sudo chown luvres. /aux
-sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
-
 ### Winbox
 #----------
 cp /aux/Workstation/WINDOWS/winbox.exe $HOME/Desktop
-
-### IMPRESSORA HP
-#-----------------
-sudo pacman -S --noconfirm \
-cups cups-pdf lib32-libcups foomatic-db foomatic-filters foomatic-db-engine \
-hplip system-config-printer pyqt
-yaourt -S --noconfirm hplip-plugin
-#systemctl start org.cups.cupsd.service # http://localhost:631
-#systemctl start cups-browsed.service
 
 ### Docker
 #----------
