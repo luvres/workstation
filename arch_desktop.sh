@@ -105,7 +105,7 @@ _plasma(){
  # Packages
   pacman -S --noconfirm \
   freeglut jdk8-openjdk wine \
-  gftp xclip terminator youtube-dl mysql-workbench sublime-text-dev \
+  gftp xclip terminator youtube-dl mysql-workbench sublime-text-dev screenfetch \
   firefox chromium libreoffice-fresh vlc gimp blender
 
  # Bluetooth
