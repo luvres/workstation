@@ -112,8 +112,9 @@ sudo sh /mnt/VBoxLinuxAdditions.run
 # Plasma KDE #
 ###
 
-curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
+#curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 #sudo sh arch_desktop.sh xorg
+
 sudo sh arch_desktop.sh plasma
 sudo sh arch_desktop.sh virtualbox
 
