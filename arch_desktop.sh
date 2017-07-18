@@ -36,7 +36,7 @@ _swapfile(){
 _bashrc(){
   curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C /home/`ls /home/`/
   echo '' >>/home/`ls /home/`/.bashrc
-  echo screenfetch >>/home/`ls /home/`/.bashrc
+  #echo screenfetch >>/home/`ls /home/`/.bashrc
 }
 
 ## Xorg Minimal
