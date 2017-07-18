@@ -140,6 +140,10 @@ weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
 sudo mkdir /aux && sudo chown luvres. /aux
 sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
 
+### Winbox
+#----------
+cp /aux/Workstation/WINDOWS/winbox.exe $HOME/Desktop
+
 ### IMPRESSORA HP
 #-----------------
 sudo pacman -S --noconfirm \
