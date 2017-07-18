@@ -81,6 +81,20 @@ _makepkg(){
   # nano /etc/makepkg.conf #line 63
 }
 
+_makepkg6(){
+  sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
+  sed -i '/MAKEFLAGS/s/2/6/' /etc/makepkg.conf
+  sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
+  # nano /etc/makepkg.conf #line 63
+}
+
+_makepkg8(){
+  sed -i '/MAKEFLAGS/s/#//' /etc/makepkg.conf
+  sed -i '/MAKEFLAGS/s/2/8/' /etc/makepkg.conf
+  sed -i '/COMPRESSXZ/s/c/c -T 6/' /etc/makepkg.conf
+  # nano /etc/makepkg.conf #line 63
+}
+
 
 ## KDE Plasma
 #-------------
@@ -295,9 +309,17 @@ if [[ $1 == "xorg" ]]; then
   _swapfile
   _bashrc
   _xorg
-  _makepkg
 fi
 
+if [[ $1 == "makepkg" ]]; then
+  _makepkg
+fi
+if [[ $1 == "makepkg6" ]]; then
+  _makepkg6
+fi
+if [[ $1 == "makepkg8" ]]; then
+  _makepkg8
+fi
 
 if [[ $1 == "plasma" ]]; then
   _sddm
