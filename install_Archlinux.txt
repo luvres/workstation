@@ -175,6 +175,12 @@ docker run --name OracleXE -h oraclexe  \
 echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
 source $HOME/.bashrc
 
+### Popcorn-Time
+#----------------
+sudo mkdir /opt/popcorntime
+curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
+sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
+
 ### FreeCAD
 #-----------
 yaourt -S --noconfirm freecad-qt5-git
