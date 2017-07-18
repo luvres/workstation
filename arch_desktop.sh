@@ -41,7 +41,7 @@ _bashrc(){
 
 ## Xorg Minimal
 #---------------
-_xorgMinimal(){
+_xorg(){
  # Xorg
   pacman -S --noconfirm \
   xorg xorg-xinit
@@ -294,7 +294,7 @@ _macosx(){
 if [[ $1 == "xorg" ]]; then
   _swapfile
   _bashrc
-  _xorgMinimal
+  _xorg
   _makepkg
 fi
 
@@ -345,7 +345,7 @@ if [[ $1 == "xfce4" ]]; then
  # Xorg
   _swapfile
   _bashrc
-  _xorgMinimal
+  _xorg
   _makepkg
  # XFCE
   _sddm
