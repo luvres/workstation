@@ -39,7 +39,7 @@ _bashrc(){
   #echo screenfetch >>/home/`ls /home/`/.bashrc
 }
 
-## Xorg Minimal
+## Xorg
 #---------------
 _xorg(){
  # Xorg
