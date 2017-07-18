@@ -84,8 +84,6 @@ sudo sh arch_desktop.sh makepkg8 # -J8
 sudo sh arch_desktop.sh makepkg6 # -J6
 sudo sh arch_desktop.sh makepkg # -J4
 
-
-
 ### Linux LTS
 #-------------
 sudo mount /dev/sda1 /boot/
