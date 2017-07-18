@@ -77,18 +77,29 @@ kimageformars qt5-imageformats gnome-themes-standard k3b qt5-gstreamer pavucontr
 ########
 # Xorg #
 ###
+
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
 sudo sh arch_desktop.sh xorg
+
+### Linux LTS
+sudo mount /dev/sda1 /boot/
+sudo pacman -S linux-lts linux-lts-headers
+sudo pacman -Rs linux
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
 ### Nvidia
-sudo pacman -S --noconfirm nvidia-340xx
 sudo pacman -S --noconfirm nvidia-340xx-lts
+sudo pacman -S --noconfirm nvidia-340xx
+
 ### Guest
 sudo pacman -S --noconfirm virtualbox-guest-utils virtualbox-guest-dkms linux-headers
 sudo mount /dev/cdrom /mnt/
 sudo sh /mnt/VBoxLinuxAdditions.run
+
 ###
 # End Xorg #
 ############
+
 
 
 ##############
@@ -157,7 +168,6 @@ docker run --name OracleXE -h oraclexe  \
 echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
 source $HOME/.bashrc
 
-
 ###
 # End Plasma KDE #
 ##################
@@ -217,14 +227,6 @@ sudo pacman-optimize
 
 ####################
 
-## Linux LTS
-#------------
-#sudo mount /dev/sda1 /boot/
-sudo pacman -S linux-lts
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-sudo pacman -S linux-lts-headers
-reboot
-sudo pacman -Rs linux
 
 ## Check for Errors
 #-------------------
