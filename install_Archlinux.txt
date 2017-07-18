@@ -78,11 +78,12 @@ kimageformars qt5-imageformats gnome-themes-standard k3b qt5-gstreamer pavucontr
 # Xorg #
 ###
 
-curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
-sudo sh arch_desktop.sh xorg
 sudo sh arch_desktop.sh makepkg8 # -J8
 sudo sh arch_desktop.sh makepkg6 # -J6
 sudo sh arch_desktop.sh makepkg # -J4
+
+curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
+sudo sh arch_desktop.sh xorg
 
 ### Linux LTS
 #-------------
@@ -105,7 +106,6 @@ sudo sh /mnt/VBoxLinuxAdditions.run
 ###
 # End Xorg #
 ############
-
 
 
 ##############
