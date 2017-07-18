@@ -172,6 +172,10 @@ docker run --name OracleXE -h oraclexe  \
 echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
 source $HOME/.bashrc
 
+### FreeCAD
+#-----------
+yaourt -S --noconfirm freecad-qt5-git
+
 ###
 # End Plasma KDE #
 ##################
