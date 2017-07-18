@@ -136,8 +136,13 @@ yaourt -S --noconfirm hplip-plugin
 #systemctl start org.cups.cupsd.service # http://localhost:631
 #systemctl start cups-browsed.service
 
+### WhatsApp
+#------------
+echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
+source $HOME/.bashrc
 
 reboot
+
 
 ### Git
 #------
@@ -188,11 +193,6 @@ docker run --name Postgres -h postgres \
 docker run --name OracleXE -h oraclexe  \
 -p 1521:1521 \
 -d izone/oracle
-
-### WhatsApp
-#------------
-echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
-source $HOME/.bashrc
 
 ### Popcorn-Time
 #----------------
