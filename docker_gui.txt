@@ -1,0 +1,22 @@
+xauth list | xclip -sel clip
+
+docker run --rm --name Ubuntu -h ubuntu \
+-e DISPLAY \
+-v /tmp/.X11-unit \
+-ti ubuntu bash
+
+apt install software-properties-common
+add-apt-repository ppa:freecad-maintainers/freecad-stable
+
+# Manual
+echo 'deb http://ppa.launchpad.net/freecad-maintainers/freecad-daily/ubuntu xenial main' >>/etc/apt/sources.list
+echo 'deb-src http://ppa.launchpad.net/freecad-maintainers/freecad-daily/ubuntu xenial main' >>/etc/apt/sources.list
+
+apt update & apt upgrade
+
+apt install \
+xauth firefox libreoffice gimp blender freecad
+
+
+
+sshpass -p "aamu02" ssh $USER@localhost xauth list
