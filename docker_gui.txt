@@ -8,11 +8,10 @@ gui bash
 
 # apt install -y net-tools iputils-ping openssh-client sshpass
 
-xauth add `sshpass -p "aamu02" ssh $USER@localhost xauth list`
-
 apt update && apt install -y xauth firefox
 apt update && apt install -y xauth blender
 
+xauth add `sshpass -p "aamu02" ssh luvres@localhost xauth list`
 
 
 
