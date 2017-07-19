@@ -5,7 +5,7 @@ docker run --rm --name Ubuntu -h ubuntu \
 -v /tmp/.X11-unit \
 -ti ubuntu bash
 
-apt update && upgrade -y \
+apt update && apt upgrade -y \
 apt install -y software-properties-common && \
 add-apt-repository -y ppa:freecad-maintainers/freecad-stable && \
 apt remove -y software-properties-common && \
