@@ -1,16 +1,32 @@
 xauth list | xclip -sel clip
 
 docker run --rm --name Ubuntu -h ubuntu \
+--net=host \
+-e DISPLAY \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+-ti ubuntu bash
+
+
+
+
+docker run -ti \
+--net=host \
 -e DISPLAY \
 -v /tmp/.X11-unix \
--ti ubuntu bash
+ubuntu bash
+
+
+apt update && apt install -y xauth firefox
+
+xauth add desktop/unix:0  MIT-MAGIC-COOKIE-1  8c10049af13dc180a58ecc7857c13677
+
+
+
 
 apt update && apt upgrade -y && \
 apt install -y software-properties-common && \
 add-apt-repository -y ppa:freecad-maintainers/freecad-stable && \
-apt update && apt install -y freecad
-
-apt install -y \
+apt update && apt install -y freecad \
 xauth firefox libreoffice gimp blender
 
 
