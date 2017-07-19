@@ -11,10 +11,11 @@ docker run -ti --rm --name Ubuntu \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 ubuntu bash
 
-# apt install net-tools iputils-ping openssh-client
+# apt install net-tools iputils-ping openssh-client sshpass
 
 docker run -ti --rm --name Ubuntu \
 --net=host \
+-e DISPLAY \
 -v /tmp/.X11-unix \
 gui bash
 
@@ -24,10 +25,9 @@ add-apt-repository -y ppa:freecad-maintainers/freecad-stable && \
 apt update && apt install -y freecad \
 xauth firefox libreoffice gimp blender
 
+apt update && apt install -y xauth firefox
 apt update && apt install -y xauth blender
-
-xauth add desktop/unix:0  MIT-MAGIC-COOKIE-1  01ac7e399237a4e6bd8ab16fe08d718c
-
+xauth add desktop/unix:0  MIT-MAGIC-COOKIE-1  3cc4f0dac26059f7b4fe117a2221d5c7
 
 
 xauth add `sshpass -p "aamu02" ssh $USER@localhost xauth list`
