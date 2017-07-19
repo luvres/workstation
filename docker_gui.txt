@@ -5,6 +5,9 @@ docker run -ti --rm --name Ubuntu \
 -e DISPLAY \
 --device /dev/dri \
 --device /dev/snd \
+--device /dev/video0 \
+--device /dev/input \
+-v /etc/localtime:/etc/localtime:ro \
 -v /tmp/.X11-unix \
 ubuntu bash
 
