@@ -11,7 +11,7 @@ docker run -ti --rm --name Ubuntu \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 ubuntu bash
 
-# apt install net-tools iputils-ping openssh-client sshpass
+# apt install -y net-tools iputils-ping openssh-client sshpass
 
 docker run -ti --rm --name Ubuntu \
 --net=host \
