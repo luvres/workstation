@@ -1,17 +1,17 @@
 xauth list | xclip -sel clip
 
-docker run --rm --name Ubuntu -h ubuntu \
+docker run --rm --name Ubuntu \
 --net=host \
 -e DISPLAY \
 -v /tmp/.X11-unix \
 -ti ubuntu bash
 
 
-docker run -ti --name Ubuntu -h ubuntu \
+docker run -ti --rm --name Ubuntu \
 --net=host \
 -e DISPLAY \
 -v /tmp/.X11-unix \
-ubuntu bash
+gui bash
 
 
 apt update && apt install -y xauth firefox
