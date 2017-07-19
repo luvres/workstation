@@ -8,13 +8,14 @@ docker run -ti --rm --name Ubuntu \
 -v /tmp/.X11-unix \
 gui bash
 
-apt update && apt install -y net-tools iputils-ping openssh-client sshpass xauth firefox
+apt update && apt install -y net-tools iputils-ping pciutils openssh-client sshpass xauth firefox
 
 apt update && apt install -y openssh-client sshpass xauth firefox
 sed -i '/StrictHostKeyChecking/s/#//g' /etc/ssh/ssh_config
 sed -i '/StrictHostKeyChecking/s/ask/no/g' /etc/ssh/ssh_config
 xauth add `sshpass -p "aamu02" ssh luvres@localhost xauth list`
 
+apt-get install libgl1-mesa-glx mesa-utils
 
 apt update && apt install -y xauth firefox
 apt update && apt install -y xauth blender
