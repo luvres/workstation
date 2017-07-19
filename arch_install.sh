@@ -45,7 +45,7 @@ arch_chroot "echo 'SigLevel = Never' >> /etc/pacman.conf"
 arch_chroot "echo 'Server = http://repo.archlinux.fr/\$arch' >> /etc/pacman.conf"
 
 arch_chroot "pacman -Sy --noconfirm \
-             grub grub-efi-x86_64 efibootmgr os-prober yaourt dmidecode acpi acpid mlocate bash-completion \
+             grub grub-efi-x86_64 efibootmgr os-prober yaourt dmidecode acpi acpid cpio mlocate bash-completion \
              pkgstats namcap tmux htop net-tools docker \
              zip unzip unrar p7zip \
              dosfstools ntfsprogs f2fs-tools"
