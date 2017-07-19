@@ -5,14 +5,13 @@ docker run --rm --name Ubuntu -h ubuntu \
 -v /tmp/.X11-unit \
 -ti ubuntu bash
 
-apt install software-properties-common
-add-apt-repository ppa:freecad-maintainers/freecad-stable
+apt update && \
+apt install -y software-properties-common && \
+add-apt-repository -y ppa:freecad-maintainers/freecad-stable && \
+apt remove -y software-properties-common && \
+apt autoremove -y
 
-# Manual
-echo 'deb http://ppa.launchpad.net/freecad-maintainers/freecad-daily/ubuntu xenial main' >>/etc/apt/sources.list
-echo 'deb-src http://ppa.launchpad.net/freecad-maintainers/freecad-daily/ubuntu xenial main' >>/etc/apt/sources.list
-
-apt update & apt upgrade
+apt update & apt upgrade -y
 
 apt install \
 xauth firefox libreoffice gimp blender freecad
