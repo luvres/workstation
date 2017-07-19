@@ -1,26 +1,10 @@
 xauth list | xclip -sel clip
 
-docker run --rm --name Ubuntu \
---net=host \
--e DISPLAY \
--v /tmp/.X11-unix \
--ti ubuntu bash
-
-
 docker run -ti --rm --name Ubuntu \
 --net=host \
 -e DISPLAY \
 -v /tmp/.X11-unix \
-gui bash
-
-
-apt update && apt install -y xauth firefox
-
-xauth add desktop/unix:0  MIT-MAGIC-COOKIE-1  01ac7e399237a4e6bd8ab16fe08d718c
-
-
-
-
+ubuntu bash
 
 apt update && apt upgrade -y && \
 apt install -y software-properties-common && \
@@ -29,7 +13,8 @@ apt update && apt install -y freecad \
 xauth firefox libreoffice gimp blender
 
 
+xauth add desktop/unix:0  MIT-MAGIC-COOKIE-1  01ac7e399237a4e6bd8ab16fe08d718c
 
-xauth add desktop/unix:0  MIT-MAGIC-COOKIE-1  8c10049af13dc180a58ecc7857c13677
+
 
 xauth add `sshpass -p "aamu02" ssh $USER@localhost xauth list`
