@@ -204,7 +204,7 @@ sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
 ### FreeCAD
 #-----------
 sudo ldconfig -p | grep -i gl.so
-sudo mv /usr/lib/libGL.so.1{,.orig}
+sudo rm /usr/lib/libGL.so.1
 yaourt -S --noconfirm freecad-qt5-git
 yaourt -S --noconfirm calculix
 
