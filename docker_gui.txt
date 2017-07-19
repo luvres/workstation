@@ -11,7 +11,10 @@ docker run -ti --rm --name Ubuntu \
 -v /tmp/.X11-unix:/tmp/.X11-unix \
 ubuntu bash
 
-
+docker run -ti --rm --name Ubuntu \
+--net=host \
+-v /tmp/.X11-unix \
+gui bash
 
 apt update && apt upgrade -y && \
 apt install -y software-properties-common && \
