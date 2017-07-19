@@ -7,11 +7,10 @@ docker run --rm --name Ubuntu -h ubuntu \
 
 apt update && apt upgrade -y && \
 apt install -y software-properties-common && \
-add-apt-repository -y ppa:freecad-maintainers/freecad-stable
+add-apt-repository -y ppa:freecad-maintainers/freecad-stable && \
+apt update
 
-apt update & apt upgrade -y
-
-apt install \
+apt install -y \
 xauth firefox libreoffice gimp blender freecad
 
 
