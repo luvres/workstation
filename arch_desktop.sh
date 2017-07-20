@@ -118,7 +118,7 @@ _plasma(){
 
  # Packages
   pacman -S --noconfirm \
-  freeglut jdk8-openjdk wine \
+  freeglut jdk8-openjdk python-pip wine \
   gftp xclip terminator youtube-dl mysql-workbench sublime-text-dev screenfetch \
   firefox flashplugin chromium pepper-flash libreoffice-fresh vlc gimp blender
 
