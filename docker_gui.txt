@@ -6,6 +6,7 @@ docker run -ti --rm --name Ubuntu \
 --device /dev/dri \
 --device /dev/snd \
 -v /tmp/.X11-unix \
+-v $HOME/.Xauthority:/root/.Xauthority \
 gui bash
 
 apt update && apt install -y net-tools iputils-ping pciutils openssh-client sshpass xauth firefox
