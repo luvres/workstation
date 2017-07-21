@@ -37,7 +37,15 @@ ubuntu bash
 # Subuser #
 ###########
 # find ./* -type f -exec grep -l FROM-SUBUSER-IMAGE {} \;
+
+# Install pip
 sudo pip install subuser # Install subuser
+
+# Install git
+git clone https://github.com/subuser-security/subuser
+echo 'PATH=$HOME/subuser/logic:$HOME/.subuser/bin:$PATH' >>$HOME/.bashrc
+
+# Using
 subuser list available # List installable programs
 subuser subuser add vim vim@default # Install image listed
 subuser run vim SomeTextFileToEdit # Run whith subuser
