@@ -26,6 +26,7 @@ docker run -ti --rm --name Ubuntu \
 --net=host \
 -e DISPLAY \
 -v /tmp/.X11-unix \
+-v $HOME/.Xauthority:$HOME/.Xauthority \
 gui bash
 
 docker run -ti --rm --name Ubuntu \
