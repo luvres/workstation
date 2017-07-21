@@ -114,7 +114,7 @@ _plasma(){
   pacman -S --noconfirm \
   dolphin ffmpegthumbs kdegraphics-thumbnailers xdg-user-dirs \
   ark kipi-plugins \
-  konsole kwrite kate kcolorchooser ktorrent gwenview
+  konsole kwrite kate okular kcolorchooser ktorrent gwenview
 
  # Packages
   pacman -S --noconfirm \
