@@ -1,5 +1,90 @@
 xauth list | xclip -sel clip
 
+docker run -ti --rm --name Ubuntu \
+--net=host \
+-e DISPLAY \
+--device /dev/dri \
+--device /dev/snd \
+-v /tmp/.X11-unix \
+gui bash
+
+apt update && apt install -y net-tools iputils-ping pciutils openssh-client sshpass xauth firefox
+
+apt update && apt install -y openssh-client sshpass xauth firefox
+sed -i '/StrictHostKeyChecking/s/#//g' /etc/ssh/ssh_config
+sed -i '/StrictHostKeyChecking/s/ask/no/g' /etc/ssh/ssh_config
+xauth add `sshpass -p "aamu02" ssh luvres@localhost xauth list`
+
+apt-get install -y libgl1-mesa-glx mesa-utils nvidia-340
+
+apt update && apt install -y xauth firefox
+apt update && apt install -y xauth blender
+
+
+docker run -ti --rm --name Ubuntu \
+--net=host \
+-e DISPLAY \
+--device /dev/dri \
+--device /dev/snd \
+--device /dev/video0 \
+--device /dev/input \
+-v /etc/localtime:/etc/localtime:ro \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+ubuntu bash
+
+###########
+# Subuser #
+###########
+sudo pip install subuser # Install subuser
+subuser list available # List installable programs
+subuser subuser add vim vim@default # Install image listed
+subuser run vim SomeTextFileToEdit # Run whith subuser
+subuser subuser create-shortcut vim # Turn a subuser into a “normal” program by running
+subuser update all # Update subuser programs
+subuser subuser remove vim # Remove the subuser named vim you can run
+rm -rf ~/.subuser/homes/vim # Remove vim’s home dir
+###########
+
+
+docker run -ti --rm --name Ubuntu \
+-v ~/workspace/:/home/freecad/workspace/:ro \
+-e "DISPLAY=unix:0.0" \
+--privileged \
+-v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+ubuntu bash
+
+
+apt update && apt upgrade -y && \
+apt install -y software-properties-common && \
+add-apt-repository -y ppa:freecad-maintainers/freecad-stable && \
+apt update && apt install -y freecad \
+xauth firefox libreoffice gimp blender
+
+
+xauth add desktop/unix:0  MIT-MAGIC-COOKIE-1  3cc4f0dac26059f7b4fe117a2221d5c7
+
+
+docker run -ti --rm --name Freecad \
+--net=host \
+-e DISPLAY \
+--privileged \
+-v /tmp/.X11-unix \
+pyro225/freecad-docker:stable
+
+
+xhost +si:localuser:freecad
+
+
+docker run --name freecad \
+-v ~/workspace/:/home/freecad/workspace/:ro \
+-e "DISPLAY=unix:0.0" \
+--privileged \
+-v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+-d pyro225/freecad-docker:latest
+
+
+
+
 #----------------------------------------
 FROM ubuntu
 MAINTAINER Leonardo Loures <luvres@hotmail.com>
@@ -22,82 +107,11 @@ ENTRIPOINT xauth add `sshpass -p "aamu02" ssh luvres@localhost xauth list`
 #----------------------------------------
 docker build -t gui .
 #----------------------------------------
+
 docker run -ti --rm --name Ubuntu \
 --net=host \
 -e DISPLAY \
 -v /tmp/.X11-unix \
 -v $HOME/.Xauthority:$HOME/.Xauthority \
 gui bash
-
-docker run -ti --rm --name Ubuntu \
---net=host \
--e DISPLAY \
---device /dev/dri \
---device /dev/snd \
--v /tmp/.X11-unix \
-gui bash
-
-apt update && apt install -y net-tools iputils-ping pciutils openssh-client sshpass xauth firefox
-
-apt update && apt install -y openssh-client sshpass xauth firefox
-sed -i '/StrictHostKeyChecking/s/#//g' /etc/ssh/ssh_config
-sed -i '/StrictHostKeyChecking/s/ask/no/g' /etc/ssh/ssh_config
-xauth add `sshpass -p "aamu02" ssh luvres@localhost xauth list`
-
-apt-get install -y libgl1-mesa-glx mesa-utils nvidia-340
-
-apt update && apt install -y xauth firefox
-apt update && apt install -y xauth blender
-
-
-
-
-docker run -ti --rm --name Ubuntu \
---net=host \
--e DISPLAY \
---device /dev/dri \
---device /dev/snd \
---device /dev/video0 \
---device /dev/input \
--v /etc/localtime:/etc/localtime:ro \
--v /tmp/.X11-unix:/tmp/.X11-unix \
-ubuntu bash
-
-
-apt update && apt upgrade -y && \
-apt install -y software-properties-common && \
-add-apt-repository -y ppa:freecad-maintainers/freecad-stable && \
-apt update && apt install -y freecad \
-xauth firefox libreoffice gimp blender
-
-
-xauth add desktop/unix:0  MIT-MAGIC-COOKIE-1  3cc4f0dac26059f7b4fe117a2221d5c7
-
-
-
-
-docker run -ti --rm --name freecad \
--v ~/workspace/:/home/freecad/workspace/:ro \
--e "DISPLAY=unix:0.0" \
---privileged \
--v /tmp/.X11-unix:/tmp/.X11-unix:ro \
-pyro225/freecad-docker:stable
-
-docker run -ti --rm --name Freecad \
---net=host \
--e DISPLAY \
---privileged \
--v /tmp/.X11-unix \
-pyro225/freecad-docker:stable
-
-
-xhost +si:localuser:freecad
-
-
-docker run --name freecad \
--v ~/workspace/:/home/freecad/workspace/:ro \
--e "DISPLAY=unix:0.0" \
---privileged \
--v /tmp/.X11-unix:/tmp/.X11-unix:ro \
--d pyro225/freecad-docker:latest
-
+#----------------------------------------
