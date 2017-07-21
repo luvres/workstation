@@ -208,12 +208,14 @@ sudo rm /usr/lib/libGL.so.1
 yaourt -S --noconfirm freecad-qt5-git
 yaourt -S --noconfirm calculix
 
-# With Subuser
+### With Subuser ?
+#----------------?
 sudo pip install subuser
 mkdir 1uvr3z && cd 1uvr3z
 git clone https://github.com/FreeCAD/FreeCAD.git
 pushd FreeCAD
 cp subuser/freecad-dev/image/Dockerfile subuser/freecad-dev/image/FROM-SUBUSER-IMAGE
+cp subuser/freecad-dev/image/Dockerfile subuser/freecad-dev/image/SubuserImagefile
 subuser dev freecad-dev
 
 
