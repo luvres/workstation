@@ -43,6 +43,7 @@ subuser subuser create-shortcut vim # Turn a subuser into a “normal” program
 subuser update all # Update subuser programs
 subuser subuser remove vim # Remove the subuser named vim you can run
 rm -rf ~/.subuser/homes/vim # Remove vim’s home dir
+subuser remove-old-images # Clean up old images which have been installed
 ###########
 
 
