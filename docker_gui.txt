@@ -35,6 +35,7 @@ ubuntu bash
 ###########
 # Subuser #
 ###########
+# find ./* -type f -exec grep -l FROM-SUBUSER-IMAGE {} \;
 sudo pip install subuser # Install subuser
 subuser list available # List installable programs
 subuser subuser add vim vim@default # Install image listed
