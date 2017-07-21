@@ -106,8 +106,11 @@ cifs-utils f2fs-tools gfortran freeglut3-dev \
 arc-theme moka-icon-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
 git gedit gedit-plugins xclip terminator chromium
 
-# Docker
+
+### Docker
+#----------
 curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
 
 
 ### Modules

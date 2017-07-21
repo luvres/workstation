@@ -99,6 +99,18 @@ RUN apt update && apt upgrade -y \
     && apt update && apt install -y \
     freecad \
   \
+    firefox libreoffice gimp blender
+#----------------------------------------
+FROM ubuntu
+MAINTAINER Leonardo Loures <luvres@hotmail.com>
+
+RUN apt update && apt upgrade -y \
+  \
+    && apt install -y software-properties-common \
+    && add-apt-repository -y ppa:freecad-maintainers/freecad-stable \
+    && apt update && apt install -y \
+    freecad \
+  \
     xauth openssh-client sshpass \
     firefox libreoffice gimp blender \
   \
@@ -106,7 +118,6 @@ RUN apt update && apt upgrade -y \
     && sed -i '/StrictHostKeyChecking/s/ask/no/g' /etc/ssh/ssh_config
 
 ENTRIPOINT xauth add `sshpass -p "aamu02" ssh luvres@localhost xauth list`
-
 #----------------------------------------
 docker build -t gui .
 #----------------------------------------
