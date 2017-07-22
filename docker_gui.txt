@@ -66,6 +66,7 @@ ubuntu bash
 docker run -ti --rm --name Ubuntu \
 --net=bridge \
 -e DISPLAY=unix$DISPLAY \
+-e COIN_GL_NO_CURRENT_CONTEXT_CHECK=1
 --volume=/tmp/.X11-unix:/tmp/.X11-unix:rw \
 --volume=$HOME/.Xauthority:/root/.Xauthority:ro \
 --device=/dev/video0 \ # Webcam
