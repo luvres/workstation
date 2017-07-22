@@ -65,14 +65,15 @@ ubuntu bash
 
 docker run -ti --rm --name Ubuntu \
 --net=bridge \
--e DISPLAY=unix:100 \
+-e DISPLAY=unix$DISPLAY \
 --volume=/tmp/.X11-unix:/tmp/.X11-unix:rw \
 --volume=$HOME/.Xauthority:/root/.Xauthority:ro \
---device=/dev/snd \
---device=/dev/video0 \
---device=/dev/input \
---device=/dev/dri \
+--device=/dev/video0 \ # Webcam
+--device=/dev/snd \ # Audio
+--device=/dev/input \ # Video-game
+--device=/dev/dri \ # Aceleracao 3D
 --volume=/dev/dri/:/dev/dri/:ro \
+--volume=/etc/localtime:/etc/localtime:ro \ # Localtime
 --user=0 \
 --privileged \
 --volume=/var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:rw \
