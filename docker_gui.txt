@@ -1,36 +1,78 @@
-xauth list | xclip -sel clip
+### FreeCAD Stable
+#------------------
+tee Dockerfile <<EOF
+FROM ubuntu:xenial
+MAINTAINER Leonardo Loures <luvres@hotmail.com>
 
-docker run -ti --rm --name Ubuntu \
+RUN apt update && apt upgrade -y \
+  \
+    && apt install -y software-properties-common \
+    && add-apt-repository -y ppa:freecad-maintainers/freecad-stable \
+    && apt update && apt install -y \
+    freecad
+EOF
+
+docker build -t izone/freecad:stable .
+
+### FreeCAD Daily
+#------------------
+tee Dockerfile <<EOF
+FROM ubuntu:xenial
+MAINTAINER Leonardo Loures <luvres@hotmail.com>
+
+RUN apt update && apt upgrade -y \
+  \
+    && apt install -y software-properties-common \    
+    && add-apt-repository -y ppa:freecad-maintainers/freecad-daily \
+    && apt update && apt install -y \
+    freecad-daily
+EOF
+
+docker build -t izone/freecad:daily .
+
+### Runing
+#----------
+docker run -ti --rm --name FreeCAD \
 --net=host \
--e DISPLAY \
---device /dev/dri \
---device /dev/snd \
+-e DISPLAY=unix$DISPLAY \
 -v /tmp/.X11-unix \
 -v $HOME/.Xauthority:/root/.Xauthority \
-gui bash
+izone/freecad freecad
+
+########################################
+##############################
+####################
 
 apt update && apt install -y net-tools iputils-ping pciutils openssh-client sshpass xauth firefox
 
-apt update && apt install -y openssh-client sshpass xauth firefox
+apt update && apt install -y openssh-client sshpass xauth firefox blender
 sed -i '/StrictHostKeyChecking/s/#//g' /etc/ssh/ssh_config
 sed -i '/StrictHostKeyChecking/s/ask/no/g' /etc/ssh/ssh_config
 xauth add `sshpass -p "aamu02" ssh luvres@localhost xauth list`
 
 apt-get install -y libgl1-mesa-glx mesa-utils nvidia-340
 
-apt update && apt install -y xauth firefox
-apt update && apt install -y xauth blender
-
-
 docker run -ti --rm --name Ubuntu \
 --net=host \
 -e DISPLAY \
---device /dev/dri \
---device /dev/snd \
---device /dev/video0 \
---device /dev/input \
--v /etc/localtime:/etc/localtime:ro \
--v /tmp/.X11-unix:/tmp/.X11-unix \
+--device=/dev/dri \
+--device=/dev/snd \
+--device=/dev/video0 \
+--device=/dev/input \
+-volume=/etc/localtime:/etc/localtime:ro \
+-volume=/tmp/.X11-unix:/tmp/.X11-unix \
+ubuntu bash
+
+docker run -ti --rm --name Ubuntu \
+--net=bridge \
+-e DISPLAY=unix:100 \
+--volume=/tmp/.X11-unix:/tmp/.X11-unix:rw \
+--volume=$HOME/.Xauthority:/root/.Xauthority:ro \
+--device=/dev/dri \
+--volume=/dev/dri/:/dev/dri/:ro \
+--user=0 \
+--privileged \
+--volume=/var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:rw \
 ubuntu bash
 
 ###########
@@ -61,83 +103,4 @@ subuser remove-old-images # Clean up old images which have been installed
 ###########
 
 
-docker run -ti --rm --name Ubuntu \
--v ~/workspace/:/home/freecad/workspace/:ro \
--e "DISPLAY=unix:0.0" \
---privileged \
--v /tmp/.X11-unix:/tmp/.X11-unix:ro \
-ubuntu bash
 
-
-apt update && apt upgrade -y && \
-apt install -y software-properties-common && \
-add-apt-repository -y ppa:freecad-maintainers/freecad-stable && \
-apt update && apt install -y freecad \
-xauth firefox libreoffice gimp blender
-
-
-xauth add desktop/unix:0  MIT-MAGIC-COOKIE-1  3cc4f0dac26059f7b4fe117a2221d5c7
-
-
-docker run -ti --rm --name Freecad \
---net=host \
--e DISPLAY \
---privileged \
--v /tmp/.X11-unix \
-pyro225/freecad-docker:stable
-
-
-xhost +si:localuser:freecad
-
-
-docker run --name freecad \
--v ~/workspace/:/home/freecad/workspace/:ro \
--e "DISPLAY=unix:0.0" \
---privileged \
--v /tmp/.X11-unix:/tmp/.X11-unix:ro \
--d pyro225/freecad-docker:latest
-
-
-
-
-#----------------------------------------
-FROM ubuntu
-MAINTAINER Leonardo Loures <luvres@hotmail.com>
-
-RUN apt update && apt upgrade -y \
-  \
-    && apt install -y software-properties-common \
-    && add-apt-repository -y ppa:freecad-maintainers/freecad-stable \
-    && apt update && apt install -y \
-    freecad \
-  \
-    firefox libreoffice gimp blender
-#----------------------------------------
-FROM ubuntu
-MAINTAINER Leonardo Loures <luvres@hotmail.com>
-
-RUN apt update && apt upgrade -y \
-  \
-    && apt install -y software-properties-common \
-    && add-apt-repository -y ppa:freecad-maintainers/freecad-stable \
-    && apt update && apt install -y \
-    freecad \
-  \
-    xauth openssh-client sshpass \
-    firefox libreoffice gimp blender \
-  \
-    && sed -i '/StrictHostKeyChecking/s/#//g' /etc/ssh/ssh_config \
-    && sed -i '/StrictHostKeyChecking/s/ask/no/g' /etc/ssh/ssh_config
-
-ENTRIPOINT xauth add `sshpass -p "aamu02" ssh luvres@localhost xauth list`
-#----------------------------------------
-docker build -t gui .
-#----------------------------------------
-
-docker run -ti --rm --name Ubuntu \
---net=host \
--e DISPLAY \
--v /tmp/.X11-unix \
--v $HOME/.Xauthority:$HOME/.Xauthority \
-gui bash
-#----------------------------------------
