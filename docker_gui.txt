@@ -44,6 +44,8 @@ sudo pip install subuser # Install subuser
 # Install git
 cd
 git clone https://github.com/subuser-security/subuser
+echo '' >>$HOME/.bashrc
+echo '# Subuser' >>$HOME/.bashrc
 echo 'PATH=$HOME/subuser/logic:$HOME/.subuser/bin:$PATH' >>$HOME/.bashrc
 source $HOME/.bashrc
 
