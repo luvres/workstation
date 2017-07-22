@@ -68,6 +68,9 @@ docker run -ti --rm --name Ubuntu \
 -e DISPLAY=unix:100 \
 --volume=/tmp/.X11-unix:/tmp/.X11-unix:rw \
 --volume=$HOME/.Xauthority:/root/.Xauthority:ro \
+--device=/dev/snd \
+--device=/dev/video0 \
+--device=/dev/input \
 --device=/dev/dri \
 --volume=/dev/dri/:/dev/dri/:ro \
 --user=0 \
