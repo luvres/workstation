@@ -217,7 +217,7 @@ pushd FreeCAD
 cp subuser/freecad-dev/image/Dockerfile subuser/freecad-dev/image/FROM-SUBUSER-IMAGE
 cp subuser/freecad-dev/image/Dockerfile subuser/freecad-dev/image/SubuserImagefile
 subuser dev freecad-dev
-
+subuser dev --update
 
 mkdir 1uvr3z && cd 1uvr3z
 git clone https://github.com/FreeCAD/FreeCAD.git
