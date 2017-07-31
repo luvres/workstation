@@ -108,8 +108,8 @@ sudo sh /mnt/VBoxLinuxAdditions.run
 ############
 
 
-##############
-# Plasma KDE #
+################
+# KDE Plasma 5 #
 ###
 
 #curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
@@ -233,8 +233,8 @@ cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON -DBUILD_ASSEMBLY=ON ../Free
 time make -j4
 
 ###
-# End Plasma KDE #
-##################
+# End KDE Plasma 5 #
+####################
 
 
 ########

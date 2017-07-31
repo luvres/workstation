@@ -75,6 +75,35 @@ cp /usr/share/X11/xorg.conf.d/90-keyboard-layout.conf /etc/X11/xorg.conf.d/90-ke
 sed -i '/XkbLayout/s/us/br/' /etc/X11/xorg.conf.d/90-keyboard-layout.conf
 
 
+################
+# KDE Plasma 5 #
+###
+
+### Install pre-compiled packages
+#---------------------------------
+rsync -av --exclude=x86 rsync://bear.alienbase.nl/mirrors/alien-kde/current/5/ 5/
+cd 5
+upgradepkg --reinstall --install-new x86_64/deps/*.t?z
+upgradepkg --reinstall --install-new x86_64/deps/telepathy/*.t?z
+upgradepkg --reinstall --install-new x86_64/kde/*/*.t?z
+
+### Building from source
+#------------------------
+rsync -av rsync://bear.alienbase.nl/mirrors/alien-kde/source/5/ 5/
+cd 5/deps
+./updates.SlackBuild
+cd -
+cd 5/deps/telepathy
+./telepathy.SlackBuild
+cd -
+cd 5/kde
+./KDE.SlackBuild
+
+###
+# End KDE Plasma 5 #
+####################
+
+
 ## Java JDK
 #------------
 JAVA_VERSION_MAJOR=8 && \
