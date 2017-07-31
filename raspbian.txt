@@ -3,6 +3,7 @@
 ################
 
 ### Install
+#-----------
 dd bs=4096k if=2017-03-02-raspbian-jessie.img of=/dev/sdb status=progress; sync
 
 ### (Install in Raspberry Pi for expand disk)
@@ -74,8 +75,49 @@ docker run --name ftp -h ftp \
 
 
 ### FreeCAD Build
+#-----------------
 sudo apt install -y \
-git build-essential cmake python python-matplotlib libtool libcoin80-dev libsoqt4-dev libxerces-c-dev libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-program-options-dev libboost-signals-dev libboost-thread-dev libboost-python-dev libqt4-dev libqt4-opengl-dev qt4-dev-tools python-dev python-pyside pyside-tools liboce-modeling-dev liboce-visualization-dev liboce-foundation-dev liboce-ocaf-lite-dev liboce-ocaf-dev oce-draw libeigen3-dev libqtwebkit-dev libshiboken-dev libpyside-dev libode-dev swig libzipios++-dev libfreetype6 libfreetype6-dev netgen-headers libmedc-dev libvtk6-dev libproj-dev
+git \
+build-essential \
+cmake \
+python \
+python-matplotlib \
+libtool \
+libcoin80-dev \
+libsoqt4-dev \
+libxerces-c-dev \
+libboost-dev \
+libboost-filesystem-dev \
+libboost-regex-dev \
+libboost-program-options-dev \
+libboost-signals-dev \
+libboost-thread-dev \
+libboost-python-dev \
+libqt4-dev \
+libqt4-opengl-dev \
+qt4-dev-tools \
+python-dev \
+python-pyside \
+pyside-tools \
+liboce-modeling-dev \
+liboce-visualization-dev \
+liboce-foundation-dev \
+liboce-ocaf-lite-dev \
+liboce-ocaf-dev \
+oce-draw \
+libeigen3-dev \
+libqtwebkit-dev \
+libshiboken-dev \
+libpyside-dev \
+libode-dev \
+swig \
+libzipios++-dev \
+libfreetype6 \
+libfreetype6-dev \
+netgen-headers \
+libmedc-dev \
+libvtk6-dev \
+libproj-dev
 
 # Source FreeCAD
 #tmux new-session -s freecad
@@ -96,10 +138,12 @@ pull git
 
 
 ### QtCreator
+#-------------
 sudo apt-get install -y qt5-default qtcreator
 
 
 ### Arduino IDE
+#---------------
 VERSION_ARDUINO=1.8.1
 wget -c https://downloads.arduino.cc/arduino-${VERSION_ARDUINO}-linuxarm.tar.xz
 tar Jxf arduino-${VERSION_ARDUINO}-linuxarm.tar.xz
@@ -107,6 +151,7 @@ cd arduino-${VERSION_ARDUINO}/
 sudo ./install.sh
 
 ### Git
+#-------
 git config --global user.name "luvres"
 git config --global user.email "luvres@hotmail.com"
 
