@@ -121,7 +121,10 @@ sudo sh arch_desktop.sh virtualbox
 ## Themes
 #---------
 yaourt -S --noconfirm \
-latte-dock arc-kde papirus-icon-theme-git
+latte-dock \
+arc-kde \
+papirus-icon-theme-git \
+ttf-ms-fonts
 
 ### Mountpoint
 #--------------
