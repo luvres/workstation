@@ -78,6 +78,7 @@ sed -i '/XkbLayout/s/us/br/' /etc/X11/xorg.conf.d/90-keyboard-layout.conf
 ################
 # KDE Plasma 5 #
 ###
+# https://alien.slackbook.org/ktown/current/5/
 
 ### Install pre-compiled packages
 #---------------------------------
