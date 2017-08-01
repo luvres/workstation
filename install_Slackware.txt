@@ -615,8 +615,10 @@ curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true
 complete -cf sudo
 
 
+###############
+### FreeCAD ###
+###############
 
-##### FreeCAD
 # Source FreeCAD
 mkdir 1uvr3z && cd 1uvr3z
 git clone https://github.com/FreeCAD/FreeCAD.git
