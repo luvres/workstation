@@ -313,6 +313,15 @@ sudo ln -sf /opt/popcorntime/Popcorn-Time /usr/bin/Popcorn-Time
 #-----------
 /opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
 
+# TeamViewer
+#------------
+URL="https://packages.slackonly.com/pub/packages"
+VERSION="current-x86" # 14.2-x86
+PACKAGE="teamviewer-12.0.76279-i586-2_slonly.txz" # teamviewer-12.0.76279-i486-1_slonly.txz # 14.2
+wget -c $URL/$VERSION/network/teamviewer/$PACKAGE
+upgradepkg --install-new teamviewer-*.txz
+sh /etc/rc.d/rc.teamviewerd start
+
 
 ########
 # User #
@@ -400,19 +409,9 @@ wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/development/mysq
 upgradepkg --install-new mysql-workbench-6.3.9-x86_64-4_slonly.txz
 #PACKAGE=mysql-workbench && sudo sqg -p $PACKAGE ; sudo sbopkg -i $PACKAGE
 
-
-
-
-
 # Playonlinux
 #-------------
 slpkg -s sbo playonlinux
-
-# TeamViewer
-#------------
-wget -c https://packages.slackonly.com/pub/packages/14.2-x86/network/teamviewer/teamviewer-12.0.76279-i486-1_slonly.txz
-upgradepkg --install-new teamviewer-12.0.76279-i486-1_slonly.txz
-sh /etc/rc.d/rc.teamviewerd start
 
 ########################
 ### Package Managers ###
@@ -467,9 +466,6 @@ chromium codeblocks freecad
 wget https://packages.slackonly.com/pub/packages/14.2-x86_64/libraries/bamf/bamf-0.5.3-x86_64-1_slonly.txz
 sudo upgradepkg --install-new bamf-0.5.3-x86_64-1_slonly.txz
 sudo slpkg -s sbo plank
-
-
-
 
 ############################
 ############################
