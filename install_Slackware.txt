@@ -31,6 +31,7 @@ cgdisk /dev/sda
 chroot /mnt
 grub-install /dev/sda1
 grub-mkconfig -o /boot/grub/grub.cfg
+exit
 reboot
 
 ## Setup
