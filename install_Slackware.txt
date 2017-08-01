@@ -263,13 +263,29 @@ sudo gtk-update-icon-cache
 /opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
 
 
+# Netbeans
+#----------
+wget -c http://download.netbeans.org/netbeans/8.2/final/zip/netbeans-8.2-201609300101.zip
+sudo unzip netbeans-8.2-201609300101.zip -d /opt/
+sudo ln -sf /opt/netbeans/bin/netbeans /usr/bin/netbeans
+
+
+## Eclipse -> OXYGEN
+#--------------------
+URL="http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release"
+VERSION="oxygen/R"
+PACKAGE="eclipse-jee-oxygen-R-linux-gtk-x86_64.tar.gz"
+wget -c $URL/$VERSION/$PACKAGE
+
+tar zxvf $PACKAGE
+sudo mv eclipse /opt/eclipse
+sudo ln -sf /opt/eclipse/eclipse /usr/bin/eclipse
 
 
 
-
-############
-### User ###
-############
+########
+# User #
+########
 # Bashrc
 #--------
 curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.xz?raw=true | tar -Jxf - -C ~
@@ -346,18 +362,7 @@ wget -c https://atom.io/download/deb
 sudo cp -a deb_FILES/usr/share/atom /opt/
 /opt/atom/atom
 
-# Netbeans
-#----------
-wget -c http://download.netbeans.org/netbeans/8.2/final/zip/netbeans-8.2-201609300101.zip
-sudo unzip netbeans-8.2-201609300101.zip -d /opt/
-sudo ln -sf /opt/netbeans/bin/netbeans /usr/bin/netbeans
 
-## Eclipse -> NEON 3
-#--------------------
-wget -c http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-linux-gtk-x86_64.tar.gz
-tar zxvf eclipse-jee-neon-3-linux-gtk-x86_64.tar.gz
-sudo mv eclipse /opt/eclipse-neon
-sudo ln -sf /opt/eclipse-neon/eclipse /usr/bin/eclipse-neon
 
 ## QtCreator
 #------------
