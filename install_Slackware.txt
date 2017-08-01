@@ -101,8 +101,23 @@ cd 5/kde
 ./KDE.SlackBuild
 
 
+## Slackpkg
+#-----------
+# Mirrors
+VERSION=current && sed -i "/http:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+#VERSION=14.2 && sed -i "/http:\/\/ftp.osuosl.org\/.2\/slackware\/slackware64-${VERSION}/s/# //" /etc/slackpkg/mirrors
+
+slackpkg update gpg
+slackpkg update
+slackpkg install-new
+slackpkg upgrade-all # O
+grub-install /dev/sda1 && grub-mkconfig -o /boot/grub/grub.cfg
+slackpkg file-search bash-completion
+slackpkg install bash-completion-2.2-noarch-3
+
+
 ## Papirus Icons
-3----------------
+#----------------
 wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-kde.sh | sh
 # Remove
 #wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/remove-papirus.sh | sh
@@ -124,6 +139,10 @@ cd Latte-Dock/
 # End KDE Plasma 5 #
 ####################
 
+
+########
+# XFCE #
+###
 
 ## Java JDK
 #------------
