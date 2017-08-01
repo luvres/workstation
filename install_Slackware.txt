@@ -248,6 +248,24 @@ fi
 EOF
 
 
+## Multilibs
+#-------------
+VERSAO=14.2 && lftp -c "open http://www.slackware.com/~alien/multilib/ ; mirror -c -e $VERSAO" ; cd $VERSAO
+upgradepkg --reinstall --install-new *.t?z # Instalar somente o GCC
+upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao completa (wine/skype)
+
+## Wine
+#-------
+VERSION="2.13"
+wget -c https://ufpr.dl.sourceforge.net/project/wine/Slackware%20Packages/${VERSION}/x86_64/wine-${VERSION}-x86_64-1sg.txz
+upgradepkg --install-new *.txz && rm *.txz
+
+# Skype
+#-------
+wget -c http://repository.slacky.eu/slackware64-14.2/network/skype_static/4.3.0.37/skype_static-4.3.0.37-x86_64-4sl.txz
+upgradepkg --install-new skype_static-4.3.0.37-x86_64-4sl.txz
+
+
 ## LibreOffice
 #--------------
 VERSION="5.4.0"
@@ -383,26 +401,13 @@ upgradepkg --install-new mysql-workbench-6.3.9-x86_64-4_slonly.txz
 #PACKAGE=mysql-workbench && sudo sqg -p $PACKAGE ; sudo sbopkg -i $PACKAGE
 
 
-### Multilibs
-#-------------
-VERSAO=14.2 && lftp -c "open http://www.slackware.com/~alien/multilib/ ; mirror -c -e $VERSAO" ; cd $VERSAO
-upgradepkg --reinstall --install-new *.t?z # Instalar somente o GCC
-upgradepkg --install-new slackware64-compat32/*-compat32/*.t?z # Instalacao completa (wine/skype)
-#
-# Wine
-#------
-wget -c https://ufpr.dl.sourceforge.net/project/wine/Slackware%20Packages/2.9/x86_64/wine-2.9-x86_64-1sg.txz
-upgradepkg --install-new *.txz && rm *.txz
-#
+
+
+
 # Playonlinux
 #-------------
 slpkg -s sbo playonlinux
-#
-# Skype
-#-------
-wget -c http://repository.slacky.eu/slackware64-14.2/network/skype_static/4.3.0.37/skype_static-4.3.0.37-x86_64-4sl.txz
-upgradepkg --install-new skype_static-4.3.0.37-x86_64-4sl.txz
-#
+
 # TeamViewer
 #------------
 wget -c https://packages.slackonly.com/pub/packages/14.2-x86/network/teamviewer/teamviewer-12.0.76279-i486-1_slonly.txz
