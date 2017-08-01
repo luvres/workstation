@@ -193,35 +193,19 @@ mv -v BMZ /usr/share/icons/
 
 ## Docker
 #---------
-VERSION=current-x86_64
-VERSION=14.2-x86_64
-#--------
-https://packages.slackonly.com/pub/packages/current-x86_64/development/google-go-lang/
-wget -c https://packages.slackonly.com/pub/packages/current-x86_64/development/google-go-lang/google-go-lang-1.8.3-x86_64-1_slonly.txz
+#VERSION=14.2-x86_64
+VERSION="current-x86_64"
+URL="https://packages.slackonly.com/pub/packages/$VERSION/"
+PACKAGE="development/google-go-lang/google-go-lang-1.8.3-x86_64-1_slonly.txz \
+        libraries/libseccomp/libseccomp-2.3.2-x86_64-1_slonly.txz \
+        system/runc/runc-1.0.0_rc2_54296cf-x86_64-4_slonly.txz \
+        system/containerd/containerd-0.2.6-x86_64-1_slonly.txz \
+        system/docker-proxy/docker-proxy-20161020_0f53435-x86_64-4_slonly.txz \
+        system/tini/tini-0.13.0_949e6fa-x86_64-2_slonly.txz \
+        system/docker/docker-17.03.2-x86_64-1_slonly.txz"
 
-https://packages.slackonly.com/pub/packages/current-x86_64/libraries/libseccomp/
-wget -c https://packages.slackonly.com/pub/packages/current-x86_64/libraries/libseccomp/libseccomp-2.3.2-x86_64-1_slonly.txz
+for f in $PACKAGE; do wget -c $URL$PACKAGE; done
 
-https://packages.slackonly.com/pub/packages/current-x86_64/system/runc/
-wget -c https://packages.slackonly.com/pub/packages/current-x86_64/system/runc/runc-1.0.0_rc2_54296cf-x86_64-4_slonly.txz
-
-https://packages.slackonly.com/pub/packages/current-x86_64/system/containerd/
-wget -c https://packages.slackonly.com/pub/packages/current-x86_64/system/containerd/containerd-0.2.6-x86_64-1_slonly.txz
-
-https://packages.slackonly.com/pub/packages/current-x86_64/system/docker-proxy/
-wget -c https://packages.slackonly.com/pub/packages/current-x86_64/system/docker-proxy/docker-proxy-20161020_0f53435-x86_64-4_slonly.txz
-
-https://packages.slackonly.com/pub/packages/current-x86_64/system/tini/
-wget -c https://packages.slackonly.com/pub/packages/current-x86_64/system/tini/tini-0.13.0_949e6fa-x86_64-2_slonly.txz
-
-wget -c https://packages.slackonly.com/pub/packages/$VERSION/development/google-go-lang/google-go-lang-1.8.1-x86_64-1_slonly.txz # google-go-lang # docker
-wget -c https://packages.slackonly.com/pub/packages/$VERSION/libraries/libseccomp/libseccomp-2.3.2-x86_64-1_slonly.txz # libseccomp 
-wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/runc/runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz # runc
-wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/containerd/containerd-0.2.3_4ab9917-x86_64-2_slonly.txz # containerd 
-wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/docker-proxy/docker-proxy-20161020_0f53435-x86_64-3_slonly.txz # docker-proxy
-wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/tini/tini-0.13.0_949e6fa-x86_64-1_slonly.txz # tini
-
-VERSION=current-x86_64 && wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/docker/docker-17.03.1-x86_64-4_slonly.txz
 upgradepkg --install-new *.txz && rm *.txz
 chmod +x /etc/rc.d/rc.docker
 groupadd -r -g 281 docker
@@ -264,18 +248,22 @@ fi
 EOF
 
 
+## LibreOffice
+#--------------
+VERSION="5.4.0"
+wget -c http://linorg.usp.br/LibreOffice/libreoffice/stable/${VERSION}/rpm/x86_64/LibreOffice_${VERSION}_Linux_x86-64_rpm.tar.gz
+tar zxvf LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
+cd LibreOffice_*_rpm/RPMS/
+sudo rpm -ivh --nodeps *.rpm
+sudo gtk-update-icon-cache
+
+
 ## Whatsapp
 #-----------
 /opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
 
 
-## LibreOffice
-#--------------
-wget -c http://linorg.usp.br/LibreOffice/libreoffice/stable/5.3.3/rpm/x86_64/LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
-tar zxvf LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
-cd LibreOffice_*_rpm/RPMS/
-sudo rpm -ivh --nodeps *.rpm
-sudo gtk-update-icon-cache
+
 
 
 
