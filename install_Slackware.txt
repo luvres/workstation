@@ -191,6 +191,7 @@ mv -v BMZ /usr/share/icons/
 ############
 
 
+
 ## Docker
 #---------
 #VERSION=14.2-x86_64
@@ -321,6 +322,63 @@ PACKAGE="teamviewer-12.0.76279-i586-2_slonly.txz" # teamviewer-12.0.76279-i486-1
 wget -c $URL/$VERSION/network/teamviewer/$PACKAGE
 upgradepkg --install-new teamviewer-*.txz
 sh /etc/rc.d/rc.teamviewerd start
+
+
+### Mountpoint
+#--------------
+sudo mkdir /aux && sudo chown luvres. /aux
+sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
+
+### Git
+#------
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+git config --list
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+
+git add . && git commit -am "Primeiro commit" && git push
+
+### Widgets
+#----------
+Application Menu
+Global Menu
+Active Window Control
+Lock/Logout
+System Tray
+Digital Clock
+Add Spacer
+weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
+
+### Winbox
+#----------
+cp /aux/Workstation/WINDOWS/winbox.exe $HOME/Desktop
+
+### Docker
+#----------
+docker run --name ftp -h ftp \
+-p 80:80 \
+-v /aux:/var/www \
+-d izone/alpine:lighttpd
+
+docker run --name MariaDB \
+-p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=maria \
+-d mariadb
+
+docker run --name Postgres -h postgres \
+-p 5432:5432 \
+-e POSTGRES_PASSWORD=postgres \
+-d postgres:alpine
+
+docker run --name OracleXE -h oraclexe  \
+-p 1521:1521 \
+-d izone/oracle
+
 
 
 ########
