@@ -116,6 +116,20 @@ slackpkg file-search bash-completion
 slackpkg install bash-completion-2.2-noarch-3
 
 
+## Slpkg
+#--------
+wget -c https://github.com/dslackw/slpkg/archive/v3.2.7.tar.gz
+tar zxvf v3.2.7.tar.gz
+cd slpkg-3.2.7
+./install.sh
+sed -i '/alien/s/# //' /etc/slpkg/repositories.conf
+sed -i '/salix/s/# //' /etc/slpkg/repositories.conf
+slpkg update
+slpkg update slpkg
+slpkg health # Verificar saude dos pacotes
+slpkg repo-list
+
+
 ## Papirus Icons
 #----------------
 wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-kde.sh | sh
@@ -134,6 +148,27 @@ wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/maste
 git clone https://github.com/psifidotos/Latte-Dock.git
 cd Latte-Dock/
 ./install.sh
+
+
+# Xterm
+#-------
+tee ~/.Xresources <<EOF
+xterm*faceName: Monospace
+xterm*faceSize: 10
+xterm*vt100*geometry: 80x24
+xterm*saveLines: 16384
+xterm*foreground: rgb:00/00/00
+xterm*background: rgb:fe/fe/fe
+xterm*cursorColor: rgb:92/92/92
+xterm*highlightColor: rgb:b0/c4/de
+xterm*highlightTextColor: rgb:00/00/00
+EOF
+xrdb -merge .Xresources
+
+
+# Photogimp
+#-----------
+curl https://raw.githubusercontent.com/luvres/workstation/master/PhotoGIMP.tar.xz | tar Jxf - -C $HOME
 
 ###
 # End KDE Plasma 5 #
