@@ -176,46 +176,7 @@ sudo slpkg -s sbo \
 chromium codeblocks freecad
 #####
 
-# Photogimp
-#-----------
-curl https://raw.githubusercontent.com/luvres/workstation/master/PhotoGIMP.tar.xz | tar Jxf - -C $HOME
 
-
-# Whatsapp
-#----------
-/opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
-
-
-# LibreOffice
-#-------------
-wget -c http://linorg.usp.br/LibreOffice/libreoffice/stable/5.3.3/rpm/x86_64/LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
-tar zxvf LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
-cd LibreOffice_*_rpm/RPMS/
-sudo rpm -ivh --nodeps *.rpm
-sudo gtk-update-icon-cache
-
-
-# Firefox
-#---------
-wget -c https://download-installer.cdn.mozilla.net/pub/firefox/releases/53.0.3/linux-x86_64/pt-BR/firefox-53.0.3.tar.bz2
-tar jxvf firefox-53.0.3.tar.bz2
-sudo mv firefox /opt/
-sudo unlink /usr/bin/firefox
-sudo ln -s /opt/firefox/firefox /usr/bin/firefox
-sudo removepkg mozilla-firefox
-
-# Blender
-#---------
-wget -c http://ftp.nluug.nl/pub/graphics/blender/release/Blender2.78/blender-2.78c-linux-glibc219-x86_64.tar.bz2
-tar jxvf blender-2.78c-linux-glibc219-x86_64.tar.bz2
-sudo mv blender-2.78c-linux-glibc219-x86_64 /opt/blender
-sudo ln -s /opt/blender/blender /usr/bin/blender
-
-# Vlc
-------
-groupadd -g 214 avahi
-useradd -u 214 -g 214 -c Avahi -d /dev/null -s /bin/false avahi
-slpkg -s sbo vlc
 
 ###
 # End KDE Plasma 5 #
@@ -225,17 +186,6 @@ slpkg -s sbo vlc
 ########
 # XFCE #
 ###
-
-## Java JDK
-#------------
-JAVA_VERSION_MAJOR=8 && \
-JAVA_VERSION_MINOR=131 && \
-JAVA_VERSION_BUILD=11 && \
-JAVA_PACKAGE=jdk && \ 
-curl -jkSLH "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/d54c1d3a095b4ff2b6607d096fa80163/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz | tar -xzf - -C /usr/local
-sed -i "s/games/games:\/usr\/local\/${JAVA_PACKAGE}1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR}\/bin/" /etc/profile
-
-
 # Themes
 #-----------
 wget -c https://dl.opendesktop.org/api/files/download/id/1461767736/90145-axiom.tar.gz
@@ -370,6 +320,8 @@ wget https://packages.slackonly.com/pub/packages/14.2-x86_64/libraries/bamf/bamf
 sudo upgradepkg --install-new bamf-0.5.3-x86_64-1_slonly.txz
 sudo slpkg -s sbo plank
 
+
+
 # Google-chrome
 #---------------
 wget -c http://mirrors.slackware.com/slackware/slackware64-14.2/extra/google-chrome/google-chrome.SlackBuild
@@ -465,6 +417,7 @@ if [ -x /etc/rc.d/rc.vboxdrv ]; then
   /etc/rc.d/rc.vboxdrv stop
 fi
 EOF
+
 
 # Docker
 #--------
@@ -562,6 +515,15 @@ sh /etc/rc.d/rc.teamviewerd start
 ############################
 ############################
 ############################
+
+## Java JDK
+#------------
+JAVA_VERSION_MAJOR=8 && \
+JAVA_VERSION_MINOR=131 && \
+JAVA_VERSION_BUILD=11 && \
+JAVA_PACKAGE=jdk && \ 
+curl -jkSLH "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/d54c1d3a095b4ff2b6607d096fa80163/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz | tar -xzf - -C /usr/local
+sed -i "s/games/games:\/usr\/local\/${JAVA_PACKAGE}1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR}\/bin/" /etc/profile
 
 ### Slapt-get & gslapt
 # Slapt-get
