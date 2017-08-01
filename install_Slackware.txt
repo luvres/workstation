@@ -165,6 +165,17 @@ xterm*highlightTextColor: rgb:00/00/00
 EOF
 xrdb -merge .Xresources
 
+#####
+sudo slpkg -s sbo \
+slack-wallpapers \
+alien youtube-dl \
+unrar p7zip \
+terminator \
+light-firefox 
+
+sudo slpkg -s sbo \
+chromium codeblocks freecad
+#####
 
 # Photogimp
 #-----------
@@ -244,6 +255,9 @@ wget -c https://dl.opendesktop.org/api/files/download/id/1493318153/BMZ.tar.gz
 tar zxvf BMZ.tar.gz
 mv -v BMZ /usr/share/icons/
 
+###
+# End XFCE #
+############
 
 ## Slackpkg
 #-----------
