@@ -258,17 +258,11 @@ sudo rpm -ivh --nodeps *.rpm
 sudo gtk-update-icon-cache
 
 
-## Whatsapp
-#-----------
-/opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
-
-
 # Netbeans
 #----------
 wget -c http://download.netbeans.org/netbeans/8.2/final/zip/netbeans-8.2-201609300101.zip
 sudo unzip netbeans-8.2-201609300101.zip -d /opt/
 sudo ln -sf /opt/netbeans/bin/netbeans /usr/bin/netbeans
-
 
 ## Eclipse -> OXYGEN
 #--------------------
@@ -281,6 +275,25 @@ tar zxvf $PACKAGE
 sudo mv eclipse /opt/eclipse
 sudo ln -sf /opt/eclipse/eclipse /usr/bin/eclipse
 
+## QtCreator
+#------------
+MAJOR="5.9"
+MINOR="5.9.1"
+wget -c http://download.qt.io/official_releases/qt/${MAJOR}/${MINOR}/qt-opensource-linux-x64-${MINOR}.run
+chmod +x qt-opensource-linux-x64-${MINOR}.run
+sudo ./qt-opensource-linux-x64-${MINOR}.run
+
+
+# Popcorntime
+#-------------
+wget https://get.popcorntime.sh/build/Popcorn-Time-0.3.10-Linux-64.tar.xz -O popcorntime.tar.xz
+sudo mkdir /opt/popcorntime
+sudo tar Jxf popcorntime.tar.xz -C /opt/popcorntime/
+sudo ln -sf /opt/popcorntime/Popcorn-Time /usr/bin/Popcorn-Time
+
+## Whatsapp
+#-----------
+/opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
 
 
 ########
@@ -317,7 +330,6 @@ rm Noto-hinted.zip
 #-----------
 curl https://raw.githubusercontent.com/luvres/workstation/master/PhotoGIMP.tar.xz | tar Jxf - -C $HOME
 
-
 # Google-chrome
 #---------------
 wget -c http://mirrors.slackware.com/slackware/slackware64-14.2/extra/google-chrome/google-chrome.SlackBuild
@@ -325,7 +337,6 @@ wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.de
 chmod +x google-chrome.SlackBuild
 sudo ./google-chrome.SlackBuild
 sudo upgradepkg --install-new /tmp/google-chrome*.txz
-
 
 # WPS-Office
 #------------
@@ -363,19 +374,6 @@ sudo cp -a deb_FILES/usr/share/atom /opt/
 /opt/atom/atom
 
 
-
-## QtCreator
-#------------
-wget -c http://download.qt.io/official_releases/qt/5.9/5.9.0/qt-opensource-linux-x64-5.9.0.run
-chmod +x qt-opensource-linux-x64-5.9.0.run
-sudo ./qt-opensource-linux-x64-5.9.0.run
-
-
-
-
-
-
-
 # mysql-workbench
 #-----------------
 sudo slpkg -s sbo \
@@ -383,13 +381,6 @@ geos proj ptyprocess pyparsing six pycparser pyasn1 cffi enum34 ipaddress idna p
 wget -c https://packages.slackonly.com/pub/packages/14.2-x86_64/development/mysql-workbench/mysql-workbench-6.3.9-x86_64-4_slonly.txz
 upgradepkg --install-new mysql-workbench-6.3.9-x86_64-4_slonly.txz
 #PACKAGE=mysql-workbench && sudo sqg -p $PACKAGE ; sudo sbopkg -i $PACKAGE
-
-# Popcorntime
-#-------------
-wget https://get.popcorntime.sh/build/Popcorn-Time-0.3.10-Linux-64.tar.xz -O popcorntime.tar.xz
-sudo mkdir /opt/popcorntime
-sudo tar Jxf popcorntime.tar.xz -C /opt/popcorntime/
-sudo ln -sf /opt/popcorntime/Popcorn-Time /usr/bin/Popcorn-Time
 
 
 ### Multilibs
