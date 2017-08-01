@@ -170,6 +170,43 @@ xrdb -merge .Xresources
 #-----------
 curl https://raw.githubusercontent.com/luvres/workstation/master/PhotoGIMP.tar.xz | tar Jxf - -C $HOME
 
+
+# Whatsapp
+#----------
+/opt/google/chrome/google-chrome --app=https://web.whatsapp.com/
+
+
+# LibreOffice
+#-------------
+wget -c http://linorg.usp.br/LibreOffice/libreoffice/stable/5.3.3/rpm/x86_64/LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
+tar zxvf LibreOffice_5.3.3_Linux_x86-64_rpm.tar.gz
+cd LibreOffice_*_rpm/RPMS/
+sudo rpm -ivh --nodeps *.rpm
+sudo gtk-update-icon-cache
+
+
+# Firefox
+#---------
+wget -c https://download-installer.cdn.mozilla.net/pub/firefox/releases/53.0.3/linux-x86_64/pt-BR/firefox-53.0.3.tar.bz2
+tar jxvf firefox-53.0.3.tar.bz2
+sudo mv firefox /opt/
+sudo unlink /usr/bin/firefox
+sudo ln -s /opt/firefox/firefox /usr/bin/firefox
+sudo removepkg mozilla-firefox
+
+# Blender
+#---------
+wget -c http://ftp.nluug.nl/pub/graphics/blender/release/Blender2.78/blender-2.78c-linux-glibc219-x86_64.tar.bz2
+tar jxvf blender-2.78c-linux-glibc219-x86_64.tar.bz2
+sudo mv blender-2.78c-linux-glibc219-x86_64 /opt/blender
+sudo ln -s /opt/blender/blender /usr/bin/blender
+
+# Vlc
+------
+groupadd -g 214 avahi
+useradd -u 214 -g 214 -c Avahi -d /dev/null -s /bin/false avahi
+slpkg -s sbo vlc
+
 ###
 # End KDE Plasma 5 #
 ####################
@@ -298,10 +335,8 @@ slpkg health # Verificar saude dos pacotes
 slpkg repo-list
 
 
-################
-### Packages ###
-################
-
+### Packages
+#------------
 PACKAGE=numix-icon-theme-circle && sudo sqg -p $PACKAGE ; sudo sbopkg -i $PACKAGE
 
 sudo slpkg -s sbo \
@@ -421,6 +456,24 @@ EOF
 VERSION=current-x86_64
 VERSION=14.2-x86_64
 #--------
+https://packages.slackonly.com/pub/packages/current-x86_64/development/google-go-lang/
+wget -c https://packages.slackonly.com/pub/packages/current-x86_64/development/google-go-lang/google-go-lang-1.8.3-x86_64-1_slonly.txz
+
+https://packages.slackonly.com/pub/packages/current-x86_64/libraries/libseccomp/
+wget -c https://packages.slackonly.com/pub/packages/current-x86_64/libraries/libseccomp/libseccomp-2.3.2-x86_64-1_slonly.txz
+
+https://packages.slackonly.com/pub/packages/current-x86_64/system/runc/
+wget -c https://packages.slackonly.com/pub/packages/current-x86_64/system/runc/runc-1.0.0_rc2_54296cf-x86_64-4_slonly.txz
+
+https://packages.slackonly.com/pub/packages/current-x86_64/system/containerd/
+wget -c https://packages.slackonly.com/pub/packages/current-x86_64/system/containerd/containerd-0.2.6-x86_64-1_slonly.txz
+
+https://packages.slackonly.com/pub/packages/current-x86_64/system/docker-proxy/
+wget -c https://packages.slackonly.com/pub/packages/current-x86_64/system/docker-proxy/docker-proxy-20161020_0f53435-x86_64-4_slonly.txz
+
+https://packages.slackonly.com/pub/packages/current-x86_64/system/tini/
+wget -c https://packages.slackonly.com/pub/packages/current-x86_64/system/tini/tini-0.13.0_949e6fa-x86_64-2_slonly.txz
+
 wget -c https://packages.slackonly.com/pub/packages/$VERSION/development/google-go-lang/google-go-lang-1.8.1-x86_64-1_slonly.txz # google-go-lang # docker
 wget -c https://packages.slackonly.com/pub/packages/$VERSION/libraries/libseccomp/libseccomp-2.3.2-x86_64-1_slonly.txz # libseccomp 
 wget -c https://packages.slackonly.com/pub/packages/$VERSION/system/runc/runc-1.0.0_rc2_54296cf-x86_64-2_slonly.txz # runc
