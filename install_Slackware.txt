@@ -119,6 +119,7 @@ upgradepkg --reinstall --install-new x86_64/kde/*/*.t?z
 
 ### Building from source
 #------------------------
+cd
 rsync -av rsync://bear.alienbase.nl/mirrors/alien-kde/source/5/ 5/
 cd 5/deps
 ./updates.SlackBuild
