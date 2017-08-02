@@ -130,6 +130,8 @@ cd -
 cd 5/kde
 ./KDE.SlackBuild
 
+reboot
+
 
 ## Papirus Icons
 #----------------
