@@ -151,7 +151,7 @@ _deepin(){
  # Core
   pacman -S --noconfirm \
   deepin
-  echo "exec startkde &" >/home/`ls /home/`/.xinitrc
+  #echo "exec startdde &" >/home/`ls /home/`/.xinitrc
   chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
 
  # Base
