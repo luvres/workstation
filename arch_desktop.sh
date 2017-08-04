@@ -152,7 +152,7 @@ _deepin(){
   pacman -S --noconfirm \
   deepin
   #echo "exec startdde &" >/home/`ls /home/`/.xinitrc
-  chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
+  #chown -R `ls /home/`. /home/`ls /home/`/.xinitrc
 
  # Base
   pacman -S --noconfirm \
