@@ -7,12 +7,49 @@ sudo dd if=/aux/ISOs/debian-9.1.0-amd64-netinst.iso of=/dev/sdc && sync
 [x] SSH server
 [x] standart sysntem utilities
 
-echo 'deb http://deb.debian.org/debian/ stretch main contrib non-free' >>/etc/apt/sources.list
+sed -i 's/stretch/testing/' /etc/apt/sources.list
+echo 'deb http://deb.debian.org/debian/ testing main contrib non-free' >>/etc/apt/sources.list
 apt-get update && apt-get upgrade
 tasksel
 
-## Gnome3
-#---------
+su
+apt install -y \
+sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
+cifs-utils f2fs-tools gfortran freeglut3-dev \
+arc-theme moka-icon-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
+git gedit gedit-plugins xclip terminator chromium
+
+
+### Docker
+#----------
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+
+### Modules
+#-----------
+usermod -aG sudo `ls /home/`
+usermod -aG docker `ls /home/`
+
+reboot
+
+###########
+### Sid ###
+###########
+su
+cp /etc/apt/sources.list{,.orig}
+sed -i '/^deb/s/deb/###deb/' /etc/apt/sources.list
+echo 'deb http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
+echo 'deb-src http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
+echo 'deb http://http.debian.net/debian/ sid main contrib non-free' >>/etc/apt/sources.list
+apt update && apt dist-upgrade -y
+
+###########################
+
+
+##############
+### Gnome3 ###
+##############
 apt-get install gdm3
 dpkg-reconfigure gdm3
 
@@ -37,21 +74,11 @@ linux-image-4.11.0-1-amd64 amd64-microcode
 
 
 
-##############
-# KDE Plasma #
-##############
+######################
+# KDE Plasma minimal #
+######################
 [x] SSH server
 [x] standart sysntem utilities
-
-### Sid
-#-------
-su
-cp /etc/apt/sources.list{,.orig}
-sed -i '/^deb/s/deb/###deb/' /etc/apt/sources.list
-echo 'deb http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
-echo 'deb-src http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
-echo 'deb http://http.debian.net/debian/ sid main contrib non-free' >>/etc/apt/sources.list
-apt update && apt dist-upgrade -y
 
 apt install -y \
 sddm kde-plasma-desktop build-essential cmake \
@@ -130,30 +157,6 @@ cifs-utils f2fs-tools gfortran freeglut3-dev \
 arc-theme moka-icon-theme numix-*-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
 git gedit gedit-plugins xclip terminator docker.io amd64-microcode chromium \
 linux-image-4.11.0-1-amd64
-
-
-### Stretch
-#----------
-su
-apt install -y \
-sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
-cifs-utils f2fs-tools gfortran freeglut3-dev \
-arc-theme moka-icon-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
-git gedit gedit-plugins xclip terminator chromium
-
-
-### Docker
-#----------
-curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
-
-
-### Modules
-#-----------
-usermod -aG sudo `ls /home/`
-usermod -aG docker `ls /home/`
-
-reboot
 
 
 ### Guest
