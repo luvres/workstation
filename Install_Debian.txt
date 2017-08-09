@@ -23,6 +23,18 @@ wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-
 # KDE
 wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-kde.sh | sh
 
+## Flat Remix icon
+#------------------
+cd /tmp; rm -rf Flat-Remix;
+git clone https://github.com/daniruiz/Flat-Remix;
+mkdir -p ~/.icons; cp -r "Flat-Remix/Flat Remix" ~/.icons;
+
+apt install -y \
+build-essential sudo git mercurial wget curl net-tools vim youtube-dl htop xclip \
+unrar-free tree faad lame lvm2 fping autoconf cifs-utils f2fs-tools gfortran freeglut3-dev \
+chromium firefox vlc gftp libreoffice gimp \
+linux-image-4.11.0-1-amd64 amd64-microcode 
+
 
 
 ##############
