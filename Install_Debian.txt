@@ -1,18 +1,24 @@
 sudo mkfs.vfat -I /dev/sdc
 sudo dd if=/aux/ISOs/debian-9.1.0-amd64-netinst.iso of=/dev/sdc && sync
 
+###############
+### Stretch ###
+###############
+[x] SSH server
+[x] standart sysntem utilities
+
+echo 'deb http://deb.debian.org/debian/ stretch main contrib non-free' >>/etc/apt/sources.list
+apt-get update && apt-get upgrade
+tasksel
+
+
+
 
 ##############
 # KDE Plasma #
 ##############
 [x] SSH server
 [x] standart sysntem utilities
-
-### Stretch
-echo 'deb http://deb.debian.org/debian/ stretch main contrib non-free' >>/etc/apt/sources.list
-apt-get update && apt-get upgrade
-
-
 
 ### Sid
 #-------
