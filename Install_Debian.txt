@@ -11,7 +11,17 @@ echo 'deb http://deb.debian.org/debian/ stretch main contrib non-free' >>/etc/ap
 apt-get update && apt-get upgrade
 tasksel
 
+## Gnome3
+#---------
+apt-get install gdm3
+dpkg-reconfigure gdm3
 
+## Papirus icon
+#---------------
+# GTK
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-gtk.sh | sh
+# KDE
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-kde.sh | sh
 
 
 ##############
