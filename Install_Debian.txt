@@ -4,11 +4,14 @@ sudo dd if=/aux/ISOs/debian-9.1.0-amd64-netinst.iso of=/dev/sdc && sync
 ###############
 ### Stretch ###
 ###############
-[x] SSH server
-[x] standart sysntem utilities
+[*] Debian desktop environment
+[*] ... KDE 
+[*] SSH server
+[*] print server                                                                         │ 
+[*] SSH server 
+[*] standart system utilities
 
-sed -i 's/stretch/testing/' /etc/apt/sources.list
-echo 'deb http://deb.debian.org/debian/ testing main contrib non-free' >>/etc/apt/sources.list
+echo 'deb http://deb.debian.org/debian/ stretch main contrib non-free' >>/etc/apt/sources.list
 apt-get update && apt-get upgrade
 tasksel
 
