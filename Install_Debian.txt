@@ -18,8 +18,7 @@ tasksel
 su
 apt install -y \
 sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
-cifs-utils f2fs-tools gfortran freeglut3-dev \
-arc-theme moka-icon-theme dmz-cursor-theme lightdm-gtk-greeter-settings \
+cifs-utils f2fs-tools gfortran freeglut3-dev ttf-mscorefonts-installer \
 git xclip terminator chromium gimp 
 
 
