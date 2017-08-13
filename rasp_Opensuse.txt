@@ -3,9 +3,7 @@
 # JeOS
 wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-JeOS-raspberrypi3.aarch64-2017.07.22-Build3.17.raw.xz
 
-wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-JeOS-raspberrypi3.aarch64-2017.07.22-Build3.17.raw.xz
-
-xzcat openSUSE-Tumbleweed-ARM-JeOS-raspberrypi3.aarch64.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
+xzcat openSUSE-Tumbleweed-ARM-JeOS-raspberrypi3.aarch64-2017.07.22-Build3.17.raw.xz | dd bs=4M of=/dev/sdb iflag=fullblock oflag=direct; sync
 
 # LXQT
 wget -c http://download.opensuse.org/repositories/devel:/ARM:/Factory:/Contrib:/RaspberryPi3/images/openSUSE-Tumbleweed-ARM-LXQT-raspberrypi3.aarch64-2017.02.24-Build3.13.raw.xz
