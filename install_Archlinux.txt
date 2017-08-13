@@ -32,14 +32,19 @@ g
 cgdisk /dev/sda
 100M ef00 EFI
 4096M 8200 Swap
-107G 8300 ROOT
+110G 8300 ROOT
+113G 8300 HOME
+
 
 ## mkfs
 mkfs.vfat /dev/sda1
 mkfs.ext4 /dev/sda2
+mkfs.ext4 /dev/sda3
 
 mount /dev/sda2 /mnt
 mkdir -p /mnt/boot/ && mount /dev/sda1 /mnt/boot/
+mkdir -p /mnt/home/ && mount /dev/sda3 /mnt/home/
+
 lsblk
 
 
