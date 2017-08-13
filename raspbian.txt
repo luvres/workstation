@@ -54,7 +54,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 ### Packages
 sudo apt-get install -y \
-htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools gftp deluge
+htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools gftp deluge debootstrap
 
 ### Docker
 curl -sSL https://get.docker.com | sh
