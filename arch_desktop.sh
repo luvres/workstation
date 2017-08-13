@@ -70,6 +70,9 @@ _xorg(){
   cups cups-pdf ghostscript
 
   systemctl enable org.cups.cupsd
+
+ # Nano colors
+   sed -i '/share/s/#//' /etc/nanorc
 }
 
 ## Makepkg
