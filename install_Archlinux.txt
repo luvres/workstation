@@ -190,6 +190,8 @@ reboot
 #--------------
 sudo mkdir /aux && sudo chown luvres. /aux
 sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
+#Home
+#sudo sh -c "echo '/dev/sda3 /home auto noatime 0 0' >>/etc/fstab"
 
 ### IMPRESSORA HP
 #-----------------
