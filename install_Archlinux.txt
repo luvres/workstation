@@ -177,6 +177,9 @@ curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop
 sudo sh arch_desktop.sh deepin
 sudo sh arch_desktop.sh virtualbox
 
+yaourt -S --noconfirm \
+vlc-qt5
+
 reboot
 
 ###
@@ -185,9 +188,9 @@ reboot
 
 ################################
 
-###################
-# 3) Extras Tools #
-###################
+##################
+# 3) Extra Tools #
+##################
 
 ### Mountpoint
 #--------------
