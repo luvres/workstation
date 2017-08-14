@@ -48,9 +48,9 @@ mkdir -p /mnt/home/ && mount /dev/sda3 /mnt/home/
 lsblk
 
 
-########
-# Base #
-########
+###########
+# 1) Base #
+###########
 
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_install.sh
 sh arch_install.sh [username] [password] [efi or mbr]
@@ -58,9 +58,9 @@ sh arch_install.sh [username] [password] [efi or mbr]
 reboot
 
 
-###########
-# Desktop #
-###########
+##############
+# 2) Desktop #
+##############
 
 ## CD-DVD
 #---------
@@ -112,6 +112,7 @@ sudo sh /mnt/VBoxLinuxAdditions.run
 # End Xorg #
 ############
 
+################################
 
 ################
 # KDE Plasma 5 #
@@ -131,42 +132,6 @@ arc-kde \
 papirus-icon-theme-git \
 ttf-ms-fonts
 
-### Mountpoint
-#--------------
-sudo mkdir /aux && sudo chown luvres. /aux
-sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
-
-### IMPRESSORA HP
-#-----------------
-sudo pacman -S --noconfirm \
-cups cups-pdf lib32-libcups foomatic-db foomatic-filters foomatic-db-engine \
-hplip system-config-printer pyqt
-yaourt -S --noconfirm hplip-plugin
-#systemctl start org.cups.cupsd.service # http://localhost:631
-#systemctl start cups-browsed.service
-
-### WhatsApp
-#------------
-echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
-source $HOME/.bashrc
-
-reboot
-
-
-### Git
-#------
-git config --global user.name "luvres"
-git config --global user.email "luvres@hotmail.com"
-git config --global credential.helper 'cache --timeout=86400'
-git config --list
-ssh-keygen
-cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
-
-ssh -T git@github.com
-ssh -T -p443 git@ssh.github.com
-
-git add . && git commit -am "Primeiro commit" && git push
-
 ### Widgets
 #----------
 Application Menu
@@ -177,65 +142,6 @@ System Tray
 Digital Clock
 Add Spacer
 weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
-
-### Winbox
-#----------
-cp /aux/Workstation/WINDOWS/winbox.exe $HOME/Desktop
-
-### Docker
-#----------
-docker run --name ftp -h ftp \
--p 80:80 \
--v /aux:/var/www \
--d izone/alpine:lighttpd
-
-docker run --name MariaDB \
--p 3306:3306 \
--e MYSQL_ROOT_PASSWORD=maria \
--d mariadb
-
-docker run --name Postgres -h postgres \
--p 5432:5432 \
--e POSTGRES_PASSWORD=postgres \
--d postgres:alpine
-
-docker run --name OracleXE -h oraclexe  \
--p 1521:1521 \
--d izone/oracle
-
-### Popcorn-Time
-#----------------
-sudo mkdir /opt/popcorntime
-curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
-sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
-
-### FreeCAD
-#-----------
-sudo ldconfig -p | grep -i gl.so
-sudo rm /usr/lib/libGL.so.1
-yaourt -S --noconfirm freecad-qt5-git
-yaourt -S --noconfirm calculix
-
-### With Subuser ?
-#----------------?
-sudo pip install subuser
-mkdir 1uvr3z && cd 1uvr3z
-git clone https://github.com/FreeCAD/FreeCAD.git
-pushd FreeCAD
-cp subuser/freecad-dev/image/Dockerfile subuser/freecad-dev/image/FROM-SUBUSER-IMAGE
-cp subuser/freecad-dev/image/Dockerfile subuser/freecad-dev/image/SubuserImagefile
-subuser dev freecad-dev
-subuser dev --update
-
-mkdir 1uvr3z && cd 1uvr3z
-git clone https://github.com/FreeCAD/FreeCAD.git
-mkdir freecad-build && cd freecad-build
-
-# Build
-cmake -DCMAKE_BUILD_TYPE=Debug ../FreeCAD
-cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON ../FreeCAD
-cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON -DBUILD_ASSEMBLY=ON ../FreeCAD
-time make -j4
 
 ###
 # End KDE Plasma 5 #
@@ -273,6 +179,109 @@ reboot
 ###
 # End Deepin #
 ##############
+
+################################
+
+################
+# Extras Tools #
+################
+
+### Mountpoint
+#--------------
+sudo mkdir /aux && sudo chown luvres. /aux
+sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
+
+### IMPRESSORA HP
+#-----------------
+sudo pacman -S --noconfirm \
+cups cups-pdf lib32-libcups foomatic-db foomatic-filters foomatic-db-engine \
+hplip system-config-printer pyqt
+yaourt -S --noconfirm hplip-plugin
+#systemctl start org.cups.cupsd.service # http://localhost:631
+#systemctl start cups-browsed.service
+
+### WhatsApp
+#------------
+echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
+source $HOME/.bashrc
+
+reboot
+
+
+### Git
+#------
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+git config --list
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+
+git add . && git commit -am "Primeiro commit" && git push
+
+### Winbox
+#----------
+cp /aux/Workstation/WINDOWS/winbox.exe $HOME/Desktop
+
+### Docker
+#----------
+docker run --name ftp -h ftp \
+-p 80:80 \
+-v /aux:/var/www \
+-d izone/alpine:lighttpd
+
+docker run --name MariaDB \
+-p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=maria \
+-d mariadb
+
+docker run --name Postgres -h postgres \
+-p 5432:5432 \
+-e POSTGRES_PASSWORD=postgres \
+-d postgres:alpine
+
+docker run --name OracleXE -h oraclexe  \
+-p 1521:1521 \
+-d izone/oracle
+
+### Popcorn-Time
+#----------------
+sudo mkdir /opt/popcorntime
+curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
+sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
+
+
+### FreeCAD
+#-----------
+sudo ldconfig -p | grep -i gl.so
+sudo rm /usr/lib/libGL.so.1
+yaourt -S --noconfirm freecad-qt5-git
+yaourt -S --noconfirm calculix
+
+### With Subuser ?
+#----------------?
+sudo pip install subuser
+mkdir 1uvr3z && cd 1uvr3z
+git clone https://github.com/FreeCAD/FreeCAD.git
+pushd FreeCAD
+cp subuser/freecad-dev/image/Dockerfile subuser/freecad-dev/image/FROM-SUBUSER-IMAGE
+cp subuser/freecad-dev/image/Dockerfile subuser/freecad-dev/image/SubuserImagefile
+subuser dev freecad-dev
+subuser dev --update
+
+mkdir 1uvr3z && cd 1uvr3z
+git clone https://github.com/FreeCAD/FreeCAD.git
+mkdir freecad-build && cd freecad-build
+
+# Build
+cmake -DCMAKE_BUILD_TYPE=Debug ../FreeCAD
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON ../FreeCAD
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON -DBUILD_ASSEMBLY=ON ../FreeCAD
+time make -j4
+
 
 ## Microcode (Intel)
 #--------------------
