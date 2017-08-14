@@ -160,6 +160,16 @@ _deepin(){
  # Base
   pacman -S --noconfirm \
   deepin-extra
+  
+ # Packages
+  pacman -S --noconfirm \
+  freeglut jdk8-openjdk python-pip wine \
+  gftp xclip youtube-dl \
+  gedit \
+  firefox flashplugin \
+  chromium pepper-flash \
+  libreoffice-fresh \
+  gimp
 
  # LightDM
   sed -i '/#greeter-sess/s/example-gtk-gnome/lightdm-deepin-greeter/' /etc/lightdm/lightdm.conf
