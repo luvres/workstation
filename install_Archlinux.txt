@@ -172,8 +172,11 @@ reboot
 # Deepin #
 ###
 curl -O https://raw.githubusercontent.com/luvres/workstation/master/arch_desktop.sh
+
 #sh arch_desktop.sh xorg
 sudo sh arch_desktop.sh deepin
+sudo sh arch_desktop.sh virtualbox
+
 reboot
 
 ###
