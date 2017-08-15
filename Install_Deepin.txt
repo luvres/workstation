@@ -10,7 +10,7 @@ sudo apt-get autoremove -y
 sudo apt-get install -y \
 git curl openssh-server openjdk-8-jdk gfortran freeglut3-dev htop xclip python-pip \
 libreoffice-writer libreoffice-calc libreoffice-impress \
-ttf-mscorefonts-installer gftp gimp wine
+ttf-mscorefonts-installer gftp gimp wine libnss3-tools
   
   
 ### Docker
