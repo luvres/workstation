@@ -4,8 +4,8 @@ sudo dd if=/aux/ISOs/deepin-15.4.1-amd64.iso of=/dev/sdd && sync
 
 sudo apt-get update && \
 sudo apt-get upgrade -y && \
-sudo apt-get dist-upgrade && \
-apt-get autoremove
+sudo apt-get dist-upgrade -y && \
+sudo apt-get autoremove -y 
 
 sudo apt-get install -y \
 git curl openssh-server openjdk-8-jdk gfortran freeglut3-dev htop xclip python-pip \
