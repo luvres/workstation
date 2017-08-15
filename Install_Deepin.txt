@@ -2,17 +2,15 @@ sudo mkfs.vfat -I /dev/sdd
 sudo dd if=/aux/ISOs/deepin-15.4.1-amd64.iso of=/dev/sdd && sync
 
 
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade
+sudo apt-get update && \
+sudo apt-get upgrade -y && \
+sudo apt-get dist-upgrade && \
+apt-get autoremove
 
-sudo apt install -y \
-git curl openssh-server unrar python-pip \
-build-essential gfortran freeglut3-dev \
-net-tools vim youtube-dl htop tree faad lame lvm2 fping autoconf xclip hddtemp sshpass \
-cifs-utils f2fs-tools \
-wine ttf-mscorefonts-installer \
-firefox flashplugin-nonfree chromium pepperflashplugin-nonfree \
+sudo apt-get install -y \
+git curl openssh-server python-pip gfortran freeglut3-dev htop xclip \
 libreoffice-writer libreoffice-calc libreoffice-impress \
-gftp gimp
+ttf-mscorefonts-installer gftp gimp wine
   
   
 ### Docker
@@ -44,11 +42,11 @@ docker run --name OracleXE -h oraclexe  \
 ### Mountpoint
 #--------------
 sudo mkdir /aux && sudo chown luvres. /aux
-sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
+sudo sh -c "echo '/dev/sdc1 /aux auto noatime 0 0' >>/etc/fstab"
 
 ### WhatsApp
 #------------
-echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
+echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
 source $HOME/.bashrc
 
 ### Git
@@ -74,6 +72,7 @@ cp /aux/Workstation/WINDOWS/winbox.exe $HOME/Desktop
 wget -O virtualbox.run http://download.virtualbox.org/virtualbox/5.1.26/VirtualBox-5.1.26-117224-Linux_amd64.run
 chmod +x virtualbox.run
 sudo ./virtualbox.run
+rm virtualbox.run
 
 ### Popcorn-Time
 #----------------
