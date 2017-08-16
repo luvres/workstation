@@ -80,3 +80,18 @@ rm virtualbox.run
 sudo mkdir /opt/popcorntime
 curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
 sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
+
+### Network Static
+#-----------------
+cat >>/etc/dhcpcd.conf <<EOF
+
+interface eth0
+static ip_address=169.8.192.130/25
+static routers=169.8.192.254
+static domain_name_servers=191.96.255.126
+EOF
+
+### BackUP
+#----------
+rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
+
