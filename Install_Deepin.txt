@@ -8,7 +8,8 @@ sudo apt-get dist-upgrade -y && \
 sudo apt-get autoremove -y 
 
 sudo apt-get install -y \
-git curl rsync openssh-server openjdk-8-jdk gfortran freeglut3-dev htop xclip python-pip \
+git curl rsync openssh-server debootstrap mc htop xclip python-pip \
+openjdk-8-jdk gfortran freeglut3-dev \
 libreoffice-writer libreoffice-calc libreoffice-impress \
 ttf-mscorefonts-installer gftp gimp wine libnss3-tools
   
