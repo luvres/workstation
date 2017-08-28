@@ -5,6 +5,7 @@
 ### Install
 #-----------
 dd bs=4096k if=2017-07-05-raspbian-jessie.img of=/dev/sdb status=progress; sync
+dd bs=4096k if=2017-08-16-raspbian-stretch.img of=/dev/sdb status=progress; sync
 
 ### (Install in Raspberry Pi for expand disk)
 
