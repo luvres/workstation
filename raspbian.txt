@@ -50,6 +50,12 @@ echo "pi:aamu02" | chpasswd
 # Bashrc
 sed -i '/alias l/s/#//g' $HOME/.bashrc
 
+# IP Static
+echo 'interface eth0' >>/etc/dhcpcd.conf
+echo 'static ip_address=169.8.192.130/25' >>/etc/dhcpcd.conf
+echo 'static routers=169.8.192.254' >>/etc/dhcpcd.conf
+echo 'static domain_name_servers=191.96.255.126' >>/etc/dhcpcd.conf
+
 # Update
 sudo apt-get update && sudo apt-get upgrade -y
 
