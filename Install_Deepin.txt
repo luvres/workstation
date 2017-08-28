@@ -9,7 +9,7 @@ sudo apt-get autoremove -y
 
 sudo apt-get install -y \
 git curl rsync openssh-server debootstrap colordiff mc htop xclip python-pip \
-openjdk-8-jdk gfortran freeglut3-dev \
+openjdk-8-jdk gfortran freeglut3-dev f2fs-tools \
 libreoffice-writer libreoffice-calc libreoffice-impress \
 ttf-mscorefonts-installer gftp gimp wine libnss3-tools
   
