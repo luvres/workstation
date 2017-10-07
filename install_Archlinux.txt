@@ -1,4 +1,4 @@
-sudo mkfs.vfat -I /dev/sdc
+sudo mkfs.vfat -I /dev/sdd
 sudo dd if=/aux/ISOs/archlinux-2017.10.01-x86_64.iso of=/dev/sdd && sync
 
 ### Boot
