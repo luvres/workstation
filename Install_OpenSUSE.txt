@@ -11,7 +11,7 @@ sudo zypper dist-upgrade
 sudo zypper search gimp
 
 sudo zypper -n install \
-git docker 
+docker vlc virtualbox
 
 
 ## Docker
