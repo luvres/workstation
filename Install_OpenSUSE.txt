@@ -1,13 +1,20 @@
 sudo dd if=/aux/ISOs/openSUSE-Tumbleweed-DVD-x86_64-Current.iso of=/dev/sdd && sync
 
 
-zypper update
 
-zypper search gimp
+## Zypper
+#---------
+sudo zypper update
 
-zypper -n install \
+sudo zypper dist-upgrade
+
+sudo zypper search gimp
+
+sudo zypper -n install \
 git docker 
 
-# Docker
+
+## Docker
+#---------
 systemctl enable docker.service
 
