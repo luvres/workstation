@@ -11,7 +11,8 @@ sudo zypper dist-upgrade
 sudo zypper search gimp
 
 sudo zypper -n install \
-docker vlc virtualbox
+docker vlc \
+gcc make kernel-devel virtualbox
 
 
 ## Docker
@@ -19,3 +20,7 @@ docker vlc virtualbox
 sudo usermod -aG docker $USER
 sudo systemctl enable docker.service
 
+
+## VirtualBox
+#-------------
+sudo gpasswd -a $USER vboxusers 
