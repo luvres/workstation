@@ -66,3 +66,9 @@ git push
 ## Nanorc
 #---------
 su -c "echo 'include "/usr/share/nano/*.nanorc"' >>/etc/nanorc"
+
+
+## Weather
+#----------
+weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
+
