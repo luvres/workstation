@@ -24,3 +24,8 @@ sudo systemctl enable docker.service
 ## VirtualBox
 #-------------
 sudo gpasswd -a $USER vboxusers 
+
+
+## Bashrc
+#---------
+curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C $HOME
