@@ -29,3 +29,53 @@ sudo gpasswd -a $USER vboxusers
 ## Bashrc
 #---------
 curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C $HOME
+
+
+## Github
+#---------
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+git config --list
+
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+
+git add .
+git commit -am "Primeiro commit"
+git push
+
+
+
+ssh-keygen
+
+cat ~/.ssh/id_rsa.pub | xclip -sel clip 
+# ~/.ssh/config
+
+echo 'Host github.com' >> ~/.ssh/config
+echo '  Hostname ssh.github.com' >> ~/.ssh/config
+echo '  Port 443' >> ~/.ssh/config
+  
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+
+git init /git
+
+git add .
+git commit -m "Primeiro commit"
+git commit -a -m "Primeiro commit"
+git commit -amend -m "Commit (edicao)"
+
+git remote add upstream https://github.com/FreeCAD/FreeCAD.git
+git fetch upstream #sincronizar os repositórios
+git merge upstream/master
+
+git remote set-url origin https://github.com/luvres/CalculiX-2.10.git
+
+git clone git@github.com:user/projeto
+
+git remote      //lista os servidores remoto
+git push origin master  //envia do brunch master para o servidor origin
+git pull origin master //trazer dados do origin para master
