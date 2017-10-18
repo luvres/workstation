@@ -1,0 +1,87 @@
+sudo dd if=/aux/ISOs/openSUSE-Tumbleweed-DVD-x86_64-Current.iso of=/dev/sdd && sync
+
+
+## Zypper
+#---------
+sudo zypper update
+
+sudo zypper in -t pattern devel_basis
+
+sudo zypper -n install \
+docker vlc youtube-dl chromium \
+gcc make kernel-devel virtualbox \
+liballeg-devel libSDL-devel libSDL2-devel freeglut-devel
+
+
+sudo zypper ar --refresh \
+http://download.opensuse.org/repositories/openSUSE:/Tumbleweed/standard/ \
+Tumbleweed
+
+sudo zypper refresh
+zypper lr -d
+sudo zypper rr 1
+
+zypper se -t pattern devel
+zypper info -t pattern devel_basis
+
+sudo zypper dist-upgrade
+
+sudo zypper search gimp
+
+
+## Docker
+#---------
+sudo usermod -aG docker $USER
+sudo systemctl enable docker.service
+
+
+## VirtualBox
+#-------------
+sudo gpasswd -a $USER vboxusers 
+
+
+## Bashrc
+#---------
+curl -L https://github.com/luvres/workstation/blob/master/bashrc.tar.gz?raw=true | tar -xzf - -C $HOME
+
+
+## Github
+#---------
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+git config --list
+
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+
+git add .
+git commit -am "Primeiro commit"
+git push
+
+
+## Nanorc
+#---------
+su -c "echo 'include "/usr/share/nano/*.nanorc"' >>/etc/nanorc"
+
+
+## Weather
+#----------
+weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
+
+
+## WhatsApp
+#-----------
+echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
+source $HOME/.bashrc
+
+
+## Popcorn-Time
+#---------------
+sudo mkdir /opt/popcorntime
+curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
+sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
+
+
