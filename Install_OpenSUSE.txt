@@ -4,6 +4,16 @@ sudo dd if=/aux/ISOs/openSUSE-Tumbleweed-DVD-x86_64-Current.iso of=/dev/sdd && s
 
 ## Zypper
 #---------
+sudo zypper update
+
+sudo zypper in -t pattern devel_basis
+
+sudo zypper -n install \
+docker vlc \
+gcc make kernel-devel virtualbox \
+liballeg-devel libSDL-devel libSDL2-devel freeglut-devel
+
+
 sudo zypper ar --refresh \
 http://download.opensuse.org/repositories/openSUSE:/Tumbleweed/standard/ \
 Tumbleweed
@@ -15,19 +25,9 @@ sudo zypper rr 1
 zypper se -t pattern devel
 zypper info -t pattern devel_basis
 
-sudo zypper update
-
 sudo zypper dist-upgrade
 
 sudo zypper search gimp
-
-
-sudo zypper in -t pattern devel_basis
-
-sudo zypper -n install \
-docker vlc \
-gcc make kernel-devel virtualbox \
-liballeg-devel libSDL-devel libSDL2-devel freeglut-devel
 
 
 ## Docker
@@ -63,4 +63,6 @@ git commit -am "Primeiro commit"
 git push
 
 
-
+## Nanorc
+#---------
+su -c "echo 'include "/usr/share/nano/*.nanorc"' >>/etc/nanorc"
