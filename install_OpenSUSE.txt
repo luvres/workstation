@@ -25,7 +25,6 @@ zypper se -t pattern devel
 zypper info -t pattern devel_basis
 
 sudo zypper dist-upgrade
-
 sudo zypper search gimp
 
 
