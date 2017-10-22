@@ -3,12 +3,16 @@ sudo dd if=/aux/ISOs/openSUSE-Tumbleweed-DVD-x86_64-Current.iso of=/dev/sdd && s
 
 ## Zypper
 #---------
+# Chrome
+sudo zypper ar http://dl.google.com/linux/chrome/rpm/stable/x86_64 Google-Chrome
+
+
 sudo zypper update
 
 sudo zypper in -t pattern devel_basis
 
 sudo zypper -n install \
-docker vlc youtube-dl chromium filezilla java-1_8_0-openjdk-devel \
+docker vlc youtube-dl google-chrome-stable chromium filezilla java-1_8_0-openjdk-devel \
 gcc make kernel-devel virtualbox \
 liballeg-devel libSDL-devel libSDL2-devel freeglut-devel
 
