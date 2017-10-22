@@ -8,7 +8,7 @@ sudo zypper update
 sudo zypper in -t pattern devel_basis
 
 sudo zypper -n install \
-docker vlc youtube-dl chromium filezilla \
+docker vlc youtube-dl chromium filezilla java-1_8_0-openjdk-devel \
 gcc make kernel-devel virtualbox \
 liballeg-devel libSDL-devel libSDL2-devel freeglut-devel
 
