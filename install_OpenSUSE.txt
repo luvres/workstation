@@ -13,7 +13,7 @@ sudo zypper in -t pattern devel_basis
 
 sudo zypper -n install \
 gcc make kernel-devel virtualbox java-1_8_0-openjdk-devel \
-docker vlc vlc-codecs youtube-dl google-chrome-stable filezilla  \
+docker vlc vlc-codecs youtube-dl google-chrome-stable filezilla colordiff \
 liballeg-devel libSDL-devel libSDL2-devel freeglut-devel
 
 
