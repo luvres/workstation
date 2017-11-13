@@ -93,7 +93,7 @@ docker run --name ftp -h lighttpd \
 docker run --name ftp -h nginx \
 -p 80:80 \
 -v /mnt/ftp:/usr/share/nginx/html \
--d arm32v7/nginx \
+-d izone/arm32v7:nginx \
 && docker exec -ti ftp sed -i '/sendfile/s/on;/on;\n    autoindex       on;/' /etc/nginx/nginx.conf \
 && docker restart ftp
 
