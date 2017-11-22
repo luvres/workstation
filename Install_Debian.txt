@@ -28,24 +28,37 @@ curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
 reboot
 
+# Pulls
+docker pull mariadb
+docker pull postgres:alpine
+docker pull node:carbon-alpine
+docker pull mongo
+docker pull neo4j
+docker pull redis:alpine
+docker pull nginx:alpine
+docker pull izone/kalilinux
+docker pull izone/oracle
+docker pull izone/tomcat
+
+
 docker run --name ftp -h ftp \
 -p 80:80 \
--v /aux:/var/www \
--d izone/alpine:lighttpd
+-v /aux:/usr/share/nginx/html \
+-d nginx:alpine
 
-docker run --name MariaDB \
+docker run -d --name MariaDB \
 -p 3306:3306 \
 -e MYSQL_ROOT_PASSWORD=maria \
--d mariadb
+mariadb
 
-docker run --name Postgres -h postgres \
+docker run -d --name Postgres -h postgres \
 -p 5432:5432 \
 -e POSTGRES_PASSWORD=postgres \
--d postgres:alpine
+postgres:alpine
 
-docker run --name OracleXE -h oraclexe  \
+docker run -d --name OracleXE -h oraclexe  \
 -p 1521:1521 \
--d izone/oracle
+izone/oracle
 
 
 ### Mountpoint
