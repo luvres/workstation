@@ -88,6 +88,7 @@ git add . && git commit -am "Primeiro commit" && git push
 
 ### ZSH
 #-------
+sudo apt-get install zsh
 curl -L http://install.ohmyz.sh | sh
 chsh -s `which zsh`
 
