@@ -1,5 +1,5 @@
 sudo mkfs.vfat -I /dev/sdc
-sudo dd if=/aux/ISOs/debian-9.1.0-amd64-netinst.iso of=/dev/sdc && sync
+sudo dd if=/aux/ISOs/debian-9.2.1-amd64-netinst.iso of=/dev/sdc && sync
 
 ###############
 ### Stretch ###
@@ -7,9 +7,8 @@ sudo dd if=/aux/ISOs/debian-9.1.0-amd64-netinst.iso of=/dev/sdc && sync
 [*] Debian desktop environment
 [*] ... KDE 
 [*] SSH server
-[*] print server                                                                         │ 
-[*] SSH server 
-[*] standart system utilities
+[*] print server
+[*] SSH server] standart system utilities
 
 echo 'deb http://deb.debian.org/debian/ stretch main contrib non-free' >>/etc/apt/sources.list
 apt-get update && apt-get upgrade
@@ -36,6 +35,8 @@ docker pull mongo
 docker pull neo4j
 docker pull redis:alpine
 docker pull nginx:alpine
+docker pull izone/anaconda
+docker pull izone/freecad
 docker pull izone/kalilinux
 docker pull izone/oracle
 docker pull izone/tomcat
@@ -84,6 +85,11 @@ ssh -T git@github.com
 ssh -T -p443 git@ssh.github.com
 
 git add . && git commit -am "Primeiro commit" && git push
+
+### ZSH
+#-------
+curl -L http://install.ohmyz.sh | sh
+chsh -s `which zsh`
 
 
 ### Winbox
