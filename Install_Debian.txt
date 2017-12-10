@@ -98,6 +98,17 @@ chsh -s `which zsh`
 cp /aux/Workstation/WINDOWS/winbox.exe $HOME/Desktop
 
 
+## Papirus icon
+#---------------
+# KDE
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-kde.sh | sh
+
+## Arc Theme
+#-------------
+# Install
+wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install-arc-kde-home.sh | sh
+
+
 ### Mountpoint
 #--------------
 sudo mkdir /aux && sudo chown luvres. /aux
@@ -139,19 +150,7 @@ apt update && apt dist-upgrade -y
 apt-get install gdm3
 dpkg-reconfigure gdm3
 
-## Papirus icon
-#---------------
-# GTK
-wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-gtk.sh | sh
-# KDE
-wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/install-papirus-home-kde.sh | sh
 
-## Arc Theme
-#-------------
-# Install
-wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install-arc-kde-home.sh | sh
-# Remove
-wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/remove-arc-kde.sh | sh
 
 ## Flat Remix icon
 #------------------
