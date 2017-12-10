@@ -1,24 +1,11 @@
-sudo mkfs.vfat -I /dev/sdc
-sudo dd if=/aux/ISOs/debian-9.2.1-amd64-netinst.iso of=/dev/sdc && sync
-
-###############
-### Stretch ###
-###############
-[*] Debian desktop environment
-[*] ... KDE 
-[*] SSH server
-[*] print server
-[*] SSH server] standart system utilities
-
-echo 'deb http://deb.debian.org/debian/ stretch main contrib non-free' >>/etc/apt/sources.list
-apt-get update && apt-get upgrade
-tasksel
+sudo mkfs.vfat -I /dev/sdd
+sudo dd if=/aux/ISOs/debian-9.2.1-amd64-netinst.iso of=/dev/sdd && sync
 
 su
-apt install -y \
+apt-get install -y \
 sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
-cifs-utils f2fs-tools gfortran freeglut3-dev ttf-mscorefonts-installer \
-git xclip terminator chromium gimp 
+cifs-utils f2fs-tools gfortran freeglut3-dev \
+git xclip chromium gftp vlc transmission-qt gimp blender
 
 
 ### Docker
@@ -37,15 +24,13 @@ docker pull redis:alpine
 docker pull nginx:alpine
 docker pull izone/anaconda
 docker pull izone/freecad
-docker pull izone/kalilinux
 docker pull izone/oracle
-docker pull izone/tomcat
 
 
-docker run --name ftp -h ftp \
--p 80:80 \
--v /aux:/usr/share/nginx/html \
--d nginx:alpine
+# docker run --name ftp -h ftp \
+# -p 80:80 \
+# -v /aux:/usr/share/nginx/html \
+# -d nginx:alpine
 
 docker run -d --name MariaDB \
 -p 3306:3306 \
@@ -62,15 +47,29 @@ docker run -d --name OracleXE -h oraclexe  \
 izone/oracle
 
 
-### Mountpoint
+### VirtualBox
 #--------------
-sudo mkdir /aux && sudo chown luvres. /aux
-sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
+echo -c '"deb http://download.virtualbox.org/virtualbox/debian stretch contrib" > /etc/apt/sources.list.d/virtualbox.list'
+
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - 
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+
+sudo apt-get update
+sudo apt-get install virtualbox-5.2
+
+
+### Chrome
+#----------
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt-get -f install
+
 
 ### WhatsApp
 #------------
 echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
 source $HOME/.bashrc
+
 
 ### Git
 #------
@@ -86,6 +85,7 @@ ssh -T -p443 git@ssh.github.com
 
 git add . && git commit -am "Primeiro commit" && git push
 
+
 ### ZSH
 #-------
 sudo apt-get install zsh
@@ -98,21 +98,27 @@ chsh -s `which zsh`
 cp /aux/Workstation/WINDOWS/winbox.exe $HOME/Desktop
 
 
-### VirtualBox
+### Mountpoint
 #--------------
-wget -O virtualbox.run wget -O virtualbox.run http://download.virtualbox.org/virtualbox/5.2.0/VirtualBox-5.2.0-118431-Linux_amd64.run
-chmod +x virtualbox.run
-sudo ./virtualbox.run
-#sudo sh /opt/VirtualBox/uninstall.sh
-### OR ###
-sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" >> /etc/apt/sources.list.d/virtualbox.list'
-wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-#wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-sudo apt-get update
-#sudo apt remove virtualbox virtualbox-5.0 virtualbox-4.*
-sudo apt-get install virtualbox-5.2
-#sudo apt-get remove virtualbox-5.1
+sudo mkdir /aux && sudo chown luvres. /aux
+sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
 
+
+###########################
+
+
+###############
+### Stretch ###
+###############
+[*] Debian desktop environment
+[*] ... KDE 
+[*] SSH server
+[*] print server
+[*] SSH server] standart system utilities
+
+echo 'deb http://deb.debian.org/debian/ stretch main contrib non-free' >>/etc/apt/sources.list
+apt-get update && apt-get upgrade
+tasksel
 
 
 ###########
@@ -125,8 +131,6 @@ echo 'deb http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt
 echo 'deb-src http://ftp.br.debian.org/debian/ sid main contrib non-free' >>/etc/apt/sources.list
 echo 'deb http://http.debian.net/debian/ sid main contrib non-free' >>/etc/apt/sources.list
 apt update && apt dist-upgrade -y
-
-###########################
 
 
 ##############
