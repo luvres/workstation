@@ -5,7 +5,8 @@ su
 apt-get install -y \
 sudo net-tools curl vim youtube-dl htop unrar-free tree faad lame lvm2 fping autoconf \
 cifs-utils f2fs-tools gfortran freeglut3-dev \
-git xclip chromium gftp vlc transmission-qt gimp blender
+wine wine32 wine64 libwine libwine:i386 fonts-wine \
+git rsync xclip mc chromium gftp vlc transmission-qt gimp blender
 
 
 ### Docker
@@ -69,6 +70,13 @@ sudo apt-get -f install
 #------------
 echo "alias whatsapp='/usr/bin/chromium --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
 source $HOME/.bashrc
+
+
+### Popcorn-Time
+#----------------
+sudo mkdir /opt/popcorntime
+curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
+sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
 
 
 ### Git
