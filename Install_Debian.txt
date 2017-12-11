@@ -123,6 +123,22 @@ sudo mkdir /aux && sudo chown luvres. /aux
 sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
 
 
+### Rsync
+#---------
+rsync -avz --delete --progress /aux/ pi@pi:/mnt/ftp
+rsync -avz --delete --progress pi@pi:/mnt/ftp/ /aux
+
+### aux
+#------------
+rsync -avz --exclude CURSOS --delete --progress /aux/ pi@pi:/mnt/ftp
+rsync -avz --exclude CURSOS --delete --progress pi@pi:/mnt/ftp/ /aux
+
+### CURSOS
+#----------
+rsync -avz --delete --progress /CURSOS/ pi@pi:/mnt/ftp/CURSOS
+rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
+
+
 ###########################
 
 
