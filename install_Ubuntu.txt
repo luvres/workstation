@@ -1,13 +1,87 @@
 sudo mkfs.vfat -I /dev/sdc
-sudo dd if=/aux/ISOs/ubuntu-17.04-desktop-amd64.iso of=/dev/sdc && sync
+sudo dd if=/aux/ISOs/ubuntu-16.04.3-desktop-amd64.iso of=/dev/sdc && sync
 
 ### Packages
 #-------------------
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y \
-build-essential git cmake openssh-server vim openjdk-8-jdk unrar \
+sudo apt-get update && sudo apt-get upgrade -y
+
+sudo apt-get install -y \
+git build-essential cmake openssh-server vim openjdk-8-jdk unrar \
 tree htop xclip cifs-utils gfortran freeglut3-dev faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp sshpass \
-playonlinux synaptic youtube-dl  vlc VirtualBox Gimp Blender  gftp
+playonlinux synaptic youtube-dl gftp vlc gimp 
+
+
+### Google CHROME
+#-----------------
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+sudo apt-get update
+sudo apt-get install -y google-chrome-stable
+
+
+### Docker
+#----------
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+
+### Git
+#-------
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+git config --list
+
+
+### CUDA Toolkit 9.0 
+#--------------------
+sudo dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64.deb
+sudo apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
+sudo apt-get update
+sudo apt-get install cuda
+
+
+# Install nvidia-docker and nvidia-docker-plugin
+wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1_amd64.tar.xz
+sudo tar --strip-components=1 -C /usr/bin -xvf /tmp/nvidia-docker*.tar.xz && rm /tmp/nvidia-docker*.tar.xz
+
+# Run nvidia-docker-plugin
+sudo -b nohup nvidia-docker-plugin > /tmp/nvidia-docker.log
+
+# Test nvidia-smi
+nvidia-docker run --rm nvidia/cuda nvidia-smi
+
+
+### Fstab
+#---------
+sudo mkdir /aux && sudo chown -R $USER. /aux
+sudo mkdir /CURSOS && sudo chown -R $USER. /CURSOS
+sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
+sudo sh -c "echo '/dev/sdc1 /CURSOS auto noatime 0 0' >>/etc/fstab"
+
+
+### Rsync
+#---------
+rsync -avz --delete --progress /aux/ pi@pi:/mnt/ftp
+rsync -avz --delete --progress pi@pi:/mnt/ftp/ /aux
+
+## aux
+#------------
+rsync -avz --exclude CURSOS --delete --progress /aux/ pi@pi:/mnt/ftp
+rsync -avz --exclude CURSOS --delete --progress pi@pi:/mnt/ftp/ /aux
+
+## CURSOS
+#----------
+rsync -avz --delete --progress /CURSOS/ pi@pi:/mnt/ftp/CURSOS
+rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
+
+
+#################################
+
 
 ### Ubuntu Software
 #--------------------
@@ -45,12 +119,6 @@ sudo add-apt-repository ppa:gambas-team/gambas3
 sudo apt update
 sudo apt install i-nex
 
-### Google CHROME
-#-----------------
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-sudo apt-get update
-sudo apt-get install google-chrome-stable
 
 ### Tor Browser
 #---------------
@@ -63,11 +131,6 @@ sudo mv tor-browser_en-US/ /opt/
 #------------------------------
 sudo chown $USER. .mozilla/firefox/gz1b8fnv.default/revocations.txt
 
-
-### Docker
-#----------
-curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
 
 # Lighttpd
 docker run --name ftp -h ftp \
