@@ -72,6 +72,7 @@ nvidia-docker run --rm nvidia/cuda nvidia-smi
 
 ### Fstab
 #---------
+sudo blkid
 sudo mkdir /aux && sudo chown -R $USER. /aux
 sudo mkdir /CURSOS && sudo chown -R $USER. /CURSOS
 sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
