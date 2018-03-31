@@ -12,14 +12,6 @@ tree htop xclip cifs-utils gfortran freeglut3-dev faad lame gksu fping lvm2 f2fs
 playonlinux synaptic youtube-dl gftp vlc gimp 
 
 
-### Google CHROME
-#-----------------
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-sudo apt-get update
-sudo apt-get install -y google-chrome-stable
-
-
 ### Docker
 #----------
 curl -sSL https://get.docker.com | sh
@@ -93,6 +85,27 @@ rsync -avz --exclude CURSOS --delete --progress pi@pi:/mnt/ftp/ /aux
 #----------
 rsync -avz --delete --progress /CURSOS/ pi@pi:/mnt/ftp/CURSOS
 rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
+
+
+### Google CHROME
+#-----------------
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+sudo apt-get update
+sudo apt-get install -y google-chrome-stable
+
+
+### Popcorn-Time
+#----------------
+sudo mkdir /opt/popcorntime
+curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
+sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
+
+
+### WhatsApp
+#------------
+echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
+source $HOME/.bashrc
 
 
 #################################
