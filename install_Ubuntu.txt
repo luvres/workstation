@@ -7,7 +7,7 @@ sudo dd if=/aux/ISOs/ubuntu-16.04.3-desktop-amd64.iso of=/dev/sdc && sync
 sudo apt-get update && sudo apt-get upgrade -y
 
 sudo apt-get install -y \
-git build-essential cmake openssh-server vim openjdk-8-jdk unrar \
+git build-essential cmake openssh-server vim openjdk-8-jdk unrar libnss3-tools \
 tree htop xclip cifs-utils gfortran freeglut3-dev faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp sshpass \
 playonlinux synaptic youtube-dl gftp vlc gimp 
 
