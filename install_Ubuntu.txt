@@ -12,6 +12,26 @@ tree htop xclip cifs-utils faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp
 playonlinux synaptic youtube-dl gftp vlc gimp 
 
 
+### Google CHROME
+#-----------------
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+sudo apt-get update
+sudo apt-get install -y google-chrome-stable
+
+
+### Git
+#-------
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+git config --list
+
+
 ### Docker
 #----------
 curl -sSL https://get.docker.com | sh
@@ -31,18 +51,6 @@ sudo apt-get install -y virtualbox-5.2
 #sudo apt-get remove virtualbox
 
 
-### Git
-#-------
-git config --global user.name "luvres"
-git config --global user.email "luvres@hotmail.com"
-git config --global credential.helper 'cache --timeout=86400'
-ssh-keygen
-cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
-ssh -T git@github.com
-ssh -T -p443 git@ssh.github.com
-git config --list
-
-
 ### CUDA Toolkit 9.0 
 #--------------------
 sudo dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64.deb
@@ -52,6 +60,8 @@ sudo apt-get install cuda
 
 
 # Install nvidia-docker and nvidia-docker-plugin
+sudo apt-get install -y nvidia-modprobe
+
 wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1_amd64.tar.xz
 sudo tar --strip-components=1 -C /usr/bin -xvf /tmp/nvidia-docker*.tar.xz && rm /tmp/nvidia-docker*.tar.xz
 
@@ -85,14 +95,6 @@ rsync -avz --exclude CURSOS --delete --progress pi@pi:/mnt/ftp/ /aux
 #----------
 rsync -avz --delete --progress /CURSOS/ pi@pi:/mnt/ftp/CURSOS
 rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
-
-
-### Google CHROME
-#-----------------
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-sudo apt-get update
-sudo apt-get install -y google-chrome-stable
 
 
 ### Popcorn-Time
