@@ -8,7 +8,7 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 sudo apt-get install -y \
 git build-essential cmake openssh-server vim openjdk-8-jdk unrar libnss3-tools gfortran freeglut3-dev \
-tree htop xclip cifs-utils faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp xsensors sshpass \
+tree htop xclip cifs-utils faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp xsensors sshpass clinfo \
 playonlinux synaptic youtube-dl gftp vlc gimp 
 
 
@@ -57,8 +57,7 @@ sudo dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64.deb
 sudo apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
 sudo apt-get update
 sudo apt-get install cuda
-
-
+#--------------------
 # Install nvidia-docker and nvidia-docker-plugin
 sudo apt-get install -y nvidia-modprobe
 
@@ -70,7 +69,7 @@ sudo -b nohup nvidia-docker-plugin > /tmp/nvidia-docker.log
 
 # Test nvidia-smi
 nvidia-docker run --rm nvidia/cuda nvidia-smi
-
+#--------------------
 
 ### Fstab
 #---------
