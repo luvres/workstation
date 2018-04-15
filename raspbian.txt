@@ -90,12 +90,13 @@ docker run --name ftp -h lighttpd \
 #docker start ftp
 
 # Nginx
-docker run --name ftp -h nginx \
+docker run -d --restart=always --name ftp -h nginx \
 -p 80:80 \
 -v /mnt/ftp:/usr/share/nginx/html \
--d izone/arm32v7:nginx \
+arm32v7/nginx \
 && docker exec -ti ftp sed -i '/sendfile/s/on;/on;\n    autoindex       on;/' /etc/nginx/nginx.conf \
 && docker restart ftp
+
 
 #rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
 #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
