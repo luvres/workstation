@@ -107,7 +107,7 @@ rsync -avz --delete --progress /aux/ pi@pi:/mnt/ftp
 rsync -avz --delete --progress pi@pi:/mnt/ftp/ /aux
 
 ### aux
-#------------
+#-------
 rsync -avz --exclude CURSOS --delete --progress /aux/ pi@pi:/mnt/ftp
 rsync -avz --exclude CURSOS --delete --progress pi@pi:/mnt/ftp/ /aux
 
@@ -115,6 +115,43 @@ rsync -avz --exclude CURSOS --delete --progress pi@pi:/mnt/ftp/ /aux
 #----------
 rsync -avz --delete --progress /CURSOS/ pi@pi:/mnt/ftp/CURSOS
 rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
+
+
+## Samba
+#--------
+sudo apt-get install samba
+
+sudo smbpasswd -a pi
+
+sudo cp /etc/samba/smb.conf{,.orig}
+sudo cp /etc/samba/smb.conf{,.master}
+
+sudo bash -c "echo '[share]' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'comment = Backup Isabel' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'path = /mnt/ftp/BackUP_ISABEL' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo '#guest ok = YES' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'read only = no' >>/etc/samba/smb.conf.master"
+
+sudo bash -c "echo '[ftp]' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'comment = Pi Ftp' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'path = /mnt/ftp' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'guest ok = YES' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'read only = no' >>/etc/samba/smb.conf.master"
+
+sudo bash -c "testparm /etc/samba/smb.conf.master > /etc/samba/smb.conf"
+
+sudo /etc/init.d/samba restart
+
+## Mount in Linux
+sudo mount.cifs -o username=pi //pi/ftp /mnt/
+
+## Access
+# Unix
+smd://169.8.192.130/pi
+
+# Windows
+\\169.8.192.130\pi
+#---------------------------------
 
 
 ### FreeCAD Build
