@@ -64,9 +64,10 @@ sync && umount /dev/sdb1 /dev/sdb2
 ### Access ###
 ##############
 echo '' >$HOME/.ssh/known_hosts
-ssh -l pi raspberrypi
-# login: pi
-# passwd: raspberry
+
+ssh -l pi pi
+password: raspberrypi
+
 sudo su
 echo "root:aamu02" | chpasswd
 echo "pi:aamu02" | chpasswd
