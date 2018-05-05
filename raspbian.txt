@@ -164,7 +164,7 @@ smd://169.8.192.130/pi
 ## HP Laserjet M1319f MPF
 #-------------------------
 # https://opensource.com/article/18/3/print-server-raspberry-pi
-sudo apt-get install cups
+sudo apt-get install -y cups
 sudo usermod -aG lpadmin pi
 sudo cupsctl --remote-any
 sudo /etc/init.d/cups restart
