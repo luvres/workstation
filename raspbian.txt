@@ -137,7 +137,7 @@ sudo bash -c "echo 'read only = no' >>/etc/samba/smb.conf.master"
 sudo bash -c "echo '[ftp]' >>/etc/samba/smb.conf.master"
 sudo bash -c "echo 'comment = Pi Ftp' >>/etc/samba/smb.conf.master"
 sudo bash -c "echo 'path = /mnt/ftp' >>/etc/samba/smb.conf.master"
-sudo bash -c "echo 'guest ok = YES' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo '#guest ok = YES' >>/etc/samba/smb.conf.master"
 sudo bash -c "echo 'read only = no' >>/etc/samba/smb.conf.master"
 
 sudo bash -c "testparm /etc/samba/smb.conf.master > /etc/samba/smb.conf"
