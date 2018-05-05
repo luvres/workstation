@@ -94,7 +94,7 @@ sudo usermod -aG docker $USER
 
 ## Mountpoint sda1
 #------------------
-sudo sh -c 'echo "UUID=`sudo blkid -o value -s UUID /dev/sda1` /mnt auto noatime 0 0"' >>/etc/fstab'
+sudo sh -c 'echo "UUID=`sudo blkid -o value -s UUID /dev/sda1` /mnt auto noatime 0 0" >>/etc/fstab'
 
 
 # Nginx
