@@ -2,16 +2,21 @@
 ### Raspbian ###
 ################
 
+sudo umount /dev/sdb1 /dev/sdb2
+sudo cfdisk /dev/sdb
+sudo mkfs.vfat -I /dev/sdb
+
+
 ### Install
 #-----------
-dd bs=4096k if=2017-07-05-raspbian-jessie.img of=/dev/sdb status=progress; sync
-dd bs=4096k if=2017-08-16-raspbian-stretch.img of=/dev/sdb status=progress; sync
-dd bs=4096k if=2018-04-18-raspbian-stretch.img of=/dev/sdb status=progress; sync
+sudo dd bs=4096k if=2017-07-05-raspbian-jessie.img of=/dev/sdb status=progress && sync
+sudo dd bs=4096k if=2018-04-18-raspbian-stretch.img of=/dev/sdb status=progress && sync
 
 
 ### (Install in Raspberry Pi for expand disk)
 
 ### f2fs -> sudo apt-get install f2fs-tools
+sudo su
 umount /dev/sdb1 /dev/sdb2
 mkdir root_fs boot 2>/dev/null
 mount /dev/sdb2 root_fs
@@ -52,7 +57,7 @@ core_freq=500 \
 gpu_freq=400/' /boot/config.txt
 
 
-sync; umount /dev/sdb1 /dev/sdb2
+sync && umount /dev/sdb1 /dev/sdb2
 
 
 ##############
