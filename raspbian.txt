@@ -75,7 +75,7 @@ echo "pi:aamu02" | chpasswd
 # Bashrc
 sed -i '/alias l/s/#//g' $HOME/.bashrc
 echo "alias h='history'" >>$HOME/.bashrc
-echo "alias "g='grep'" >>$HOME/.bashrc
+echo "alias g='grep'" >>$HOME/.bashrc
 source $HOME/.bashrc
 
 # Update
