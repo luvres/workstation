@@ -81,8 +81,8 @@ source $HOME/.bashrc
 sudo apt-get update && sudo apt-get upgrade -y
 
 # Packages
-sudo apt-get install -y \
-htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools gftp deluge debootstrap
+#sudo apt-get install -y \
+#htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools gftp deluge debootstrap
 
 
 ## Docker
