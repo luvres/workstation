@@ -96,7 +96,7 @@ sudo usermod -aG docker $USER
 #------------------
 sudo sh -c 'echo "UUID=`sudo blkid -o value -s UUID /dev/sda1` /mnt auto noatime 0 0" >>/etc/fstab'
 
-reboot
+sudo reboot
 
 
 # Nginx
