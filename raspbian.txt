@@ -127,7 +127,7 @@ rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
 
 ## Samba
 #--------
-sudo apt-get install samba
+sudo apt-get install -y samba
 
 sudo smbpasswd -a pi
 
