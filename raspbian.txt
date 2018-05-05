@@ -91,12 +91,12 @@ htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools gftp deluge debootstrap
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
 
-reboot
-
 
 ## Mountpoint sda1
 #------------------
 sudo sh -c 'echo "UUID=`sudo blkid -o value -s UUID /dev/sda1` /mnt auto noatime 0 0" >>/etc/fstab'
+
+reboot
 
 
 # Nginx
