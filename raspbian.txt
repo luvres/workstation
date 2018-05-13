@@ -180,11 +180,12 @@ http://localhost:631
 http://169.8.192.130:631
 
 
-## RCA
+## RCA -> https://elinux.org/RPiconfig
 #------
 sudo sed -i '/sdtv_mode/s/#//' /boot/config.txt
 sudo sed -i '/sdtv_mode/s/2/0/' /boot/config.txt
-sudo bash -c "echo 'hdmi_ignore_hotplug=1' >>/boot/config.txt"
+#sudo bash -c "echo 'hdmi_ignore_hotplug=1' >>/boot/config.txt"
+#sudo bash -c "echo 'hdmi_ignore_edid_audio=1' >>/boot/config.txt"
 #---------------------------------
 
 
