@@ -107,6 +107,14 @@ arm32v7/nginx \
 && docker restart ftp
 
 
+## VNC
+#------
+sudo apt-get install -y tightvncserver
+tightvncserver
+Password:
+n
+
+
 ## Rsync
 #--------
 #rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
