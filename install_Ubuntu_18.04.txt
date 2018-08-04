@@ -2,66 +2,45 @@ sudo mkfs.vfat -I /dev/sdc
 sudo dd if=/aux/ISOs/ubuntu-18.04.1-desktop-amd64.iso of=/dev/sdc status=progress && sync
 
 
-#################################
+sudo add-apt-repository -y ppa:communitheme/ppa # Theme
+sudo apt-add-repository -y ppa:teejee2008/ppa # Kernel
+sudo apt-add-repository -y ppa:libreoffice/ppa # LibreOffice
 
-## Tema
-sudo add-apt-repository ppa:communitheme/ppa
-sudo apt-get install ubuntu-communitheme-session
+sudo apt update && sudo apt upgrade -y
 
-
-## WPS-Office
-wget -c http://ftp.us.debian.org/debian/pool/main/libp/libpng/libpng12-0_1.2.50-2+deb8u3_amd64.deb
-
-wps office language all deb
-
-
-## Kernel
-sudo apt-add-repository -y ppa:teejee2008/ppa
-sudo apt-get install ukuu
+sudo apt-get install -y \
+git build-essential cmake gfortran freeglut3-dev libgconf2-4 dkms \
+ubuntu-communitheme-session ukuu tilix tilix-common gdebi-core \
+rar unrar p7zip-full p7zip-rar arj \
+tree htop xclip cifs-utils sshpass clinfo gedit-plugins \
+ubuntu-restricted-addons ubuntu-restricted-extras \
+youtube-dl playonlinux gftp vlc gimp libreoffice libreoffice-l10n-pt-br
 
 
-## VirtualBox
-sudo apt-get install linux-headers-4.17.11-... # $(uname -r)
-
-
-## Tilix
-sudo apt-get install tilix tilix-common
-# https://gnunn1.github.io/tilix-web/manual/vteconfig/
+### Tilix
+#---------
 ln -s /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
-
 echo '' >>$HOME/.bashrc
 echo 'if [ $TILIX_ID ] || [ $VTE_VERSION ]; then' >>$HOME/.bashrc
 echo '        source /etc/profile.d/vte.sh' >>$HOME/.bashrc
 echo 'fi' >>$HOME/.bashrc
 
 
-#################################
-
-https://www.youtube.com/watch?v=BcLhpzyOAqA
-
-47:00
-
-
-
-#################################
-
-
-### Packages
-#-------------------
-sudo apt-get update && sudo apt-get dist-upgrade -y
-
-sudo apt-get install -y \
-git build-essential cmake openssh-server vim openjdk-8-jdk unrar libnss3-tools gfortran freeglut3-dev \
-tree htop xclip cifs-utils faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp xsensors sshpass clinfo \
-gedit-plugins playonlinux synaptic youtube-dl gftp vlc gimp 
-
-
 ### Google CHROME
 #-----------------
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-sudo apt-get update
-sudo apt-get install -y google-chrome-stable
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo gdebi google-chrome-stable_current_amd64.deb
+
+
+### VirtualBox
+#--------------
+sudo /sbin/rcvboxdrv setup
+
+
+### Docker
+#----------
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
 
 
 ### Git
@@ -76,23 +55,59 @@ ssh -T -p443 git@ssh.github.com
 git config --list
 
 
-### Docker
+### Popcorn-Time
+#----------------
+sudo mkdir /opt/popcorntime
+curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
+sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
+
+
+### WhatsApp
+#------------
+echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
+source $HOME/.bashrc
+
+
+### Bashrc
 #----------
-curl -sSL https://get.docker.com | sh
-sudo usermod -aG docker $USER
+nano $HOME/.bashrc
+source $HOME/.bashrc
+
+alias h='history'
+alias g='grep --color=AUTO'
+
+# Jupyter Notebook
+alias jupyter=' \
+docker run --rm --name Anaconda -h anaconda \
+-p 8888:8888 \
+-v $HOME/notebooks:/root/notebooks \
+-ti izone/anaconda jupyter notebook \
+    --allow-root --ip='*' \
+    --no-browser \
+    --notebook-dir=$NOTEBOOKS_PATH \
+    --NotebookApp.token='' '
 
 
-### VirtualBox
-#--------------
-sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" >> /etc/apt/sources.list.d/virtualbox.list'
-wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install -y virtualbox-5.2
+#################################
 
-#sudo apt remove virtualbox virtualbox-5.0 virtualbox-4.*
-#sudo apt-get install virtualbox
-#sudo apt-get remove virtualbox
+
+## WPS-Office
+wget -c http://ftp.us.debian.org/debian/pool/main/libp/libpng/libpng12-0_1.2.50-2+deb8u3_amd64.deb
+
+wps office language all deb
+
+
+#################################
+
+
+### Packages
+#-------------------
+sudo apt-get update && sudo apt-get dist-upgrade -y
+
+sudo apt-get install -y \
+git build-essential cmake openssh-server vim openjdk-8-jdk unrar libnss3-tools gfortran freeglut3-dev \
+tree htop xclip cifs-utils faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp xsensors sshpass clinfo \
+gedit-plugins playonlinux synaptic youtube-dl gftp vlc gimp 
 
 
 ### CUDA Toolkit 9.0 
@@ -138,19 +153,6 @@ rsync -avz --exclude CURSOS --delete --progress pi@pi:/mnt/ftp/ /aux
 #----------
 rsync -avz --delete --progress /CURSOS/ pi@pi:/mnt/ftp/CURSOS
 rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
-
-
-### Popcorn-Time
-#----------------
-sudo mkdir /opt/popcorntime
-curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
-sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
-
-
-### WhatsApp
-#------------
-echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
-source $HOME/.bashrc
 
 
 #################################
