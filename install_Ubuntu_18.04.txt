@@ -12,7 +12,7 @@ sudo apt-get install -y \
 git build-essential cmake gfortran freeglut3-dev libgconf2-4 dkms \
 ubuntu-communitheme-session ukuu tilix tilix-common gdebi-core \
 rar unrar p7zip-full p7zip-rar arj \
-tree htop xclip cifs-utils sshpass clinfo gedit-plugins \
+tree htop xclip cifs-utils sshpass clinfo gedit-plugins net-tools \
 ubuntu-restricted-addons ubuntu-restricted-extras \
 youtube-dl playonlinux gftp vlc gimp libreoffice libreoffice-l10n-pt-br
 
