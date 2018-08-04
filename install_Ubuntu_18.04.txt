@@ -1,0 +1,784 @@
+sudo mkfs.vfat -I /dev/sdc
+sudo dd if=/aux/ISOs/ubuntu-18.04.1-desktop-amd64.iso of=/dev/sdc status=progress && sync
+
+
+#################################
+
+## Tema
+sudo add-apt-repository ppa:communitheme/ppa
+sudo apt-get install ubuntu-communitheme-session
+
+
+## WPS-Office
+wget -c http://ftp.us.debian.org/debian/pool/main/libp/libpng/libpng12-0_1.2.50-2+deb8u3_amd64.deb
+
+wps office language all deb
+
+
+## Kernel
+sudo apt-add-repository -y ppa:teejee2008/ppa
+sudo apt-get install ukuu
+
+
+## VirtualBox
+sudo apt-get install linux-headers-4.17.11-... # $(uname -r)
+
+
+## Tilix
+sudo apt-get install tilix tilix-common
+# https://gnunn1.github.io/tilix-web/manual/vteconfig/
+ln -s /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
+
+echo '' >>$HOME/.bashrc
+echo 'if [ $TILIX_ID ] || [ $VTE_VERSION ]; then' >>$HOME/.bashrc
+echo '        source /etc/profile.d/vte.sh' >>$HOME/.bashrc
+echo 'fi' >>$HOME/.bashrc
+
+
+#################################
+
+https://www.youtube.com/watch?v=BcLhpzyOAqA
+
+47:00
+
+
+
+#################################
+
+
+### Packages
+#-------------------
+sudo apt-get update && sudo apt-get dist-upgrade -y
+
+sudo apt-get install -y \
+git build-essential cmake openssh-server vim openjdk-8-jdk unrar libnss3-tools gfortran freeglut3-dev \
+tree htop xclip cifs-utils faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp xsensors sshpass clinfo \
+gedit-plugins playonlinux synaptic youtube-dl gftp vlc gimp 
+
+
+### Google CHROME
+#-----------------
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+sudo apt-get update
+sudo apt-get install -y google-chrome-stable
+
+
+### Git
+#-------
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+git config --list
+
+
+### Docker
+#----------
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+
+### VirtualBox
+#--------------
+sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -y virtualbox-5.2
+
+#sudo apt remove virtualbox virtualbox-5.0 virtualbox-4.*
+#sudo apt-get install virtualbox
+#sudo apt-get remove virtualbox
+
+
+### CUDA Toolkit 9.0 
+#--------------------
+sudo dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64.deb
+sudo apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
+sudo apt-get update
+sudo apt-get install cuda
+#--------------------
+# Install nvidia-docker and nvidia-docker-plugin
+sudo apt-get install -y nvidia-modprobe
+
+wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.1/nvidia-docker_1.0.1_amd64.tar.xz
+sudo tar --strip-components=1 -C /usr/bin -xvf /tmp/nvidia-docker*.tar.xz && rm /tmp/nvidia-docker*.tar.xz
+
+# Run nvidia-docker-plugin
+sudo -b nohup nvidia-docker-plugin > /tmp/nvidia-docker.log
+
+# Test nvidia-smi
+nvidia-docker run --rm nvidia/cuda nvidia-smi
+#--------------------
+
+### Fstab
+#---------
+sudo blkid
+sudo mkdir /aux && sudo chown -R $USER. /aux
+sudo mkdir /CURSOS && sudo chown -R $USER. /CURSOS
+sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
+sudo sh -c "echo '/dev/sdc1 /CURSOS auto noatime 0 0' >>/etc/fstab"
+
+
+### Rsync
+#---------
+rsync -avz --delete --progress /aux/ pi@pi:/mnt/ftp
+rsync -avz --delete --progress pi@pi:/mnt/ftp/ /aux
+
+## aux
+#------------
+rsync -avz --exclude CURSOS --delete --progress /aux/ pi@pi:/mnt/ftp
+rsync -avz --exclude CURSOS --delete --progress pi@pi:/mnt/ftp/ /aux
+
+## CURSOS
+#----------
+rsync -avz --delete --progress /CURSOS/ pi@pi:/mnt/ftp/CURSOS
+rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
+
+
+### Popcorn-Time
+#----------------
+sudo mkdir /opt/popcorntime
+curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
+sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
+
+
+### WhatsApp
+#------------
+echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
+source $HOME/.bashrc
+
+
+#################################
+
+
+### Ubuntu Software
+#--------------------
+# brasero
+# [x] Canonical Partners
+# skype (synaptic)
+
+### Papirus Icons
+#-------------------------
+sudo add-apt-repository ppa:papirus/papirus
+sudo apt-get update
+sudo apt-get install papirus-icon-theme
+
+### Arc Theme
+#---------------------
+sudo add-apt-repository ppa:papirus/arc-kde
+sudo apt-get update
+sudo apt-get install arc-kde
+
+### Latte Dock
+#--------------
+sudo add-apt-repository ppa:rikmills/latte-dock
+sudo apt-get update
+sudo apt-get install latte-dock
+
+### SQLite
+#----------
+sudo apt-get install sqlite3 libsqlite3-dev sqlitebrowser
+
+
+### i-Nex
+#---------
+sudo add-apt-repository ppa:i-nex-development-team/daily
+sudo add-apt-repository ppa:gambas-team/gambas3
+sudo apt update
+sudo apt install i-nex
+
+
+### Tor Browser
+#---------------
+# https://www.torproject.org/projects/torbrowser.html.en#downloads
+tar Jxvf tor-browser-linux64-6.0.4_en-US.tar.xz
+sudo mv tor-browser_en-US/ /opt/
+/opt/tor-browser_en-US/start-tor-browser.desktop
+
+### Firefox permition post Tor
+#------------------------------
+sudo chown $USER. .mozilla/firefox/gz1b8fnv.default/revocations.txt
+
+
+# Lighttpd
+docker run --name ftp -h ftp \
+-p 80:80 \
+-v /aux:/var/www \
+-d izone/alpine:lighttpd
+#docker start ftp
+
+# Php
+docker run --name ftp -h ftp \
+-p 80:80 \
+-v /aux:/var/www \
+-d izone/alpine:php7
+#docker start ftp
+
+#sudo rm /etc/init.d/docker
+#sudo rm /etc/rc*/*docker
+#sudo apt-get purge docker
+#apt-cache madison docker-engine
+#sudo apt-get -y install docker-engine=1.12.6-0~ubuntu-xenial --allow-downgrades
+#sudo apt-get -y install docker-engine=1.12.6-0~raspbian-jessie --force-yes
+
+# docker-machine
+curl -L https://github.com/docker/machine/releases/download/v0.9.0-rc2/docker-machine-`uname -s`-`uname -m` >docker-machine
+chmod +x docker-machine
+sudo mv docker-machine /opt/
+sudo ln -s /opt/docker-machine /usr/bin/docker-machine
+docker-machine version
+
+# bash completion
+files=(docker-machine docker-machine-wrapper docker-machine-prompt)
+for f in "${files[@]}"; do
+  curl -L https://raw.githubusercontent.com/docker/machine/v$(docker-machine --version | tr -ds ',' ' ' | awk 'NR==1{print $(3)}')/contrib/completion/bash/$f.bash > /etc/bash_completion.d/$f
+done
+
+### Node
+#--------
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install nodejs
+node -v
+
+### Bracket
+#-----------
+sudo add-apt-repository ppa:webupd8team/brackets
+sudo apt-get update
+sudo apt-get install brackets
+
+### Sublime Text
+#----------------
+sudo add-apt-repository ppa:webupd8team/sublime-text-3
+sudo apt-get update
+sudo apt-get install sublime-text-installer
+
+### Simple Screen Recorder
+#--------------------------
+sudo add-apt-repository ppa:maarten-baert/simplescreenrecorder
+sudo apt-get update
+sudo apt-get install simplescreenrecorder
+
+### Selene
+#----------
+sudo apt-add-repository -y ppa:teejee2008
+sudo apt-get update
+sudo apt-get install selene
+
+# if you want to record 32-bit OpenGL applications on a 64-bit system:
+sudo apt-get install simplescreenrecorder-lib:i386
+
+### Team Viewer -> https://www.teamviewer.com/pt/download/linux/
+#---------------
+sudo dpkg --add-architecture i386
+sudo apt-get update
+sudo apt-get install \
+libdbus-1-3:i386 libasound2:i386 libexpat1:i386 libfontconfig1:i386 libfreetype6:i386 libjpeg62:i386 libpng12-0:i386 libsm6:i386 libxdamage1:i386 libxext6:i386 libxfixes3:i386 libxinerama1:i386 libxrandr2:i386 libxrender1:i386 libxtst6:i386 zlib1g:i386 libc6:i386
+sudo dpkg -i teamviewer*.deb
+
+tee  ~/.local/share/applications/teamviewer.desktop <<EOF
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=Team Viewer
+Icon=/usr/share/icons/icons/teamviewer.png
+Exec=/usr/bin/teamviewer
+EOF
+
+
+### Calculix
+#------------
+sudo apt install xorg-dev #libxmu-headers
+sudo ln -s /usr/include/X11/extensions/XI.h /usr/include/X11/extensions/XInput.h
+
+### Compiz
+#----------
+sudo apt-get install compizconfig-settings-manager && sudo apt-get install compiz-plugins-extra
+compiz --replace
+
+### LXQT
+#--------
+sudo apt install \
+lxqt \
+lubuntu-artwork \
+sddm-theme-lubuntu-chooser \
+xserver-xorg-input-all \
+xserver-xorg-video-all \
+xserver-xorg-video-intel
+
+
+###########
+# FreeCAD #
+###########
+
+### FreeCAD Repo
+#------------------
+# For the "stable" PPA
+sudo add-apt-repository ppa:freecad-maintainers/freecad-stable
+# For the "daily" PPA
+sudo add-apt-repository ppa:freecad-maintainers/freecad-daily
+### Then:
+# sudo apt-get update && sudo apt-get upgrade
+# sudo apt-get install freecad freecad-doc calculix-ccx
+
+### FreeCAD Build Ubuntu (Atualizado)
+#-------------------------------------
+sudo apt install -y \
+git \
+build-essential \
+cmake \
+python \
+python-matplotlib \
+libtool \
+libcoin80-dev \
+libsoqt4-dev \
+libxerces-c-dev \
+libboost-dev \
+libboost-filesystem-dev \
+libboost-regex-dev \
+libboost-program-options-dev \
+libboost-signals-dev \
+libboost-thread-dev \
+libboost-python-dev \
+libqt4-dev \
+libqt4-opengl-dev \
+qt4-dev-tools \
+python-dev \
+python-pyside \
+pyside-tools \
+python-pivy \
+liboce-modeling-dev \
+liboce-visualization-dev \
+liboce-foundation-dev \
+liboce-ocaf-lite-dev \
+liboce-ocaf-dev \
+oce-draw \
+libeigen3-dev \
+libqtwebkit-dev \
+libshiboken-dev \
+libpyside-dev \
+libode-dev \
+swig \
+libzipios++-dev \
+libfreetype6 \
+libfreetype6-dev \
+netgen-headers \
+libmedc-dev \
+libvtk6-dev \
+libproj-dev
+
+### Bug correction
+#--------------------
+sudo ln -s /usr/lib/x86_64-linux-gnu/libfreeimage.so /usr/lib/
+
+### Compile FreeCAD
+#-------------------
+mkdir 1uvr3z && cd 1uvr3z
+git clone https://github.com/FreeCAD/FreeCAD.git
+mkdir freecad-build && cd freecad-build
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON ../FreeCAD
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON -DBUILD_ASSEMBLY=ON ../FreeCAD
+time make -j8
+
+### Modules
+#-----------
+### Drawing Dimensioning
+git clone https://github.com/hamish2014/FreeCAD_drawing_dimensioning.git $HOME/.FreeCAD/Mod/FreeCAD_drawing_dimensioning
+
+### Assembly 2
+git clone https://github.com/hamish2014/FreeCAD_assembly2.git $HOME/.FreeCAD/Mod/FreeCAD_assembly2
+
+### Exploded Assembly
+git clone https://github.com/JMG1/ExplodedAssembly.git $HOME/.FreeCAD/Mod/ExplodedAssembly
+
+### Animation
+git clone https://github.com/microelly2/Animation.git $HOME/.FreeCAD/Mod/Animation
+
+### Sheet Metal
+git clone https://github.com/shaise/FreeCAD_SheetMetal.git $HOME/.FreeCAD/Mod/FreeCAD_SheetMetal
+
+### Fasteners
+git clone https://github.com/shaise/FreeCAD_FastenersWB.git $HOME/.FreeCAD/Mod/FreeCAD_FastenersWB
+
+### FEM
+sudo apt install gmsh
+# CalculiX
+sudo apt install xorg-dev #libxmu-headers
+git clone https://github.com/luvres/graphics.git
+cd graphics/calculix-2.12/
+./install
+
+sudo mv /usr/bin/ccx /usr/bin/ccx_`ccx -version | grep 'is' | awk '{print $4}'`
+sudo ln -s $HOME/CalculiX-2.12/bin/ccx_2.12 /usr/bin/ccx
+sudo ln -s $HOME/CalculiX-2.12/bin/cgx /usr/bin/cgx
+
+sudo cp $HOME/CalculiX-2.12/bin/ccx_2.12 /usr/bin/ccx
+sudo cp $HOME/CalculiX-2.12/bin/cgx /usr/bin/cgx
+
+
+
+### Compilando com clang
+sudo apt-get install clang
+sudo update-alternatives --config c++
+cmake \
+-DCMAKE_CXX_COMPILER=/usr/bin/clang++ \
+-DCMAKE_C_COMPILER=/usr/bin/clang \
+-DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON ../FreeCAD
+time make -j8
+checkinstall -D --install=no
+
+
+### Reset git
+git reset --hard HEAD
+
+###########################
+##### Build by luvres #####
+###########################
+### Default
+BOOST_THREAD_LIBRARY=/usr/lib/x86_64-linux-gnu/libpthread.so
+BUILD_ARCH=ON
+BUILD_ASSEMBLY=OFF 
+BUILD_COMPLETE=ON
+BUILD_DRAFT=ON
+BUILD_DRAWING=ON
+BUILD_ENABLE_CXX11=ON
+BUILD_FEM=ON
+BUILD_FEM_NETGEN=OFF
+BUILD_GUI=ON
+BUILD_IDF=ON
+BUILD_IMAGE=ON
+BUILD_IMPORT=ON
+BUILD_INSPECTION=ON
+BUILD_JTREADER=OFF
+BUILD_MATERIAL=ON
+BUILD_MESH=ON
+BUILD_MESH_PART=ON
+BUILD_OPENSCAD=ON
+BUILD_PART=ON
+BUILD_PART_DESIGN=ON
+BUILD_PATH=ON
+BUILD_PLOT=ON
+BUILD_POINTS=ON
+BUILD_RAYTRACING=ON
+BUILD_REVERSEENGINEERING=ON
+BUILD_ROBOT=ON
+BUILD_SANDBOX=OFF
+BUILD_SHIP=ON
+BUILD_SKETCHER=ON
+BUILD_SPREADSHEET=ON
+BUILD_START=ON
+BUILD_TEMPLATE=OFF
+BUILD_TEST=ON
+BUILD_VR=OFF
+BUILD_WEB=ON
+CMAKE_BUILD_TYPE=Debug
+CMAKE_INSTALL_DATADIR=data
+CMAKE_INSTALL_DOCDIR=doc
+CMAKE_INSTALL_INCLUDEDIR=include
+CMAKE_INSTALL_LIBDIR=lib
+CMAKE_INSTALL_PREFIX=/usr/local
+COIN3D_DOC_PATH=COIN3D_DOC_PATH-NOTFOUND
+COIN3D_DOC_TAGFILE=COIN3D_DOC_TAGFILE-NOTFOUND
+COIN3D_INCLUDE_DIRS=/usr/include
+COIN3D_LIBRARIES=/usr/lib/x86_64-linux-gnu/libCoin.so
+FREECAD_BUILD_DEBIAN=NO
+FREECAD_LIBPACK_DIR
+FREECAD_LIBPACK_USE=NO
+FREECAD_MANTAINERS_BUILD=NO
+FREECAD_USE_EXTERNAL_KDL=NO
+FREECAD_USE_EXTERNAL_SMESH=NO
+FREECAD_USE_EXTERNAL_ZIPIOS=NO
+FREECAD_USE_FREETYPE=YES
+FREECAD_USE_PCL=NO
+NETGEN_DIR_csg=/usr/share/netgen/libsrc/csg
+NETGEN_DIR_gen=/usr/share/netgen/libsrc/general
+NETGEN_DIR_geom2d=/usr/share/netgen/libsrc/geom2d
+NETGEN_DIR_gprim=/usr/share/netgen/libsrc/gprim
+NETGEN_DIR_la=/usr/share/netgen/libsrc/linalg
+NETGEN_DIR_mesh=/usr/share/netgen/libsrc/meshing
+NETGEN_DIR_occ=/usr/share/netgen/libsrc/occ
+NETGEN_DIR_stlgeom=/usr/share/netgen/libsrc/stlgeom
+NGLIB_LIBRARIES=/usr/lib/libnglib.so
+OCE_DIR=/usr/lib/x86_64-linux-gnu/oce-0.16
+PYCXX_INCLUDE_DIR=/home/luvres/1uvr3z/FreeCAD/src
+PYCXX_SOURCE_DIR=/home/luvres/1uvr3z/FreeCAD/src/CXX
+PYSIDERCC4BINARY=/usr/bin/pyside-rcc
+PYSIDERC4BINARY=/usr/bin/pyside-uic
+PySide_DIR=/usr/lib/x86_64-linux-gnu/cmake/PySide-1.2.2
+QT_QMAKE_EXECUTABLE=/usr/bin/qmake
+SPNAV_LIBRARY=/usr/lib/libspnav.so
+SWIG_EXECUTABLE=/usr/bin/swig3.0
+Shiboken_DIR=/usr/lib/x86_64-linux-gnu/cmake/Shiboken-1.2.2
+XercesC_INCLUDE_DIRS=/usr/include
+ercesC_LIBRARIES=/usr/lib/x86_64-linux-gnu/libxerces-c.so
+
+#############################
+
+cmake \
+-DCMAKE_BUILD_TYPE=Debug \
+-DBUILD_ARCH=OFF \
+-DBUILD_ASSEMBLY=OFF \
+-DBUILD_COMPLETE=OFF \
+-DBUILD_DRAFT=OFF \
+-DBUILD_DRAWING=OFF \
+-DBUILD_ENABLE_CXX11=ON \
+-DBUILD_FEM=OFF \
+-DBUILD_FEM_NETGEN=OFF \
+-DBUILD_GUI=ON \
+-DBUILD_IDF=OFF \
+-DBUILD_IMAGE=OFF \
+-DBUILD_IMPORT=OFF \
+-DBUILD_INSPECTION=OFF \
+-DBUILD_JTREADER=OFF \
+-DBUILD_MATERIAL=OFF \
+-DBUILD_MESH=OFF \
+-DBUILD_MESH_PART=OFF \
+-DBUILD_OPENSCAD=OFF \
+-DBUILD_PART=ON \
+-DBUILD_PART_DESIGN=OFF \
+-DBUILD_PATH=OFF \
+-DBUILD_PLOT=OFF \
+-DBUILD_POINTS=OFF \
+-DBUILD_RAYTRACING=OFF \
+-DBUILD_REVERSEENGINEERING=OFF \
+-DBUILD_ROBOT=OFF \
+-DBUILD_SANDBOX=OFF \
+-DBUILD_SHIP=OFF \
+-DBUILD_SKETCHER=OFF \
+-DBUILD_SPREADSHEET=OFF \
+-DBUILD_START=ON \
+-DBUILD_TEMPLATE=OFF \
+-DBUILD_TEST=OFF \
+-DBUILD_VR=OFF \
+-DBUILD_WEB=OFF \
+../FreeCAD
+
+time make -j8
+
+###########################
+cd .. && rm build -fR && mkdir build && cd build
+cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_FEM_NETGEN=ON ../FreeCAD
+
+
+
+### liboce*-dev (opencascade community edition)
+### Note that liboce*-dev includes the following libraries:
+# liboce-foundation-dev \
+# liboce-modeling-dev \
+# liboce-ocaf-dev \
+# liboce-visualization-dev \
+# liboce-ocaf-lite-dev
+
+###  Official opencascade version
+# libopencascade-dev (official opencascade version)
+# Additional instruction for libcoin80-dev Debian wheezy-backports, unstable, testing, Ubuntu 13.10 and forward (http://forum.freecadweb.org/viewtopic.php?f=4&t=5096#p40018)
+
+##### Optionally extra packages:
+libsimage-dev (to make Coin to support additional image file formats)
+checkinstall (to register your installed files into your system's package manager, so yo can easily uninstall later)
+python-pivy (needed for the 2D Drafting module)
+python-qt4 (needed for the 2D Drafting module)
+doxygen and libcoin60-doc (if you intend to generate source code documentation)
+libspnav-dev (for 3Dconnexion devices support like the Space Navigator or Space Pilot)
+
+##### Modules
+sudo apt-get install python-yaml pyside-tools
+# Modules
+git clone https://github.com/microelly2/Animation.git
+git clone https://github.com/microelly2/reconstruction.git
+git clone https://github.com/JMG1/ExplodedAssembly.git
+git clone https://github.com/JMG1/FreeCAD_ExplodedAssemblyAnimationWorkbench.git
+git clone https://github.com/hamish2014/FreeCAD_assembly2.git
+git clone https://github.com/hamish2014/FreeCAD_drawing_dimensioning.git
+git clone https://github.com/shaise/FreeCAD_FastenersWB.git
+git clone https://github.com/jmwright/cadquery-freecad-module.git # cadquery-freecad-module/CadQuery
+git clone https://github.com/looooo/FCGear.git
+git clone https://github.com/DeepSOIC/Lattice.git
+git clone https://github.com/DeepSOIC/Lattice2.git
+git clone https://github.com/marmni/FreeCAD-PCB.git
+git clone https://github.com/marmni/FreeCAD-PCB-library.git
+git clone https://github.com/shaise/FreeCAD_SheetMetal.git
+git clone https://github.com/wood-galaxy/FreeCAD-Timber.git
+
+# Macros
+git clone https://github.com/Rentlau/WorkFeature.git
+git clone https://github.com/microelly2/freecad-pluginloader.git # Mod/Plugins
+git clone https://github.com/FreeCAD/FreeCAD-library.git # FreeCAD-library/PartsLibrary.FCMacro
+
+###################################
+##### FreeCAD Build OpenSUSE #####
+###################################
+zypper install \
+gcc \
+cmake \
+OpenCASCADE-devel \
+libXerces-c-devel \
+python-devel \
+libqt4-devel \
+libshiboken-devel \
+python-pyside-devel \
+python-pyside-tools \
+Coin-devel \
+SoQt-devel \
+boost-devel \
+libode-devel \
+libQtWebKit-devel \
+libeigen3-devel \
+gcc-fortran \
+freetype2 \
+freetype2-devel
+
+
+###################################
+##### FreeCAD Build ArchLinux #####
+###################################
+pacman -S \
+boost-libs \
+curl \
+hicolor-icon-theme \
+libspnav \
+opencascade \
+python2-pivy \
+python2-matplotlib \
+python2-pyside \
+python2-shiboken \
+qtwebkit \
+shared-mime-info \
+xerces-c \
+boost \
+cmake \
+coin \
+desktop-file-utils \
+eigen \
+gcc-fortran \
+swig \
+xerces-c \
+
+packer -S \
+python2-pyside-tools \
+med
+
+# cmake -DFREECAD_USE_EXTERNAL_PIVY=1 -DCMAKE_BUILD_TYPE=Debug .
+# make
+
+
+################################
+##### Compilar Opencascade #####
+################################
+git clone https://github.com/tpaviot/oce.git
+mkdir oceBuild && cd oceBuild
+cmake \
+      -DCMAKE_INSTALL_PREFIX:PATH=/usr/ \
+      -DCMAKE_BUILD_TYPE=Debug \
+#      -DOCE_DATAEXCHANGE=ON \
+      -DOCE_INSTALL_PREFIX:PATH=/usr/ \
+      -DOCE_MULTITHREAD_LIBRARY=TBB \
+#      -DOCE_VISUALISATION=ON \
+#      -DOCE_WITH_FREEIMAGE=OFF \
+#      -DOCE_WITH_GL2PS=OFF \
+      ../oce
+
+make
+make install
+make test
+checkinstall
+#######################
+
+cmake \
+      -DCMAKE_INSTALL_PREFIX:PATH=/usr/ \
+      -DCMAKE_BUILD_TYPE=Debug \
+
+      -DOCE_INSTALL_PREFIX:PATH=$HOME \
+      -DOCE_DIR=$HOME/OpenCASCADE \
+      -DOCE_DRAW=ON \
+      -DOCE_MULTITHREAD_LIBRARY=TBB \
+      -DOCE_MULTITHREAD_LIBRARY=OPENMP \
+      -DOCE_TESTING=ON \
+      ../oce
+make -j2
+sudo make install/strip
+make test
+#######################
+git clone https://github.com/luvres/oce.git
+git remote add upstream https://github.com/tpaviot/oce.git
+git fetch upstream #sincronizar os repositórios
+git merge upstream/master
+
+cd oce
+git pull
+mkdir opencascade_build
+cd opencascade_build
+cmake \
+OCE_BUILD_SHARED_LIB        ON
+OCE_DATAEXCHANGE            ON
+OCE_DRAW                    OFF
+OCE_INSTALL_PREFIX          /usr/local
+OCE_MODEL                   ON
+OCE_MULTITHREAD_LIBRARY     NONE
+OCE_OCAF                    ON
+OCE_VISUALISATION           ON
+OCE_WITH_FREEIMAGE          OFF
+OCE_WITH_GL2PS              OFF
+
+make -j8
+sudo make install
+sudo checkinstall
+cd FreeCAD
+sudo make clean
+make
+
+
+####################
+###### Coin3D ######
+####################
+# https://bitbucket.org/Coin3D/coin/wiki/How%20to%20build%20Coin3D%20and%20SIM%20Voleon
+
+hg clone ssh://hg@bitbucket.org/Coin3D/coin
+
+$ cd [builddir]
+$ mkdir simage
+$ mkdir Coin-2
+$ mkdir SoWin
+$ mkdir SoGuiExamples-SoWin
+[...]
+
+### build simage
+$ cd [builddir]/simage
+$ [srcdir]/simage/configure --prefix=[installdir]
+$ make install
+
+### build Coin
+$ cd [builddir]/Coin-2
+$ [srcdir]/Coin-2/configure --prefix=[installdir]
+$ make install
+
+### GUI binding library
+$ cd [builddir]/SoWin
+$ [srcdir]/SoWin/configure --prefix=[installdir]
+$ make install
+
+### Example programs (optional)
+$ export PATH=[installdir]/bin:$PATH 
+$ cd [builddir]/SoGuiExamples-SoWin 
+$ [srcdir]/SoGuiExamples/configure --with-sowin 
+$ make
+
+###################
+# sudo install apt-get install autoconf automake libtool
+git clone https://github.com/luvres/Coin3D.git
+git remote add upstream https://github.com/Alexpux/Coin3D.git
+git fetch upstream #sincronizar os repositórios
+git merge upstream/master
+
+#./configure --prefix=$HOME
+./configure
+make
+make install
+
+
