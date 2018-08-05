@@ -87,6 +87,29 @@ docker run --rm --name Anaconda -h anaconda \
     --notebook-dir=$NOTEBOOKS_PATH \
     --NotebookApp.token='' '
 
+# FreeCAD
+alias freecat-git=' \
+docker run -ti --rm --name FreeCAD \
+--net=host \
+-e DISPLAY=unix$DISPLAY \
+-v /tmp/.X11-unix \
+-v $HOME/.Xauthority:/root/.Xauthority \
+-v $HOME/Mod/Assembly2:$FREECAD/Mod/Assembly2 \
+-v $HOME/Mod/Animation:$FREECAD/Mod/Animation \
+-v $HOME/Mod/Lattice2:$FREECAD/Mod/Lattice2 \
+-v $HOME/Mod/Exploded:$FREECAD/Mod/Exploded \
+-v $HOME/freecad-workspace:/mnt \
+-w /mnt \
+izone/freecad freecad-git'
+
+
+# amdgpu RX550
+cd /hive-drivers-pack
+wget -c --referer=http://support.amd.com https://www2.ati.com/drivers/linux/beta/ubuntu/amdgpu-pro-17.40.2712-510357.tar.xz
+tar -Jxvf amdgpu-pro-17.40.2712-510357.tar.xz
+cd amdgpu-pro-17.40.2712-510357
+bash ./amdgpu-pro-install -y --compute
+
 
 #################################
 
