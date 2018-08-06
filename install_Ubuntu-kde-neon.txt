@@ -154,3 +154,18 @@ rsync -avz --exclude CURSOS --delete --progress pi@pi:/mnt/ftp/ /aux
 #----------
 rsync -avz --delete --progress /CURSOS/ pi@pi:/mnt/ftp/CURSOS
 rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
+
+
+
+#################################
+
+Wallpaper: abstract galaxy
+           ball-in-the-sea
+           Material Design Blue
+           plasma-5-3-deep
+           plasma-5-5-event
+           plasma-5-6-graphit
+
+           
+           
+           
