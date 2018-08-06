@@ -159,6 +159,13 @@ rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
 
 #################################
 
+### Printer
+#----------
+URI: ipp://169.8.192.130:631/printers/HP_LaserJet_M1319f_MFP
+Location: Impressora
+Description: HP LaserJet M1319f MFP
+
+
 ### Wallpaper
 #------------
 abstract galaxy
