@@ -159,13 +159,25 @@ rsync -avz --delete --progress pi@pi:/mnt/ftp/CURSOS/ /CURSOS
 
 #################################
 
-Wallpaper: abstract galaxy
-           ball-in-the-sea
-           Material Design Blue
-           plasma-5-3-deep
-           plasma-5-5-event
-           plasma-5-6-graphit
+### Wallpaper
+#------------
+abstract galaxy
+ball-in-the-sea
+Material Design Blue
+plasma-5-3-deep
+plasma-5-5-event
+plasma-5-6-graphit
 
-           
+
+### Widgets
+#----------
+Application Menu
+Global Menu
+Active Window Control
+Lock/Logout
+System Tray
+Digital Clock
+Add Spacer
+weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/           
            
            
