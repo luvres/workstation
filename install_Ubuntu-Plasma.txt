@@ -1,5 +1,5 @@
 sudo mkfs.vfat -I /dev/sdb
-sudo dd if=/aux/ISOs/minimal_18.04_amd64.iso of=/dev/sdb && sync
+sudo dd if=/aux/ISOs/Ubuntu-minimal_18.04_amd64.iso of=/dev/sdb status=progress && sync
 
 
 sudo apt install -y \
