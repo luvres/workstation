@@ -11,14 +11,11 @@ sudo apt-add-repository -y ppa:teejee2008/ppa # Kernel
 sudo apt update && sudo apt upgrade -y
 
 sudo apt install -y \
-git build-essential cmake openssh-server vim openjdk-8-jdk libnss3-tools gfortran freeglut3-dev gdebi-core \
+git build-essential cmake openssh-server openjdk-8-jdk libnss3-tools gfortran freeglut3-dev gdebi-core \
 rar unrar p7zip-full p7zip-rar arj \
 tree htop xclip cifs-utils faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp xsensors sshpass clinfo \
-ukuu tilix tilix-common youtube-dl playonlinux gftp vlc gimp \
+ukuu youtube-dl playonlinux gftp vlc gimp \
 libreoffice libreoffice-l10n-pt-br ubuntu-restricted-addons ubuntu-restricted-extras
-
-sudo apt install -y --no-install-recommends \
-gedit gedit-plugins
 
 
 ### Google CHROME
