@@ -1,0 +1,183 @@
+sudo mkfs.vfat -I /dev/sdb
+sudo dd if=/aux/ISOs/minimal_18.04_amd64.iso of=/dev/sdb && sync
+
+
+sudo apt install -y \
+sddm plasma-desktop plasma-nm plasma-pa dolphin konsole terminator
+
+sudo apt-add-repository -y ppa:libreoffice/ppa # LibreOffice
+sudo apt-add-repository -y ppa:teejee2008/ppa # Kernel
+
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install -y \
+git build-essential cmake openssh-server vim openjdk-8-jdk libnss3-tools gfortran freeglut3-dev gdebi-core \
+rar unrar p7zip-full p7zip-rar arj \
+tree htop xclip cifs-utils faad lame gksu fping lvm2 f2fs-tools autoconf hddtemp xsensors sshpass clinfo \
+ukuu tilix tilix-common youtube-dl playonlinux gftp vlc gimp \
+libreoffice libreoffice-l10n-pt-br ubuntu-restricted-addons ubuntu-restricted-extras
+
+sudo apt install -y --no-install-recommends \
+gedit gedit-plugins
+
+
+### Google CHROME
+#-----------------
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo gdebi google-chrome-stable_current_amd64.deb
+
+
+### Docker
+#----------
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+
+### VirtualBox
+#--------------
+sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -y virtualbox-5.2
+
+
+### Git
+#-------
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+git config --list
+
+
+### Popcorn-Time
+#----------------
+sudo mkdir /opt/popcorntime
+curl https://get.popcorntime.sh/repo/build/Popcorn-Time-0.3.10-Linux-64.tar.xz | sudo tar Jxf - -C /opt/popcorntime/
+sudo ln -s /opt/popcorntime/Popcorn-Time /usr/bin/popcorntime
+
+
+### WhatsApp
+#------------
+echo '' >>$HOME/.bashrc
+echo '# WhatsApp' >>$HOME/.bashrc
+echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
+source $HOME/.bashrc
+
+
+### Bashrc
+#----------
+nano $HOME/.bashrc
+source $HOME/.bashrc
+
+alias h='history'
+alias g='grep --color=AUTO'
+
+# Jupyter Notebook
+alias jupyter=' \
+docker run --rm --name Anaconda -h anaconda \
+-p 8888:8888 \
+-v $HOME/notebooks:/root/notebooks \
+-ti izone/anaconda jupyter notebook \
+    --allow-root --ip='*' \
+    --no-browser \
+    --notebook-dir=$NOTEBOOKS_PATH \
+    --NotebookApp.token='' '
+
+# FreeCAD
+mkdir $HOME/Mod
+git clone https://github.com/hamish2014/FreeCAD_assembly2.git $HOME/Mod/Assembly2
+git clone https://github.com/microelly2/Animation.git $HOME/Mod/Animation
+git clone https://github.com/DeepSOIC/Lattice2.git $HOME/Mod/Lattice2
+git clone https://github.com/JMG1/FreeCAD_ExplodedAssemblyAnimationWorkbench.git $HOME/Mod/Exploded
+
+# FreeCAD
+alias freecat-git=' \
+docker run -ti --rm --name FreeCAD \
+--net=host \
+-e DISPLAY=unix$DISPLAY \
+-v /tmp/.X11-unix \
+-v $HOME/.Xauthority:/root/.Xauthority \
+-v $HOME/Mod/Assembly2:$FREECAD/Mod/Assembly2 \
+-v $HOME/Mod/Animation:$FREECAD/Mod/Animation \
+-v $HOME/Mod/Lattice2:$FREECAD/Mod/Lattice2 \
+-v $HOME/Mod/Exploded:$FREECAD/Mod/Exploded \
+-v $HOME/freecad-workspace:/mnt \
+-w /mnt \
+izone/freecad freecad-git'
+
+
+### Blender
+#-----------
+sudo tar jxf blender-2.79b-linux-glibc219-x86_64.tar.bz2 -C /opt/
+sudo ln -s /opt/blender-2.79b-linux-glibc219-x86_64/blender /usr/bin/blender
+
+
+### PyCharm
+#-----------
+sudo tar zxf pycharm-community-2018.2.tar.gz -C /opt/
+sudo ln -s /opt/pycharm-community-2018.2/bin/pycharm.sh /usr/bin/pycharm
+
+
+
+### Fstab
+#---------
+sudo blkid
+sudo mkdir /aux && sudo chown -R $USER. /aux
+sudo mkdir /CURSOS && sudo chown -R $USER. /CURSOS
+sudo sh -c "echo '/dev/sdb1 /aux auto noatime 0 0' >>/etc/fstab"
+sudo sh -c "echo '/dev/sdc1 /CURSOS auto noatime 0 0' >>/etc/fstab"
+
+
+### Rsync
+#---------
+rsync -avz --delete --progress /aux/ pi@server:/mnt/ftp
+rsync -avz --delete --progress pi@server:/mnt/ftp/ /aux
+
+## aux
+#------------
+rsync -avz --exclude CURSOS --delete --progress /aux/ pi@server:/mnt/ftp
+rsync -avz --exclude CURSOS --delete --progress pi@server:/mnt/ftp/ /aux
+
+## CURSOS
+#----------
+rsync -avz --delete --progress /CURSOS/ pi@server:/mnt/ftp/CURSOS
+rsync -avz --delete --progress pi@server:/mnt/ftp/CURSOS/ /CURSOS
+
+
+
+#################################
+
+### Printer
+#----------
+URI: ipp://169.8.192.130:631/printers/HP_LaserJet_M1319f_MFP
+Location: Impressora
+Description: HP LaserJet M1319f MFP
+
+
+### Wallpaper
+#------------
+abstract galaxy
+ball-in-the-sea
+Material Design Blue
+plasma-5-3-deep
+plasma-5-5-event
+plasma-5-6-graphit
+
+
+### Widgets
+#----------
+Application Menu
+Global Menu
+Active Window Control
+Lock/Logout
+System Tray
+Digital Clock
+Add Spacer
+weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/           
+           
+           
