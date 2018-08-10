@@ -3,7 +3,7 @@ sudo dd if=/aux/ISOs/Ubuntu-minimal_18.04_amd64.iso of=/dev/sdb status=progress 
 
 
 sudo apt install -y \
-sddm plasma-desktop plasma-nm plasma-pa dolphin konsole terminator
+sddm plasma-desktop plasma-nm plasma-pa dolphin konsole terminator kwrite
 
 sudo apt-add-repository -y ppa:libreoffice/ppa # LibreOffice
 sudo apt-add-repository -y ppa:teejee2008/ppa # Kernel
@@ -11,7 +11,7 @@ sudo apt-add-repository -y ppa:teejee2008/ppa # Kernel
 sudo apt update && sudo apt upgrade -y
 
 sudo apt install -y \
-git build-essential cmake gfortran freeglut3-dev clinfo \ 
+git build-essential cmake gfortran freeglut3-dev clinfo \
 rar unrar p7zip-full p7zip-rar arj \
 openjdk-8-jdk libnss3-tools gdebi-core ukuu \
 tree htop xclip cifs-utils fping lvm2 f2fs-tools autoconf sshpass \
