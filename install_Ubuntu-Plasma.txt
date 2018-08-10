@@ -148,6 +148,16 @@ rsync -avz --delete --progress /CURSOS/ pi@server:/mnt/ftp/CURSOS
 rsync -avz --delete --progress pi@server:/mnt/ftp/CURSOS/ /CURSOS
 
 
+### AMDGPU RX 550
+#-----------------
+wget -c --referer=http://support.amd.com https://www2.ati.com/drivers/linux/ubuntu/18.04/amdgpu-pro-18.20-606296.tar.xz
+
+tar -Jxvf amdgpu-pro-18.20-606296.tar.xz
+cd amdgpu-pro-18.20-606296
+
+bash ./amdgpu-install -y --compute
+bash ./amdgpu-pro-install -y --compute
+
 
 #################################
 
