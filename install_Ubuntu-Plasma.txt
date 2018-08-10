@@ -3,7 +3,8 @@ sudo dd if=/aux/ISOs/Ubuntu-minimal_18.04_amd64.iso of=/dev/sdb status=progress 
 
 
 sudo apt install -y \
-sddm plasma-desktop plasma-nm plasma-pa dolphin konsole terminator kwrite
+sddm plasma-desktop plasma-nm plasma-pa dolphin konsole terminator kwrite \
+plasma-workspace-wayland
 
 sudo apt-add-repository -y ppa:libreoffice/ppa # LibreOffice
 sudo apt-add-repository -y ppa:teejee2008/ppa # Kernel
