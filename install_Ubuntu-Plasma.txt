@@ -1,10 +1,7 @@
 sudo mkfs.vfat -I /dev/sdb
 sudo dd if=/aux/ISOs/Ubuntu-minimal_18.04_amd64.iso of=/dev/sdb status=progress && sync
+sudo dd if=/aux/ISOs/kubuntu-18.04.1-desktop-amd64.iso of=/dev/sdb status=progress && sync
 
-
-sudo apt install -y \
-sddm plasma-desktop plasma-nm plasma-pa dolphin konsole terminator kwrite \
-plasma-workspace-wayland
 
 sudo apt-add-repository -y ppa:libreoffice/ppa # LibreOffice
 sudo apt-add-repository -y ppa:teejee2008/ppa # Kernel
@@ -188,5 +185,11 @@ System Tray
 Digital Clock
 Add Spacer
 weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/           
-           
-           
+
+
+#################################
+
+# Minimal
+sudo apt install -y \
+sddm plasma-desktop plasma-nm plasma-pa dolphin konsole terminator kwrite \
+plasma-workspace-wayland
