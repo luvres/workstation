@@ -3,6 +3,12 @@ sudo dd if=/aux/ISOs/Ubuntu-minimal_18.04_amd64.iso of=/dev/sdb status=progress 
 sudo dd if=/aux/ISOs/kubuntu-18.04.1-desktop-amd64.iso of=/dev/sdb status=progress && sync
 
 
+# Minimal
+sudo apt install -y \
+sddm plasma-desktop plasma-nm plasma-pa dolphin konsole terminator kwrite 
+#plasma-workspace-wayland
+
+
 sudo apt-add-repository -y ppa:libreoffice/ppa # LibreOffice
 sudo apt-add-repository -y ppa:teejee2008/ppa # Kernel
 
@@ -13,8 +19,15 @@ git build-essential cmake gfortran freeglut3-dev clinfo \
 rar unrar p7zip-full p7zip-rar arj \
 openjdk-8-jdk libnss3-tools gdebi-core ukuu net-tools \
 tree htop xclip cifs-utils fping lvm2 f2fs-tools autoconf sshpass \
-youtube-dl playonlinux gftp vlc gimp \
-libreoffice libreoffice-l10n-pt-br ubuntu-restricted-addons ubuntu-restricted-extras
+youtube-dl playonlinux gftp vlc gimp blender \
+libreoffice libreoffice-l10n-pt-br 
+#ubuntu-restricted-addons ubuntu-restricted-extras
+
+# DNS
+sudo sed -i '/nameserver/s/127.0.0.53/191.96.255.126/' /etc/resolv.conf
+
+# Terminator size
+sed -i 's/Window/Window\n      size = 1100,600/' .config/terminator/config 
 
 
 ### Google CHROME
@@ -107,17 +120,10 @@ docker run -ti --rm --name FreeCAD \
 izone/freecad freecad-git'
 
 
-### Blender
-#-----------
-sudo tar jxf blender-2.79b-linux-glibc219-x86_64.tar.bz2 -C /opt/
-sudo ln -s /opt/blender-2.79b-linux-glibc219-x86_64/blender /usr/bin/blender
-
-
 ### PyCharm
 #-----------
 sudo tar zxf pycharm-community-2018.2.tar.gz -C /opt/
 sudo ln -s /opt/pycharm-community-2018.2/bin/pycharm.sh /usr/bin/pycharm
-
 
 
 ### Fstab
@@ -131,6 +137,10 @@ sudo sh -c "echo '/dev/sdc1 /CURSOS auto noatime 0 0' >>/etc/fstab"
 
 ### Rsync
 #---------
+sudo mkdir /aux
+sudo chown -R $USER. /aux/
+sudo mount /dev/sdb1 /aux
+
 rsync -avz --delete --progress /aux/ pi@server:/mnt/ftp
 rsync -avz --delete --progress pi@server:/mnt/ftp/ /aux
 
@@ -188,8 +198,3 @@ weather widget # https://www.yr.no/place/Brazil/Rio_de_Janeiro/Rio_de_Janeiro/
 
 
 #################################
-
-# Minimal
-sudo apt install -y \
-sddm plasma-desktop plasma-nm plasma-pa dolphin konsole terminator kwrite \
-plasma-workspace-wayland
