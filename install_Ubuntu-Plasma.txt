@@ -3,7 +3,8 @@ sudo dd if=/aux/ISOs/Ubuntu-minimal_18.04_amd64.iso of=/dev/sdb status=progress 
 sudo dd if=/aux/ISOs/kubuntu-18.04.1-desktop-amd64.iso of=/dev/sdb status=progress && sync
 
 
-# Minimal
+### Minimal
+#-----------
 sudo apt install -y \
 sddm plasma-desktop plasma-nm plasma-pa dolphin konsole terminator kwrite 
 #plasma-workspace-wayland
@@ -23,10 +24,10 @@ youtube-dl playonlinux gftp vlc gimp blender \
 libreoffice libreoffice-l10n-pt-br 
 #ubuntu-restricted-addons ubuntu-restricted-extras
 
-# DNS
+## DNS
 sudo sed -i '/nameserver/s/127.0.0.53/191.96.255.126/' /etc/resolv.conf
 
-# Terminator size
+## Terminator size
 sed -i 's/Window/Window\n      size = 1100,600/' .config/terminator/config 
 
 
@@ -105,7 +106,7 @@ git clone https://github.com/DeepSOIC/Lattice2.git $HOME/Mod/Lattice2
 git clone https://github.com/JMG1/FreeCAD_ExplodedAssemblyAnimationWorkbench.git $HOME/Mod/Exploded
 
 # FreeCAD
-alias freecat-git=' \
+alias freecad-git=' \
 docker run -ti --rm --name FreeCAD \
 --net=host \
 -e DISPLAY=unix$DISPLAY \
