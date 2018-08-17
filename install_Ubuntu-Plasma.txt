@@ -99,6 +99,19 @@ docker run --rm --name Anaconda -h anaconda \
     --notebook-dir=$NOTEBOOKS_PATH \
     --NotebookApp.token='' '
 
+
+# Blender
+alias blender=' \
+docker run -ti --rm --name Blender \
+--net=host \
+--device /dev/dri \
+-e DISPLAY=unix$DISPLAY \
+-v $HOME/.Xauthority:/root/.Xauthority \
+-v /opt/blender-2.79b-linux-glibc219-x86_64:/mnt \
+-w /mnt \
+izone/blender ./blender'
+
+
 # FreeCAD
 mkdir $HOME/Mod
 git clone https://github.com/hamish2014/FreeCAD_assembly2.git $HOME/Mod/Assembly2
