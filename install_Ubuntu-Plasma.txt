@@ -20,7 +20,7 @@ git build-essential cmake gfortran freeglut3-dev clinfo \
 rar unrar p7zip-full p7zip-rar arj \
 openjdk-8-jdk libnss3-tools gdebi-core ukuu net-tools print-manager \
 tree htop xclip cifs-utils fping lvm2 f2fs-tools autoconf sshpass \
-youtube-dl playonlinux transmission gftp ark okular vlc gimp blender \
+youtube-dl playonlinux transmission gftp ark gwenview okular vlc gimp blender \
 libreoffice libreoffice-l10n-pt-br 
 #ubuntu-restricted-addons ubuntu-restricted-extras
 
