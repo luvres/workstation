@@ -91,6 +91,7 @@ source $HOME/.bashrc
 alias h='history'
 alias g='grep --color=AUTO'
 
+
 # Jupyter Notebook
 alias jupyter=' \
 docker run --rm --name Anaconda -h anaconda \
@@ -103,6 +104,18 @@ docker run --rm --name Anaconda -h anaconda \
     --NotebookApp.token='' '
 
 
+# RStudio
+alias rstudio=' \
+docker run -ti --rm --name RStudio \
+--net=host \
+--device /dev/dri \
+-e DISPLAY=unix$DISPLAY \
+-v /tmp/.X11-unix \
+-v $HOME/.Xauthority:/root/.Xauthority \
+-v $HOME/rstudio:/root \
+izone/rstudio rstudio '
+    
+    
 # Blender
 alias blender=' \
 docker run -ti --rm --name Blender \
