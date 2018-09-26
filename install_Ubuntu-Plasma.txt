@@ -105,7 +105,7 @@ docker run --rm --name Anaconda -h anaconda \
 
 # Jupyter Notebook GPU
 alias jupyter-gpu=' \
-docker run --rm --name Anaconda -h anaconda \
+docker run --rm --name Anaconda-GPU -h anaconda \
 --device /dev/dri \
 -p 8888:8888 \
 -v $HOME/notebooks:/root/notebooks \
