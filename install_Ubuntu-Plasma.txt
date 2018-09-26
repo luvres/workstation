@@ -109,7 +109,7 @@ docker run --rm --name Anaconda -h anaconda \
 --device /dev/dri \
 -p 8888:8888 \
 -v $HOME/notebooks:/root/notebooks \
--ti izone/anaconda jupyter notebook \
+-ti izone/anaconda:gpu jupyter notebook \
     --allow-root --ip='*' \
     --no-browser \
     --notebook-dir=$NOTEBOOKS_PATH \
