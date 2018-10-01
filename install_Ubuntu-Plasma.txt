@@ -111,17 +111,21 @@ docker run --rm --name Anaconda -h anaconda \
     --notebook-dir=$NOTEBOOKS_PATH \
     --NotebookApp.token='' '
 
-# Jupyter Notebook GPU
-alias jupyter-gpu=' \
+# PySpark Notebook
+alias pyspark=' \
 docker run --rm --name Anaconda-GPU -h anaconda \
 --device /dev/dri \
 -p 8888:8888 \
 -v $HOME/notebooks:/root/notebooks \
--ti izone/anaconda:gpu jupyter notebook \
-    --allow-root --ip='*' \
-    --no-browser \
-    --notebook-dir=$NOTEBOOKS_PATH \
-    --NotebookApp.token='' '
+-ti izone/anaconda:gpu pyspark '
+
+# PySpark GPU Notebook
+alias pyspark-gpu=' \
+docker run --rm --name Anaconda-GPU -h anaconda \
+--device /dev/dri \
+-p 8888:8888 \
+-v $HOME/notebooks:/root/notebooks \
+-ti izone/anaconda:gpu pyspark '
 
 
 # RStudio
