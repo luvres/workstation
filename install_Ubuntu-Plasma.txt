@@ -28,6 +28,17 @@ libreoffice libreoffice-l10n-pt-br
 #sudo sed -i '/nameserver/s/127.0.0.53/191.96.255.126/' /etc/resolv.conf
 sudo bash -c 'echo "nameserver 191.96.255.126" >>/etc/resolv.conf'
 
+## IP Static -> /etc/netplan/01-netcfg.yaml
+ethernets:
+    enp6s0:
+      dhcp4: no
+      dhcp6: no
+      addresses: [ 191.96.255.100/25, ]
+      gateway4: 191.96.255.126
+      nameservers:
+              addresses: [ 191.96.255.126 ]
+              
+
 ## Terminator size
 sed -i 's/Window/Window\n      size = 1100,600/' .config/terminator/config 
 
