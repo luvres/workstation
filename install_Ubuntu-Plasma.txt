@@ -38,6 +38,8 @@ ethernets:
       nameservers:
               addresses: [ 191.96.255.126 ]
               
+sudo netplan apply
+
 
 ## Terminator size
 sed -i 's/Window/Window\n      size = 1100,600/' .config/terminator/config 
