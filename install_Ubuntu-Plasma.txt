@@ -94,7 +94,22 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sou
 sudo apt update
 sudo apt install sublime-text
   
-  
+
+### Hero-free-font -> https://www.fontfabric.com/hero-free-font/
+#------------------
+mkdir hero
+cd hero
+wget -c https://www.fontfabric.com/downfont/hero.zip
+unzip hero.zip
+rm hero.zip
+cd ..
+sudo mv hero /usr/local/share/fonts/
+sudo chown root:staff /usr/local/share/fonts/hero/ -R
+sudo chmod 644 /usr/local/share/fonts/hero/*
+sudo chmod 755 /usr/local/share/fonts/hero
+sudo fc-cache -fv
+
+
 ### Popcorn-Time
 #----------------
 sudo mkdir /opt/popcorntime
