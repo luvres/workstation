@@ -16,7 +16,7 @@ sudo apt-add-repository -y ppa:teejee2008/ppa # Kernel
 sudo apt update && sudo apt upgrade -y
 
 sudo apt install -y \
-git build-essential cmake gfortran freeglut3-dev clinfo \
+git build-essential cmake gfortran freeglut3-dev clinfo libssl-dev \
 rar unrar p7zip-full p7zip-rar arj \
 openjdk-8-jdk libnss3-tools gdebi-core ukuu net-tools print-manager \
 tree htop xclip cifs-utils fping lvm2 f2fs-tools autoconf openssh-server sshpass \
