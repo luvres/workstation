@@ -135,6 +135,20 @@ alias h='history'
 alias g='grep --color=AUTO'
 
 
+# TensorFlow
+alias tensorflow=" \
+docker run -ti --rm --runtime=nvidia --name TensorFlow \
+-p 8888:8888 \
+-v $HOME/notebooks:/root/notebooks \
+tensorflow/tensorflow:latest-gpu-py3-jupyter \
+jupyter notebook \
+    --allow-root \
+    --no-browser \
+    --ip=0.0.0.0 \
+    --port=8888 \
+    --notebook-dir=/root/notebooks \
+    --NotebookApp.token='' "
+
 # Jupyter Notebook
 alias jupyter=' \
 docker run --rm --name Anaconda -h anaconda \
