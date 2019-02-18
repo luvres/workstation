@@ -135,6 +135,7 @@ alias h='history'
 alias g='grep --color=AUTO'
 
 
+
 # TensorFlow
 alias tensorflow=" \
 docker run -ti --rm --runtime=nvidia --name TensorFlow \
