@@ -111,7 +111,7 @@ arm32v7/nginx \
 docker run --name OwnCloud \
 --restart=always \
 -p 81:80 \
--v /mnt:/var/www/html/data/pi/files \
+-v /mnt:/var/www/html/data/luvres/files \
 -d arm32v7/owncloud
 
 
