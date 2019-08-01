@@ -98,13 +98,29 @@ sudo sh -c 'echo "UUID=`sudo blkid -o value -s UUID /dev/sda1` /mnt auto noatime
 sudo reboot
 
 
-# Nginx
-docker run -d --restart=always --name ftp -h nginx \
+## Nginx
+docker run -d --restart=always --name ftp \
 -p 80:80 \
 -v /mnt/ftp:/usr/share/nginx/html \
 arm32v7/nginx \
 && docker exec -ti ftp sed -i '/sendfile/s/on;/on;\n    autoindex       on;/' /etc/nginx/nginx.conf \
 && docker restart ftp
+
+
+## OwnCloud
+docker run --name OwnCloud \
+--restart=always \
+-p 81:80 \
+-v /mnt:/var/www/html/data/pi/files \
+-d arm32v7/owncloud
+
+
+## Flask
+docker run --name Flask \
+--restart=always \
+-p 8080:80 \
+-v $HOME/1uvr3z/_:/app \
+-d izone/flask:armhf-ml
 
 
 ## VNC

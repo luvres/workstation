@@ -76,12 +76,31 @@ sudo sh -c "echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab"
 
 sudo reboot
 
-# Lighttpd
+
+## ownCloud
+docker run --name Owncloud \
+--restart=always \
+-p 81:80 \
+-v /mnt:/var/www/html/data/pi/files \
+-d arm32v7/owncloud
+
+
+## Lighttpd
 docker run --name ftp -h ftp \
+--restart=always \
 -p 80:80 \
 -v /mnt/ftp:/var/www \
 -d izone/arm:lighttpd
 #docker start ftp
+
+
+## Flask
+docker run --name Flask \
+--restart=always \
+-p 8080:80 \
+-v $HOME/1uvr3z/_:/app \
+-d izone/flask:armhf-ml
+
 
 #rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
 #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
