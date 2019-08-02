@@ -1,6 +1,6 @@
 
 
-sudo apt-get install curl vlc gimp gftp transmission freecad-python3
+sudo apt-get install curl featherpad vlc gimp gftp transmission freecad-python3
 
 
 
@@ -8,6 +8,14 @@ sudo apt-get install curl vlc gimp gftp transmission freecad-python3
 # --------
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
+
+
+## Golang
+# --------
+sudo tar xf go1.12.7.linux-amd64.tar.gz -C /opt/
+echo '' >>$HOME/.bashrc
+echo '# Golang' >>$HOME/.bashrc
+echo 'export PATH=$PATH:/opt/go/bin' >>$HOME/.bashrc
 
 
 ## google-chrome
