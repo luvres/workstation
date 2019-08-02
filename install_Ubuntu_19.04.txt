@@ -1,0 +1,9 @@
+## Flat Remix Theme
+# -----------------
+# https://www.osradar.com/install-flat-remix-theme-ubuntu/
+git clone https://github.com/daniruiz/flat-remix
+git clone https://github.com/daniruiz/flat-remix-gtk
+mkdir -p ~/.icons && mkdir -p ~/.themes
+cp -r flat-remix/Flat-Remix* ~/.icons/ &amp;&amp; cp -r flat-remix-gtk/Flat-Remix-GTK* ~/.themes/
+
+sudo apt install gnome-tweaks-tool fonts-hack-ttf
