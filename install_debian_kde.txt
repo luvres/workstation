@@ -1,0 +1,46 @@
+
+
+sudo apt-get install curl vlc gimp gftp transmission freecad-python3
+
+
+
+## docker
+# --------
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+
+## google-chrome
+# ---------------
+wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt-get install -f
+
+
+## vscode
+# --------
+sudo dpkg -i code_1.36.1-1562627527_amd64.deb
+
+
+## pycharm
+# ---------
+sudo tar xf pycharm-community-2019.2.tar.gz -C /opt/
+
+su -c 'tee /usr/share/applications/pycharm.desktop <<ATALHO
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=PyCharm Community Edition
+Icon=/opt/pycharm-community-2019.2/bin/pycharm.png
+Exec="/opt/pycharm-community-2019.2/bin/pycharm.sh" %f
+Comment=The Drive to Develop
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=jetbrains-pycharm-ce
+ATALHO'
+
+
+## Blender 2.8
+# --------------
+sudo tar xf blender-2.80rc3-linux-glibc217-x86_64.tar.bz2 -C /opt/
+/opt/blender-2.80rc3-linux-glibc217-x86_64/blender
