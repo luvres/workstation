@@ -77,12 +77,35 @@ sudo sh -c "echo '/dev/sda1 /mnt auto noatime 0 0' >>/etc/fstab"
 sudo reboot
 
 
-## ownCloud
-docker run --name Owncloud \
+## Nginx
+# -------
+docker run -d --restart=always --name ftp \
+-p 80:80 \
+-v /mnt/ftp:/usr/share/nginx/html \
+arm32v7/nginx \
+&& docker exec -ti ftp sed -i '/sendfile/s/on;/on;\n    autoindex       on;/' /etc/nginx/nginx.conf \
+&& docker restart ftp
+
+
+## OwnCloud
+# ----------
+docker run --name OwnCloud \
 --restart=always \
 -p 81:80 \
 -v /mnt:/var/www/html/data/luvres/files \
 -d arm32v7/owncloud
+
+
+## NextCloud
+# -----------
+docker run --name Nextcloud \
+--restart=always \
+-p 81:80 \
+--mount type=bind,src=/mnt,dst=/var/www/html/data/luvres/files \
+-d arm32v7/nextcloud
+---------------------------------
+docker exec -ti Nextcloud chown -R www-data:root /var/www/html/data
+docker exec -ti Nextcloud chown -R www-data. /var/www/html/data/luvres
 
 
 ## Lighttpd
@@ -95,6 +118,7 @@ docker run --name ftp -h ftp \
 
 
 ## Flask
+# -------
 docker run --name Flask \
 --restart=always \
 -p 8080:80 \
@@ -102,8 +126,82 @@ docker run --name Flask \
 -d izone/flask:armhf-ml
 
 
+# Rsync
+# -------
 #rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
 #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
+
+# Todos
+rsync -avz --delete --progress /aux/ pi@server:/mnt/ftp
+rsync -avz --delete --progress pi@server:/mnt/ftp/ /aux
+
+# aux
+rsync -avz --exclude CURSOS --delete --progress /aux/ pi@server:/mnt/ftp
+rsync -avz --exclude CURSOS --delete --progress pi@server:/mnt/ftp/ /aux
+
+# CURSOS
+rsync -avz --delete --progress /CURSOS/ pi@server:/mnt/ftp/CURSOS
+rsync -avz --delete --progress pi@server:/mnt/ftp/CURSOS/ /CURSOS
+
+
+## Samba
+# -------
+sudo apt-get install -y samba
+
+sudo smbpasswd -a pi
+
+sudo cp /etc/samba/smb.conf{,.orig}
+sudo cp /etc/samba/smb.conf{,.master}
+
+sudo bash -c "echo '[share]' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'comment = Backup Isabel' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'path = /mnt/ftp/BackUP_ISABEL' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo '#guest ok = YES' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'read only = no' >>/etc/samba/smb.conf.master"
+
+sudo bash -c "echo '[ftp]' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'comment = Pi Ftp' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'path = /mnt/ftp' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo '#guest ok = YES' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'read only = no' >>/etc/samba/smb.conf.master"
+
+sudo bash -c "testparm /etc/samba/smb.conf.master > /etc/samba/smb.conf"
+
+sudo /etc/init.d/samba restart
+
+## Mount in Linux
+sudo mount.cifs -o username=pi //pi/ftp /mnt/
+
+## Access
+# Unix
+smd://169.8.192.130/pi
+
+# Windows
+\\169.8.192.130\pi
+
+
+## HP Laserjet M1319f MPF
+# ------------------------
+# https://opensource.com/article/18/3/print-server-raspberry-pi
+sudo apt-get install -y cups
+sudo usermod -aG lpadmin pi
+sudo cupsctl --remote-any
+sudo /etc/init.d/cups restart
+
+# http://foo2zjs.rkkda.com/
+wget -O foo2zjs.tar.gz http://foo2zjs.rkkda.com/foo2zjs.tar.gz
+tar zxf foo2zjs.tar.gz
+cd foo2zjs
+make
+sudo make install
+
+http://localhost:631
+http://169.8.192.130:631
+
+
+#################################
+#################################
+#################################
 
 
 ### FreeCAD Build

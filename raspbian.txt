@@ -8,7 +8,7 @@ sudo mkfs.vfat -I /dev/sdb
 
 
 ## Install
-#----------
+# ---------
 sudo dd bs=4096k if=2017-07-05-raspbian-jessie.img of=/dev/sdb status=progress && sync
 sudo dd bs=4096k if=2018-04-18-raspbian-stretch.img of=/dev/sdb status=progress && sync
 
@@ -62,7 +62,7 @@ sync && umount /dev/sdb1 /dev/sdb2
 
 
 ## Access 
-#---------
+# --------
 echo '' >$HOME/.ssh/known_hosts
 
 ssh -l pi pi
@@ -86,19 +86,20 @@ sudo apt-get update && sudo apt-get upgrade -y
 
 
 ## Docker
-#---------
+# --------
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
 
 
 ## Mountpoint sda1
-#------------------
+# -----------------
 sudo sh -c 'echo "UUID=`sudo blkid -o value -s UUID /dev/sda1` /mnt auto noatime 0 0" >>/etc/fstab'
 
 sudo reboot
 
 
 ## Nginx
+# -------
 docker run -d --restart=always --name ftp \
 -p 80:80 \
 -v /mnt/ftp:/usr/share/nginx/html \
@@ -108,6 +109,7 @@ arm32v7/nginx \
 
 
 ## OwnCloud
+# ----------
 docker run --name OwnCloud \
 --restart=always \
 -p 81:80 \
@@ -115,7 +117,20 @@ docker run --name OwnCloud \
 -d arm32v7/owncloud
 
 
+## NextCloud
+# -----------
+docker run --name Nextcloud \
+--restart=always \
+-p 81:80 \
+--mount type=bind,src=/mnt,dst=/var/www/html/data/luvres/files \
+-d arm32v7/nextcloud
+---------------------------------
+docker exec -ti Nextcloud chown -R www-data:root /var/www/html/data
+docker exec -ti Nextcloud chown -R www-data. /var/www/html/data/luvres
+
+
 ## Flask
+# -------
 docker run --name Flask \
 --restart=always \
 -p 8080:80 \
@@ -124,7 +139,7 @@ docker run --name Flask \
 
 
 ## VNC
-#------
+# -----
 sudo apt-get install -y tightvncserver
 tightvncserver
 Password:
@@ -132,7 +147,7 @@ n
 
 
 ## Rsync
-#--------
+# -------
 #rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
 #sshpass -p "aamu02" rsync -avz --delete --progress /aux/ pi@raspberrypi:/mnt/ftp
 
@@ -150,7 +165,7 @@ rsync -avz --delete --progress pi@server:/mnt/ftp/CURSOS/ /CURSOS
 
 
 ## Samba
-#--------
+# -------
 sudo apt-get install -y samba
 
 sudo smbpasswd -a pi
@@ -186,7 +201,7 @@ smd://169.8.192.130/pi
 
 
 ## HP Laserjet M1319f MPF
-#-------------------------
+# ------------------------
 # https://opensource.com/article/18/3/print-server-raspberry-pi
 sudo apt-get install -y cups
 sudo usermod -aG lpadmin pi
@@ -205,13 +220,16 @@ http://169.8.192.130:631
 
 
 ## RCA -> https://elinux.org/RPiconfig
-#------
+# ------
 sudo sed -i '/sdtv_mode/s/#//' /boot/config.txt
 sudo sed -i '/sdtv_mode/s/2/0/' /boot/config.txt
 #sudo bash -c "echo 'hdmi_ignore_hotplug=1' >>/boot/config.txt"
 #sudo bash -c "echo 'hdmi_ignore_edid_audio=1' >>/boot/config.txt"
-#---------------------------------
 
+
+#################################
+#################################
+#################################
 
 
 ### FreeCAD Build
