@@ -1,0 +1,259 @@
+sudo mkfs.vfat -I /dev/sdc
+sudo dd if=./ubuntu-19.04-desktop-amd64.iso of=/dev/sdb && sync
+
+#sudo apt-mark hold gnome-shell gnome-shell-common
+#sudo apt-mark unhold gnome-shell gnome-shell-common
+
+sudo apt update && sudo apt upgrade -y #&& sudo apt autoremove -y
+sudo snap remove gnome-calculator gnome-characters gnome-logs gnome-system-monitor
+
+sudo apt install -y \
+resolvconf curl net-tools xclip htop tmux tree openssh-server tilix zsh \
+featherpad gftp vlc gimp \
+gnome-calculator gnome-characters gnome-logs gnome-system-monitor \
+gnome-tweak-tool fonts-hack-ttf papirus-icon-theme \
+build-essential default-jdk libssl-dev exuberant-ctags ncurses-term silversearcher-ag fontconfig imagemagick libmagickwand-dev software-properties-common vim-gtk3 libreadline-dev git
+
+
+## DNS
+# -----
+sudo su
+su -c "echo 'nameserver 191.96.255.126' >> /etc/resolvconf/resolv.conf.d/head"
+sudo service resolvconf restart
+
+
+## docker
+# --------
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+
+## nvidia-docker2
+# ----------------
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+# ---------------------------------
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+# ---------------------------------
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+# ---------------------------------
+sudo apt-get update
+sudo apt-get install nvidia-docker2
+sudo pkill -SIGHUP dockerd
+
+
+## git
+# -----
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+git config --list
+cat ~/.gitconfig
+# ---------------------------------
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+-----------------------------------
+ssh-keygen -o -a 100 -t ed25519 -f .ssh/id_ed25519 -C "luvres@desktop"
+cat $HOME/.ssh/id_ed25519.pub | xclip -sel clip # $HOME/.ssh/config
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+# ---------------------------------
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+
+
+## Flat Remix Theme
+# ------------------
+git clone https://github.com/daniruiz/flat-remix
+git clone https://github.com/daniruiz/flat-remix-gtk
+mkdir -p ~/.icons && mkdir -p ~/.themes
+cp -r flat-remix/Flat-Remix* ~/.icons/ && cp -r flat-remix-gtk/Flat-Remix-GTK* ~/.themes/
+
+
+## Google Chrome
+# ---------------
+wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb #&& sudo apt-get install -f
+
+## WhatsApp
+#-----------
+echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
+source $HOME/.bashrc
+---------------------------------
+echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.zshrc
+source $HOME/.zshrc
+
+
+## Freecad
+# ---------
+## STABLE
+sudo add-apt-repository ppa:freecad-maintainers/freecad-stable
+sudo apt-get update
+sudo apt install freecad-python3
+## DAILY
+sudo add-apt-repository ppa:freecad-maintainers/freecad-daily
+sudo apt-get update
+sudo apt install freecad-daily-python3
+
+
+## snap install
+# --------------
+sudo snap install sublime-text --classic
+sudo snap install code --classic
+sudo snap install pycharm-community --classic 
+sudo snap install blender --classic 
+
+
+## dotliles
+# ----------
+sudo apt install tilix zsh
+---------------------------------
+sh -c "`curl -fsSL https://raw.githubusercontent.com/skwp/dotfiles/master/install.sh `"
+---------------------------------
+cat $HOME/.tool-versions
+
+
+## asdf
+# ------
+# https://github.com/asdf-vm/asdf
+# ---------------------------------
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.3
+# ---------------------------------
+echo -e '\n# ASDF\n. $HOME/.asdf/asdf.sh\n. $HOME/.asdf/completions/asdf.bash' >> $HOME/.bashrc
+---------------------------------
+echo -e '\n# ASDF\n. $HOME/.asdf/asdf.sh\n. $HOME/.asdf/completions/asdf.bash' >> $HOME/.zshrc
+# ---------------------------------
+source $HOME/.bashrc
+
+
+# PYTHON
+asdf plugin-add python
+
+# RUBY
+asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+
+# NODEJS
+asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+
+# GOLANG
+asdf plugin-add golang https://github.com/kennyp/asdf-golang.git
+
+# ERLANG
+asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
+# -----------
+sudo apt install build-essential autoconf m4 libncurses5-dev libwxgtk3.0-dev libgl1-mesa-dev libglu1-mesa-dev libpng-dev libssh-dev unixodbc-dev xsltproc fop
+
+# ELIXIR
+asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+
+# KOTLIN
+asdf plugin-add kotlin https://github.com/missingcharacter/asdf-kotlin.git
+
+# RUST
+asdf plugin-add rust https://github.com/code-lever/asdf-rust.git
+
+# CRYSTAL
+asdf plugin-add crystal https://github.com/marciogm/asdf-crystal.git
+
+
+asdf update
+asdf plugin-update --all
+asdf plugin-list   # List installed
+asdf list 		   # List installed and versions
+asdf list ruby 	   # List installed versions
+asdf list-all ruby # List all available versions
+---------------------------------
+asdf install ruby 2.6.3   # Install specific version
+asdf uninstall ruby 2.6.3 # Uninstall specific version
+---------------------------------
+asdf global ruby 2.6.3 # Global activation
+asdf local ruby 2.6.3  # Local activation
+---------------------------------
+cat $HOME/.tool-versions
+---------------------------------
+---------------------------------
+asdf list-all nodejs
+asdf install nodejs 12.7.0
+asdf global nodejs 12.7.0
+npm i -g npm
+
+
+
+## VirtualBox
+#-------------
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+---------------------------------
+sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+---------------------------------
+sudo apt-get update
+sudo apt install virtualbox-6.0
+
+
+## Eclipse JEE
+# -------------
+sudo tar xf eclipse-jee-2019-06-R-linux-gtk-x86_64.tar.gz -C /opt
+
+sudo tee /usr/share/applications/eclipse.desktop <<ATALHO
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Eclipse JEE
+Icon=/opt/eclipse/plugins/org.eclipse.epp.package.jee_4.12.0.20190614-1200/javaee-ide_x48.png
+Exec="/opt/eclipse/eclipse" %f
+Comment=The Drive to Develop
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=eclipse-jee
+ATALHO
+
+
+
+## Wine
+# ------
+# https://wiki.winehq.org/Ubuntu
+sudo dpkg --add-architecture i386 
+wget -nc https://dl.winehq.org/wine-builds/winehq.key
+sudo apt-key add winehq.key
+sudo apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ disco main'
+sudo apt update
+sudo apt install --install-recommends winehq-stable
+
+
+#################################
+#################################
+#################################
+
+
+- English
+- django
+- UML
+- Fabio Akira
+
+
+PROJETO E MANUFATURA ASSISTIDO POR COMPUTADOR
+INTEGRAÇÃO DE HARDWARE E SOFTWARE	
+REDES INDUSTRIAIS E SISTEMA DE TEMPO REAL
+
+
+----- IA -----
+Transumanismo
+Quimera
+	Neuralink
+	Smart Dust
+--------------
+
+
+	   IA 			Machine Learning
+----------------	----------------
+Busca				Naide Bayes
+Genetico			Arvores de Decisao
+Otimizacao			Regras
+					kNN
+					Regressao Logistica
+					SVM
+
+
+
+
+
