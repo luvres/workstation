@@ -89,6 +89,11 @@ sudo apt-get update && sudo apt-get upgrade -y
 #htop tmux freeglut3-dev synaptic cifs-utils f2fs-tools gftp deluge debootstrap
 
 
+# Audio config
+amixer cset numid=3 1 # HDMI
+amixer cset numid=3 2 # Phone
+
+
 ## Docker
 # --------
 curl -sSL https://get.docker.com | sh
