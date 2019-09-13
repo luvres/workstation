@@ -11,6 +11,7 @@ sudo mkfs.vfat -I /dev/sdb
 # ---------
 sudo dd bs=4096k if=2017-07-05-raspbian-jessie.img of=/dev/sdb status=progress && sync
 sudo dd bs=4096k if=2018-04-18-raspbian-stretch.img of=/dev/sdb status=progress && sync
+sudo dd bs=4096k if=2019-07-10-raspbian-buster-full.img of=/dev/sdb status=progress && sync
 
 
 # (Install in Raspberry Pi for expand disk)
