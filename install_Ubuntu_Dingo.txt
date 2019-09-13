@@ -8,7 +8,7 @@ sudo apt update && sudo apt upgrade -y #&& sudo apt autoremove -y
 sudo snap remove gnome-calculator gnome-characters gnome-logs gnome-system-monitor
 
 sudo apt install -y \
-resolvconf curl net-tools xclip htop tmux tree openssh-server tilix zsh \
+resolvconf curl net-tools f2fs-tools xclip htop tmux tree openssh-server tilix zsh \
 featherpad gftp vlc gimp \
 gnome-calculator gnome-characters gnome-logs gnome-system-monitor \
 gnome-tweak-tool fonts-hack-ttf papirus-icon-theme \

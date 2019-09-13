@@ -34,12 +34,15 @@ sed -i 's/ext4/f2fs/' root_fs/etc/fstab
 echo 'tmpfs   /tmp     tmpfs   nodev,nosuid,size=1G  0 0' >>root_fs/etc/fstab
 
 # cmdline.txt
-sed -i 's/$/& rootfstype=f2fs/' boot/cmdline.txt
+#sed -i 's/$/& rootfstype=f2fs/' boot/cmdline.txt
+sed -i '/rootfstype/s/ext4/f2fs/' boot/cmdline.txt
 sed -i 's/$/& usbhid.mousepoll=0/' boot/cmdline.txt #Mouse lag
 
 # config.txt
 sed -i '/hdmi_drive=2/s/#//' boot/config.txt
 echo 'dtparam=sd_overclock=100' >>boot/config.txt #Class 10 SD card
+
+
 
 # IP Static
 echo 'interface eth0' >>root_fs/etc/dhcpcd.conf
