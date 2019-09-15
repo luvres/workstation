@@ -43,6 +43,8 @@ sed -i '/hdmi_drive=2/s/#//' boot/config.txt
 echo 'dtparam=sd_overclock=100' >>boot/config.txt #Class 10 SD card
 
 
+# Keyboard map
+echo -e '\n# Keyboard\nsetxkbmap -model abnt2 -layout br -variant abnt2' >>$HOME/.bashrc
 
 # IP Static
 echo 'interface eth0' >>root_fs/etc/dhcpcd.conf
@@ -241,8 +243,7 @@ sudo sed -i '/sdtv_mode/s/2/0/' /boot/config.txt
 #################################
 
 
-# Keyboard map
-#echo 'setxkbmap -model abnt2 -layout br -variant abnt2' >>$HOME/.bashrc
+
 
 ### Swap File
 dd if=/dev/zero of=/swapfile bs=1M count=512
