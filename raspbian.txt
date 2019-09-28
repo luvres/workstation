@@ -205,7 +205,7 @@ sudo mount.cifs -o username=pi //pi/ftp /mnt/
 
 ## Access
 # Unix
-smd://169.8.192.130/pi
+smb://169.8.192.130/pi
 
 # Windows
 \\169.8.192.130\pi
