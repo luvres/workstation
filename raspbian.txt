@@ -52,6 +52,11 @@ echo 'static ip_address=169.8.192.130/25' >>root_fs/etc/dhcpcd.conf
 echo 'static routers=169.8.192.254' >>root_fs/etc/dhcpcd.conf
 echo 'static domain_name_servers=191.96.255.126' >>root_fs/etc/dhcpcd.conf
 
+echo 'interface eth0' >>/etc/dhcpcd.conf
+echo 'static ip_address=191.96.255.99/27' >>/etc/dhcpcd.conf
+echo 'static routers=191.96.255.126' >>/etc/dhcpcd.conf
+echo 'static domain_name_servers=191.96.255.126' >>/etc/dhcpcd.conf
+
 # 1.4 ghz overclock
 cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 sed -i '/arm_freq/s/$/& \
