@@ -10,7 +10,7 @@ sudo apt-get install -y resolvconf build-essential
 ## DNS
 # -----
 sudo su
-su -c "echo 'nameserver 191.96.255.126' >> /etc/resolvconf/resolv.conf.d/head"
+echo 'nameserver 191.96.255.126' >> /etc/resolvconf/resolv.conf.d/head
 sudo service resolvconf restart
 
 
