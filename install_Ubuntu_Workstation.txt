@@ -118,6 +118,24 @@ docker pull rocm/tensorflow
 docker pull rocm/rocm-terminal
 docker pull nvidia/cuda:10.0-base
 docker pull nvidia/cuda:10.0-cudnn7-devel
+docker pull izone/spark
+
+
+
+## pySpark
+# -------------------
+docker run --name Spark \
+--restart=always \
+--publish=8888:8888 \
+--mount type=bind,src=$HOME/notebooks,dst=/root/notebooks \
+-d izone/spark pyspark
+
+
+docker run --rm --name Spark \
+-p 8888:8888 \
+-p 4040:4040 \
+-v $HOME/notebooks:/root/notebooks \
+-ti izone/spark pyspark
 
 
 
