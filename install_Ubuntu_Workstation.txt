@@ -2,8 +2,7 @@ sudo mkfs.vfat -I /dev/sdc
 sudo dd bs=4096k if=./ubuntu-18.04.3-live-server-amd64.iso of=/dev/sdc status=progress && sync
 
 
-sudo apt update
-sudo apt dist-upgrade -y
+sudo apt update && sudo apt dist-upgrade -y
 sudo apt-get install -y resolvconf build-essential
 
 
@@ -52,6 +51,12 @@ sudo apt-get update
 sudo apt-get install nvidia-docker2
 sudo pkill -SIGHUP dockerd
 
+# Tests
+---------------------------------
+docker run --rm --runtime=nvidia nvidia/cuda:10.0-base nvidia-smi
+---------------------------------
+docker run --rm --device=/dev/dri -ti rocm/rocm-terminal rocm-smi # amd-rocm
+
 
 ## git
 # -----
@@ -71,4 +76,67 @@ ssh-add ~/.ssh/id_ed25519
 # ---------------------------------
 ssh -T git@github.com
 ssh -T -p443 git@ssh.github.com
+
+
+## docker PULL
+# ------------
+docker pull tensorflow/tensorflow:latest-gpu-py3-jupyter
+docker pull tensorflow/tensorflow:nightly-gpu-py3-jupyter
+docker pull rocm/tensorflow
+docker pull rocm/rocm-terminal
+docker pull nvidia/cuda:10.0-base
+docker pull nvidia/cuda:10.0-cudnn7-devel
+
+
+
+## TensorFlow NVIDIA
+# -------------------
+docker run --rm --runtime=nvidia --name TensorFlow \
+-p 8888:8888 \
+-v $HOME/notebooks:/root/notebooks \
+-ti tensorflow/tensorflow:nightly-gpu-py3-jupyter \
+jupyter notebook \
+	--allow-root \
+	--no-browser \
+	--ip=0.0.0.0 \
+	--port=8888 \
+	--notebook-dir=/root/notebooks \
+	--NotebookApp.token=''
+
+
+docker run --runtime=nvidia --name TensorFlow \
+--restart=always \
+--publish=8888:8888 \
+--mount type=bind,src=$HOME/notebooks,dst=/root/notebooks \
+-d tensorflow/tensorflow:nightly-gpu-py3-jupyter \
+jupyter notebook \
+	--allow-root \
+	--no-browser \
+	--ip=0.0.0.0 \
+	--port=8888 \
+	--notebook-dir=/root/notebooks \
+	--NotebookApp.token=''
+
+
+
+## TensorFlow ROCm
+# -----------------
+docker run --rm \
+--network=host \
+--device=/dev/kfd --device=/dev/dri \
+--group-add video \
+--cap-add=SYS_PTRACE \
+--security-opt \
+seccomp=unconfined \
+-p 8888:8888 \
+-v $HOME/notebooks2:/root/notebooks \
+-ti rocm/tensorflow \
+jupyter notebook \
+	--allow-root \
+	--no-browser \
+	--ip=0.0.0.0 \
+	--port=8888 \
+	--notebook-dir=/root/notebooks \
+	--NotebookApp.token=''
+
 
