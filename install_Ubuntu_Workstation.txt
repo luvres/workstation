@@ -78,6 +78,38 @@ ssh -T git@github.com
 ssh -T -p443 git@ssh.github.com
 
 
+
+## Samba
+# -------
+sudo apt-get install -y samba
+
+sudo cp /etc/samba/smb.conf{,.orig}
+sudo cp /etc/samba/smb.conf{,.master}
+
+sudo smbpasswd -a $USER
+
+sudo bash -c "echo '[home]' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'comment = Home' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'path = $HOME' >>/etc/samba/smb.conf.master"
+sudo bash -c "echo 'read only = no' >>/etc/samba/smb.conf.master"
+
+sudo bash -c "testparm /etc/samba/smb.conf.master > /etc/samba/smb.conf"
+
+sudo /etc/init.d/smbd restart
+
+
+## Mount in Linux
+sudo mount.cifs -o username=pi //pi/ftp /mnt/
+---------------------------------
+## Access
+# Unix
+smb://workstation/home
+---------------------------------
+# Windows
+\\169.8.192.130\home
+
+
+
 ## docker PULL
 # ------------
 docker pull tensorflow/tensorflow:latest-gpu-py3-jupyter
