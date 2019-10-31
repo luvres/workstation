@@ -171,15 +171,14 @@ jupyter notebook \
 
 ## TensorFlow ROCm
 # -----------------
-docker run --rm \
+docker run --rm --name TensorFlow-AMDGPU \
 --network=host \
 --device=/dev/kfd --device=/dev/dri \
 --group-add video \
 --cap-add=SYS_PTRACE \
---security-opt \
-seccomp=unconfined \
--p 8889:8889 \
--v $HOME/notebooks2:/root/notebooks \
+--security-opt seccomp=unconfined \
+--publish=8889:8889 \
+--mount type=bind,src=$HOME/notebooks2,dst=/root/notebooks \
 -ti rocm/tensorflow:rocm2.9-ub18.04-tf2.0.0-python3 \
 jupyter notebook \
 	--allow-root \
@@ -190,3 +189,22 @@ jupyter notebook \
 	--NotebookApp.token=''
 
 
+docker run --name TensorFlow-AMDGPU \
+--restart=always \
+--network=host \
+--device=/dev/kfd --device=/dev/dri \
+--group-add video \
+--cap-add=SYS_PTRACE \
+--security-opt seccomp=unconfined \
+--publish=8889:8889 \
+--mount type=bind,src=$HOME/notebooks2,dst=/root/notebooks \
+-d rocm/tensorflow:rocm2.9-ub18.04-tf2.0.0-python3 \
+jupyter notebook \
+	--allow-root \
+	--no-browser \
+	--ip=0.0.0.0 \
+	--port=8889 \
+	--notebook-dir=/root/notebooks \
+	--NotebookApp.token=''
+
+	
