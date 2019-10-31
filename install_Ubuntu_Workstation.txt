@@ -178,14 +178,14 @@ docker run --rm \
 --cap-add=SYS_PTRACE \
 --security-opt \
 seccomp=unconfined \
--p 8888:8888 \
+-p 8889:8889 \
 -v $HOME/notebooks2:/root/notebooks \
--ti rocm/tensorflow \
+-ti rocm/tensorflow:rocm2.9-ub18.04-tf2.0.0-python3 \
 jupyter notebook \
 	--allow-root \
 	--no-browser \
 	--ip=0.0.0.0 \
-	--port=8888 \
+	--port=8889 \
 	--notebook-dir=/root/notebooks \
 	--NotebookApp.token=''
 
