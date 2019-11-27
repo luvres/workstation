@@ -160,10 +160,10 @@ asdf plugin-add crystal https://github.com/marciogm/asdf-crystal.git
 
 asdf update
 asdf plugin-update --all
-asdf plugin-list   # List installed
-asdf list 		   # List installed and versions
-asdf list ruby 	   # List installed versions
-asdf list-all ruby # List all available versions
+asdf plugin-list	# List installed
+asdf list			# List installed and versions
+asdf list ruby		# List installed versions
+asdf list-all ruby	# List all available versions
 ---------------------------------
 asdf install ruby 2.6.3   # Install specific version
 asdf uninstall ruby 2.6.3 # Uninstall specific version
