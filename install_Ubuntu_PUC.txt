@@ -65,10 +65,29 @@ git diff
 git show 044b477cfce2d7ce257f93177aabbf7e9c5a6a9b
 git checkout README.md # Retorna o arquivo para antes da edicao
 git reset soft --mixed --hard 4362afa37fc7bc61dc7529eb0ff9f0e4125a2e84
+git revert 4362afa37fc7bc61dc7529eb0ff9f0e4125a2e84
 -----------------------------------
 git remote add origin git@github.com:luvres/workstation.git
 git remote -v
 git push -u origin master
+-----------------------------------
+git checkout -b testing # Criar branch
+git checkout -D testing # Deletar branch
+git branch		# Listar branch
+git checkout testing	# Navegar pelos branchs
+-----------------------------------
+git stash		# Guarda alteracoes para salvar depois
+git stash apply		# Salvar alteracoes
+git stash list
+git stash clear
+-----------------------------------
+git config --global alias.s status # Criar alias
+-----------------------------------
+git tag -a 1.0.0 -m "Release Finalizado"
+git tag
+git push origin master --tags
+git tag -d 1.0.0	# Apagar tag no local
+git push origin :1.0.0	# Apagar tag no repositorio
 
 
 ## Google Chrome
