@@ -1,0 +1,154 @@
+sudo apt install -y \
+git build-essential resolvconf curl net-tools f2fs-tools xclip htop tmux tree \
+default-jdk gftp vlc gimp \
+
+
+## docker
+# --------
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+
+
+## nvidia-docker2
+# ----------------
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+# ---------------------------------
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+# ---------------------------------
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+# ---------------------------------
+sudo apt-get update
+sudo apt-get install nvidia-docker2
+sudo pkill -SIGHUP dockerd
+
+
+## Driver NVIDIA
+# ---------------
+sudo su
+echo -e "blacklist nouveau\noptions nouveau modeset=0" >/etc/modprobe.d/blacklist-nouveau.conf
+# ---------------------------------
+sudo update-initramfs -u
+sudo shutdown -r now
+# ---------------------------------
+sudo ./NVIDIA-Linux-x86_64-440.36.run
+
+
+# Tests
+---------------------------------
+docker run --rm --runtime=nvidia nvidia/cuda:10.0-base nvidia-smi
+
+
+## git
+# -----
+git config --global user.name "luvres"
+git config --global user.email "luvres@hotmail.com"
+git config --global credential.helper 'cache --timeout=86400'
+git config --list
+cat ~/.gitconfig
+# ---------------------------------
+ssh-keygen
+cat $HOME/.ssh/id_rsa.pub | xclip -sel clip # $HOME/.ssh/config
+-----------------------------------
+ssh-keygen -o -a 100 -t ed25519 -f .ssh/id_ed25519 -C "luvres@desktop"
+cat $HOME/.ssh/id_ed25519.pub | xclip -sel clip # $HOME/.ssh/config
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+# ---------------------------------
+ssh -T git@github.com
+ssh -T -p443 git@ssh.github.com
+
+
+## Google Chrome
+# ---------------
+wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb #&& sudo apt-get install -f
+
+## WhatsApp
+#-----------
+echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
+source $HOME/.bashrc
+
+
+## asdf
+# ------
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.7.5
+# ---------------------------------
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+cd ~/.asdf
+git checkout "$(git describe --abbrev=0 --tags)"
+# ---------------------------------
+echo -e '\n# ASDF\n. $HOME/.asdf/asdf.sh\n. $HOME/.asdf/completions/asdf.bash' >> $HOME/.bashrc
+# ---------------------------------
+source $HOME/.bashrc
+---------------------------------
+asdf update
+asdf plugin-update --all
+asdf plugin-list	# List installed
+asdf list		# List installed and versions
+asdf list node		# List installed versions
+asdf list-all node	# List all available versions
+---------------------------------
+
+# NODEJS
+asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+
+asdf list-all nodejs
+asdf install nodejs 12.13.1
+asdf global nodejs 12.13.1
+npm i -g npm
+
+
+## VirtualBox
+#-------------
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+---------------------------------
+sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" >> /etc/apt/sources.list.d/virtualbox.list'
+---------------------------------
+sudo apt-get update
+sudo apt install virtualbox-6.0
+
+
+## Anaconda3
+# -------------------
+curl -L https://repo.continuum.io/archive/Anaconda3-2019.10-Linux-x86_64.sh -o Anaconda3-2019.10-Linux-x86_64.sh
+---------------------------------
+/bin/bash Anaconda3-2019.10-Linux-x86_64.sh -b -p $HOME/anaconda3
+---------------------------------
+echo -e '\n# Anaconda3\nif [ -d "$HOME/anaconda3/bin" ] ; then\n    PATH="$HOME/anaconda3/bin:$PATH"\nfi' >>$HOME/.bashrc
+source $HOME/.bashrc
+
+
+## pySpark
+# -------------------
+docker run --name Spark \
+--restart=always \
+--publish=8888:8888 \
+--mount type=bind,src=$HOME/notebooks,dst=/root/notebooks \
+-d izone/spark pyspark
+
+
+## TensorFlow NVIDIA
+# -------------------
+docker run --runtime=nvidia --name TensorFlow \
+--restart=always \
+--publish=8888:8888 \
+--mount type=bind,src=$HOME/notebooks,dst=/root/notebooks \
+-d tensorflow/tensorflow:latest-gpu-py3-jupyter \
+jupyter notebook \
+	--allow-root \
+	--no-browser \
+	--ip=0.0.0.0 \
+	--port=8888 \
+	--notebook-dir=/root/notebooks \
+	--NotebookApp.token=''
+
+
+
+
+
+
+
+
+
