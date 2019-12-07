@@ -1,6 +1,6 @@
 sudo apt install -y \
 git build-essential resolvconf curl net-tools f2fs-tools xclip htop tmux tree \
-default-jdk gftp vlc gimp \
+default-jdk gftp vlc gimp gdebi-core \
 
 
 ## docker
@@ -150,6 +150,13 @@ curl -L https://repo.continuum.io/archive/Anaconda3-2019.10-Linux-x86_64.sh -o A
 ---------------------------------
 echo -e '\n# Anaconda3\nif [ -d "$HOME/anaconda3/bin" ] ; then\n    PATH="$HOME/anaconda3/bin:$PATH"\nfi' >>$HOME/.bashrc
 source $HOME/.bashrc
+
+
+## libssl 1.0.0 (CAIXA)
+# -------------
+wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu6_amd64.deb
+gdebi libssl1.0.0_1.0.2n-1ubuntu6_amd64.deb
+
 
 
 ## pySpark
