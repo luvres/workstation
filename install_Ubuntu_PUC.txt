@@ -152,6 +152,37 @@ echo -e '\n# Anaconda3\nif [ -d "$HOME/anaconda3/bin" ] ; then\n    PATH="$HOME/
 source $HOME/.bashrc
 
 
+## Eclipse JEE
+# -------------
+sudo tar xf eclipse-jee-2019-09-R-linux-gtk-x86_64.tar.gz -C /opt
+
+sudo tee /usr/share/applications/eclipse.desktop <<ATALHO
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Eclipse JEE
+Icon=/opt/eclipse/plugins/org.eclipse.epp.package.jee_4.13.0.20190917-0000/javaee-ide_x48.png
+Exec="/opt/eclipse/eclipse" %f
+Comment=The Drive to Develop
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=eclipse-jee
+ATALHO
+
+
+## SQL Developer
+# -------------
+sudo tee /usr/share/applications/sqldeveloper.desktop <<ATALHO
+[Desktop Entry]
+Name=SQL Developer
+Comment=Oracle SQL Developer
+GenericName=SQL Developer for Linux
+Exec=/opt/sqldeveloper/sqldeveloper.sh
+Type=Application
+Categories=Developer;
+ATALHO
+
+
 ## libssl 1.0.0 (CAIXA)
 # -------------
 wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu6_amd64.deb
