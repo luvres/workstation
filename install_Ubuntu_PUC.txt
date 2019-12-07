@@ -56,6 +56,19 @@ ssh-add ~/.ssh/id_ed25519
 # ---------------------------------
 ssh -T git@github.com
 ssh -T -p443 git@ssh.github.com
+# ---------------------------------
+git status
+git log
+git log --graph
+git shortlog
+git diff
+git show 044b477cfce2d7ce257f93177aabbf7e9c5a6a9b
+git checkout README.md # Retorna o arquivo para antes da edicao
+git reset soft --mixed --hard 4362afa37fc7bc61dc7529eb0ff9f0e4125a2e84
+-----------------------------------
+git remote add origin git@github.com:luvres/workstation.git
+git remote -v
+git push -u origin master
 
 
 ## Google Chrome
