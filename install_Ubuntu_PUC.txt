@@ -4,7 +4,53 @@ default-jdk gftp vlc gimp gdebi-core papirus-icon-theme gnome-tweak-tool \
 gnome-system-monitor
 
 
-## docker
+## Oh My ZSH
+# ----------
+# https://github.com/JonathanRufino/bootcamp-rocketseat-ambiente-de-desenvolvimento
+---------------------------------
+sudo apt install zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+## Spaceship Theme
+# ----------------
+git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+---------------------------------
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+---------------------------------
+sed -i '/ZSH_THEME=/s/robbyrussell/spaceship/' $HOME/.zshrc
+---------------------------------
+sudo chsh --shell /bin/zsh $USER
+sudo usermod -s /bin/zsh $USER 
+---------------------------------
+cat >> $HOME/.zshrc << EOF
+
+SPACESHIP_PROMPT_ORDER=(
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  hg            # Mercurial section (hg_branch  + hg_status)
+  exec_time     # Execution time
+  line_sep      # Line break
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+
+SPACESHIP_PROMPT_ADD_NEWLINE=false
+SPACESHIP_CHAR_SYMBOL="❯"
+SPACESHIP_CHAR_SUFFIX=" "
+EOF
+
+## Zplugin
+# --------
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+---------------------------------
+echo "\nzplugin light zsh-users/zsh-autosuggestions\nzplugin light zsh-users/zsh-completions\nzplugin light zdharma/fast-syntax-highlighting" >>$HOME/.zshrc
+
+
+## Docker
 # --------
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
@@ -98,8 +144,8 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb #&& sudo apt-get install -f
 
 ## WhatsApp
 #-----------
-echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.bashrc
-source $HOME/.bashrc
+echo "alias whatsapp='/usr/bin/google-chrome --app=https://web.whatsapp.com/'" >>$HOME/.zshrc
+source $HOME/.zshrc
 
 
 ## asdf
@@ -110,9 +156,9 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf
 cd ~/.asdf
 git checkout "$(git describe --abbrev=0 --tags)"
 # ---------------------------------
-echo -e '\n# ASDF\n. $HOME/.asdf/asdf.sh\n. $HOME/.asdf/completions/asdf.bash' >> $HOME/.bashrc
+echo -e '\n# ASDF\n. $HOME/.asdf/asdf.sh\n. $HOME/.asdf/completions/asdf.bash' >> $HOME/.zshrc
 # ---------------------------------
-source $HOME/.bashrc
+source $HOME/.zshrc
 ---------------------------------
 asdf update
 asdf plugin-update --all
@@ -149,8 +195,8 @@ curl -L https://repo.continuum.io/archive/Anaconda3-2019.10-Linux-x86_64.sh -o A
 ---------------------------------
 /bin/bash Anaconda3-2019.10-Linux-x86_64.sh -b -p $HOME/anaconda3
 ---------------------------------
-echo -e '\n# Anaconda3\nif [ -d "$HOME/anaconda3/bin" ] ; then\n    PATH="$HOME/anaconda3/bin:$PATH"\nfi' >>$HOME/.bashrc
-source $HOME/.bashrc
+echo -e '\n# Anaconda3\nif [ -d "$HOME/anaconda3/bin" ] ; then\n    PATH="$HOME/anaconda3/bin:$PATH"\nfi' >>$HOME/.zshrc
+source $HOME/.zshrc
 
 
 ## Eclipse JEE
