@@ -199,6 +199,24 @@ echo -e '\n# Anaconda3\nif [ -d "$HOME/anaconda3/bin" ] ; then\n    PATH="$HOME/
 source $HOME/.zshrc
 
 
+## Spring Tool Suite
+# ------------------
+sudo tar -xf spring-tool-suite-4-4.4.2.RELEASE-e4.13.0-linux.gtk.x86_64.tar.gz -C /opt
+
+sudo tee /usr/share/applications/sts.desktop <<ATALHO
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Spring Tool Suite 4
+Icon=/opt/sts-4.4.2.RELEASE/icon.xpm
+Exec="/opt/sts-4.4.2.RELEASE/SpringToolSuite4" %f
+Comment=The Drive to Develop
+Categories=Development;IDE;
+Terminal=false
+StartupWMClass=sts-4
+ATALHO
+
+
 ## Eclipse JEE
 # -------------
 sudo tar xf eclipse-jee-2019-09-R-linux-gtk-x86_64.tar.gz -C /opt
