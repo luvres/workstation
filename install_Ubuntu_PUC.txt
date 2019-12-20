@@ -25,6 +25,7 @@ sudo usermod -s /bin/zsh $USER
 cat >> $HOME/.zshrc << EOF
 
 SPACESHIP_PROMPT_ORDER=(
+  venv          # virtualenv section
   user          # Username section
   dir           # Current directory section
   host          # Hostname section
