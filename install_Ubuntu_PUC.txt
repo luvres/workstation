@@ -1,5 +1,5 @@
 sudo apt install -y \
-git build-essential resolvconf curl net-tools f2fs-tools xclip htop tmux tree zsh \
+git build-essential resolvconf curl zsh htop unrar net-tools f2fs-tools xclip tmux tree  \
 default-jdk gftp vlc gimp gdebi-core papirus-icon-theme gnome-tweak-tool \
 gnome-system-monitor
 
