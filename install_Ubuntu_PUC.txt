@@ -25,7 +25,6 @@ sudo usermod -s /bin/zsh $USER
 cat >> $HOME/.zshrc << EOF
 
 SPACESHIP_PROMPT_ORDER=(
-  venv          # virtualenv section
   user          # Username section
   dir           # Current directory section
   host          # Hostname section
@@ -37,11 +36,18 @@ SPACESHIP_PROMPT_ORDER=(
   jobs          # Background jobs indicator
   exit_code     # Exit code section
   char          # Prompt character
+  venv          # virtualenv section
 )
 
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 SPACESHIP_CHAR_SYMBOL="❯"
 SPACESHIP_CHAR_SUFFIX=" "
+
+# VENV
+SPACESHIP_VENV_SHOW=true
+SPACESHIP_VENV_PREFIX="("
+SPACESHIP_VENV_SUFFIX=") "
+SPACESHIP_VENV_COLOR="white"
 EOF
 
 ## Zplugin
