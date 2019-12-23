@@ -36,7 +36,7 @@ SPACESHIP_PROMPT_ORDER=(
   jobs          # Background jobs indicator
   exit_code     # Exit code section
   char          # Prompt character
-  venv          # virtualenv section
+  #venv          # virtualenv section
 )
 
 SPACESHIP_PROMPT_ADD_NEWLINE=false
@@ -202,8 +202,25 @@ curl -L https://repo.continuum.io/archive/Anaconda3-2019.10-Linux-x86_64.sh -o A
 ---------------------------------
 /bin/bash Anaconda3-2019.10-Linux-x86_64.sh -b -p $HOME/anaconda3
 ---------------------------------
-echo -e '\n# Anaconda3\nif [ -d "$HOME/anaconda3/bin" ] ; then\n    PATH="$HOME/anaconda3/bin:$PATH"\nfi' >>$HOME/.zshrc
-source $HOME/.zshrc
+cat >> $HOME/.zshrc <<EOF
+
+# >>> conda init >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="\$(CONDA_REPORT_ERRORS=false '\$HOME/anaconda3/bin/conda' shell.bash hook 2> /dev/null)"
+if [ \$? -eq 0 ]; then
+    \eval "\$__conda_setup"
+else
+    if [ -f "\$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "\$HOME/anaconda3/etc/profile.d/conda.sh"
+        CONDA_CHANGEPS1=false conda activate base
+    else
+        \export PATH="\$HOME/anaconda3/bin:\$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda init <<<
+EOF
+
 
 
 ## Spring Tool Suite
