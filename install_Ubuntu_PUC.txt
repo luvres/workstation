@@ -1,8 +1,7 @@
 sudo apt install -y \
 git build-essential resolvconf curl zsh htop unrar net-tools f2fs-tools xclip tmux tree  \
 default-jdk gftp vlc gimp gdebi-core papirus-icon-theme gnome-tweak-tool \
-gnome-system-monitor
-
+gnome-system-monitor colordiff
 
 ## Oh My ZSH
 # ----------
@@ -89,7 +88,7 @@ sudo ./NVIDIA-Linux-x86_64-440.36.run
 
 # Tests
 ---------------------------------
-docker run --rm --runtime=nvidia nvidia/cuda:10.0-base nvidia-smi
+docker run --rm --runtime=nvidia nvidia/cuda:10.2-base nvidia-smi
 
 
 ## git
@@ -304,10 +303,24 @@ jupyter notebook \
 	--NotebookApp.token=''
 
 
+## Docker SSH -X
+# --------------
+# https://stackoverflow.com/questions/48235040/run-x-application-in-a-docker-container-reliably-on-a-server-connected-via-ssh-w
+# X11PORT=`echo $DISPLAY | sed 's/^[^:]*:\([^\.]\+\).*/\1/'`
+# TCPPORT=`expr 6000 + $X11PORT`
+# sudo ufw allow from 172.17.0.0/16 to any port $TCPPORT proto tcp 
+# sudo chown $USER /tmp/.docker.xauth
+# sudo chmod 600 /tmp/.docker.xauth
 
+ssh workstation -X
 
+#sudo apt install x11-xserver-utils x11-apps
 
-
-
+docker run --rm --name XClock \
+--net=host \
+-e DISPLAY=$DISPLAY \
+-v /tmp/.X11-unix:/tmp/.X11-ix \
+-v $HOME/.Xauthority:/root/.Xauthority \
+-ti alpine ash -c "apk add --no-cache --update xeyes && xeyes"
 
 
