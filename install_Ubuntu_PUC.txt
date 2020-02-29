@@ -220,6 +220,9 @@ unset __conda_setup
 # <<< conda init <<<
 EOF
 
+conda config --set auto_activate_base true
+conda config --set auto_activate_base false
+
 
 
 ## Spring Tool Suite
