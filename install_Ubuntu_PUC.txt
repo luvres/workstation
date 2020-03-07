@@ -333,7 +333,7 @@ xhost local:root
 docker run --rm --name XClock \
 --net=host \
 -e DISPLAY=$DISPLAY \
--v /tmp/.X11-unix:/tmp/.X11-ix \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
 -v $HOME/.Xauthority:/root/.Xauthority \
 -ti alpine ash -c "apk add --no-cache --update xeyes && xeyes"
 
