@@ -321,9 +321,14 @@ jupyter notebook \
 # sudo chown $USER /tmp/.docker.xauth
 # sudo chmod 600 /tmp/.docker.xauth
 
+# QEMU
+sudo docker run --rm --privileged multiarch/qemu-user-static:register
+
 ssh workstation -X
 
 #sudo apt install x11-xserver-utils x11-apps
+
+xhost local:root
 
 docker run --rm --name XClock \
 --net=host \
@@ -331,5 +336,6 @@ docker run --rm --name XClock \
 -v /tmp/.X11-unix:/tmp/.X11-ix \
 -v $HOME/.Xauthority:/root/.Xauthority \
 -ti alpine ash -c "apk add --no-cache --update xeyes && xeyes"
+
 
 
