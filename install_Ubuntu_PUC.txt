@@ -3,6 +3,13 @@ git build-essential resolvconf curl zsh htop unrar net-tools f2fs-tools xclip tm
 default-jdk gftp vlc gimp gdebi-core papirus-icon-theme gnome-tweak-tool \
 gnome-system-monitor colordiff
 
+
+## Dracula Theme Terminal
+# -----------------------
+git clone https://github.com/GalaticStryder/gnome-terminal-colors-dracula
+cd gnome-terminal-colors-dracula
+./install.sh
+
 ## Oh My ZSH
 # ----------
 # https://github.com/JonathanRufino/bootcamp-rocketseat-ambiente-de-desenvolvimento
