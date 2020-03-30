@@ -50,8 +50,10 @@ SPACESHIP_VENV_COLOR="white"
 EOF
 
 ## Zplugin
+#https://github.com/zdharma/zinit
 # --------
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+#sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 ---------------------------------
 echo "\nzplugin light zsh-users/zsh-autosuggestions\nzplugin light zsh-users/zsh-completions\nzplugin light zdharma/fast-syntax-highlighting" >>$HOME/.zshrc
 
