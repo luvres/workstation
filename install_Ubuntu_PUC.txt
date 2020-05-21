@@ -254,7 +254,7 @@ ATALHO
 
 ## Eclipse JEE
 # -------------
-sudo tar xf eclipse-jee-2019-09-R-linux-gtk-x86_64.tar.gz -C /opt
+sudo tar xf eclipse-jee-2020-03-R-incubation-linux-gtk-x86_64.tar.gz -C /opt
 
 sudo tee /usr/share/applications/eclipse.desktop <<ATALHO
 [Desktop Entry]
