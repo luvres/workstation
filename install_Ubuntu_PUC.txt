@@ -261,7 +261,7 @@ sudo tee /usr/share/applications/eclipse.desktop <<ATALHO
 Version=1.0
 Type=Application
 Name=Eclipse JEE
-Icon=/opt/eclipse/plugins/org.eclipse.epp.package.jee_4.13.0.20190917-0000/javaee-ide_x48.png
+Icon=/opt/eclipse/plugins/org.eclipse.epp.package.jee_4.15.0.20200313-1200/javaee-ide_x48.png
 Exec="/opt/eclipse/eclipse" %f
 Comment=The Drive to Develop
 Categories=Development;IDE;
