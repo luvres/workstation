@@ -186,11 +186,28 @@ asdf list-all node	# List all available versions
 # NODEJS
 asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
-
+# -----------
 asdf list-all nodejs
-asdf install nodejs 12.13.1
-asdf global nodejs 12.13.1
+asdf install nodejs 12.17.0
+asdf global nodejs 12.17.0
 npm i -g npm
+
+# DENO
+asdf plugin-add deno https://github.com/asdf-community/asdf-deno.git
+# -----------
+asdf list-all deno
+asdf install deno 1.0.3
+asdf global deno 1.0.3
+deno --version
+
+# YARN
+asdf plugin-add yarn
+# -----------
+asdf list-all yarn
+asdf install yarn 1.22.4
+asdf install yarn latest
+asdf global yarn 1.22.4
+
 
 
 ## VirtualBox
