@@ -250,6 +250,10 @@ conda config --set auto_activate_base true
 conda config --set auto_activate_base false
 
 
+## Gedit dockerfile
+# -----------------
+sudo curl -L https://raw.githubusercontent.com/mrorgues/gedit-xed-docker-syntax-highlighting/master/docker.lang -o /usr/share/gtksourceview-4/language-specs/docker.lang
+
 
 ## Spring Tool Suite
 # ------------------
