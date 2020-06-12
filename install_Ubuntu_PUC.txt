@@ -129,10 +129,30 @@ ssh -T git@github.com
 ssh -T -p443 git@ssh.github.com
 # ---------------------------------
 git status
+# -----------
+git config --global core.pager cat
+git config --global core.pager less
+# -----------
 git log
+git log -2 # Dois ultimos commits 
+git log --oneline
 git log --graph
 git shortlog
+# -----------
+git log --before='2020-01-25' # Por data anterior
+git log --after='2020-01-25'  # Por data posterior
+git log --since='10 days ago' # '1 week ago' '1 month ago'
+git log --author='luvres'
+# -----------
 git diff
+git diff --staged
+git diff c5181e4..0e6dde4
+# -----------
+git restore --staged arq.txt # Desfazer commit do arquivo
+git checkout arq.txt # Desfazer alteracoes do arquivo
+git reset HEAD --hard # Desfazer todas as alterações 
+git reset HEAD^ --hard # Voltar para o ultimo commit
+# -----------
 git show 044b477cfce2d7ce257f93177aabbf7e9c5a6a9b
 git checkout README.md # Retorna o arquivo para antes da edicao
 git reset soft --mixed --hard 4362afa37fc7bc61dc7529eb0ff9f0e4125a2e84
