@@ -132,7 +132,37 @@ git status
 # -----------
 git config --global core.pager cat
 git config --global core.pager less
-# -----------
+git config --global core.editor code
+git config --global --edit
+
+git config --global alias.l '!git log --pretty=format:"%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr"'
+git config --global alias.cc '!git add --all && git commit -m'
+git config --global alias.s '!git status -s'
+git config --global alias.amend '!git add --all && git commit --amend --no-edit'
+git config --global alias.count '!git shortlog -s --grep'
+
+	[push]
+		followTags = true
+	[alias]
+		c = !git add --all && git commit -m
+		s = !git status -s
+		l = !git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s - %C(cyan)%cn, %C(green)%cr'
+		amend = !git add --all && git commit --amend --no-edit
+		count = !git shortlog -s --grep
+# ---------------------------------
+yarn add -D git-commit-msg-linter
+yarn add -D typescript @types/node ## tsconfig.json
+yarn add -D \
+	eslint \
+	eslint-config-standard-with-typescript@11 \
+	eslint-plugin-import \
+	eslint-plugin-node \
+	eslint-plugin-promise \
+	eslint-plugin-standard \
+	@typescript-eslint/eslint-plugin ## eslintrc.json .eslintignore
+yarn add -D lint-staged husky ## .lintstagedrc.json .huskyrc.json
+yarn add -D jest @types/jest ts-jest ## jest.config.js
+# ---------------------------------
 git log
 git log -2 # Dois ultimos commits 
 git log --oneline
