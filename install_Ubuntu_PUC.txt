@@ -171,6 +171,9 @@ git diff
 git diff --staged
 git diff c5181e4..0e6dde4
 # -----------
+git checkout -d feature/pipeline
+git push origin --delete feature/pipeline
+# -----------
 git restore --staged arq.txt # Desfazer commit do arquivo
 git checkout arq.txt # Desfazer alteracoes do arquivo
 git reset HEAD --hard # Desfazer todas as alterações 
