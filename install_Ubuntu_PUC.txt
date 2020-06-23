@@ -176,8 +176,10 @@ git push origin --delete feature/pipeline
 # -----------
 git restore --staged arq.txt # Desfazer commit do arquivo
 git checkout arq.txt # Desfazer alteracoes do arquivo
-git reset HEAD --hard # Desfazer todas as alterações 
-git reset HEAD^ --hard # Voltar para o ultimo commit
+# -----------
+git reset HEAD~1 --soft  ## Desfaz até commit anterior
+git reset HEAD~1 --mixed ## Desfaz até add anterior (default)
+git reset HEAD~1 --hard  ## Desfaz tudo
 # -----------
 git show 044b477cfce2d7ce257f93177aabbf7e9c5a6a9b
 git checkout README.md # Retorna o arquivo para antes da edicao
