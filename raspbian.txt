@@ -9,9 +9,6 @@ sudo mkfs.vfat -I /dev/sdb
 
 ## Install
 # ---------
-sudo dd bs=4096k if=2017-07-05-raspbian-jessie.img of=/dev/sdb status=progress && sync
-sudo dd bs=4096k if=2018-04-18-raspbian-stretch.img of=/dev/sdb status=progress && sync
-sudo dd bs=4096k if=2019-07-10-raspbian-buster.img of=/dev/sdb status=progress && sync
 sudo dd bs=4096k if=2020-05-27-raspios-buster-armhf.img of=/dev/sdb status=progress; sync
 
 
