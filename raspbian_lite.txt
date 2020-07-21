@@ -2,8 +2,12 @@
 ### Raspbian Lite ###
 #####################
 
+sudo umount /dev/sdb1 /dev/sdb2
+sudo mkfs.vfat -I /dev/sdb
+
 ### Install
-dd bs=4096k if=2017-03-02-raspbian-jessie-lite.img of=/dev/sdb status=progress; sync
+sudo dd bs=4096k if=2020-05-27-raspios-buster-lite-armhf.zip  of=/dev/sdb status=progress; sync
+
 
 ### (Install in Raspberry Pi for expand disk)
 pi
