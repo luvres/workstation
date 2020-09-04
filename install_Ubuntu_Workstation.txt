@@ -1,6 +1,5 @@
 sudo mkfs.vfat -I /dev/sdc
-sudo dd bs=4096k if=./ubuntu-18.04.3-live-server-amd64.iso of=/dev/sdc status=progress && sync
-
+sudo dd bs=4096k if=./ubuntu-20.04-live-server-amd64.iso of=/dev/sdb status=progress && sync
 
 sudo apt update && sudo apt dist-upgrade -y
 sudo apt-get install -y resolvconf build-essential
