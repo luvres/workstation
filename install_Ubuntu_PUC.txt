@@ -281,9 +281,9 @@ sudo apt install virtualbox-6.0
 
 ## Anaconda3
 # -------------------
-curl -L https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh -o Anaconda3-2021.05-Linux-x86_64.sh
+curl -L https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh -o Anaconda3-2021.11-Linux-x86_64.sh
 ---------------------------------
-/bin/bash Anaconda3-2021.05-Linux-x86_64.sh -b -p $HOME/anaconda3
+/bin/bash Anaconda3-2021.11-Linux-x86_64.sh -b -p $HOME/anaconda3
 ---------------------------------
 cat >> $HOME/.zshrc <<EOF
 
